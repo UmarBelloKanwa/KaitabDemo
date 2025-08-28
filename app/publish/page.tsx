@@ -28,7 +28,7 @@ export default function PublishBook() {
     } = usePublishPage();
 
     return (
-        <Container sx={{ height: "fit-content" }}>
+        <Container sx={{ height: "fit-content", pb: 1 }}>
             <Typography variant="h5" sx={{ my: 1, mt: 3 }}> Upload Book </Typography>
             <Box maxWidth="sm" sx={{
                 m: "auto", mb: 5, width: "100%",

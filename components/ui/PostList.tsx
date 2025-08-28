@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import AuthorssLists from "./AuthorsList";
+import AuthorsLists from "./AuthorsList";
 import PostCard from "@ui/PostCard";
 
 const robooks = [
@@ -33,6 +33,7 @@ Which one are you skipping today? Be honest 😉`,
         avatar: "/no-excuse.png",
         verified: true,
         timestamp: "6h",
+        username: "NoExcuses",
         content: `Stop waiting for motivation. Discipline beats motivation every single time. 
 
 Decide what you want, and act like your life depends on it—because it does.  
@@ -84,7 +85,6 @@ export default function PostLists() {
                     overflowY: "auto", // ✅ only this scrolls
                     mt: 2,
                     p: 0,
-                    pr: 1, // space for scrollbar
                     scrollbarWidth: "none", // Firefox
                     "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
                 }}
@@ -101,7 +101,7 @@ export default function PostLists() {
                             key={book.id}
                             user={{
                                 name: book.name,
-                                username: book.name.replace(/\s+/g, ""), // fake username
+                                username: book.username || book.name.replace(/\s+/g, ""), // fake username
                                 avatar: book.avatar,
                                 verified: book.verified,
                             }}

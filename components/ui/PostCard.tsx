@@ -135,8 +135,7 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                 color: "#6b7280",
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 1,
-                                px: 1.5,
+                                gap: { xs: 0.3, sm: 1 },
                                 "&:hover": {
                                     color: "#3b82f6",
                                     backgroundColor: "rgba(59, 130, 246, 0.1)",
@@ -155,8 +154,8 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                 color: "#6b7280",
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 1,
-                                px: 1.5,
+                                                               gap: { xs: 0.3, sm: 1 },
+
                                 "&:hover": {
                                     color: "#10b981",
                                     backgroundColor: "rgba(16, 185, 129, 0.1)",
@@ -175,8 +174,8 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                 color: "#6b7280",
                                 display: "flex",
                                 alignItems: "center",
-                                gap: 1,
-                                px: 1.5,
+                                                               gap: { xs: 0.3, sm: 1 },
+
                                 "&:hover": {
                                     color: "#ef4444",
                                     backgroundColor: "rgba(239, 68, 68, 0.1)",
@@ -196,8 +195,8 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                     color: "#6b7280",
                                     display: "flex",
                                     alignItems: "center",
-                                    gap: 1,
-                                    px: 1.5,
+                                                                   gap: { xs: 0.3, sm: 1 },
+
                                     "&:hover": {
                                         color: "#3b82f6",
                                         backgroundColor: "rgba(59, 130, 246, 0.1)",
@@ -211,7 +210,7 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                             </IconButton>
                         )}
 
-                        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 1 } }}>
                             <IconButton
                                 size="small"
                                 sx={{
