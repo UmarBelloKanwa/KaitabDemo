@@ -58,6 +58,7 @@ export default function CategoriesList() {
                 position: "relative",
                 display: "flex",
                 alignItems: "center",
+                mb: 0.5,
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -85,7 +86,7 @@ export default function CategoriesList() {
                 onScroll={checkScroll}
                 sx={{
                     display: "flex",
-                    gap: { xs: 2, sm: 3 },
+                    gap: 1,
                     py: 1,
                     overflowX: "auto",
                     scrollbarWidth: "none", // Firefox

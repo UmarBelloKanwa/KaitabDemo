@@ -20,6 +20,7 @@ import { Add, ChevronLeft, Menu } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import HomeIcon from "@mui/icons-material/Home";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
@@ -34,17 +35,18 @@ export default function Sidebar({
     handleDrawerToggle: () => void;
 }) {
     const theme = useTheme();
+    const router = useRouter();
 
     const navItems = [
-        { name: "Discover", icon: <HomeIcon /> },
-        { name: "Authors", icon: <PersonIcon /> },
-        { name: "Robooks", icon: <LocalLibraryIcon /> },
+        { name: "Discover", icon: <HomeIcon />, onClick: () => router.push('/') },
+        { name: "Authors", icon: <PersonIcon />, onClick: () => router.push("/authors") },
+        { name: "Robooks", icon: <LocalLibraryIcon />, onClick: () => router.push("/robooks") },
     ];
 
     const recentChats = [
-        { name: "Atomic Habits", avatar: "/professional-debater.png" },
-        { name: "Hal Elrod", avatar: "/cyberpunk-hacker.png" },
-        { name: "James Clear", avatar: "/casual-friendly-person.png" },
+        { name: "Atomic Habits", avatar: "/atomic-habits.jpg", },
+        { name: "Hal Elrod", avatar: "/hal-elrod.jpg", },
+        { name: "James Clear", avatar: "/james-clear.jpg" },
     ];
 
 
@@ -62,7 +64,7 @@ export default function Sidebar({
                     >
                         <Menu />
                     </IconButton>
-                    <Typography variant="h6" color="text.primary" sx={{ m: 0 }}>
+                    <Typography variant="h6" color="text.primary" sx={{ m: 0 }} onClick={() => router.push('/')}>
                         Kaitab
                     </Typography>
                 </Box>
@@ -117,7 +119,7 @@ export default function Sidebar({
                 {/* Header */}
                 <Box sx={{ mb: 3 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <Typography variant="h6" color="text.primary" sx={{ m: 0 }}>
+                        <Typography variant="h6" color="text.primary" sx={{ m: 0 }} onClick={() => router.push('/')}>
                             Kaitab
                         </Typography>
                         <IconButton onClick={handleDrawerToggle} sx={{ color: theme.palette.text.primary }}>
@@ -136,8 +138,9 @@ export default function Sidebar({
                             textTransform: "none",
                             borderRadius: 2,
                         }}
+                        onClick={() => router.push('/publish')}
                     >
-                        Create
+                        Publish
                     </Button>
                 </Box>
 
@@ -145,7 +148,7 @@ export default function Sidebar({
                 <Box sx={{ flex: 1, px: 0 }}>
                     <List>
                         {navItems.map((item, index) => (
-                            <ListItem key={index} disablePadding>
+                            <ListItem key={index} disablePadding onClick={item.onClick}>
                                 <ListItemButton
                                     sx={{
                                         borderRadius: 2,
@@ -177,7 +180,7 @@ export default function Sidebar({
                                     <ListItemAvatar>
                                         <Avatar
                                             src={chat.avatar}
-                                            sx={{ width: 24, height: 24, bgcolor: theme.palette.primary.main }}
+                                            sx={{ width: 30, height: 30, bgcolor: theme.palette.primary.main }}
                                         >
                                             {chat.name[0]}
                                         </Avatar>

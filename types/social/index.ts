@@ -1,0 +1,57 @@
+export interface TopicResponse {
+    name: string;
+    category: string;
+}
+
+export interface BookResponse {
+    slug: string;
+    publicId: string; // UUID as string
+    author: string;
+    content: Record<string, unknown>; // Assuming content is a JSON object
+    fileUrl: string;
+    coverPhotoUrl: string;
+    mainPhotoUrl: string;
+    name: string;
+    topics: TopicResponse[];
+    description: string | null;
+    customTopics: TopicResponse[];
+    uploadedAt: string; // ISO 8601 string
+    updatedAt: string;
+}
+
+export interface SelectedTopic {
+    name: string;
+    topicId: string | null;       // null if custom
+    category: string;
+    categoryId: string | null;    // null if custom
+    isCustom: boolean;
+}
+
+export interface UserFormData {
+    mainPhoto: File | null;
+    coverPhoto: File | null;
+    pdfFile: File | null;
+    author: string;
+    name: string;
+    slug: string;
+    topics: SelectedTopic[];
+    description: string;
+}
+
+
+export interface NotificationPayloadItem {
+    type: "text" | "link";
+    value?: string; // for type = "text"
+    text?: string;  // for type = "link"
+    url?: string;   // for type = "link"
+}
+
+export interface Notification {
+    id: number;
+    title: string;
+    message: string;
+    payload?: NotificationPayloadItem[];
+    created_at: string;   // ISO datetime string
+    read: boolean;
+    avatar?: string; // URL or path to avatar
+}

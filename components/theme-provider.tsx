@@ -16,7 +16,7 @@ const theme = createTheme({
       main: "#ec4899", // Pink accent from gradient
     },
     background: {
-      default: "#18181b", // Main content background
+      default: "#151518ff", // Main content background
       paper: "#1f1f22", // Cards and panels
     },
     text: {
@@ -53,8 +53,6 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "#18181b",
-          color: "#ffffff",
           scrollbarColor: "#333 #1a1a1a",
           "&::-webkit-scrollbar": {
             width: 8,
@@ -84,19 +82,9 @@ const theme = createTheme({
       },
     },
 
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          backgroundColor: "#111113",
-          borderRight: "1px solid #27272a",
-        },
-      },
-    },
-
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: "#1f1f22",
           borderRadius: 12,
         },
       },

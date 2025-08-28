@@ -4,8 +4,8 @@ import AppLayout from "@ui/AppLayout";
 import "../styles/globals.css"
 
 export const metadata: Metadata = {
-  title: "Character AI Dashboard",
-  description: "A modern character AI dashboard with dark theme",
+  title: "Kaitab",
+  description: "A modern way to learn and share books",
   generator: "v0.app",
 }
 

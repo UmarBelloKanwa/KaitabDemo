@@ -4,62 +4,20 @@ import {
   Toolbar,
   Box,
   Typography,
-  Button,
   TextField,
-  Card,
-  CardContent,
   Avatar,
-  IconButton,
   Container,
   InputAdornment,
   useTheme,
 } from "@mui/material";
-import { Search, Chat, Person, ChevronRight, Lock } from "@mui/icons-material";
-import AuthorsList from "@ui/authorsList";
-import CategoriesList from "@ui/categoriesList";
+import { Search } from "@mui/icons-material";
+import RobooksList from "@ui/RobooksList";
+import CategoriesList from "@ui/CategoriesList";
+import PostLists from "@ui/PostList";
 
 
 export default function Dashboard() {
   const theme = useTheme();
-
-  const scenes = [
-    {
-      id: 1,
-      title: "Kpop: Boy Vs. Girl Band",
-      image: "/placeholder-t5igt.png",
-      locked: true,
-    },
-    {
-      id: 2,
-      title: "Beatboxing With Nuns",
-      image: "/placeholder-ii0sy.png",
-      locked: true,
-    },
-    {
-      id: 3,
-      title: "Gunslinger I: New In Town",
-      image: "/placeholder-l4hyq.png",
-      locked: true,
-    },
-    {
-      id: 4,
-      title: "Gunslinger II: High Noon Standoff",
-      image: "/placeholder-ork1w.png",
-      locked: true,
-    },
-    {
-      id: 5,
-      title: "Gunslinger III: Outlaw Camp",
-      image: "/placeholder-po16g.png",
-      locked: true,
-    },
-    {
-      id: 6,
-      title: "Gunslinger IV: Wanted Poster",
-      image: "/placeholder-po16g.png",
-      locked: true,
-    },
-  ];
 
   return (
     <Box
@@ -88,11 +46,12 @@ export default function Dashboard() {
               </Box>
             </Box>
           </Box>
+          <Box sx={{ display: { xs: "none", sm: "block" }, flex: 1 }}></Box>
           <TextField
             placeholder="Search"
             size="small"
             variant="standard"
-            sx={(theme) => ({ width: { xs: "99%", sm: "40%", md: "37%" }, bgcolor: "background.paper", borderRadius: 9, p: 1.3, px: 2, m: { xs: "auto" }, mt: 0, border: `1px solid ${theme.palette.divider}`, })}
+            sx={(theme) => ({ width: { xs: "99%", sm: "40%", md: "37%" }, bgcolor: "background.paper", borderRadius: 2, p: 1, px: 2, m: { xs: "auto" }, mt: 0, border: `1px solid ${theme.palette.divider}`, })}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -106,16 +65,10 @@ export default function Dashboard() {
       </Box>
 
       {/* Content */}
-      <Container maxWidth="xl" sx={{ py: 3 }}>
+      <Container maxWidth="xl" sx={{ py: 3, pt: 1 }}>
         <CategoriesList />
-        {/* For You Section */}
-        <Box sx={{ my: 2 }}>
-          <AuthorsList />
-        </Box>
-
-
-        {/* Robook Section */}
-
+        <RobooksList />
+        <PostLists />
       </Container>
     </Box>
   );
