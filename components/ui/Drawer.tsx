@@ -17,9 +17,9 @@ import {
     useTheme,
 } from "@mui/material";
 import { Add, ChevronLeft, Menu } from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
-import HomeIcon from "@mui/icons-material/Home";
-import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
+import PersonIcon from "@mui/icons-material/PersonOutlineSharp";
+import HomeIcon from "@mui/icons-material/HomeOutlined";
+import LocalLibraryIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { useRouter } from "next/navigation";
 
 const drawerWidth = 280;
@@ -180,7 +180,11 @@ export default function Sidebar({
                                     <ListItemAvatar>
                                         <Avatar
                                             src={chat.avatar}
-                                            sx={{ width: 30, height: 30, bgcolor: theme.palette.primary.main }}
+                                            sx={{
+                                                width: 30, height: 30,
+                                                bgcolor: theme.palette.primary.main,
+                                                borderRadius: index == 0 ? 0.7 : 2,
+                                            }}
                                         >
                                             {chat.name[0]}
                                         </Avatar>
