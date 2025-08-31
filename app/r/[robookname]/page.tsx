@@ -76,7 +76,7 @@ export default function ProfilePage() {
                 <Box sx={{ flex: 1, overflowY: "auto", p: 1, pt: 0, pb: 2, }}>
                     <ChatInterface />
                 </Box>
-                <Box sx={{ p: 2, position: "sticky", bottom: 0, bgcolor: "background.default", }}>
+                <Box sx={{ px: 2, py: 1, position: "sticky", bottom: 0, bgcolor: "background.default", }}>
                     <AskInput borderRadius={1.5} />
                 </Box>
             </Grid>

@@ -154,7 +154,7 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                 color: "#6b7280",
                                 display: "flex",
                                 alignItems: "center",
-                                                               gap: { xs: 0.3, sm: 1 },
+                                gap: { xs: 0.3, sm: 1 },
 
                                 "&:hover": {
                                     color: "#10b981",
@@ -174,7 +174,7 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                 color: "#6b7280",
                                 display: "flex",
                                 alignItems: "center",
-                                                               gap: { xs: 0.3, sm: 1 },
+                                gap: { xs: 0.3, sm: 1 },
 
                                 "&:hover": {
                                     color: "#ef4444",
@@ -195,7 +195,7 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                     color: "#6b7280",
                                     display: "flex",
                                     alignItems: "center",
-                                                                   gap: { xs: 0.3, sm: 1 },
+                                    gap: { xs: 0.3, sm: 1 },
 
                                     "&:hover": {
                                         color: "#3b82f6",
