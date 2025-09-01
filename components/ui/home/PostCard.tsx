@@ -38,15 +38,17 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
         <Card
             elevation={0}
             sx={{
-                width: "100%",
                 mx: "auto",
                 borderRadius: 2,
+                border: "1px solid",
+                borderColor: "divider",
+                width: { xs: "100%", sm: "90%" },
             }}
         >
-            <CardContent sx={{ p: 2 }}>
+            <CardContent sx={{ p: 2, pt: 0, width: { xs: "100%", sm: "90%" }, }}>
                 {/* Header */}
                 <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", mb: 1.5 }}>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 2 }}>
                         <Avatar src={user.avatar || "/placeholder.svg"} alt={user.name} sx={{ width: 50, height: 50, borderRadius: 0.5 }}>
                             {user.name
                                 .split(" ")

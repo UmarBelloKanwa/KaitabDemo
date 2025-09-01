@@ -2,7 +2,8 @@
 import {
     Card,
     Button,
-    CardContent, Avatar, IconButton, Typography, Box, Chip
+    CardContent, Avatar, IconButton, Typography, Box, Chip,
+    Paper
 } from "@mui/material";
 import React from "react";
 import {
@@ -51,60 +52,70 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
         <Card
             elevation={0}
             sx={{
-                width: "100%",
+                width: { xs: "100%", sm: "90%" },
                 maxWidth: 672,
-                mx: "auto",
-                border: "1px solid",
-                borderColor: "divider",
+                m: "auto",
                 borderRadius: 2,
                 bgcolor: "transparent",
+                mt: -3,
+                p: 0,
+                ml: { xs: -0.5, sm: "auto" },
+                pb: 1
             }}
         >
-            <CardContent sx={{ p: 2 }}>
-                <Box sx={{ display: "flex", gap: 1.5 }}>
-                    <Avatar
-                        src={user.avatar}
-                        alt="Garry Tan"
-                        sx={{ width: 48, height: 48, borderRadius: 1, flexShrink: 0 }}
+            <CardContent sx={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
+                mb: 0,
+                width: { xs: "100%", sm: "90%" },
+
+                color: "tex.secondary"
+            }}>
+                <Box sx={{ textAlign: "left", mr: 1, width: "100%", }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexDirection: "row" }}>
+                        <Avatar
+                            src="/atomic-habits.jpg"
+                            sx={(theme) => ({
+                                bgcolor: theme.palette.secondary.main,
+                                width: 20,
+                                height: 20,
+                                fontSize: "0.6rem",
+                                fontWeight: 600,
+                                borderRadius: 0.5
+                            })}
+                        >
+                            Atomic Habits
+                        </Avatar>
+                        <Typography variant="caption" sx={{ color: "text.primary", fontWeight: 500 }}>
+                            Atomic Habits
+                        </Typography>
+                        <Typography variant="caption" sx={{ flex: 1, color: "gray", fontWeight: 500 }}>
+                            · &nbsp; 2h
+                        </Typography>
+                        <IconButton
+                            size="small"
+                            sx={{
+
+                                color: "#6b7280",
+                                "&:hover": { backgroundColor: "#374151" },
+                            }}
+                        >
+                            <MoreHoriz />
+                        </IconButton>
+                    </Box>
+
+                    <Paper
+                        sx={{
+                            flex: 1, minWidth: 0, width: "100%",
+                            mt: 0, p: 2, ml: { xs: 1, sm: 2 }, bgcolor: "background.paper",
+                            borderRadius: 1.3,
+                            px: { xs: 1.5, sm: 2 },
+                            border: "1px solid",
+                            borderColor: "divider",
+                        }}
+                        elevation={0}
                     >
-                        {user.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                    </Avatar>
-
-                    <Box sx={{ flex: 1, minWidth: 0 }}>
-                        {/* Header */}
-                        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 0.5 }}>
-                            <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
-                                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                    <Typography variant="body1" sx={{ fontWeight: "bold", color: "white" }}>
-                                        {user.name}
-                                    </Typography>
-                                    <CheckCircle sx={{ width: 20, height: 20, color: "#1DA1F2" }} />
-                                </Box>
-
-                                <Typography variant="body2" sx={{ color: "#6b7280" }}>
-                                    @{user.username}
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: "#6b7280" }}>
-                                    ·
-                                </Typography>
-                                <Typography variant="body2" sx={{ color: "#6b7280" }}>
-                                    4h
-                                </Typography>
-                            </Box>
-                            <IconButton
-                                size="small"
-                                sx={{
-                                    color: "#6b7280",
-                                    "&:hover": { backgroundColor: "#374151" },
-                                }}
-                            >
-                                <MoreHoriz />
-                            </IconButton>
-                        </Box>
-
                         {/* Content */}
                         <Box sx={{ mb: 1.5 }}>
                             <Typography
@@ -146,8 +157,8 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                             </Box>
                         )}
 
-                        <Box sx={{ pt: 1.5, borderTop: "1px solid #333" }}>
-                            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <Box sx={{ pt: 1.5, borderTop: "1px solid #333", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0.5, sm: 2 } }}>
                                 <IconButton
                                     size="small"
                                     sx={{
@@ -223,39 +234,39 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                                         30K
                                     </Typography>
                                 </IconButton>
+                            </Box>
 
-                                <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                                    <IconButton
-                                        size="small"
-                                        sx={{
-                                            color: "#6b7280",
-                                            "&:hover": {
-                                                color: "#1DA1F2",
-                                                backgroundColor: "rgba(29, 161, 242, 0.1)",
-                                            },
-                                        }}
-                                    >
-                                        <BookmarkBorder sx={{ fontSize: 20 }} />
-                                    </IconButton>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 0.5 } }}>
+                                <IconButton
+                                    size="small"
+                                    sx={{
+                                        color: "#6b7280",
+                                        "&:hover": {
+                                            color: "#1DA1F2",
+                                            backgroundColor: "rgba(29, 161, 242, 0.1)",
+                                        },
+                                    }}
+                                >
+                                    <BookmarkBorder sx={{ fontSize: 20 }} />
+                                </IconButton>
 
-                                    <IconButton
-                                        size="small"
-                                        sx={{
-                                            color: "#6b7280",
-                                            "&:hover": {
-                                                color: "#1DA1F2",
-                                                backgroundColor: "rgba(29, 161, 242, 0.1)",
-                                            },
-                                        }}
-                                    >
-                                        <Share sx={{ fontSize: 20 }} />
-                                    </IconButton>
-                                </Box>
+                                <IconButton
+                                    size="small"
+                                    sx={{
+                                        color: "#6b7280",
+                                        "&:hover": {
+                                            color: "#1DA1F2",
+                                            backgroundColor: "rgba(29, 161, 242, 0.1)",
+                                        },
+                                    }}
+                                >
+                                    <Share sx={{ fontSize: 20 }} />
+                                </IconButton>
                             </Box>
                         </Box>
-                    </Box>
+                    </Paper>
                 </Box>
             </CardContent>
-        </Card>
+        </Card >
     )
 }

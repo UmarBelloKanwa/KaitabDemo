@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import AuthorsLists from "./AuthorsList";
-import PostCard from "@ui/PostCard";
+import PostCard from "@/components/ui/home/PostCard";
 
 const robooks = [
     {

@@ -16,8 +16,8 @@ const theme = createTheme({
       main: "#ec4899", // Pink accent from gradient
     },
     background: {
-      default: "#151518ff", // Main content background
-      paper: "#1f1f22", // Cards and panels
+      default: "#0d0d0fff", // Main content background
+      paper: "#161618ff", // Cards and panels
     },
     text: {
       primary: "#ffffff",

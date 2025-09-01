@@ -17,7 +17,7 @@ export default function RobookLayout({ children }: { children: React.ReactNode }
                 <Toolbar>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <Avatar src="/atomic-habits.jpg" sx={{ width: 37, height: 37, borderRadius: 1 }}> Atomic Habits </Avatar>
-                        <Box sx={{ flex: 1, minWidth: 0 }}>
+                        <Box sx={{ flex: 1, minWidth: 0, gap: 0.5, display: "flex", flexDirection: "column", }}>
                             <Typography variant="body2" sx={{ color: "text.primary" }}>
                                 Atomic Habits
                             </Typography>

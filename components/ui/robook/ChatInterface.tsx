@@ -53,6 +53,7 @@ const ChatInterface = () => {
                 px: 1,
                 margin: "auto",
                 mt: 0,
+                width: "100%",
             })}
             elevation={0}
         >
@@ -89,32 +90,53 @@ const ChatInterface = () => {
                         </Box>
 
                         {/* Message bubble */}
-                        <Box sx={{ mt: 0.5, mr: msg.sender === "book" ? null : 2.5, ml: msg.sender === "book" ? 2.5 : null, display: "flex", flexDirection: "column", alignItems: msg.sender === "user" ? "flex-end" : "flex-start" }}>
-                            <Paper
+                        <Box
+                            sx={{
+                                mt: 0.5,
+                                display: "flex",
+                                justifyContent: msg.sender === "user" ? "flex-end" : "flex-start", // position bubble
+                                px: 1, // padding for spacing from edges
+                            }}
+                        >
+                            <Box
                                 sx={{
-                                    p: 1.5,
-                                    textAlign: "left",
-                                    borderRadius: 1.5
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: msg.sender === "user" ? "flex-end" : "flex-start",
+                                    width: "fit-content",
+                                    maxWidth: msg.sender === "user" ? "auto" : { xs: "100%", sm: "70%" },// prevents too wide bubbles
                                 }}
                             >
-                                <Typography variant="subtitle1" color="text.secondary">{msg.text}</Typography>
-                            </Paper>
+                                <Paper
+                                    sx={{
+                                        p: 1.5,
+                                        textAlign: "left",
+                                        borderRadius: 1.5,
+                                        maxWidth: msg.sender === "user" ? "100%" : "auto",
+                                        wordBreak: "break-word" // ensure long words break nicely
+                                    }}
+                                >
+                                    <Typography variant="subtitle1" color="text.secondary">
+                                        {msg.text}
+                                    </Typography>
+                                </Paper>
 
-                            {/* Show actions only for book messages */}
-                            {msg.sender === "book" && (
-                                <Box sx={{ display: "flex", gap: 1, mt: 0.5 }}>
-                                    <IconButton size="small">
-                                        <RefreshIcon fontSize="small" />
-                                    </IconButton>
-                                    <IconButton size="small" >
-                                        <ThumbUpIcon fontSize="small" />
-                                    </IconButton>
-                                    <IconButton size="small" >
-                                        <ThumbDownIcon fontSize="small" />
-                                    </IconButton>
-                                </Box>
-                            )}
+                                {msg.sender === "book" && (
+                                    <Box sx={{ display: "flex", gap: 1, mt: 0.5 }}>
+                                        <IconButton size="small">
+                                            <RefreshIcon fontSize="small" />
+                                        </IconButton>
+                                        <IconButton size="small">
+                                            <ThumbUpIcon fontSize="small" />
+                                        </IconButton>
+                                        <IconButton size="small">
+                                            <ThumbDownIcon fontSize="small" />
+                                        </IconButton>
+                                    </Box>
+                                )}
+                            </Box>
                         </Box>
+
                     </Box>
                 </Box>
             ))}

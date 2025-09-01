@@ -11,9 +11,9 @@ import {
   useTheme,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import RobooksList from "@ui/RobooksList";
-import CategoriesList from "@ui/CategoriesList";
-import PostLists from "@ui/PostList";
+import RobooksList from "@/components/ui/home/RobooksList";
+import CategoriesList from "@/components/ui/home/CategoriesList";
+import PostLists from "@/components/ui/home/PostList";
 
 
 export default function Dashboard() {

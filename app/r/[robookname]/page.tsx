@@ -1,86 +1,126 @@
 "use client"
 
+import React from "react";
 import {
     Typography,
     Avatar,
     Box,
-    Grid,
-    Divider,
 } from "@mui/material";
-import AskInput from "@ui/AskInput";
-import ChatInterface from "@ui/ChatInterface";
-import RobookProfile from "@ui/RobookProfile";
+import RobookChat from "@/components/ui/robook/RobookChat";
+import ProfilePosts from "@/components/ui/robook/ProfilePosts";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
+import Chapters from "@ui/robook/Chapters";
 
 
 export default function ProfilePage() {
+    const [contentName, setContentName] = React.useState("Posts");
     return (
-        <Grid container sx={{ width: "100%", minHeight: "89.5vh", }}>
-
-            {/* Profile Content */}
-            <Grid size={{ xs: 12, md: "grow" }}>
-                <RobookProfile />
-            </Grid>
-
-            {/* Right Sidebar */}
-            <Divider
-                orientation="vertical"
-                flexItem
-            />
-
-            {/* Chat Content */}
-            <Grid
-                size={{ xs: 12, md: 5.5 }}
+        <Box
+            sx={{
+                width: "100%",  // full width container
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minHeight: "100vh",
+            }}
+        >
+            <Container
+                maxWidth="md" // keeps md width on large screens
+                disableGutters
                 sx={{
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    minHeight: "100%",
-                    position: "relative"
-                }}>
-                <Box sx={{ width: "100%", }}>
+                    width: "100%", // ensures full width on mobile
+                }}
+            >
 
-                    {/* Profile Section */}
-                    <Box>
-                        {/* Profile Info */}
-                        <Box sx={{ px: 2, pb: 2 }}>
-                            <Box
-                                sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", m: "auto", mt: 1, mb: 2 }}
-                            >
-                                <Avatar
-                                    src="/atomic-habits.jpg"
-                                    sx={{
-                                        width: 107,
-                                        height: 100,
-                                        border: "2px solid black",
-                                        borderColor: "background.default",
-                                        borderRadius: 2,
-                                        m: "auto",
-                                    }}
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        position: "relative",
+                    }}
+                >
+                    <Box sx={{ width: "100%", }}>
+
+                        {/* Profile Section */}
+                        <Box>
+                            {/* Profile Info */}
+                            <Box sx={{ px: 2, pb: 0 }}>
+                                <Box
+                                    sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", m: "auto", mt: 1, mb: 2 }}
                                 >
-                                    Atomic
-                                </Avatar>
+                                    <Avatar
+                                        src="/atomic-habits.jpg"
+                                        sx={{
+                                            width: 107,
+                                            height: 100,
+                                            border: "2px solid black",
+                                            borderColor: "background.default",
+                                            borderRadius: 2,
+                                            m: "auto",
+                                        }}
+                                    >
+                                        Atomic
+                                    </Avatar>
 
-                                <Box sx={{ width: "fit-content", m: "auto", textAlign: "center" }}>
-                                    <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 0.5 }}>
-                                        Atomic Habits
-                                    </Typography>
+                                    <Box sx={{ width: "fit-content", m: "auto", textAlign: "center" }}>
+                                        <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 0.5 }}>
+                                            Atomic Habits
+                                        </Typography>
 
-                                    <Typography variant="subtitle2" > Learn to change habits </Typography>
-                                    <Typography component="div" variant="caption" color="text.secondary" > By @jamesclear </Typography>
-                                    <Typography component="div" variant="caption" color="text.secondary" > Personal Development · 751K Followers </Typography>
+                                        <Typography variant="subtitle2" > Learn to change habits </Typography>
+                                        <Typography component="div" variant="caption" color="text.secondary" > By @jamesclear </Typography>
+                                        <Typography component="div" variant="caption" color="text.secondary" > Personal Development · 751K Followers </Typography>
+                                    </Box>
+                                    <Box sx={{ width: "fit-content", ml: 2, display: "flex", gap: 1, my: 1.5 }}>
+                                        <Button
+                                            variant={contentName == "Posts" ? "contained" : "outlined"}
+                                            size="small"
+                                            onClick={() => setContentName("Posts")}
+                                            sx={{
+                                                px: 1.5,
+                                                py: 0.5,
+                                                fontSize: "0.75rem",
+                                                borderRadius: 2
+                                            }}>
+                                            Posts
+                                        </Button>
+                                        <Button
+                                            variant={contentName == "Chapters" ? "contained" : "outlined"}
+                                            size="small"
+                                            onClick={() => setContentName("Chapters")}
+                                            sx={{
+                                                px: 1.5,
+                                                py: 0.5,
+                                                fontSize: "0.75rem",
+                                                borderRadius: 2
+
+                                            }}>
+                                            Chapters
+                                        </Button>
+                                        <Button
+                                            variant={contentName == "Messages" ? "contained" : "outlined"}
+                                            size="small"
+                                            onClick={() => setContentName("Messages")}
+                                            sx={{
+                                                px: 1.5,
+                                                py: 0.5,
+                                                fontSize: "0.75rem",
+                                                borderRadius: 2
+                                            }}>
+                                            Messages
+                                        </Button>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
                     </Box>
+                    {contentName == "Posts" && <ProfilePosts />}
+                    {contentName == "Messages" && <RobookChat />}
+                    {contentName == "Chapters" && <Chapters />}
                 </Box>
-                <Box sx={{ flex: 1, overflowY: "auto", p: 1, pt: 0, pb: 2, }}>
-                    <ChatInterface />
-                </Box>
-                <Box sx={{ px: 2, py: 1, position: "sticky", bottom: 0, bgcolor: "background.default", }}>
-                    <AskInput borderRadius={1.5} />
-                </Box>
-            </Grid>
-
-        </Grid>
-    )
+            </Container>
+        </Box>
+    );
 }

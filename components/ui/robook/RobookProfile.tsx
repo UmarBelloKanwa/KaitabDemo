@@ -17,8 +17,8 @@ import {
 import Chat from "@mui/icons-material/Chat";
 import Search from "@mui/icons-material/Search";
 import InputAdornment from "@mui/material/InputAdornment"
-import PostCard from "@ui/RobookProfilePostCard";
-import ChaptersList from "@ui/ChaptersList"
+import PostCard from "@/components/ui/robook/RobookProfilePostCard";
+import ChaptersList from "@/components/ui/robook/ChaptersList"
 
 
 const robooks = [

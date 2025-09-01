@@ -11,10 +11,10 @@ import {
     TextField,
 } from "@mui/material";
 import CameraAlt from "@mui/icons-material/CameraAlt";
-import FileUpload from "@ui/FileUpload";
-import AddBookTopic from "@ui/AddBookTopic";
+import FileUpload from "@/components/ui/publish/FileUpload";
+import AddBookTopic from "@/components/ui/publish/AddBookTopic";
 import { SelectedTopic } from "@/types/social";
-import ProcessingToast from "@ui/ProcessingToast";
+import ProcessingToast from "@/components/ui/publish/ProcessingToast";
 
 
 export default function PublishBook() {
