@@ -1,0 +1,18 @@
+{
+    "user": {
+        "name": "Atomic Habits",
+        "username": "atomichabits",
+        "avatar": "/atomic-habits.jpg",
+        "verified": true
+    },
+    "timestamp": "2h",
+    "content": "The compound effect of small habits is remarkable.\n\nIf you get 1% better each day for one year, you'll end up thirty-seven times better by the time you're done.\n\nConversely, if you get 1% worse each day for one year, you'll decline nearly down to zero.\n\nSmall changes appear to make no difference until you cross a critical threshold. The most powerful outcomes of any compounding process are delayed. You need to be patient.\n\nThis is one of the core reasons why it's so hard to build habits that last. People make a few small changes, fail to see a tangible result, and decide to stop.\n\nYou think, \"I've been running every day for a month, so why can't I see a change in my body?\" Once this kind of thinking takes over, it's easy to let good habits fall by the wayside.\n\nBut in order to make a meaningful difference, habits need to persist long enough to break through this plateau—what I call the Plateau of Latent Potential.",
+    "image": "/book.png",
+    "metrics": {
+        "replies": 61,
+        "retweets": 34,
+        "likes": 389,
+        "views": 30000
+    },
+    "usersComments": []
+}

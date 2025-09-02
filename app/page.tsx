@@ -65,7 +65,7 @@ export default function Dashboard() {
       </Box>
 
       {/* Content */}
-      <Container maxWidth="xl" sx={{ py: 3, pt: 1 }}>
+      <Container maxWidth="xl" disableGutters sx={{ py: 3, pt: 1, px: 1.7, }}>
         <CategoriesList />
         <RobooksList />
         <PostLists />

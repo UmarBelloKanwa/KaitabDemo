@@ -2,37 +2,30 @@ import React from "react";
 import { Card, CardContent, Avatar, IconButton, Typography, Box } from "@mui/material"
 import Button from "@mui/material/Button"
 import { Favorite, ChatBubbleOutline, Repeat, Share, MoreHoriz, BookmarkBorder, BarChart } from "@mui/icons-material"
+import type { PostCardProps } from "@/types";
+import { ExpandedPost } from "@/components/ui/robook/post/ExpandedPost";
 
+export default function PostCard({ user, timestamp, content, image, metrics, usersComments }: PostCardProps) {
+    const [expanded, setExpanded] = React.useState(false)
+    const [showExpandedPost, setShowExpandedPost] = React.useState(false)
 
-interface TwitterPostCardProps {
-    user: {
-        name: string
-        username: string
-        avatar: string
-        verified?: boolean
-    }
-    timestamp: string
-    content: string
-    image?: string
-    metrics: {
-        replies: number
-        retweets: number
-        likes: number
-        views?: number
-    }
-}
-
-export default function PostCard({ user, timestamp, content, image, metrics }: TwitterPostCardProps) {
     const formatNumber = (num: number) => {
         if (num >= 1000) {
             return (num / 1000).toFixed(num >= 10000 ? 0 : 1) + "K"
         }
         return num.toString()
-
     }
-    const [expanded, setExpanded] = React.useState(false);
 
-    const maxLines = 15; // Maximum lines to show when collapsed
+    const maxLines = 7
+    const shouldShowMore = content.split("\n").join("").length > 300
+
+    const handlePostClick = (e: React.MouseEvent) => {
+        if ((e.target as HTMLElement).closest("button, a")) {
+            return
+        }
+
+        setShowExpandedPost((prev) => !prev);
+    }
 
     return (
         <Card
@@ -42,18 +35,15 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                 borderRadius: 2,
                 border: "1px solid",
                 borderColor: "divider",
-                width: { xs: "100%", sm: "90%" },
             }}
+            onClick={handlePostClick}
         >
-            <CardContent sx={{ p: 2, pt: 0, width: { xs: "100%", sm: "90%" }, }}>
+            <CardContent sx={{ p: 2, pt: 0, }}>
                 {/* Header */}
                 <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", mb: 1.5 }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 2 }}>
                         <Avatar src={user.avatar || "/placeholder.svg"} alt={user.name} sx={{ width: 50, height: 50, borderRadius: 0.5 }}>
-                            {user.name
-                                .split(" ")
-                                .map((n) => n[0])
-                                .join("")}
+                            {user.name.charAt(0)}
                         </Avatar>
                         <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
                             <Typography variant="body1" sx={{ fontWeight: "bold", color: "white" }}>
@@ -105,13 +95,21 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                     </Typography>
 
                     {/* Show button only if content is long */}
-                    {content.split("\n").join("").length > 300 && (
+                    {shouldShowMore && (
                         <Button
-                            onClick={() => setExpanded(!expanded)}
-                            size="small"
-                            sx={{ color: "#1DA1F2", textTransform: "none", mt: 0.5 }}
+                            onClick={(e) => {
+                                e.stopPropagation()
+                                setExpanded(!expanded)
+                            }}
+                            sx={{
+                                color: "#1DA1F2",
+                                textTransform: "none",
+                                p: 0,
+                                minWidth: "auto",
+                                "&:hover": { bgcolor: "transparent", textDecoration: "underline" },
+                            }}
                         >
-                            {expanded ? "See less" : "See more"}
+                            {expanded ? "Show less" : "Show more"}
                         </Button>
                     )}
                 </Box>
@@ -128,118 +126,133 @@ export default function PostCard({ user, timestamp, content, image, metrics }: T
                     </Box>
                 )}
 
-                {/* Engagement Metrics */}
-                <Box sx={{ pt: 1.5, borderTop: "1px solid #374151" }}>
-                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <IconButton
-                            size="small"
-                            sx={{
-                                color: "#6b7280",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: { xs: 0.3, sm: 1 },
-                                "&:hover": {
-                                    color: "#3b82f6",
-                                    backgroundColor: "rgba(59, 130, 246, 0.1)",
-                                },
-                            }}
-                        >
-                            <ChatBubbleOutline sx={{ fontSize: 20 }} />
-                            <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
-                                {formatNumber(metrics.replies)}
-                            </Typography>
-                        </IconButton>
+                {showExpandedPost ? (
+                    <ExpandedPost
+                        user={user}
+                        timestamp={timestamp}
+                        content={content}
+                        image={image}
+                        metrics={metrics}
+                        onClose={() => setShowExpandedPost(false)}
+                        usersComments={usersComments}
+                    />
 
-                        <IconButton
-                            size="small"
-                            sx={{
-                                color: "#6b7280",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: { xs: 0.3, sm: 1 },
-
-                                "&:hover": {
-                                    color: "#10b981",
-                                    backgroundColor: "rgba(16, 185, 129, 0.1)",
-                                },
-                            }}
-                        >
-                            <Repeat sx={{ fontSize: 20 }} />
-                            <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
-                                {formatNumber(metrics.retweets)}
-                            </Typography>
-                        </IconButton>
-
-                        <IconButton
-                            size="small"
-                            sx={{
-                                color: "#6b7280",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: { xs: 0.3, sm: 1 },
-
-                                "&:hover": {
-                                    color: "#ef4444",
-                                    backgroundColor: "rgba(239, 68, 68, 0.1)",
-                                },
-                            }}
-                        >
-                            <Favorite sx={{ fontSize: 20 }} />
-                            <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
-                                {formatNumber(metrics.likes)}
-                            </Typography>
-                        </IconButton>
-
-                        {metrics.views && (
+                ) : (
+                    <Box sx={{ pt: 1.5, borderTop: "1px solid #333", display: showExpandedPost ? "none" : "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0.5, sm: 2 } }}>
                             <IconButton
                                 size="small"
+                                onClick={(e) => e.stopPropagation()}
                                 sx={{
                                     color: "#6b7280",
                                     display: "flex",
                                     alignItems: "center",
-                                    gap: { xs: 0.3, sm: 1 },
-
+                                    gap: 1,
                                     "&:hover": {
-                                        color: "#3b82f6",
-                                        backgroundColor: "rgba(59, 130, 246, 0.1)",
+                                        color: "#1DA1F2",
+                                        bgcolor: "rgba(29, 161, 242, 0.1)",
                                     },
                                 }}
                             >
-                                <BarChart sx={{ fontSize: 20 }} />
+                                <ChatBubbleOutline sx={{ fontSize: 16 }} />
                                 <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
-                                    {formatNumber(metrics.views)}
+                                    {formatNumber(metrics.replies)}
                                 </Typography>
                             </IconButton>
-                        )}
 
-                        <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 1 } }}>
                             <IconButton
                                 size="small"
+                                onClick={(e) => e.stopPropagation()}
                                 sx={{
                                     color: "#6b7280",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
                                     "&:hover": {
-                                        color: "#3b82f6",
-                                        backgroundColor: "rgba(59, 130, 246, 0.1)",
+                                        color: "#10b981",
+                                        bgcolor: "rgba(16, 185, 129, 0.1)",
                                     },
                                 }}
                             >
-                                <BookmarkBorder sx={{ fontSize: 20 }} />
+                                <Repeat sx={{ fontSize: 16 }} />
+                                <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                                    {formatNumber(metrics.retweets)}
+                                </Typography>
                             </IconButton>
+
+                            <IconButton
+                                size="small"
+                                onClick={(e) => e.stopPropagation()}
+                                sx={{
+                                    color: "#6b7280",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: 1,
+                                    "&:hover": {
+                                        color: "#ef4444",
+                                        bgcolor: "rgba(239, 68, 68, 0.1)",
+                                    },
+                                }}
+                            >
+                                <Favorite sx={{ fontSize: 16 }} />
+                                <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                                    {formatNumber(metrics.likes)}
+                                </Typography>
+                            </IconButton>
+
+
+                            {metrics.views && (
+                                <IconButton
+                                    size="small"
+                                    onClick={(e) => e.stopPropagation()}
+                                    sx={{
+                                        color: "#6b7280",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 1,
+                                        "&:hover": {
+                                            color: "#1DA1F2",
+                                            bgcolor: "rgba(29, 161, 242, 0.1)",
+                                        },
+                                    }}
+                                >
+                                    <BarChart sx={{ fontSize: 16 }} />
+                                    <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
+                                        {formatNumber(metrics.views)}
+                                    </Typography>
+                                </IconButton>
+                            )}
+                        </Box>
+
+                        <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 0.5 } }}>
                             <IconButton
                                 size="small"
                                 sx={{
                                     color: "#6b7280",
                                     "&:hover": {
-                                        color: "#3b82f6",
-                                        backgroundColor: "rgba(59, 130, 246, 0.1)",
+                                        color: "#1DA1F2",
+                                        backgroundColor: "rgba(29, 161, 242, 0.1)",
                                     },
                                 }}
                             >
-                                <Share sx={{ fontSize: 20 }} />
+                                <BookmarkBorder sx={{ fontSize: 16 }} />
+                            </IconButton>
+
+                            <IconButton
+                                size="small"
+                                sx={{
+                                    color: "#6b7280",
+                                    "&:hover": {
+                                        color: "#1DA1F2",
+                                        backgroundColor: "rgba(29, 161, 242, 0.1)",
+                                    },
+                                }}
+                            >
+                                <Share sx={{ fontSize: 16 }} />
                             </IconButton>
                         </Box>
                     </Box>
-                </Box>
+                )}
             </CardContent>
         </Card>
     )

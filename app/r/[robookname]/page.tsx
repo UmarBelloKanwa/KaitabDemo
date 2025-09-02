@@ -6,11 +6,11 @@ import {
     Avatar,
     Box,
 } from "@mui/material";
-import RobookChat from "@/components/ui/robook/RobookChat";
-import ProfilePosts from "@/components/ui/robook/ProfilePosts";
+import RobookChat from "@/components/ui/robook/chat/RobookChat";
+import ProfilePosts from "@/components/ui/robook/post/ProfilePosts";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import Chapters from "@ui/robook/Chapters";
+import Chapters from "@/components/ui/robook/chapter/Chapters";
 
 
 export default function ProfilePage() {
