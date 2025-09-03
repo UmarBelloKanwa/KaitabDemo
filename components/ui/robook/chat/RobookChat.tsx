@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 
 export default function RobookChat() {
     return (
-        <>
+        <Box sx={{ width: { xs: "100%", sm: "80%" }, maxWidth: { xs: "100%", sm: "80%", }, m: "auto" }}>
             <Box sx={{ flex: 1, overflowY: "auto", p: 1, pt: 0, pb: 2, }}>
                 <ChatInterface />
             </Box>
@@ -31,6 +31,6 @@ export default function RobookChat() {
                 </Box>
             </Box >
 
-        </>
+        </Box>
     )
 }

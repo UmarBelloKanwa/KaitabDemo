@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import PostCard from "@/components/ui/robook/post/PostCard";
+import PostCard from "./PostCard";
 import robooks_posts from "@/data/robook_posts.json";
 import comments from "@/data/comments.json";
 import type { PostCardProps } from "@/types";

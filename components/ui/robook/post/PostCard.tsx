@@ -18,7 +18,9 @@ import type { PostCardProps } from "@/types";
 
 export default function PostCard({ user, timestamp, content, image, metrics, usersComments }: PostCardProps) {
     const [expanded, setExpanded] = useState(false)
-    const [showExpandedPost, setShowExpandedPost] = useState(false)
+    const [showExpandedPost, setShowExpandedPost] = useState(false);
+
+
 
     const formatNumber = (num: number) => {
         if (num >= 1000) {
@@ -29,6 +31,8 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
 
     const maxLines = 7
     const shouldShowMore = content.split("\n").join("").length > 300
+    console.log("shouldShowMore:", shouldShowMore, content.length);
+
 
     const handlePostClick = (e: React.MouseEvent) => {
         if ((e.target as HTMLElement).closest("button, a")) {
