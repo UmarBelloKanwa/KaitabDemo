@@ -147,8 +147,6 @@ export default function AskInputBase({ isExpanded = false, borderRadius = "27px"
             })}
             sx={(theme) => ({
                 width: "100%",
-                maxWidth: 700,
-                maxHeight: 700,
                 borderRadius,
                 pt: 0,
                 ...(!expanded ? {

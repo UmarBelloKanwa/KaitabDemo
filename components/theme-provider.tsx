@@ -182,6 +182,27 @@ const theme = createTheme({
       lineHeight: 1.4,
     },
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          m: 0,
+          p: 0,
+          boxSizing: "border-box",
+          // Custom scrollbar styles
+          scrollbarColor: "#333 #1a1a1a",
+          "&::-webkit-scrollbar": {
+            width: 3,
+            height: 3,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#333",
+            borderRadius: 8,
+          },
+        },
+      },
+    },
+  }
 });
 
 

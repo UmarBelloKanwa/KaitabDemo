@@ -107,8 +107,8 @@ export default function AtomicHabitsAccordion() {
     };
 
     return (
-        <Box sx={{ width: { xs: "85%", sm: "60%" }, m: "auto", mb: 3, mt: 0 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexDirection: "row", ml: -2, }}>
+        <Box sx={{ m: "auto", mb: 3, mt: 0 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexDirection: "row", }}>
                 <Avatar
                     src="/atomic-habits.jpg"
                     sx={(theme) => ({

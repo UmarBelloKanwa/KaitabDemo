@@ -31,7 +31,6 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
 
     const maxLines = 7
     const shouldShowMore = content.split("\n").join("").length > 300
-    console.log("shouldShowMore:", shouldShowMore, content.length);
 
 
     const handlePostClick = (e: React.MouseEvent) => {
@@ -47,8 +46,6 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
             elevation={0}
             sx={{
                 display: "flex",
-                width: { xs: "100%", sm: "90%" },
-                maxWidth: 672,
                 m: "auto",
                 borderRadius: 2,
                 bgcolor: "transparent",
@@ -65,10 +62,9 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                 alignItems: "flex-start",
                 m: "auto",
                 mb: 0,
-                width: { xs: "100%", sm: "90%" },
                 color: "tex.secondary"
             }}>
-                <Box sx={{ textAlign: "left", mr: 1, width: "100%", }}>
+                <Box sx={{ textAlign: "left", mr: { xs: 0, sm: 1 }, width: "100%", }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexDirection: "row" }}>
                         <Avatar
                             src={user.avatar || "/placeholder.svg"}
@@ -107,7 +103,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                     <Paper
                         sx={{
                             flex: 1, minWidth: 0, width: "100%",
-                            mt: 0, p: 2, ml: { xs: 1, sm: 2 }, bgcolor: "background.paper",
+                            mt: 0, p: 2, ml: { xs: 0.5, sm: 2 }, bgcolor: "background.paper",
                             borderRadius: 1.3,
                             px: { xs: 1.5, sm: 2 },
                             border: "1px solid",

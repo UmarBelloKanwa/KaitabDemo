@@ -1,36 +1,35 @@
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
 import AskInput from "@/components/ui/robook/chat/AskInput";
 import ChatInterface from "@/components/ui/robook/chat/ChatInterface";
-import Button from "@mui/material/Button";
+
 
 export default function RobookChat() {
+
     return (
-        <Box sx={{ width: { xs: "100%", sm: "80%" }, maxWidth: { xs: "100%", sm: "80%", }, m: "auto" }}>
-            <Box sx={{ flex: 1, overflowY: "auto", p: 1, pt: 0, pb: 2, }}>
+        <Box sx={{
+            width: "100%", m: "auto", position: "relative", left: 0,
+        }}>
+            <Box sx={{ flex: 1, overflowY: "auto", pt: 0, pb: 2, }}>
                 <ChatInterface />
             </Box>
             <Box
                 sx={{
-                    px: 2,
-                    py: 1,
-                    pb: 2,
-                    position: "sticky",
+                    position: "fixed",
                     bottom: 0,
-                    bgcolor: "background.default",
                     width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
+                    m: "auto",
+                    maxWidth: { xs: "97%", md: "33%" }, // it works base on the size of the screen, but not the size of the parent
+                    display: 'flex',
+                    bgcolor: "background.default",
+                    p: 2, // You can control padding here
                 }}
+
             >
-                <Box sx={{
-                    width: { xs: "100%", sm: "80%" }, maxWidth: { xs: "100%", sm: "80%" }
-                }}>
+                <Box sx={{ width: '100%', maxWidth: '100%', m: "auto" }}> {/* Constrain AskInput's width within the chat box */}
                     <AskInput borderRadius={2} />
                 </Box>
-            </Box >
-
+            </Box>
         </Box>
     )
+
 }
