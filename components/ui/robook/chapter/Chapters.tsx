@@ -16,7 +16,9 @@ const samplePost: PostCardProps = {
 export default function Home() {
     return (
         <Box>
-            <TableOfContents />
+            <Box sx={{ display: { xs: "block", sm: "none" } }}>
+                <TableOfContents />
+            </Box>
             <PostCard {...samplePost} />
         </Box>
     )

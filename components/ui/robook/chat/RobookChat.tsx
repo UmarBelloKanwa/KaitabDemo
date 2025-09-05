@@ -9,16 +9,17 @@ export default function RobookChat() {
         <Box sx={{
             width: "100%", m: "auto", position: "relative", left: 0,
         }}>
-            <Box sx={{ flex: 1, overflowY: "auto", pt: 0, pb: 2, }}>
+            <Box sx={{ flex: 1, overflowY: "auto", pt: 0, pb: { xs: 9, sm: 2 }, }}>
                 <ChatInterface />
             </Box>
             <Box
                 sx={{
                     position: "fixed",
+                    left: { xs: 0, sm: "unset" },
                     bottom: 0,
                     width: "100%",
                     m: "auto",
-                    maxWidth: { xs: "97%", md: "33%" }, // it works base on the size of the screen, but not the size of the parent
+                    maxWidth: { xs: "100%", md: "33%" }, // it works base on the size of the screen, but not the size of the parent
                     display: 'flex',
                     bgcolor: "background.default",
                     p: 2, // You can control padding here

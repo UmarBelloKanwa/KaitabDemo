@@ -12,19 +12,19 @@ import Button from "@mui/material/Button";
 import Chip from '@mui/material/Chip';
 
 import { Card, CardContent, IconButton } from "@mui/material"
-import { CheckCircle, LinkedIn, MoreHoriz } from "@mui/icons-material"
+import { CheckCircle } from "@mui/icons-material"
 
 import {
     ChatBubbleOutline as PostsIcon,
     ImportContacts as ChaptersIcon,
-    HelpOutline as AskIcon,
     MoreHoriz as MoreIcon,
 } from '@mui/icons-material';
+import MessageIcon from '@mui/icons-material/Message';
 
 
 export default function ProfileInfo({ contentName, setContentName }: { contentName: string, setContentName: (str: string) => void }) {
     return (
-        <Box sx={{ width: { xs: "92.5%", sm: "90%" }, m: "auto" }}>
+        <Box sx={{ width: "100%", m: "auto" }}>
             {/* Profile Section */}
             <Box>
                 {/* Profile Info */}
@@ -171,9 +171,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                 overflow: "hidden",
                 position: "relative",
-                width: "100%",
+                width: { xs: "100%", sm: "98%" },
+                border: "1px solid",
+                borderColor: "divider",
                 m: "auto",
-                mb: 2
+                mb: 2,
+
             }}
             elevation={0}
         >
@@ -292,42 +295,51 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     }}
                 >
 
-                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center" sx={(theme) => ({
-                        mt: 0.5,
-                        [theme.breakpoints.up("sm")]: {
-                            border: "1px solid",
-                            borderColor: "divider",
-                            pr: 1,
-                            gap: 0,
-                            borderRadius: 10,
-                        },
-                    })}>
+                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center"
+                        sx={(theme) => ({
+                            mt: 0.5,
+                            [theme.breakpoints.up("sm")]: {
+                                border: "1px solid",
+                                borderColor: "divider",
+                                pr: 1,
+                                gap: 0,
+                                borderRadius: 10,
+                            },
+                        })}
+                        onClick={() => setContentName("Posts")}
+                    >
                         <IconButton>
                             <PostsIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <Typography variant="caption" color="text.secondary">Posts</Typography>
                     </Stack>
 
-                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center" sx={(theme) => ({
-                        [theme.breakpoints.up("sm")]: {
-                            border: "1px solid",
-                            borderColor: "divider",
-                            pr: 1,
-                            pl: 0.3,
-                            borderRadius: 10,
-                        },
-                    })}>
+                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center"
+                        sx={(theme) => ({
+                            [theme.breakpoints.up("sm")]: {
+                                border: "1px solid",
+                                borderColor: "divider",
+                                pr: 1,
+                                pl: 0.3,
+                                borderRadius: 10,
+                            },
+                        })}
+                        onClick={() => setContentName("Chapters")}
+                    >
                         <IconButton>
                             <ChaptersIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <Typography variant="caption" color="text.secondary">Chapters</Typography>
                     </Stack>
 
-                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center" sx={{ display: { xs: "flex", sm: "none" } }}>
+                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center"
+                        sx={{ display: { xs: "flex", sm: "none" } }}
+                        onClick={() => setContentName("Messages")}
+                    >
                         <IconButton >
-                            <AskIcon sx={{ fontSize: 16 }} />
+                            <MessageIcon sx={{ fontSize: 16 }} />
                         </IconButton>
-                        <Typography variant="caption" color="text.secondary">Ask</Typography>
+                        <Typography variant="caption" color="text.secondary"> Message </Typography>
                     </Stack>
 
                     <IconButton

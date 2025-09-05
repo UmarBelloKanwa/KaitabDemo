@@ -49,23 +49,23 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                 m: "auto",
                 borderRadius: 2,
                 bgcolor: "transparent",
-                mt: -3,
+                mt: 0,
                 p: 0,
-                ml: { xs: -0.5, sm: "auto" },
                 pb: 1
             }}
             onClick={handlePostClick}
         >
             <CardContent sx={{
                 display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "flex-start",
+                justifyContent: "center",
+                alignItems: "center",
                 m: "auto",
                 mb: 0,
-                color: "tex.secondary"
+                color: "tex.secondary",
+                p: 0,
             }}>
-                <Box sx={{ textAlign: "left", mr: { xs: 0, sm: 1 }, width: "100%", }}>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexDirection: "row" }}>
+                <Box sx={{ textAlign: "left", m: "auto", width: "100%", }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexDirection: "row", width: { xs: "100%", sm: "97%" } }}>
                         <Avatar
                             src={user.avatar || "/placeholder.svg"}
                             sx={(theme) => ({
@@ -102,8 +102,8 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
 
                     <Paper
                         sx={{
-                            flex: 1, minWidth: 0, width: "100%",
-                            mt: 0, p: 2, ml: { xs: 0.5, sm: 2 }, bgcolor: "background.paper",
+                            flex: 1, minWidth: 0, width: { xs: "100%", sm: "96%" },
+                            mt: 0, p: 2, m: "auto", bgcolor: "background.paper",
                             borderRadius: 1.3,
                             px: { xs: 1.5, sm: 2 },
                             border: "1px solid",

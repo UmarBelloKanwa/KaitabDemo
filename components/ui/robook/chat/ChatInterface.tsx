@@ -64,7 +64,7 @@ const ChatInterface = () => {
                         display: "flex",
                         justifyContent: msg.sender === "user" ? "flex-end" : "flex-start",
                         alignItems: "flex-start",
-                        mb: 1.5,
+                        mb: msg.sender === "user" ? 3 : 1.5,
                     }}
                 >
                     {/* Message Wrapper */}

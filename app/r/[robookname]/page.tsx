@@ -8,10 +8,12 @@ import Chapters from "@/components/ui/robook/chapter/Chapters";
 import ProfileInfo from "@ui/robook/ProfileInfo";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-
+import Divider from '@mui/material/Divider';
+import TableOfContent from "@ui/robook/chapter/TableOfContent";
+import SocialPost from "../../vo/page";
 
 export default function ProfilePage() {
-    const [contentName, setContentName] = React.useState("Posts");
+    const [contentName, setContentName] = React.useState("Chapters");
     return (
         <Box
             sx={{
@@ -31,10 +33,12 @@ export default function ProfilePage() {
             >
 
                 <Box sx={{ flexGrow: 1 }}>
-                    <Grid container spacing={1}>
+                    <Grid container spacing={0}>
                         <Grid size={{ xs: 12, sm: 7 }} sx={{
                             height: "100vh",
                             overflowY: "auto",
+                            scrollbarWidth: "none", // Firefox
+                            "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
                         }}>
                             <Box
                                 sx={(theme) => ({
@@ -42,6 +46,7 @@ export default function ProfilePage() {
                                     display: "flex",
                                     flexDirection: "column",
                                     maxWidth: { xs: "100%", sm: "100%" },
+                                    px: 2,
                                 })}
                             >
                                 <ProfileInfo
@@ -50,16 +55,24 @@ export default function ProfilePage() {
                                 />
                                 {contentName == "Posts" && <ProfilePosts />}
                                 {contentName == "Messages" && <RobookChat />}
-                                {contentName == "Chapters" && <Chapters />}
+                                {contentName == "Chapters" && <SocialPost />}
                             </Box>
                         </Grid>
-
+                        <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />
                         <Grid size="grow" sx={{
                             height: "90vh",
                             overflowY: "auto",
-                            display: { xs: "none", sm: "block", }
+                            display: { xs: "none", sm: "block", },
+                            scrollbarWidth: "none", // Firefox
+                            p: 1,
+                            "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
                         }}>
-                            <RobookChat />
+                            {contentName == "Chapters" ? (
+                                <>
+                                    <TableOfContent />
+                                    <RobookChat />
+                                </>
+                            ) : <RobookChat />}
                         </Grid>
                     </Grid>
                 </Box>
