@@ -24,7 +24,7 @@ import {
 
 export default function ProfileInfo({ contentName, setContentName }: { contentName: string, setContentName: (str: string) => void }) {
     return (
-        <Box sx={{ width: { xs: "92.5%", sm: "80%" }, m: "auto" }}>
+        <Box sx={{ width: { xs: "92.5%", sm: "90%" }, m: "auto" }}>
             {/* Profile Section */}
             <Box>
                 {/* Profile Info */}
@@ -227,7 +227,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 </Box>
 
                 {/* Name and Title */}
-                <Box sx={{ mb: 2 }}>
+                <Box sx={{ mb: 0 }}>
                     <Box sx={{ display: "flex", alignItems: "center", mb: 0.5 }}>
                         <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 0.5, mr: 1 }}>
                             {name}
@@ -255,15 +255,14 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 <Typography component="div" variant="caption" color="text.secondary" >  Personal Development | {followers}K followers </Typography>
 
                 <Chip
-                    variant="outlined"
                     size="small"
                     icon={
                         <Avatar
                             src="/james-clear.jpg"
                             sx={{
-                                width: 25,
-                                height: 25,
-                                borderRadius: "50%",
+                                width: 23,
+                                height: 23,
+                                borderRadius: 2,
                                 border: "1px solid",
                                 borderColor: "inherit"
                             }}
@@ -272,29 +271,29 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     label="James Clear"
                     sx={{
                         borderColor: "gray",
-                        py: 2,
-                        my: 1,
+                        py: 1.7,
+                        mt: 0.5,
+                        mb: 1
                     }}
                 />
-
-
 
 
                 <Stack
                     direction="row"
                     justifyContent={{ xs: "center", sm: "flex-start" }}
                     alignItems="center"
-                    spacing={2.5}
+                    spacing={{ xs: 2.5, sm: 1.5 }}
                     sx={{
                         p: 0,
                         m: { xs: "auto", sm: 0 },
                         mt: 0,
-                        width: '90%',
+                        width: 'fit-content',
                         maxWidth: '100%',
                     }}
                 >
 
                     <Stack direction={{ xs: "column", sm: "row" }} alignItems="center" sx={(theme) => ({
+                        mt: 0.5,
                         [theme.breakpoints.up("sm")]: {
                             border: "1px solid",
                             borderColor: "divider",
