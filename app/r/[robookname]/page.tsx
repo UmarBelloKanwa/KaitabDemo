@@ -4,13 +4,12 @@ import React from "react";
 import RobookChat from "@/components/ui/robook/chat/RobookChat";
 import ProfilePosts from "@/components/ui/robook/post/ProfilePosts";
 import Container from "@mui/material/Container";
-import Chapters from "@/components/ui/robook/chapter/Chapters";
 import ProfileInfo from "@ui/robook/ProfileInfo";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import TableOfContent from "@ui/robook/chapter/TableOfContent";
-import SocialPost from "../../vo/page";
+import SocialPost from "@ui/robook/chapter/SocialMediaFeed";
 
 export default function ProfilePage() {
     const [contentName, setContentName] = React.useState("Chapters");
@@ -46,7 +45,7 @@ export default function ProfilePage() {
                                     display: "flex",
                                     flexDirection: "column",
                                     maxWidth: { xs: "100%", sm: "100%" },
-                                    px: 2,
+                                    px: { xs: 1, sm: 2 },
                                 })}
                             >
                                 <ProfileInfo

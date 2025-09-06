@@ -13,7 +13,15 @@ export default function RobookLayout({ children }: { children: React.ReactNode }
     return (
         <Box sx={{ minHeight: "100vh", width: "100%", }}>
             {/* Header */}
-            <AppBar elevation={0} position="sticky" sx={{ bgcolor: "background.default", borderBottom: "1px solid grey", borderColor: "divider", }} >
+            <AppBar
+                elevation={0}
+                position="sticky"
+                sx={{
+                    bgcolor: "background.default",
+                    borderBottom: "1px solid grey",
+                    borderColor: "divider",
+                    display: { xs: "none", sm: "block" },
+                }} >
                 <Toolbar>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                         <Avatar src="/atomic-habits.jpg" sx={{ width: 37, height: 37, borderRadius: 1 }}> Atomic Habits </Avatar>

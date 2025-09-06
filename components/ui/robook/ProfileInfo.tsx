@@ -7,7 +7,6 @@ import {
     Box,
     Stack,
 } from "@mui/material";
-import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Chip from '@mui/material/Chip';
 
@@ -20,6 +19,7 @@ import {
     MoreHoriz as MoreIcon,
 } from '@mui/icons-material';
 import MessageIcon from '@mui/icons-material/Message';
+import ButtonBase from "@mui/material/ButtonBase";
 
 
 export default function ProfileInfo({ contentName, setContentName }: { contentName: string, setContentName: (str: string) => void }) {
@@ -164,6 +164,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     setContentName,
     isFollowing = true,
 }) => {
+    const actions = [
+        { title: "Posts", icon: <PostsIcon sx={{ fontSize: 16 }} />, onClick: () => setContentName("Posts") },
+        { title: "Chapters", icon: <ChaptersIcon sx={{ fontSize: 16 }} />, onClick: () => setContentName("Chapters") },
+        { title: "Messages", icon: <MessageIcon sx={{ fontSize: 16 }} />, onClick: () => setContentName("Messages") },
+    ]
     return (
         <Card
             sx={{
@@ -280,86 +285,78 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     }}
                 />
 
-
                 <Stack
                     direction="row"
-                    justifyContent={{ xs: "center", sm: "flex-start" }}
+                    justifyContent="center"
                     alignItems="center"
-                    spacing={{ xs: 2.5, sm: 1.5 }}
+                    spacing={{ xs: 2.5, sm: 0.5 }}
                     sx={{
                         p: 0,
                         m: { xs: "auto", sm: 0 },
-                        mt: 0,
-                        width: 'fit-content',
-                        maxWidth: '100%',
+                        mt: 1,
+                        width: "fit-content",
+                        maxWidth: "100%",
                     }}
                 >
+                    {actions.map((item, index) => (
+                        <ButtonBase
+                            key={index}
+                            onClick={item.onClick}
+                            sx={(theme) => ({
+                                width: "100%",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                borderRadius: 3,
+                                px: 1,
+                                py: 0.5,
+                                "&:hover": {
+                                    bgcolor: "action.hover",
+                                },
 
-                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center"
-                        sx={(theme) => ({
-                            mt: 0.5,
-                            [theme.breakpoints.up("sm")]: {
-                                border: "1px solid",
-                                borderColor: "divider",
-                                pr: 1,
-                                gap: 0,
-                                borderRadius: 10,
-                            },
-                        })}
-                        onClick={() => setContentName("Posts")}
-                    >
-                        <IconButton>
-                            <PostsIcon sx={{ fontSize: 16 }} />
-                        </IconButton>
-                        <Typography variant="caption" color="text.secondary">Posts</Typography>
-                    </Stack>
+                                gap: 0.5,
+                                // ✅ Active state
+                                ...(contentName === item.title && {
+                                    bgcolor: theme.palette.primary.main, // same as contained
+                                    color: theme.palette.primary.contrastText, // text/icons turn white
+                                    "&:hover": {
+                                        bgcolor: theme.palette.primary.dark, // darker on hover
+                                    },
+                                    "& .MuiTypography-root": {
+                                        color: theme.palette.primary.contrastText,
+                                    },
+                                    "& svg": {
+                                        color: theme.palette.primary.contrastText, // icons white too
+                                    },
+                                }),
 
-                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center"
-                        sx={(theme) => ({
-                            [theme.breakpoints.up("sm")]: {
-                                border: "1px solid",
-                                borderColor: "divider",
-                                pr: 1,
-                                pl: 0.3,
-                                borderRadius: 10,
-                            },
-                        })}
-                        onClick={() => setContentName("Chapters")}
-                    >
-                        <IconButton>
-                            <ChaptersIcon sx={{ fontSize: 16 }} />
-                        </IconButton>
-                        <Typography variant="caption" color="text.secondary">Chapters</Typography>
-                    </Stack>
-
-                    <Stack direction={{ xs: "column", sm: "row" }} alignItems="center"
-                        sx={{ display: { xs: "flex", sm: "none" } }}
-                        onClick={() => setContentName("Messages")}
-                    >
-                        <IconButton >
-                            <MessageIcon sx={{ fontSize: 16 }} />
-                        </IconButton>
-                        <Typography variant="caption" color="text.secondary"> Message </Typography>
-                    </Stack>
-
+                                [theme.breakpoints.up("sm")]: {
+                                    border: "1px solid",
+                                    borderColor: "divider",
+                                    flexDirection: "row",
+                                    ...(item.title == "Messages" && {
+                                        display: "none"
+                                    }),
+                                },
+                            })}
+                        >
+                            {item.icon}
+                            <Typography variant="caption" color="text.secondary" sx={{ ml: { sm: 0.5, xs: 0 }, mt: { xs: 0.5, sm: 0 } }}>
+                                {item.title}
+                            </Typography>
+                        </ButtonBase>
+                    ))}
                     <IconButton
                         sx={{
                             border: "1px solid",
                             borderColor: "divider",
-                            borderRadius: 10,
-                            //display: { xs: "none", sm: "flex" }
+                            borderRadius: 2,
+                            p: 0.5
                         }}
                     >
-                        <MoreIcon
-                            sx={{
-                                fontSize: 16,
-                                color: "gray",
-                            }}
-                        />
+                        <MoreIcon sx={{ fontSize: 16, color: "gray" }} />
                     </IconButton>
                 </Stack>
-
-
             </CardContent>
         </Card>
     )

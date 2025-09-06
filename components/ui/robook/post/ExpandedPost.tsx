@@ -87,6 +87,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
 
                 <Box sx={{ display: "flex", justifyContent: "space-around", py: 1, }}>
                     <IconButton
+                        onClick={onClose}
                         sx={{
                             color: "#6b7280",
                             "&:hover": { color: "#1DA1F2", bgcolor: "rgba(29, 161, 242, 0.1)" },
