@@ -1,7 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
 import AppLayout from "@ui/AppLayout";
-import "../styles/globals.css"
 
 export const metadata: Metadata = {
   title: "Kaitab",

@@ -7,7 +7,7 @@ import RobookCard from "./Author-RobookCard";
 
 export default function RobooksList() {
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 0, bgcolor: "red" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 0, }}>
             {robooks.map((robook, index) => (
                 <React.Fragment key={index}>
                     <RobookCard robook={robook} author={{

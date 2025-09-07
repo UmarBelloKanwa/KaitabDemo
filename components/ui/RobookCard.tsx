@@ -28,7 +28,7 @@ export default function RobookCard({ robook, where }: { robook: any, where: stri
                 borderRadius: 1.5,
                 position: "relative",
                 p: 0.5,
-                background: "linear-gradient(90deg, #8a5cf644, #ec4899)",
+                background: theme.custom.gradient.primary,
             })}
             elevation={0}
         >

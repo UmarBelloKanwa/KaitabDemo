@@ -73,13 +73,14 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                         ml: 6.5,
                         display: "flex",
                         alignItems: "center",
-                        gap: 4,
+                        gap: { xs: 1, sm: 4 },
                         mt: 2,
                         pb: 1,
-                        borderBottom: "1px solid", borderColor: "divider"
+                        borderBottom: "1px solid", borderColor: "divider",
+                        maxWidth: "100%"
                     }}
                 >
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 1 } }}>
                         <IconButton
                             size="small"
                             sx={{
@@ -88,14 +89,14 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <ChatBubbleOutline sx={{ fontSize: 18 }} />
+                            <ChatBubbleOutline sx={{ fontSize: 16 }} />
                         </IconButton>
-                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, fontSize: "13px" }}>
+                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             200
                         </Typography>
                     </Box>
 
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 1 } }}>
                         <IconButton
                             size="small"
                             sx={{
@@ -104,14 +105,14 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <Repeat sx={{ fontSize: 18 }} />
+                            <Repeat sx={{ fontSize: 16 }} />
                         </IconButton>
-                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, fontSize: "13px" }}>
+                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             63
                         </Typography>
                     </Box>
 
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 1 } }}>
                         <IconButton
                             size="small"
                             sx={{
@@ -120,14 +121,14 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <FavoriteBorder sx={{ fontSize: 18 }} />
+                            <FavoriteBorder sx={{ fontSize: 16 }} />
                         </IconButton>
-                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, fontSize: "13px" }}>
+                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             1.2K
                         </Typography>
                     </Box>
 
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0, sm: 1 } }}>
                         <IconButton
                             size="small"
                             sx={{
@@ -136,14 +137,14 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <BarChart sx={{ fontSize: 18 }} />
+                            <BarChart sx={{ fontSize: 16 }} />
                         </IconButton>
-                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, fontSize: "13px" }}>
+                        <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             151K
                         </Typography>
                     </Box>
 
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: "auto" }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 0, ml: "auto" }}>
                         <IconButton
                             size="small"
                             sx={{
@@ -152,7 +153,7 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <BookmarkBorder sx={{ fontSize: 18 }} />
+                            <BookmarkBorder sx={{ fontSize: 16 }} />
                         </IconButton>
                         <IconButton
                             size="small"
@@ -162,11 +163,11 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <Share sx={{ fontSize: 18 }} />
+                            <Share sx={{ fontSize: 16 }} />
                         </IconButton>
                     </Box>
                 </Box>
             </CardContent>
-        </Card>
+        </Card >
     );
 }

@@ -276,12 +276,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                         />
                     }
                     label="James Clear"
-                    sx={{
+                    sx={(theme) => ({
                         borderColor: "gray",
+                        background: theme.custom.gradient.primary,
                         py: 1.7,
                         mt: 1.5,
                         mb: 0.7
-                    }}
+                    })}
                 />
 
                 <Stack
@@ -317,10 +318,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                                 gap: { xs: 0, sm: 0.5 },
                                 // ✅ Active state
                                 ...(contentName === item.title && {
-                                    bgcolor: theme.palette.primary.main, // same as contained
+                                    backgroundImage: theme.custom.gradient.primary, // same as contained
                                     color: theme.palette.primary.contrastText, // text/icons turn white
                                     "&:hover": {
-                                        bgcolor: theme.palette.primary.dark, // darker on hover
+                                        bgcolor: theme.custom.gradient.primaryHover, // darker on hover
                                     },
                                     "& .MuiTypography-root": {
                                         color: theme.palette.primary.contrastText,
