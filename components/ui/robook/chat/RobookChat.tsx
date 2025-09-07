@@ -1,36 +1,63 @@
+import React from "react";
 import Box from "@mui/material/Box";
 import AskInput from "@/components/ui/robook/chat/AskInput";
 import ChatInterface from "@/components/ui/robook/chat/ChatInterface";
 
-
 export default function RobookChat() {
+    const containerRef = React.useRef<HTMLDivElement>(null);
+    const [containerStyle, setContainerStyle] = React.useState<{ left: number; width: string } | null>(null);
+
+    React.useLayoutEffect(() => {
+        function updatePosition() {
+            if (containerRef.current) {
+                const rect = containerRef.current.getBoundingClientRect();
+                setContainerStyle({ left: rect.left, width: rect.width + "px" });
+            }
+        }
+
+        updatePosition(); // run immediately
+
+        const resizeObserver = new ResizeObserver(() => {
+            updatePosition();
+        });
+
+        if (containerRef.current) {
+            resizeObserver.observe(containerRef.current);
+        }
+
+        window.addEventListener("scroll", updatePosition); // if page has horizontal scroll
+        window.addEventListener("resize", updatePosition);
+
+        return () => {
+            resizeObserver.disconnect();
+            window.removeEventListener("scroll", updatePosition);
+            window.removeEventListener("resize", updatePosition);
+        };
+    }, []);
+
+    // console.log(containerStyle);
 
     return (
-        <Box sx={{
-            width: "100%", m: "auto", position: "relative", left: 0,
-        }}>
-            <Box sx={{ flex: 1, overflowY: "auto", pt: 0, pb: { xs: 9, sm: 2 }, }}>
+        <>
+            <Box ref={containerRef} sx={{ width: "100%", pb: { xs: 7 } }}>
                 <ChatInterface />
             </Box>
-            <Box
-                sx={{
-                    position: "fixed",
-                    left: { xs: 0, sm: "unset" },
-                    bottom: 0,
-                    width: "100%",
-                    m: "auto",
-                    maxWidth: { xs: "100%", md: "33%" }, // it works base on the size of the screen, but not the size of the parent
-                    display: 'flex',
-                    bgcolor: "background.default",
-                    p: 2, // You can control padding here
-                }}
 
-            >
-                <Box sx={{ width: '100%', maxWidth: '100%', m: "auto" }}> {/* Constrain AskInput's width within the chat box */}
+            {containerStyle && (
+                <Box
+                    sx={{
+                        position: "fixed",
+                        bottom: 0,
+                        left: containerStyle.left,
+                        width: containerStyle.width,
+                        bgcolor: "background.default",
+                        py: 2,
+                        px: 1,
+                    }}
+                >
                     <AskInput borderRadius={2} />
                 </Box>
-            </Box>
-        </Box>
-    )
-
+            )}
+        </>
+    );
 }

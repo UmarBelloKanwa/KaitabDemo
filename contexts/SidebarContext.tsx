@@ -13,9 +13,10 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [sidebarOpen, setSidebarOpen] = useState(isMobile !== true);
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  //console.log("isMobile", typeof isMobile, isMobile);
+  const [sidebarOpen, setSidebarOpen] = useState(isMobile == false);
 
   const handleDrawerToggle = () => {
     setSidebarOpen((prev) => !prev);

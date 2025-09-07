@@ -45,7 +45,7 @@ export default function ProfilePage() {
                                     display: "flex",
                                     flexDirection: "column",
                                     maxWidth: { xs: "100%", sm: "100%" },
-                                    px: { xs: 1, sm: 2 },
+                                    px: { xs: 2, sm: 2 },
                                 })}
                             >
                                 <ProfileInfo
@@ -64,6 +64,8 @@ export default function ProfilePage() {
                             display: { xs: "none", sm: "block", },
                             scrollbarWidth: "none", // Firefox
                             p: 1,
+                            width: "100%",
+
                             "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
                         }}>
                             {contentName == "Chapters" ? (
@@ -73,6 +75,8 @@ export default function ProfilePage() {
                                 </>
                             ) : <RobookChat />}
                         </Grid>
+                        <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />
+
                     </Grid>
                 </Box>
             </Container>

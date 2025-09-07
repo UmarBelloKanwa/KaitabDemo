@@ -35,6 +35,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                 borderRadius: 2,
                 border: "1px solid",
                 borderColor: "divider",
+                width: "100%",
             }}
             onClick={handlePostClick}
         >
@@ -142,7 +143,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                         <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 0.5, sm: 2 } }}>
                             <IconButton
                                 size="small"
-                                onClick={(e) => {e.stopPropagation(); setShowExpandedPost((prev) => !prev);}}
+                                onClick={(e) => { e.stopPropagation(); setShowExpandedPost((prev) => !prev); }}
                                 sx={{
                                     color: "#6b7280",
                                     display: "flex",

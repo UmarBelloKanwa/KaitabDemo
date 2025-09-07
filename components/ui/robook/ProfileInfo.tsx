@@ -173,12 +173,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         <Card
             sx={{
                 borderRadius: 3,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                // boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                 overflow: "hidden",
                 position: "relative",
                 width: { xs: "100%", sm: "98%" },
-                border: "1px solid",
-                borderColor: "divider",
+                // border: "1px solid",
+                // borderColor: "divider",
+                bgcolor: "background.default",
                 m: "auto",
                 mb: 2,
 
@@ -205,16 +206,15 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     {/* Profile Avatar */}
                     <Avatar
                         src={profileImage}
-                        sx={{
+                        sx={(theme) => ({
                             width: 107,
                             height: 100,
-                            border: "2px solid black",
-                            borderColor: "background.default",
+                            border: `2px solid ${theme.palette.background.paper}`,
                             borderRadius: 2,
                             mt: -5,
                             mr: 2,
 
-                        }}
+                        })}
                     />
 
                     {/* Following Button */}
@@ -293,7 +293,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     sx={{
                         p: 0,
                         m: { xs: "auto", sm: 0 },
-                        mt: 1,
+                        mt: 2,
                         width: "fit-content",
                         maxWidth: "100%",
                     }}
@@ -314,7 +314,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                                     bgcolor: "action.hover",
                                 },
 
-                                gap: 0.5,
+                                gap: { xs: 0, sm: 0.5 },
                                 // ✅ Active state
                                 ...(contentName === item.title && {
                                     bgcolor: theme.palette.primary.main, // same as contained

@@ -50,7 +50,7 @@ const ChatInterface = () => {
                 backgroundColor: theme.palette.background.default,
                 color: theme.palette.text.primary,
                 p: 2,
-                px: 1,
+                px: 0,
                 margin: "auto",
                 mt: 0,
                 width: "100%",

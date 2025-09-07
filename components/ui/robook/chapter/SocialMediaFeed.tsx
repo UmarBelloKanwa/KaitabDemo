@@ -14,7 +14,7 @@ import bookData from "@/data/bookData.json";
 
 export default function SocialMediaFeed() {
     return (
-        <Box sx={{ width: "98%", m: "auto" }}>
+        <Box sx={{ width: "100%", m: "auto" }}>
             <Paper
                 elevation={0}
                 sx={{
@@ -25,7 +25,7 @@ export default function SocialMediaFeed() {
                     //bgcolor: "background.default"
                 }}
             >
-                <Box sx={{ maxWidth: 600, mx: "auto", p: 2, pt: 1 }}>
+                <Box sx={{ maxWidth: "100%", mx: "auto", p: 2, pt: 1 }}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
 
                         <ChaptersIcon sx={{ width: 32, height: 32, }} />

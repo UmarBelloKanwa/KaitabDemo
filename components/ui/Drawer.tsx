@@ -14,23 +14,22 @@ import {
     ListItemIcon,
     ListItemText,
     ListItemAvatar,
-    useTheme,
 } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 import { Add, ChevronLeft, Menu } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/PersonOutlineSharp";
 import HomeIcon from "@mui/icons-material/HomeOutlined";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { useRouter } from "next/navigation";
 
+
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
 
 export default function Sidebar({
-    isMobile,
     sidebarOpen,
     handleDrawerToggle,
 }: {
-    isMobile: boolean;
     sidebarOpen: boolean;
     handleDrawerToggle: () => void;
 }) {
@@ -49,47 +48,38 @@ export default function Sidebar({
         { name: "James Clear", avatar: "/james-clear.jpg" },
     ];
 
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
     if (!sidebarOpen) {
-        if (isMobile) {
-            return (
-                <Box sx={{ px: 2.5, pt: 1.5, display: "flex", alignItems: "center", gap: 2, justifyContent: "space-arround" }}>
-                    <IconButton
-                        onClick={handleDrawerToggle}
-                        sx={{
-                            borderRadius: 1,
-                            bgcolor: theme.palette.background.paper,
-                            color: theme.palette.text.primary,
-                        }}
-                    >
-                        <Menu />
-                    </IconButton>
-                    <Typography variant="h6" color="text.primary" sx={{ m: 0 }} onClick={() => router.push('/')}>
-                        Kaitab
-                    </Typography>
-                </Box>
-            )
-        }
-
         return (
-            <Box
-                sx={{
-                    width: collapsedWidth,
-                    height: { xs: "fit-content", sm: "100vh" },
-                    bgcolor: theme.palette.background.default,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "start",
-                    py: 2.5,
-                }}
-            >
+            <Box sx={{
+                pl: { sm: 2, xs: 2.5 },
+                pr: { sm: "unset", xs: 2.5, },
+                pt: 1.5,
+                pb: { xs: 1.5, sm: "unset" },
+                height: "fit-content",
+                display: "flex",
+                alignItems: "center",
+                gap: { xs: 2, sm: 0 },
+                justifyContent: "space-arround"
+            }}>
                 <IconButton
                     onClick={handleDrawerToggle}
-                    sx={{ color: theme.palette.text.primary }}
+                    sx={{
+                        borderRadius: 2,
+                        bgcolor: theme.palette.background.paper,
+                        color: theme.palette.text.primary,
+                    }}
                 >
                     <Menu />
                 </IconButton>
+                <Typography
+                    variant="h6"
+                    color="text.primary"
+                    sx={{ m: 0, cursor: "pointer", display: { xs: "block", sm: "none" }, }}
+                    onClick={() => router.push('/')}>
+                    Kaitab
+                </Typography>
             </Box>
         );
     }

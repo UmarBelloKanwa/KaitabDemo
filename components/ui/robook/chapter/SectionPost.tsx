@@ -215,7 +215,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
                                     }),
                                 })}
                             >
-                                {<Icon sx={{ fontSize: { xs: 21, sm: 16 }, color: "grey.300" }} />}
+                                {<Icon sx={{ fontSize: { xs: 17.7, sm: 16 }, color: "grey.300" }} />}
                                 <Typography variant="caption" color="text.secondary" sx={{ ml: { sm: 0.5, xs: 0 }, mt: { xs: 0.5, sm: 0 }, display: { xs: "none", sm: "block", }, }}>
                                     {item.title}
                                 </Typography>
