@@ -172,14 +172,13 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     return (
         <Card
             sx={{
-                borderRadius: 3,
-                // boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                borderRadius: 1.5,
+                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                 overflow: "hidden",
                 position: "relative",
                 width: { xs: "100%", sm: "98%" },
-                // border: "1px solid",
-                // borderColor: "divider",
-                bgcolor: "background.default",
+                border: "1px solid",
+                borderColor: "divider",
                 m: "auto",
                 mb: 2,
 
@@ -202,7 +201,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 width: "100%"
             }}>
                 {/* Profile Section */}
-                <Box sx={{ display: "flex", alignItems: "flex-start", mb: 2 }}>
+                <Box sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
                     {/* Profile Avatar */}
                     <Avatar
                         src={profileImage}
@@ -211,7 +210,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                             height: 100,
                             border: `2px solid ${theme.palette.background.paper}`,
                             borderRadius: 2,
-                            mt: -5,
+                            mt: -6.3,
                             mr: 2,
 
                         })}
@@ -280,8 +279,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     sx={{
                         borderColor: "gray",
                         py: 1.7,
-                        mt: 0.5,
-                        mb: 1
+                        mt: 1.5,
+                        mb: 0.7
                     }}
                 />
 
@@ -289,11 +288,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     direction="row"
                     justifyContent="center"
                     alignItems="center"
-                    spacing={{ xs: 2.5, sm: 0.5 }}
+                    spacing={{ xs: 2.5, sm: 1 }}
                     sx={{
                         p: 0,
                         m: { xs: "auto", sm: 0 },
-                        mt: 2,
+                        mt: 1,
+                        mb: 0,
                         width: "fit-content",
                         maxWidth: "100%",
                     }}

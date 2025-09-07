@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AuthorProfileLayout({ children }: { children: React.ReactNode }) {
+export default function AuthorsListLayout({ children }: { children: React.ReactNode }) {
     return (
         <>
             {children}

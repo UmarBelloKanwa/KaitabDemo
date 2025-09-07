@@ -20,7 +20,6 @@ export default function SocialMediaFeed() {
                 sx={{
                     top: 0,
                     zIndex: 20,
-                    borderRadius: 2,
                     m: "auto",
                     //bgcolor: "background.default"
                 }}

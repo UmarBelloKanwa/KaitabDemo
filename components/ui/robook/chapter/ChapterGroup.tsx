@@ -27,6 +27,7 @@ export default function ChapterGroup({ chapter }: { chapter: any }) {
                 elevation={1}
                 sx={{
                     mb: 1,
+                    borderRadius: 2,
                     bgcolor: "background.paper",
                 }}
             >

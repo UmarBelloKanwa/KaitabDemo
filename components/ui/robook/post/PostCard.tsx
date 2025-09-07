@@ -47,7 +47,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
             sx={{
                 display: "flex",
                 m: "auto",
-                borderRadius: 2,
+                borderRadius: 0,
                 bgcolor: "transparent",
                 mt: 0,
                 p: 0,
@@ -74,7 +74,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                 height: 20,
                                 fontSize: "0.6rem",
                                 fontWeight: 600,
-                                borderRadius: 0.5
+                                borderRadius: 0.3
                             })}
                         >
                             {user.name.charAt(0)}
