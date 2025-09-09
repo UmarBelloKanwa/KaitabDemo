@@ -181,7 +181,7 @@ export default function PublishBook() {
                         Topic
                     </Typography>
                     <AddBookTopic
-                        onChange={(selectedTopics: SelectedTopic[]) => {
+                        onChange={(selectedTopics: any) => {
                             setFormData((prev) => ({
                                 ...prev,
                                 topics: selectedTopics
@@ -260,8 +260,18 @@ export default function PublishBook() {
     );
 }
 
+interface FormData {
+    name: string
+    author: string
+    slug: string
+    description: string
+    topics: SelectedTopic[]
+    coverPhoto: File | null
+    mainPhoto: File | null
+    pdfFile: File | null
+}
 function usePublishPage() {
-    const [formData, setFormData] = React.useState({
+    const [formData, setFormData] = React.useState<FormData>({
         name: "",
         author: "",
         slug: "",
@@ -300,7 +310,7 @@ function usePublishPage() {
         setFormData((prev) => ({ ...prev, [type]: file }));
     };
 
-    const setPdf = (file: File) => {
+    const setPdf = (file: any) => {
         setFormData((prev) => ({ ...prev, pdfFile: file }));
     };
 
