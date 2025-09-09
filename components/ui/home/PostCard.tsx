@@ -1,11 +1,13 @@
 import React from "react";
-import { Card, CardContent, Avatar, IconButton, Typography, Box } from "@mui/material"
+import { Card, CardMedia, CardContent, Avatar, IconButton, Typography, Box } from "@mui/material"
 import Button from "@mui/material/Button"
 import { Favorite, ChatBubbleOutline, Repeat, Share, MoreHoriz, BookmarkBorder, BarChart } from "@mui/icons-material"
 import type { PostCardProps } from "@/types";
 import { ExpandedPost } from "@/components/ui/robook/post/ExpandedPost";
+import { useRouter } from "next/navigation";
 
-export default function PostCard({ user, timestamp, content, image, metrics, usersComments }: PostCardProps) {
+export default function PostCard({ user, timestamp, content, image, metrics, usersComments, video }: PostCardProps) {
+    const router = useRouter();
     const [expanded, setExpanded] = React.useState(false)
     const [showExpandedPost, setShowExpandedPost] = React.useState(false)
 
@@ -42,7 +44,8 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
             <CardContent sx={{ p: 2, pt: 0, }}>
                 {/* Header */}
                 <Box sx={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", mb: 1.5 }}>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 2 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 2 }} onClick={() => router.push("/r/atomic-habits")}
+                    >
                         <Avatar src={user.avatar || "/placeholder.svg"} alt={user.name} sx={{ width: 50, height: 50, borderRadius: 0.5 }}>
                             {user.name.charAt(0)}
                         </Avatar>
@@ -77,6 +80,10 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                         <MoreHoriz />
                     </IconButton>
                 </Box>
+
+                {video && (
+                    <Card sx={{ mb: 1 }}> <CardMedia component="video" controls src={video} sx={{ borderRadius: 2 }} /> </Card>
+                )}
 
                 {/* Content */}
                 <Box sx={{ mb: 1.5 }}>
@@ -122,7 +129,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                             component="img"
                             src={image || "/placeholder.svg"}
                             alt="Post image"
-                            sx={{ width: "100%", height: 250, objectFit: "cover" }}
+                            sx={{ width: "100%", height: 311 }}
                         />
                     </Box>
                 )}

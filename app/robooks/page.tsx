@@ -1,12 +1,5 @@
-"use client";
+import { Page } from "../authors/page";
 
-import React from "react";
-import Container from "@mui/material/Container";
-
-export default function Robooks() {
-    return (
-       <Container maxWidth="sm">
-        
-       </Container>
-    );
+export default function RobooksList() {
+    return <Page page="robooks" />
 }

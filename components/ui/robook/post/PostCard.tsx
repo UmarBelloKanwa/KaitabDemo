@@ -2,7 +2,11 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Paper, Card, CardContent, Avatar, IconButton, Typography, Box, Button, Dialog, DialogContent } from "@mui/material"
+import {
+    Paper, Card,
+    CardMedia,
+    CardContent, Avatar, IconButton, Typography, Box, Button, Dialog, DialogContent
+} from "@mui/material"
 import {
     Favorite,
     ChatBubbleOutline,
@@ -16,7 +20,7 @@ import {
 import { ExpandedPost } from "@/components/ui/robook/post/ExpandedPost";
 import type { PostCardProps } from "@/types";
 
-export default function PostCard({ user, timestamp, content, image, metrics, usersComments }: PostCardProps) {
+export default function PostCard({ user, timestamp, content, image, metrics, usersComments, video }: PostCardProps) {
     const [expanded, setExpanded] = useState(false)
     const [showExpandedPost, setShowExpandedPost] = useState(false);
 
@@ -111,6 +115,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                         }}
                         elevation={0}
                     >
+
                         {/* Content */}
                         <Box sx={{ mb: 1.5 }}>
                             <Typography
@@ -147,6 +152,11 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                 </Button>
                             )}
                         </Box>
+
+                        {video && (
+                            <Card sx={{ mb: 1 }}> <CardMedia component="video" controls src={video} sx={{ borderRadius: 2 }} /> </Card>
+                        )}
+
                         {/* Image */}
                         {image && (
                             <Box sx={{ mb: 1.5, borderRadius: 0, overflow: "hidden", }}>
@@ -154,7 +164,8 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                     component="img"
                                     src={image || "/placeholder.svg"}
                                     alt="Post image"
-                                    sx={{ width: "100%", height: 256, objectFit: "cover" }}
+                                    sx={{ width: "100%", height: 311, }}
+
                                 />
                             </Box>
                         )}

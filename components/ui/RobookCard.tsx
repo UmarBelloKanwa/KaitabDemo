@@ -10,8 +10,12 @@ import {
     IconButton,
 } from "@mui/material";
 import { Chat } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
+
 
 export default function RobookCard({ robook, where }: { robook: any, where: string }) {
+    const router = useRouter();
+
     return (
         <Card
             key={robook.id}
@@ -30,6 +34,7 @@ export default function RobookCard({ robook, where }: { robook: any, where: stri
                 p: 0.5,
                 background: theme.custom.gradient.primary,
             })}
+            onClick={() => router.push("/r/atomic-habits")}
             elevation={0}
         >
             <Avatar

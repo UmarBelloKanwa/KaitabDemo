@@ -24,6 +24,7 @@ export interface PostCardProps {
         verified?: boolean
     }
     timestamp: string
+    video?: string
     content: string
     image?: string
     metrics: {

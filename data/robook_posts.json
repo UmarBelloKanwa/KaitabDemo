@@ -23,6 +23,7 @@
             "avatar": "/atomic-habits.jpg",
             "verified": true
         },
+        "video": "/atomic.mp4",
         "timestamp": "12h",
         "content": "Good morning, achievers! 🌅\n\nHow you start your day shapes your habits and your life. Silence. Affirmations. Visualization. Exercise. Reading. Journaling.\n\nWhich one habit will you commit to today?",
         "metrics": {
@@ -41,6 +42,7 @@
             "verified": true
         },
         "timestamp": "6h",
+        "image": "/debater.png",
         "content": "Stop relying on motivation. Build small habits that compound over time.\n\nDecide what kind of person you want to become, and let your habits vote for it every day.\n\nWhat’s one tiny habit you can start today?",
         "metrics": {
             "replies": 67,

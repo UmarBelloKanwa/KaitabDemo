@@ -6,9 +6,12 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle"
 import Button from "@mui/material/Button";
+import { useRouter } from "next/navigation";
+
 
 
 export default function RobooksLists() {
+    const router = useRouter();
 
     const whoToFollow = [
         {
@@ -44,7 +47,8 @@ export default function RobooksLists() {
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1, }}>
                 {whoToFollow.map((user, index) => (
-                    <Card key={index} elevation={0} sx={{ p: 1.5, borderRadius: 2, bgcolor: "background.paper", boxShadow: 1, }}>
+                    <Card key={index} elevation={0} sx={{ p: 1.5, borderRadius: 2, bgcolor: "background.paper", boxShadow: 1, }} onClick={() => router.push("/jamesclear")}
+                    >
                         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 0 }}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
                                 <Avatar

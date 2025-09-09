@@ -160,7 +160,7 @@ export default function Sidebar({
                     </Typography>
                     <List>
                         {recentChats.map((chat, index) => (
-                            <ListItem key={index} disablePadding>
+                            <ListItem key={index} disablePadding onClick={() => router.push(index == 0 ? "/r/atomic-habits" : "/jamesclear")}>
                                 <ListItemButton
                                     sx={{
                                         borderRadius: 2,
