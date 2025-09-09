@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-    Typography,
-    Container,
-    Box,
-    Alert,
-    Button,
-    IconButton,
-    TextField,
-} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Alert from "@mui/material/Alert";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import TextField from "@mui/material/TextField";
+
 import CameraAlt from "@mui/icons-material/CameraAlt";
 import FileUpload from "@/components/ui/publish/FileUpload";
 import AddBookTopic from "@/components/ui/publish/AddBookTopic";

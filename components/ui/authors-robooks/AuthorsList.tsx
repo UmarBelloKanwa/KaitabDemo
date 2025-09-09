@@ -1,24 +1,21 @@
 "use client"
 
 import React from "react"
-import {
-    Box,
-    Typography,
-    Button,
-    Avatar,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    IconButton,
-    Divider,
-    Chip,
-    Rating,
-} from "@mui/material"
-import {
-    MoreVert as MoreVertIcon,
-    Verified as VerifiedIcon,
-    MenuBook as BookIcon,
-} from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import IconButton from "@mui/material/IconButton";
+import Divider from "@mui/material/Divider";
+import Chip from "@mui/material/Chip";
+import Rating from "@mui/material/Rating";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import BookIcon from "@mui/icons-material/MenuBook";
+
 import { useRouter } from "next/navigation";
 
 

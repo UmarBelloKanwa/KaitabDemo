@@ -2,21 +2,25 @@
 
 import type React from "react"
 import { useState } from "react"
-import {
-    Paper, Card,
-    CardMedia,
-    CardContent, Avatar, IconButton, Typography, Box, Button, Dialog, DialogContent
-} from "@mui/material"
-import {
-    Favorite,
-    ChatBubbleOutline,
-    Repeat,
-    Share,
-    MoreHoriz,
-    BookmarkBorder,
-    BarChart,
-    CheckCircle,
-} from "@mui/icons-material"
+import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import ShareIcon from "@mui/icons-material/Share";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
 import { ExpandedPost } from "@/components/ui/robook/post/ExpandedPost";
 import type { PostCardProps } from "@/types";
 
@@ -154,7 +158,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                         </Box>
 
                         {video && (
-                            <Card sx={{ mb: 1 }}> <CardMedia component="video" controls src={video} sx={{ borderRadius: 2 }} /> </Card>
+                            <Box component="video" controls src={video} sx={{ width: "100%", m: "auto", borderRadius: 2, mb: 1 }} />
                         )}
 
                         {/* Image */}

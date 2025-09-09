@@ -4,8 +4,13 @@ import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 import MuiAccordionSummary, { AccordionSummaryProps, accordionSummaryClasses } from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import { Typography, Box, List, ListItem, IconButton, Avatar } from '@mui/material';
-import { MoreHoriz, } from "@mui/icons-material";
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 
 export const bookData = {
@@ -134,7 +139,7 @@ export default function AtomicHabitsAccordion() {
                         "&:hover": { backgroundColor: "#374151" },
                     }}
                 >
-                    <MoreHoriz />
+                    <MoreHorizIcon />
                 </IconButton>
             </Box>
             {/* Accordion 1: Book Description */}

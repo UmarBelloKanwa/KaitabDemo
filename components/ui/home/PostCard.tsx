@@ -1,7 +1,19 @@
 import React from "react";
-import { Card, CardMedia, CardContent, Avatar, IconButton, Typography, Box } from "@mui/material"
-import Button from "@mui/material/Button"
-import { Favorite, ChatBubbleOutline, Repeat, Share, MoreHoriz, BookmarkBorder, BarChart } from "@mui/icons-material"
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import ShareIcon from "@mui/icons-material/Share";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BarChartIcon from "@mui/icons-material/BarChart";
+
 import type { PostCardProps } from "@/types";
 import { ExpandedPost } from "@/components/ui/robook/post/ExpandedPost";
 import { useRouter } from "next/navigation";
@@ -77,12 +89,12 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                             "&:hover": { backgroundColor: "#374151" },
                         }}
                     >
-                        <MoreHoriz />
+                        <MoreHorizIcon />
                     </IconButton>
                 </Box>
 
                 {video && (
-                    <Card sx={{ mb: 1 }}> <CardMedia component="video" controls src={video} sx={{ borderRadius: 2 }} /> </Card>
+                    <Box component="video" controls src={video} sx={{ width: "100%", m: "auto", borderRadius: 2, mb: 1 }} />
                 )}
 
                 {/* Content */}
@@ -162,7 +174,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                     },
                                 }}
                             >
-                                <ChatBubbleOutline sx={{ fontSize: 16 }} />
+                                <ChatBubbleOutlineIcon sx={{ fontSize: 16 }} />
                                 <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                     {formatNumber(metrics.replies)}
                                 </Typography>
@@ -182,7 +194,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                     },
                                 }}
                             >
-                                <Repeat sx={{ fontSize: 16 }} />
+                                <RepeatIcon sx={{ fontSize: 16 }} />
                                 <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                     {formatNumber(metrics.retweets)}
                                 </Typography>
@@ -202,7 +214,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                     },
                                 }}
                             >
-                                <Favorite sx={{ fontSize: 16 }} />
+                                <FavoriteIcon sx={{ fontSize: 16 }} />
                                 <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                     {formatNumber(metrics.likes)}
                                 </Typography>
@@ -224,7 +236,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                         },
                                     }}
                                 >
-                                    <BarChart sx={{ fontSize: 16 }} />
+                                    <BarChartIcon sx={{ fontSize: 16 }} />
                                     <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                         {formatNumber(metrics.views)}
                                     </Typography>
@@ -243,7 +255,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                     },
                                 }}
                             >
-                                <BookmarkBorder sx={{ fontSize: 16 }} />
+                                <BookmarkBorderIcon sx={{ fontSize: 16 }} />
                             </IconButton>
 
                             <IconButton
@@ -256,7 +268,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                     },
                                 }}
                             >
-                                <Share sx={{ fontSize: 16 }} />
+                                <ShareIcon sx={{ fontSize: 16 }} />
                             </IconButton>
                         </Box>
                     </Box>

@@ -1,24 +1,51 @@
-import React, { useState, useMemo } from "react";
-import {
-    Card, CardHeader, Avatar, IconButton, Typography, CardContent, CardMedia,
-    Box, Button, Divider, Stack, ButtonBase, Dialog, DialogTitle,
-    DialogContent, DialogActions, Select, MenuItem,
-} from "@mui/material";
-import { MoreHoriz, Favorite, FavoriteBorder, ChatBubbleOutline, Share, Bookmark, BookmarkBorder, ExpandMore, ExpandLess, Language as LanguageIcon, OndemandVideo as OndemandVideoIcon, TipsAndUpdates as TipsAndUpdatesIcon, WorkOutlineOutlined as WorkOutlineOutlinedIcon, MusicNote as MusicNoteIcon } from "@mui/icons-material";
+import React from "react";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Stack from "@mui/material/Stack";
+import ButtonBase from "@mui/material/ButtonBase";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import ShareIcon from "@mui/icons-material/Share";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import LanguageIcon from "@mui/icons-material/Language";
+import OndemandVideoIcon from "@mui/icons-material/OndemandVideo";
+import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
+
 import { ExpandedPost } from "@ui/robook/post/ExpandedPost";
 import usersComments from "@/data/comments.json";
 
 export default function SectionPost({ section, chapter, sectionIndex }: { section: any; chapter: any; sectionIndex: number; }) {
-    const [liked, setLiked] = useState(false);
-    const [bookmarked, setBookmarked] = useState(false);
-    const [expanded, setExpanded] = useState(false);
-    const [action, setAction] = useState("null");
+    const [liked, setLiked] = React.useState(false);
+    const [bookmarked, setBookmarked] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(false);
+    const [action, setAction] = React.useState("null");
 
-    const [translateDialogOpen, setTranslateDialogOpen] = useState(false);
-    const [adaptDialogOpen, setAdaptDialogOpen] = useState(false);
+    const [translateDialogOpen, setTranslateDialogOpen] = React.useState(false);
+    const [adaptDialogOpen, setAdaptDialogOpen] = React.useState(false);
 
-    const [language, setLanguage] = useState("en"); // default English
-    const [adaptLevel, setAdaptLevel] = useState("original"); // default original
+    const [language, setLanguage] = React.useState("en"); // default English
+    const [adaptLevel, setAdaptLevel] = React.useState("original"); // default original
 
     const textElements = section.elements.filter((element: any) => element.type === "text");
     const headingElement = section.elements.find((element: any) => element.type === "head");
@@ -33,7 +60,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
     };
 
     // Memoize main content based on language and adaptLevel
-    const { selectedHeading, selectedContent } = useMemo(() => {
+    const { selectedHeading, selectedContent } = React.useMemo(() => {
         const headingText = getTranslatedValue(headingElement, language, adaptLevel);
         const contentText = textElements.map((el: any) => getTranslatedValue(el, language, adaptLevel)).join("\n\n");
         return {
@@ -44,7 +71,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
 
     // Memoize application content based on language and adaptLevel
     const applicationData = section?.application;
-    const { whyItMatters, howToUse, reflection } = useMemo(() => {
+    const { whyItMatters, howToUse, reflection } = React.useMemo(() => {
         const getTranslatedApplicationValue = (data: any, lang: string, level: string) => {
             const translation = data?.[lang];
             return translation?.[level] || translation?.['intermediate'] || "";
@@ -61,9 +88,9 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
     const displayContent = shouldTruncate && !expanded ? selectedContent.substring(0, 400) + "..." : selectedContent;
 
     // FIX: Generate random numbers using useState and useEffect
-    const [hoursAgo, setHoursAgo] = useState(0);
-    const [randomLikes, setRandomLikes] = useState(0);
-    const [randomComments, setRandomComments] = useState(0);
+    const [hoursAgo, setHoursAgo] = React.useState(0);
+    const [randomLikes, setRandomLikes] = React.useState(0);
+    const [randomComments, setRandomComments] = React.useState(0);
 
     React.useLayoutEffect(() => {
         setRandomLikes(Math.floor(Math.random() * 200) + 50);
@@ -96,7 +123,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
         { title: "Read Aloud", icon: MusicNoteIcon, onClick: () => handleClick("Read") },
     ];
 
-    const [showExpandedPost, setShowExpandedPost] = useState(false);
+    const [showExpandedPost, setShowExpandedPost] = React.useState(false);
     const handlePostClick = (e: React.MouseEvent) => {
         if ((e.target as HTMLElement).closest("button, a")) {
             return
@@ -109,8 +136,8 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
     return (
         <Card sx={{ maxWidth: "100%", mx: "auto", mb: 1, "&:hover": { boxShadow: 3 } }} elevation={0}>
             <CardHeader
-                avatar={<Avatar src="/atomic-habits.jpg" sx={{ bgcolor: "primary.light", borderRadius: 2 }}>AH</Avatar>}
-                action={<IconButton><MoreHoriz /></IconButton>}
+                avatar={<Avatar src="/atomic-habits.jpg" sx={{ bgcolor: "primary.light", borderRadius: 1 }}>AH</Avatar>}
+                action={<IconButton><MoreHorizIcon /></IconButton>}
                 title={<Typography variant="subtitle2" fontWeight="bold">Atomic Habits</Typography>}
                 subheader={
                     <Typography variant="caption" color="text.secondary">
@@ -122,7 +149,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
 
             <CardContent sx={{ pt: 0 }}>
                 {action === "Watch" && (
-                    <Card sx={{ mb: 1 }}> <CardMedia component="video" controls src="/atomic.mp4" sx={{ borderRadius: 2 }} /> </Card>
+                    <Box component="video" controls src="/atomic.mp4" sx={{ width: "100%", m: "auto", borderRadius: 2, mb: 1 }} />
                 )}
 
                 {selectedHeading && (
@@ -144,7 +171,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
                         variant="text"
                         size="small"
                         onClick={() => setExpanded(!expanded)}
-                        endIcon={expanded ? <ExpandLess /> : <ExpandMore />}
+                        endIcon={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                         sx={{ p: 0, textTransform: "none", fontWeight: 500 }}
                     >
                         {expanded ? "Show less" : "Read more"}
@@ -255,7 +282,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
                             <Button
                                 variant="text"
                                 size="small"
-                                startIcon={liked ? <Favorite /> : <FavoriteBorder />}
+                                startIcon={liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                                 onClick={() => setLiked(!liked)}
                                 sx={{
                                     color: liked ? "error.main" : "text.secondary",
@@ -270,7 +297,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
                                 variant="text"
                                 size="small"
                                 onClick={() => { setShowExpandedPost((prev) => !prev) }}
-                                startIcon={<ChatBubbleOutline />}
+                                startIcon={<ChatBubbleOutlineIcon />}
                                 sx={{
                                     color: "text.secondary",
                                     textTransform: "none",
@@ -283,7 +310,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
                             <Button
                                 variant="text"
                                 size="small"
-                                startIcon={<Share />}
+                                startIcon={<ShareIcon />}
                                 sx={{
                                     color: "text.secondary",
                                     textTransform: "none",
@@ -301,7 +328,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
                                 "&:hover": { bgcolor: "warning.light", color: "warning.main" },
                             }}
                         >
-                            {bookmarked ? <Bookmark /> : <BookmarkBorder />}
+                            {bookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
                         </IconButton>
                     </Box>
                 )}

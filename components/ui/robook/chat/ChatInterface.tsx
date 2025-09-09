@@ -1,9 +1,11 @@
-import { Box, Paper, Typography, Avatar, IconButton } from "@mui/material";
-import {
-    Refresh as RefreshIcon,
-    ThumbUp as ThumbUpIcon,
-    ThumbDown as ThumbDownIcon,
-} from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 
 const messages = [
     {

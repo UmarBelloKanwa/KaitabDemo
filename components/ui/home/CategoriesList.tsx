@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import IconButton from "@mui/material/IconButton";
@@ -24,10 +24,10 @@ const categories = [
 ];
 
 export default function CategoriesList() {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const [showLeft, setShowLeft] = useState(false);
-    const [showRight, setShowRight] = useState(false);
-    const [hover, setHover] = useState(false);
+    const scrollRef = React.useRef<HTMLDivElement>(null);
+    const [showLeft, setShowLeft] =  React.useState(false);
+    const [showRight, setShowRight] =  React.useState(false);
+    const [hover, setHover] =  React.useState(false);
 
     const checkScroll = () => {
         if (!scrollRef.current) return;
@@ -36,7 +36,7 @@ export default function CategoriesList() {
         setShowRight(scrollLeft + clientWidth < scrollWidth);
     };
 
-    useEffect(() => {
+     React.useEffect(() => {
         checkScroll();
         const handleResize = () => checkScroll();
         window.addEventListener("resize", handleResize);

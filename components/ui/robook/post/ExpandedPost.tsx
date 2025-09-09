@@ -1,16 +1,21 @@
 "use client"
 
-import { useState } from "react"
-import { Box, Avatar, IconButton, Typography, TextField, Button, Divider } from "@mui/material"
-import {
-    Favorite,
-    ChatBubbleOutline,
-    Repeat,
-    Share,
-    CheckCircle,
-    Image as ImageIcon,
-    EmojiEmotions,
-} from "@mui/icons-material"
+import React from "react"
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import ShareIcon from "@mui/icons-material/Share";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ImageIcon from "@mui/icons-material/Image";
+import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
+
 import type { PostCardProps, Comment } from "@/types";
 
 interface ExpandedPostProps extends PostCardProps {
@@ -19,8 +24,8 @@ interface ExpandedPostProps extends PostCardProps {
 
 
 export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments }: ExpandedPostProps) {
-    const [newComment, setNewComment] = useState("");
-    const [comments, setComments] = useState<Comment[]>(usersComments);
+    const [newComment, setNewComment] = React.useState("");
+    const [comments, setComments] = React.useState<Comment[]>(usersComments);
 
     const formatNumber = (num: number) => {
         if (num >= 1000) {
@@ -93,7 +98,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                             "&:hover": { color: "#1DA1F2", bgcolor: "rgba(29, 161, 242, 0.1)" },
                         }}
                     >
-                        <ChatBubbleOutline />
+                        <ChatBubbleOutlineIcon />
                     </IconButton>
                     <IconButton
                         sx={{
@@ -101,7 +106,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                             "&:hover": { color: "#10b981", bgcolor: "rgba(16, 185, 129, 0.1)" },
                         }}
                     >
-                        <Repeat />
+                        <RepeatIcon />
                     </IconButton>
                     <IconButton
                         sx={{
@@ -109,7 +114,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                             "&:hover": { color: "#ef4444", bgcolor: "rgba(239, 68, 68, 0.1)" },
                         }}
                     >
-                        <Favorite />
+                        <FavoriteIcon />
                     </IconButton>
                     <IconButton
                         sx={{
@@ -117,7 +122,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                             "&:hover": { color: "#1DA1F2", bgcolor: "rgba(29, 161, 242, 0.1)" },
                         }}
                     >
-                        <Share />
+                        <ShareIcon />
                     </IconButton>
                 </Box>
             </Box>
@@ -170,7 +175,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                                         "&:hover": { bgcolor: "rgba(29, 161, 242, 0.1)" },
                                     }}
                                 >
-                                    <EmojiEmotions />
+                                    <EmojiEmotionsIcon />
                                 </IconButton>
                             </Box>
                             <Button
@@ -215,7 +220,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                                         <Typography variant="body1" sx={{ fontWeight: "bold", color: "white" }}>
                                             {comment.user.name}
                                         </Typography>
-                                        {comment.user.verified && <CheckCircle sx={{ fontSize: 16, color: "#1DA1F2" }} />}
+                                        {comment.user.verified && <CheckCircleIcon sx={{ fontSize: 16, color: "#1DA1F2" }} />}
                                         <Typography variant="body2" sx={{ color: "#6b7280" }}>
                                             @{comment.user.username}
                                         </Typography>
@@ -245,7 +250,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                                                 },
                                             }}
                                         >
-                                            <ChatBubbleOutline sx={{ fontSize: 16 }} />
+                                            <ChatBubbleOutlineIcon sx={{ fontSize: 16 }} />
                                             <Typography variant="body2">{comment.metrics.replies}</Typography>
                                         </IconButton>
                                         <IconButton
@@ -261,7 +266,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                                                 },
                                             }}
                                         >
-                                            <Favorite sx={{ fontSize: 16 }} />
+                                            <FavoriteIcon sx={{ fontSize: 16 }} />
                                             <Typography variant="body2">{comment.metrics.likes}</Typography>
                                         </IconButton>
                                         <IconButton
@@ -274,7 +279,7 @@ export function ExpandedPost({ timestamp, image, metrics, onClose, usersComments
                                                 },
                                             }}
                                         >
-                                            <Share sx={{ fontSize: 16 }} />
+                                            <ShareIcon sx={{ fontSize: 16 }} />
                                         </IconButton>
                                     </Box>
                                 </Box>

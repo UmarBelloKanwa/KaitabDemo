@@ -1,14 +1,10 @@
 "use client"
 
-import React, { useState, useMemo } from "react"
-import {
-    Typography,
-    Box,
-    Paper,
-} from "@mui/material"
-import {
-    ImportContacts as ChaptersIcon,
-} from "@mui/icons-material";
+import React from "react"
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import ChaptersIcon from "@mui/icons-material/ImportContacts";
 import ChapterGroup from "./ChapterGroup";
 import bookData from "@/data/bookData.json";
 

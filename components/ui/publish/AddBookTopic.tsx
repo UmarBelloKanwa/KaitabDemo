@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState, useEffect, SyntheticEvent } from 'react';
-import {
-    Autocomplete,
-    Chip,
-    TextField,
-    Box,
-    CircularProgress,
-} from '@mui/material';
+import React from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import ReplayIcon from '@mui/icons-material/Replay';
 import IconButton from '@mui/material/IconButton';
 
@@ -31,11 +29,11 @@ interface SelectedTopic {
 }
 
 const AddBookTopic: React.FC<AddBookTopicProps> = ({ onChange }) => {
-    const [inputValue, setInputValue] = useState('');
-    const [selectedTopics, setSelectedTopics] = useState<SelectedTopic[]>([]);
-    const [subjectOptions, setSubjectOptions] = useState<GroupedTopic[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [inputValue, setInputValue] = React.useState('');
+    const [selectedTopics, setSelectedTopics] = React.useState<SelectedTopic[]>([]);
+    const [subjectOptions, setSubjectOptions] = React.useState<GroupedTopic[]>([]);
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [error, setError] = React.useState<string | null>(null);
 
     const fetchTopics = async () => {
         setLoading(true);
@@ -63,11 +61,11 @@ const AddBookTopic: React.FC<AddBookTopicProps> = ({ onChange }) => {
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         fetchTopics();
     }, []);
 
-    const handleChange = (_event: SyntheticEvent, newValue: (string | GroupedTopic)[]) => {
+    const handleChange = (_event: React.SyntheticEvent, newValue: (string | GroupedTopic)[]) => {
         const updated: SelectedTopic[] = newValue.map((val) => {
             if (typeof val === 'string') {
                 const match = val.match(/^Add\s+"(.+)"$/);

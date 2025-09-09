@@ -1,25 +1,19 @@
 "use client"
 
-import React, { useState, useMemo } from "react"
-import {
-    Button,
-    Typography,
-    Box,
-    Collapse,
-    Paper,
-} from "@mui/material"
-import {
-    ExpandMore,
-    ExpandLess,
-    ChatBubbleOutline as PostsIcon,
-    ImportContacts as ChaptersIcon,
-} from "@mui/icons-material";
+import React from "react"
 import SectionPost from "./SectionPost";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import Paper from "@mui/material/Paper";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 
 
 export default function ChapterGroup({ chapter }: { chapter: any }) {
-    const [collapsed, setCollapsed] = useState(false)
+    const [collapsed, setCollapsed] = React.useState(false)
 
     return (
         <Box sx={{ mb: 0 }}>
@@ -35,7 +29,7 @@ export default function ChapterGroup({ chapter }: { chapter: any }) {
                     fullWidth
                     variant="text"
                     onClick={() => setCollapsed(!collapsed)}
-                    endIcon={collapsed ? <ExpandMore /> : <ExpandLess />}
+                    endIcon={collapsed ? <ExpandMoreIcon /> : <ExpandLessIcon />}
                     sx={{
                         p: 2,
                         justifyContent: "space-between",

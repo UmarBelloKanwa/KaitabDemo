@@ -1,15 +1,14 @@
 "use client";
 
-import {
-    Box,
-    Chip,
-    Card,
-    CardContent,
-    Typography,
-    Avatar,
-    IconButton,
-} from "@mui/material";
-import { Chat } from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import ChatIcon from "@mui/icons-material/Chat";
+
 import { useRouter } from "next/navigation";
 
 
@@ -158,7 +157,7 @@ export default function RobookCard({ robook, where }: { robook: any, where: stri
 
                         {/* Interactions */}
                         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                            <Chat sx={{ fontSize: 14, color: "text.secondary" }} />
+                            <ChatIcon sx={{ fontSize: 14, color: "text.secondary" }} />
                             <Typography variant="caption" color="text.secondary">
                                 {robook.interactions}
                             </Typography>

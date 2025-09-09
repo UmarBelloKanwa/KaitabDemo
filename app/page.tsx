@@ -1,16 +1,13 @@
-"use client";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Avatar from "@mui/material/Avatar";
+import Container from "@mui/material/Container";
+import InputAdornment from "@mui/material/InputAdornment";
+import { useTheme } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
-import {
-  Toolbar,
-  Box,
-  Typography,
-  TextField,
-  Avatar,
-  Container,
-  InputAdornment,
-  useTheme,
-} from "@mui/material";
-import { Search } from "@mui/icons-material";
 import RobooksList from "@/components/ui/home/RobooksList";
 import CategoriesList from "@/components/ui/home/CategoriesList";
 import PostLists from "@/components/ui/home/PostList";
@@ -55,7 +52,7 @@ export default function Dashboard() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <Search color="action" />
+                  <SearchIcon color="action" />
                 </InputAdornment>
               ),
               disableUnderline: true, // Also removes underline for standard variant

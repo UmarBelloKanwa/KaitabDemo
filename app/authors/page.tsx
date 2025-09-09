@@ -78,7 +78,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
         })
 
     return (
-        <Container maxWidth="sm" sx={{ py: 2 }}>
+        <Container maxWidth="sm">
             <Paper elevation={0} sx={{ bgcolor: "background.default" }}>
                 <Box p={0} >
                     <Box display="flex" mb={1} sx={{ gap: 0, borderRadius: 3 }}>
@@ -115,7 +115,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
                             }
                         }}
                     />
-                    <Box display="flex" gap={1} mt={1}>
+                    <Box display="flex" gap={1} mt={1} flexWrap={"wrap"}>
                         <Box display="flex" justifyContent="space-between" alignItems="center">
                             <ToggleButtonGroup
                                 value={activeFilter}
@@ -183,7 +183,11 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
                 }
                 {page == "robooks" && (
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 2, }}>
-                        {robooks.map((robook: any, index) => (<RobookCard robook={robook} where="profile" />))}
+                        {robooks.map((robook: any, index) => (
+                            <React.Fragment key={index}>
+                                <RobookCard robook={robook} where="profile" />
+                            </React.Fragment>
+                        ))}
                     </Box>
                 )}
             </Paper>

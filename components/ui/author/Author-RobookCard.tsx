@@ -1,18 +1,21 @@
 "use client";
 
 import React from 'react';
-import { Card, CardContent, Box, Avatar, Typography, IconButton } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
 import { useTheme } from "@mui/material/styles";
-import {
-    ChatBubbleOutline,
-    Repeat,
-    FavoriteBorder,
-    BookmarkBorder,
-    Share,
-    MoreHoriz,
-    Verified,
-    BarChart,
-} from "@mui/icons-material";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import ShareIcon from "@mui/icons-material/Share";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import BarChartIcon from "@mui/icons-material/BarChart";
 import RobookCard from "@ui/RobookCard";
 
 
@@ -40,14 +43,14 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                             <Typography variant="body1" sx={{ fontWeight: 500, color: theme.palette.text.primary }}>
                                 {author.name}
                             </Typography>
-                            <Verified sx={{ fontSize: 16, color: theme.palette.primary.main }} />
+                            <VerifiedIcon sx={{ fontSize: 16, color: theme.palette.primary.main }} />
                             <Typography variant="body2" sx={{ color: theme.palette.text.secondary, ml: 0.5 }}>
                                 {author.handle} · {author.time}
                             </Typography>
                         </Box>
                     </Box>
                     <IconButton size="small" sx={{ color: theme.palette.text.secondary }}>
-                        <MoreHoriz />
+                        <MoreHorizIcon />
                     </IconButton>
                 </Box>
 
@@ -89,7 +92,7 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <ChatBubbleOutline sx={{ fontSize: 16 }} />
+                            <ChatBubbleOutlineIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             200
@@ -105,7 +108,7 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <Repeat sx={{ fontSize: 16 }} />
+                            <RepeatIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             63
@@ -121,7 +124,7 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <FavoriteBorder sx={{ fontSize: 16 }} />
+                            <FavoriteBorderIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             1.2K
@@ -137,7 +140,7 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <BarChart sx={{ fontSize: 16 }} />
+                            <BarChartIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <Typography variant="body2" sx={{ color: theme.palette.text.secondary, }}>
                             151K
@@ -153,7 +156,7 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <BookmarkBorder sx={{ fontSize: 16 }} />
+                            <BookmarkBorderIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                         <IconButton
                             size="small"
@@ -163,7 +166,7 @@ export default function RobookCardContent({ author, robook }: { author: any, rob
                                 p: 0.5,
                             }}
                         >
-                            <Share sx={{ fontSize: 16 }} />
+                            <ShareIcon sx={{ fontSize: 16 }} />
                         </IconButton>
                     </Box>
                 </Box>

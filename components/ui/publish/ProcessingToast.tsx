@@ -1,7 +1,15 @@
 "use client"
 import React from "react";
-import { Paper, IconButton, LinearProgress, Chip, Avatar, Stack } from "@mui/material"
-import { MenuBook, Close, NotificationsActive, CheckCircle } from "@mui/icons-material"
+import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import LinearProgress from "@mui/material/LinearProgress";
+import Chip from "@mui/material/Chip";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import CloseIcon from "@mui/icons-material/Close";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -98,7 +106,7 @@ export default function ProcessingToast({
                                         height: 58,
                                     }}
                                 >
-                                    <MenuBook sx={{ color: "white", fontSize: 31 }} />
+                                    <MenuBookIcon sx={{ color: "white", fontSize: 31 }} />
                                 </Avatar>
                                 <Box>
                                     <Typography variant="h6" fontWeight="600" sx={{ fontSize: "1.1rem" }}>
@@ -122,7 +130,7 @@ export default function ProcessingToast({
                                         },
                                     }}
                                 >
-                                    <Close fontSize="small" />
+                                    <CloseIcon fontSize="small" />
                                 </IconButton>
                             )}
                         </Box>
@@ -130,7 +138,7 @@ export default function ProcessingToast({
                         {/* Status chips */}
                         <Box display="flex" gap={1} flexWrap="wrap" >
                             <Chip
-                                icon={<NotificationsActive sx={{ fontSize: 14 }} />}
+                                icon={<NotificationsActiveIcon sx={{ fontSize: 14 }} />}
                                 label="We'll notify you"
                                 size="small"
                                 sx={{
@@ -223,7 +231,7 @@ export default function ProcessingToast({
                                 backdropFilter: "blur(10px)",
                             }}
                         >
-                            <CheckCircle sx={{ fontSize: 20, opacity: 0.9 }} />
+                            <CheckCircleIcon sx={{ fontSize: 20, opacity: 0.9 }} />
                             <Typography variant="body2" sx={{ opacity: 0.9 }}>
                                 Feel free to close the box and continue with other tasks. We'll send you a notification once the process is completed.
                             </Typography>

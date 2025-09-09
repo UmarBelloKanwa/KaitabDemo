@@ -1,19 +1,18 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import {
-    Box,
-    IconButton,
-} from "@mui/material";
-import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
+import React from "react";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import robooks from "@/data/robooksList";
 import RobookCard from "@ui/RobookCard";
 
 export default function RobooksList() {
-    const scrollRef = useRef<HTMLDivElement>(null);
-    const [showLeft, setShowLeft] = useState(false);
-    const [showRight, setShowRight] = useState(false);
-    const [hover, setHover] = useState(false);
+    const scrollRef = React.useRef<HTMLDivElement>(null);
+    const [showLeft, setShowLeft] = React.useState(false);
+    const [showRight, setShowRight] = React.useState(false);
+    const [hover, setHover] = React.useState(false);
 
     const checkScroll = () => {
         if (!scrollRef.current) return;
@@ -22,7 +21,7 @@ export default function RobooksList() {
         setShowRight(scrollLeft + clientWidth < scrollWidth);
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         checkScroll();
         const handleResize = () => checkScroll();
         window.addEventListener("resize", handleResize);
@@ -59,7 +58,7 @@ export default function RobooksList() {
                         "&:hover": { bgcolor: "background.paper" },
                     }}
                 >
-                    <ArrowBackIos fontSize="small" />
+                    <ArrowBackIosIcon fontSize="small" />
                 </IconButton>
             )}
 
@@ -100,7 +99,7 @@ export default function RobooksList() {
                             "&:hover": { bgcolor: "background.paper" },
                         }}
                     >
-                        <ArrowForwardIos fontSize="small" />
+                        <ArrowForwardIosIcon fontSize="small" />
                     </IconButton>
                 )
             }

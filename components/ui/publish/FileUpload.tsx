@@ -1,7 +1,6 @@
 "use client"
 
-import type React from "react"
-import { useState, useRef } from "react"
+import React from "react"
 import Typography from "@mui/material/Typography"
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
@@ -26,8 +25,8 @@ const VisuallyHiddenInput = styled("input")({
 
 
 export default function PDFUploadCardMUI({ setPdfFile }: { setPdfFile: (file: File) => void; }) {
-    const [selectedFile, setSelectedFile] = useState<File | null>(null)
-    const fileInputRef = useRef<HTMLInputElement>(null)
+    const [selectedFile, setSelectedFile] = React.useState<File | null>(null)
+    const fileInputRef = React.useRef<HTMLInputElement>(null)
     const handleSetSelectedFile = (pdf: File | null) => {
         if (pdf) {
             setPdfFile(pdf);

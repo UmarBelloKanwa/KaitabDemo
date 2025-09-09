@@ -1,8 +1,18 @@
 "use client";
 
-import { Card, CardContent, Button, Avatar, Typography, Box, IconButton, Divider } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Divider from "@mui/material/Divider";
 import { useTheme } from "@mui/material/styles";
-import { MenuBook, LinkedIn, MoreHoriz } from "@mui/icons-material";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
 
 export default function ProfileCard() {
     const theme = useTheme();
@@ -86,7 +96,7 @@ export default function ProfileCard() {
                             "&:hover": { color: theme.palette.text.primary },
                         }}
                     >
-                        <MenuBook sx={{ fontSize: 16 }} />
+                        <MenuBookIcon sx={{ fontSize: 16 }} />
                         <Typography variant="body2"> Atomic Habits </Typography>
                     </Box>
                     <Box
@@ -99,7 +109,7 @@ export default function ProfileCard() {
                             "&:hover": { color: theme.palette.text.primary },
                         }}
                     >
-                        <LinkedIn sx={{ fontSize: 16 }} />
+                        <LinkedInIcon sx={{ fontSize: 16 }} />
                         <Typography variant="body2">LinkedIn</Typography>
                     </Box>
                 </Box>
@@ -142,7 +152,7 @@ export default function ProfileCard() {
                             },
                         }}
                     >
-                        <MoreHoriz />
+                        <MoreHorizIcon />
                     </IconButton>
                 </Box>
                 <Divider sx={{ borderColor: theme.palette.divider, mb: 0 }} />

@@ -1,22 +1,22 @@
 "use client";
 
 import React from "react";
-import {
-    Drawer,
-    Box,
-    Typography,
-    Button,
-    Avatar,
-    IconButton,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    ListItemAvatar,
-} from "@mui/material";
+import Drawer from "@mui/material/Drawer";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { useTheme, useMediaQuery } from "@mui/material";
-import { Add, ChevronLeft, Menu } from "@mui/icons-material";
+import AddIcon from "@mui/icons-material/Add";
+import ChevronLeft from "@mui/icons-material/ChevronLeft";
+import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/PersonOutlineSharp";
 import HomeIcon from "@mui/icons-material/HomeOutlined";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibraryOutlined";
@@ -26,13 +26,7 @@ import { useRouter } from "next/navigation";
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
 
-export default function Sidebar({
-    sidebarOpen,
-    handleDrawerToggle,
-}: {
-    sidebarOpen: boolean;
-    handleDrawerToggle: () => void;
-}) {
+export default function Sidebar() {
     const theme = useTheme();
     const router = useRouter();
 
@@ -49,6 +43,15 @@ export default function Sidebar({
     ];
 
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+    const drawerVariant = isMobile ? "temporary" : "persistent";
+    const open = isMobile ? false : true;
+
+    const [sidebarOpen, setSidebarOpen] = React.useState(open);
+
+    const handleDrawerToggle = () => {
+        setSidebarOpen((prev) => !prev);
+    };
+
 
     if (!sidebarOpen) {
         return (
@@ -71,7 +74,7 @@ export default function Sidebar({
                         color: theme.palette.text.primary,
                     }}
                 >
-                    <Menu />
+                    <MenuIcon />
                 </IconButton>
                 <Typography
                     variant="h6"
@@ -86,7 +89,7 @@ export default function Sidebar({
 
     return (
         <Drawer
-            variant={isMobile ? "temporary" : "persistent"}
+            variant={drawerVariant}
             open={sidebarOpen}
             onClose={handleDrawerToggle}
             sx={{
@@ -123,7 +126,7 @@ export default function Sidebar({
                     <Button
                         fullWidth
                         variant="contained"
-                        startIcon={<Add />}
+                        startIcon={<AddIcon />}
                         sx={{
                             textTransform: "none",
                             borderRadius: 2,

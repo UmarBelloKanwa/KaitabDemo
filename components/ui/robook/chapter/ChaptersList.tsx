@@ -7,18 +7,16 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
 
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import RepeatIcon from "@mui/icons-material/Repeat";
+import ShareIcon from "@mui/icons-material/Share";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import SearchIcon from "@mui/icons-material/Search";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import {
-    Favorite,
-    ChatBubbleOutline,
-    Repeat,
-    Share,
-    MoreHoriz,
-    BookmarkBorder,
-    BarChart,
-    Search,
-    CheckCircle,
-} from "@mui/icons-material"
 
 const chapters = [
     { id: 1, title: "Introduction – The Surprising Power of Atomic Habits", reads: "1.1k" },
@@ -72,7 +70,7 @@ export default function ChaptersPost() {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position="start">
-                                <Search color="action" />
+                                <SearchIcon color="action" />
                             </InputAdornment>
                         ),
                         disableUnderline: true, // Also removes underline for standard variant
@@ -157,7 +155,7 @@ export default function ChaptersPost() {
                                                     },
                                                 }}
                                             >
-                                                <Favorite sx={{ fontSize: 18 }} />
+                                                <FavoriteIcon sx={{ fontSize: 18 }} />
                                                 <Typography variant="caption" sx={{ ml: 0.5 }}>
                                                     {chapter.reads}
                                                 </Typography>
@@ -173,7 +171,7 @@ export default function ChaptersPost() {
                                                     },
                                                 }}
                                             >
-                                                <ChatBubbleOutline sx={{ fontSize: 18 }} />
+                                                <ChatBubbleOutlineIcon sx={{ fontSize: 18 }} />
                                                 <Typography variant="caption" sx={{ ml: 0.5 }}>
                                                     {chapter.reads}
                                                 </Typography>
@@ -189,14 +187,14 @@ export default function ChaptersPost() {
                                                     },
                                                 }}
                                             >
-                                                <Repeat sx={{ fontSize: 18 }} />
+                                                <RepeatIcon sx={{ fontSize: 18 }} />
                                                 <Typography variant="caption" sx={{ ml: 0.5 }}>
                                                     {chapter.reads}
                                                 </Typography>
                                             </IconButton>
 
                                             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5, ml: 1 }}>
-                                                <BarChart sx={{ fontSize: 18, color: "text.secondary" }} />
+                                                <BarChartIcon sx={{ fontSize: 18, color: "text.secondary" }} />
                                                 <Typography variant="caption" color="text.secondary">
                                                     {chapter.reads}
                                                 </Typography>
@@ -214,7 +212,7 @@ export default function ChaptersPost() {
                                                     },
                                                 }}
                                             >
-                                                <BookmarkBorder sx={{ fontSize: 18 }} />
+                                                <BookmarkBorderIcon sx={{ fontSize: 18 }} />
                                             </IconButton>
 
                                             <IconButton
@@ -227,7 +225,7 @@ export default function ChaptersPost() {
                                                     },
                                                 }}
                                             >
-                                                <Share sx={{ fontSize: 18 }} />
+                                                <ShareIcon sx={{ fontSize: 18 }} />
                                             </IconButton>
                                         </Box>
                                     </Box>

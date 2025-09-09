@@ -1,23 +1,26 @@
 "use client"
 
 import React from "react";
-import {
-    Typography,
-    Avatar,
-    Box,
-    Stack,
-} from "@mui/material";
+
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+
 import Button from "@mui/material/Button";
 import Chip from '@mui/material/Chip';
 
-import { Card, CardContent, IconButton } from "@mui/material"
-import { CheckCircle } from "@mui/icons-material"
+// MUI components
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import IconButton from "@mui/material/IconButton";
 
-import {
-    ChatBubbleOutline as PostsIcon,
-    ImportContacts as ChaptersIcon,
-    MoreHoriz as MoreIcon,
-} from '@mui/icons-material';
+// MUI icons
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import PostsIcon from "@mui/icons-material/ChatBubbleOutline";
+import ChaptersIcon from "@mui/icons-material/ImportContacts";
+import MoreIcon from "@mui/icons-material/MoreHoriz";
+
 import MessageIcon from '@mui/icons-material/Message';
 import ButtonBase from "@mui/material/ButtonBase";
 
@@ -220,7 +223,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                     <Box sx={{ ml: "auto", mt: 1 }}>
                         <Button
                             variant="outlined"
-                            startIcon={isFollowing ? <CheckCircle /> : null}
+                            startIcon={isFollowing ? <CheckCircleIcon /> : null}
                             sx={{
                                 borderRadius: 20,
                                 textTransform: "none",
@@ -308,7 +311,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
-                                borderRadius: 3,
+                                borderRadius: { xs: 1, sm: 3 },
                                 px: 1,
                                 py: 0.5,
                                 "&:hover": {
