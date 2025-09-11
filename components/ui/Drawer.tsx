@@ -65,7 +65,7 @@ export default function Sidebar() {
                 pl: { sm: 2, xs: 2.5 },
                 pr: { sm: "unset", xs: 2.5, },
                 pt: 1.5,
-                pb: { xs: 0, sm: "unset" },
+                pb: { xs: 1, sm: "unset" },
                 height: "fit-content",
                 display: "flex",
                 alignItems: "center",
