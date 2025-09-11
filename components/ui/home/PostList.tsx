@@ -1,40 +1,30 @@
+
 import Box from "@mui/material/Box";
 import AuthorsLists from "./AuthorsList";
 import PostCard from "./PostCard";
 import robooks_posts from "@/data/robooks_posts.json";
 import comments from "@/data/comments.json";
 import type { PostCardProps } from "@/types";
-
-
+import Grid from "@mui/material/Grid";
 
 const posts = robooks_posts.map((post: PostCardProps) => ({
     ...post,
-    usersComments: comments
+    usersComments: comments,
 }));
 
 export default function PostLists() {
+
     return (
-        <Box
+        <Grid container spacing={{ sm: 2, }}
             sx={{
                 width: { xs: "100%", md: "85%" },
-                m: "auto",
-                height: "100vh", // full viewport height
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", sm: "1fr 40%" },
-                gap: 2,
+                m: "auto", mt: 2,
+                alignContent: "center",
+                alignItems: "flex-start",
             }}
         >
-            {/* Scrollable Post Feed */}
-            <Box
-                sx={{
-                    height: "100%",
-                    overflowY: "auto", // ✅ only this scrolls
-                    mt: 2,
-                    p: 0,
-                    scrollbarWidth: "none", // Firefox
-                    "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
-                }}
-            >
+            {/* Posts for user to scroll and view */}
+            <Grid size={{ xs: 12, sm: 7 }}>
                 <Box
                     sx={{
                         display: "flex",
@@ -43,25 +33,25 @@ export default function PostLists() {
                     }}
                 >
                     {posts.map((robook_post, index) => (
-                        <PostCard
-                            key={index}
-                            {...robook_post}
-                        />
+                        <PostCard key={index} {...robook_post} />
                     ))}
                 </Box>
-            </Box>
-
-            {/* Sticky Sidebar */}
-            <Box
+            </Grid>
+            {/* A fixed side bar of authors (people) to follow */}
+            <Grid
+                size={{ xs: 0, sm: "grow" }}
                 sx={{
                     display: { xs: "none", sm: "block" },
                     position: "sticky",
-                    top: 16, // ✅ stays fixed at 16px from top
-                    alignSelf: "start",
+                    top: 0,
+                    height: "100vh",
+                    alignContent: "center",
+                    alignItems: "center",
+                    justifyContent: "center"
                 }}
             >
                 <AuthorsLists />
-            </Box>
-        </Box>
+            </Grid>
+        </Grid>
     );
 }

@@ -5,7 +5,6 @@ import AppLayout from "@ui/AppLayout";
 export const metadata: Metadata = {
   title: "Kaitab",
   description: "A modern way to learn and share books",
-  generator: "v0.app",
 }
 
 export default function RootLayout({

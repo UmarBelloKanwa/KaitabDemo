@@ -149,7 +149,7 @@ export default function SectionPost({ section, chapter, sectionIndex }: { sectio
 
             <CardContent sx={{ pt: 0 }}>
                 {action === "Watch" && (
-                    <Box component="video" controls src="/atomic.mp4" sx={{ width: "100%", m: "auto", borderRadius: 2, mb: 1 }} />
+                    <Box component="video" controls src="/atomic.mp4" sx={{ width: "100%", m: "auto", borderRadius: 1.5, my: 1 }} />
                 )}
 
                 {selectedHeading && (

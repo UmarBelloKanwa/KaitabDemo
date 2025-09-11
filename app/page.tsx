@@ -1,3 +1,5 @@
+"use client";
+
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -13,18 +15,18 @@ import CategoriesList from "@/components/ui/home/CategoriesList";
 import PostLists from "@/components/ui/home/PostList";
 
 
-export default function Dashboard() {
+export default function Home() {
   const theme = useTheme();
 
   return (
     <Box
-      component="main"
       sx={{
-        flexGrow: 1,
         color: "text.primary",
         bgcolor: "background.default",
-        overflow: "auto",
-        pt: { xs: 1, sm: 2.5 }
+        pt: { xs: 1, sm: 2.5 },
+
+        //maxWidth: { xs: "100%", sm: "78.3vw" }
+        //    maxWidth: "79%",
       }}
     >
       {/* Header */}
@@ -48,7 +50,6 @@ export default function Dashboard() {
             placeholder="Search"
             size="small"
             variant="standard"
-            sx={(theme) => ({ width: { xs: "99%", sm: "40%", md: "37%" }, bgcolor: "background.paper", borderRadius: 2, p: 1, px: 2, m: { xs: "auto" }, mt: 0, border: `1px solid ${theme.palette.divider}`, })}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -57,12 +58,25 @@ export default function Dashboard() {
               ),
               disableUnderline: true, // Also removes underline for standard variant
             }}
+            sx={(theme) => ({
+              width: { xs: "100%", sm: "40%", md: "37%" }, // full width on xs
+              boxSizing: "border-box", // ensure padding + border don't exceed width
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              p: 1,
+              px: 2,
+              m: { xs: "auto" },
+              mt: 0,
+              border: `1px solid ${theme.palette.divider}`,
+            })}
+
           />
         </Toolbar>
+
       </Box>
 
       {/* Content */}
-      <Container maxWidth="xl" disableGutters sx={{ py: 3, pt: 1, px: 1.7, }}>
+      <Container maxWidth="xl" disableGutters sx={{ width: "100%", py: 3, pt: 1, px: 1.7, }}>
         <CategoriesList />
         <RobooksList />
         <PostLists />

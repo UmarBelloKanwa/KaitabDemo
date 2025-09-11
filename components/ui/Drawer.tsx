@@ -17,16 +17,16 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
-import PersonIcon from "@mui/icons-material/PersonOutlineSharp";
+import PersonIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import HomeIcon from "@mui/icons-material/HomeOutlined";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { useRouter } from "next/navigation";
-
 
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
 
 export default function Sidebar() {
+
     const theme = useTheme();
     const router = useRouter();
 
@@ -43,15 +43,21 @@ export default function Sidebar() {
     ];
 
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-    const drawerVariant = isMobile ? "temporary" : "persistent";
+
+    //console.log("Is mobile", isMobile)
+    const drawerVariant = isMobile ? "temporary" : "permanent";
     const open = isMobile ? false : true;
 
     const [sidebarOpen, setSidebarOpen] = React.useState(open);
 
     const handleDrawerToggle = () => {
+        if (!isMobile) { return }
         setSidebarOpen((prev) => !prev);
     };
 
+    React.useEffect(() => {
+        setSidebarOpen(!isMobile); // auto-sync with screen size
+    }, [isMobile]);
 
     if (!sidebarOpen) {
         return (
@@ -59,7 +65,7 @@ export default function Sidebar() {
                 pl: { sm: 2, xs: 2.5 },
                 pr: { sm: "unset", xs: 2.5, },
                 pt: 1.5,
-                pb: { xs: 1.5, sm: "unset" },
+                pb: { xs: 0, sm: "unset" },
                 height: "fit-content",
                 display: "flex",
                 alignItems: "center",
@@ -90,7 +96,7 @@ export default function Sidebar() {
     return (
         <Drawer
             variant={drawerVariant}
-            open={sidebarOpen}
+            open={isMobile ? sidebarOpen : true}
             onClose={handleDrawerToggle}
             sx={{
                 width: sidebarOpen ? drawerWidth : 0,
@@ -115,7 +121,7 @@ export default function Sidebar() {
                         <Typography variant="h6" color="text.primary" sx={{ m: 0 }} onClick={() => router.push('/')}>
                             Kaitab
                         </Typography>
-                        <IconButton onClick={handleDrawerToggle} sx={{ color: theme.palette.text.primary }}>
+                        <IconButton onClick={handleDrawerToggle} sx={{ display: { xs: 'block', md: "none" }, color: theme.palette.text.primary }}>
                             <ChevronLeft />
                         </IconButton>
                     </Box>
@@ -131,7 +137,12 @@ export default function Sidebar() {
                             textTransform: "none",
                             borderRadius: 2,
                         }}
-                        onClick={() => router.push('/publish')}
+                        onClick={() => {
+                            router.push('/publish')         // navigate
+                            if (isMobile) {          // only auto-close on mobile
+                                handleDrawerToggle();
+                            }
+                        }}
                     >
                         Publish
                     </Button>
@@ -141,7 +152,16 @@ export default function Sidebar() {
                 <Box sx={{ flex: 1, px: 0 }}>
                     <List>
                         {navItems.map((item, index) => (
-                            <ListItem key={index} disablePadding onClick={item.onClick}>
+                            <ListItem
+                                key={index}
+                                disablePadding
+                                onClick={() => {
+                                    item.onClick();          // navigate
+                                    if (isMobile) {          // only auto-close on mobile
+                                        handleDrawerToggle();
+                                    }
+                                }}
+                            >
                                 <ListItemButton
                                     sx={{
                                         borderRadius: 2,
@@ -152,9 +172,13 @@ export default function Sidebar() {
                                     <ListItemIcon sx={{ color: theme.palette.text.primary, minWidth: 36 }}>
                                         {item.icon}
                                     </ListItemIcon>
-                                    <ListItemText primary={item.name} sx={{ color: theme.palette.text.primary }} />
+                                    <ListItemText
+                                        primary={item.name}
+                                        sx={{ color: theme.palette.text.primary }}
+                                    />
                                 </ListItemButton>
                             </ListItem>
+
                         ))}
                     </List>
 
@@ -163,7 +187,16 @@ export default function Sidebar() {
                     </Typography>
                     <List>
                         {recentChats.map((chat, index) => (
-                            <ListItem key={index} disablePadding onClick={() => router.push(index == 0 ? "/r/atomic-habits" : "/jamesclear")}>
+                            <ListItem
+                                key={index}
+                                disablePadding
+                                onClick={() => {
+                                    router.push(index === 0 ? "/r/atomic-habits" : "/jamesclear");
+                                    if (isMobile) {
+                                        handleDrawerToggle();
+                                    }
+                                }}
+                            >
                                 <ListItemButton
                                     sx={{
                                         borderRadius: 2,
@@ -174,9 +207,10 @@ export default function Sidebar() {
                                         <Avatar
                                             src={chat.avatar}
                                             sx={{
-                                                width: 30, height: 30,
+                                                width: 30,
+                                                height: 30,
                                                 bgcolor: theme.palette.primary.main,
-                                                borderRadius: index == 0 ? 0.7 : 2,
+                                                borderRadius: index === 0 ? 0.7 : 2,
                                             }}
                                         >
                                             {chat.name[0]}
@@ -189,6 +223,7 @@ export default function Sidebar() {
                                     />
                                 </ListItemButton>
                             </ListItem>
+
                         ))}
                     </List>
                 </Box>

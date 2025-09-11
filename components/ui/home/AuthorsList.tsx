@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 
 
-export default function RobooksLists() {
+export default function AuthorsLists() {
     const router = useRouter();
 
     const whoToFollow = [
@@ -36,8 +36,11 @@ export default function RobooksLists() {
     return (
         <Box
             sx={(theme) => ({
-                borderLeft: `2px solid ${theme.palette.divider}`,
-                height: 500, mt: 2, boxShadow: 1, p: 2, pt: 0,
+                borderLeft: `1px solid ${theme.palette.divider}`,
+                height: "fit-content",
+                m: "auto",
+                boxShadow: 1,
+                p: 2, pt: 0,
                 scrollbarWidth: "none", // Firefox
                 "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
                 overflowY: "auto"
@@ -45,7 +48,10 @@ export default function RobooksLists() {
             <Typography variant="h6" sx={{ mb: 1 }}>
                 Who to Follow
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1, }}>
+            <Box sx={{
+                display: "flex", flexDirection: "column", gap: 1, height: "fit-content",
+                m: "auto",
+            }}>
                 {whoToFollow.map((user, index) => (
                     <Card key={index} elevation={0} sx={{ p: 1.5, borderRadius: 2, bgcolor: "background.paper", boxShadow: 1, }} onClick={() => router.push("/jamesclear")}
                     >

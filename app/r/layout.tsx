@@ -11,9 +11,9 @@ import Box from "@mui/material/Box";
 
 export default function RobookLayout({ children }: { children: React.ReactNode }) {
     return (
-        <Box sx={{ minHeight: "100vh", width: "100%", }}>
+        <Box sx={{ minHeight: "100vh", width: "100%" }}>
             {/* Header */}
-            <AppBar
+            {/* <AppBar
                 elevation={0}
                 position="sticky"
                 sx={{
@@ -35,7 +35,7 @@ export default function RobookLayout({ children }: { children: React.ReactNode }
                         </Box>
                     </Box>
                 </Toolbar>
-            </AppBar>
+            </AppBar> */}
             {children}
         </Box>
     )

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import type React from "react"
 import { useState } from "react"
@@ -104,7 +104,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                 "&:hover": { backgroundColor: "#374151" },
                             }}
                         >
-                            <MoreHoriz />
+                            <MoreHorizIcon />
                         </IconButton>
                     </Box>
 
@@ -158,7 +158,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                         </Box>
 
                         {video && (
-                            <Box component="video" controls src={video} sx={{ width: "100%", m: "auto", borderRadius: 2, mb: 1 }} />
+                            <Box component="video" controls src={video} sx={{ width: "100%", m: "auto", borderRadius: 1.5, my: 1 }} />
                         )}
 
                         {/* Image */}
@@ -201,7 +201,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                             },
                                         }}
                                     >
-                                        <ChatBubbleOutline sx={{ fontSize: 16 }} />
+                                        <ChatBubbleOutlineIcon sx={{ fontSize: 16 }} />
                                         <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                             {formatNumber(metrics.replies)}
                                         </Typography>
@@ -221,7 +221,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                             },
                                         }}
                                     >
-                                        <Repeat sx={{ fontSize: 16 }} />
+                                        <RepeatIcon sx={{ fontSize: 16 }} />
                                         <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                             {formatNumber(metrics.retweets)}
                                         </Typography>
@@ -241,7 +241,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                             },
                                         }}
                                     >
-                                        <Favorite sx={{ fontSize: 16 }} />
+                                        <FavoriteIcon sx={{ fontSize: 16 }} />
                                         <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                             {formatNumber(metrics.likes)}
                                         </Typography>
@@ -263,7 +263,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                                 },
                                             }}
                                         >
-                                            <BarChart sx={{ fontSize: 16 }} />
+                                            <BarChartIcon sx={{ fontSize: 16 }} />
                                             <Typography variant="body2" sx={{ fontSize: "0.875rem" }}>
                                                 {formatNumber(metrics.views)}
                                             </Typography>
@@ -282,7 +282,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                             },
                                         }}
                                     >
-                                        <BookmarkBorder sx={{ fontSize: 16 }} />
+                                        <BookmarkBorderIcon sx={{ fontSize: 16 }} />
                                     </IconButton>
 
                                     <IconButton
@@ -295,7 +295,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                             },
                                         }}
                                     >
-                                        <Share sx={{ fontSize: 16 }} />
+                                        <ShareIcon sx={{ fontSize: 16 }} />
                                     </IconButton>
                                 </Box>
                             </Box>

@@ -78,7 +78,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
         })
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{ my: { sm: 2 } }}>
             <Paper elevation={0} sx={{ bgcolor: "background.default" }}>
                 <Box p={0} >
                     <Box display="flex" mb={1} sx={{ gap: 0, borderRadius: 3 }}>

@@ -25,9 +25,9 @@ const categories = [
 
 export default function CategoriesList() {
     const scrollRef = React.useRef<HTMLDivElement>(null);
-    const [showLeft, setShowLeft] =  React.useState(false);
-    const [showRight, setShowRight] =  React.useState(false);
-    const [hover, setHover] =  React.useState(false);
+    const [showLeft, setShowLeft] = React.useState(false);
+    const [showRight, setShowRight] = React.useState(false);
+    const [hover, setHover] = React.useState(false);
 
     const checkScroll = () => {
         if (!scrollRef.current) return;
@@ -36,7 +36,7 @@ export default function CategoriesList() {
         setShowRight(scrollLeft + clientWidth < scrollWidth);
     };
 
-     React.useEffect(() => {
+    React.useEffect(() => {
         checkScroll();
         const handleResize = () => checkScroll();
         window.addEventListener("resize", handleResize);

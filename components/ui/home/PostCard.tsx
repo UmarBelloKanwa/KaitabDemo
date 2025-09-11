@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -94,7 +96,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                 </Box>
 
                 {video && (
-                    <Box component="video" controls src={video} sx={{ width: "100%", m: "auto", borderRadius: 2, mb: 1 }} />
+                    <Box component="video" controls src={video} sx={{ width: "100%", m: "auto", borderRadius: 1.5, my: 1 }} />
                 )}
 
                 {/* Content */}

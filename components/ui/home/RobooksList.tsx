@@ -39,7 +39,7 @@ export default function RobooksList() {
 
     return (
         <Box
-            sx={{ position: "relative" }}
+            sx={{ position: "relative", maxWidth: "100%", }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
         >
