@@ -1,3 +1,8 @@
+export interface User {
+    public_id: string
+    full_name: string
+    contact: string
+}
 
 export interface Comment {
     id: string

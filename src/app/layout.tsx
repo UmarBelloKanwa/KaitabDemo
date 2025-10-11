@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import AppLayout from "@ui/AppLayout";
+import AppProvider from "@/components/ServerProvider";
 
 export const metadata: Metadata = {
   title: "Kaitab",
@@ -12,15 +12,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
   return (
     <html lang="en" className="dark">
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <AppLayout>
+        <AppProvider>
           {children}
-        </AppLayout>
+        </AppProvider>
       </body>
     </html>
   )

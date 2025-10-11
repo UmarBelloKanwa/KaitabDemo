@@ -7,6 +7,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import robooks from "@/data/robooksList";
 import RobookCard from "@ui/RobookCard";
+import { fetchRobooks } from "@/lib/features/home";
 
 export default function RobooksList() {
     const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -20,7 +21,17 @@ export default function RobooksList() {
         setShowLeft(scrollLeft > 0);
         setShowRight(scrollLeft + clientWidth < scrollWidth);
     };
-
+    React.useEffect(() => {
+        const k = async () => {
+            try {
+                // const robooks = await fetchRobooks();
+                // console.log(JSON.stringify(robooks));
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        k();
+    });
     React.useEffect(() => {
         checkScroll();
         const handleResize = () => checkScroll();
