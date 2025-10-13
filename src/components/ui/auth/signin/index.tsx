@@ -9,9 +9,9 @@ import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
-import Alert from "./ErrAlert";
-import PasswordField from "./PasswordField";
-import OtpTab from "./OtpTab";
+import Alert from "../ErrAlert";
+import PasswordField from "../PasswordField";
+import OtpTab from "../OtpTab";
 
 
 export default function SigninForm() {
@@ -25,7 +25,6 @@ export default function SigninForm() {
         setLoginMethod,
         isOtpStep,
         setIsOtpTab,
-        resendOtpCode,
         submitOtpCode,
         handleSetUserPassword
     } = useSigninForm();
@@ -101,7 +100,13 @@ export default function SigninForm() {
                             />
 
                             {loginMethod == "password" && (
-                                <PasswordField withIcon={true} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetUserPassword(e.target.value)} />
+                                <PasswordField
+                                    withIcon={true}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetUserPassword(e.target.value)}
+                                    autoComplete="password"
+                                    error={!!errors.password}
+                                    helperText={errors.password}
+                                />
                             )}
 
                             <Button
@@ -143,10 +148,8 @@ export default function SigninForm() {
                     </Card>
                 ) : (
                     <OtpTab
-                        errors={errors}
                         email={userEmail}
                         setIsOtpStep={setIsOtpTab}
-                        resendCode={resendOtpCode}
                         submitOtpCode={submitOtpCode}
                     />
                 )}

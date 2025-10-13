@@ -31,6 +31,7 @@ export function createApi(cookieHeader?: string): AxiosInstance {
             return response.data || response;
         },
         async (error) => {
+            console.log(error);
             const originalRequest = error.config;
             const isAuthEndpoint = originalRequest.url?.includes('/auth/');
             const is401 = error.response?.status === 401;
@@ -43,7 +44,7 @@ export function createApi(cookieHeader?: string): AxiosInstance {
                     return instance(originalRequest);
                 } catch (refreshError) {
                     if (!isServer) {
-                        window.location.href = '/log-in';
+                        // window.location.href = '/log-in';
                     }
                     return Promise.reject(refreshError);
                 }
@@ -57,13 +58,14 @@ export function createApi(cookieHeader?: string): AxiosInstance {
             }
             if (error?.response) {
                 const errData = error.response.data?.error || {};
+                console.log(errData);
                 const fieldErrors = (errData.errors || []) as FieldError[];
                 const formattedErrors: ErrorMap = fieldErrors.reduce<ErrorMap>((acc, err) => {
                     acc[err.field] = err.message;
                     return acc;
                 }, {} as ErrorMap);
 
-                let generalMessage = formattedErrors.body || errData.message;
+                let generalMessage = formattedErrors.body || errData.message ;
                 if (fieldErrors.length > 0) {
                     generalMessage = '';
                 }

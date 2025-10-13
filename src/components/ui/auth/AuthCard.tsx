@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import SigninForm from "./SigninForm";
+import SigninForm from "./signin";
+import SignupForm from "./signup";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -52,7 +53,7 @@ export default function AuthCard({
             </DialogTitle>
             <DialogContent>
                 <Box sx={{ textAlign: "center" }}>
-                    {tab == "login" ? <SigninForm /> : null}
+                    {tab == "login" ? <SigninForm /> : <SignupForm />}
                     <Typography component="div" sx={{ textAlign: 'center', m: "auto", width: "fit-content", mt: 1, display: "flex" }}>
                         {tab == "login" ? "Don't" : "You"} have account &nbsp;
                         <Typography

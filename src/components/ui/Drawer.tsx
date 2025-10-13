@@ -101,7 +101,10 @@ export default function Sidebar() {
             sx={{
                 width: sidebarOpen ? drawerWidth : 0,
                 flexShrink: 0,
+                //border: "none",
                 "& .MuiDrawer-paper": {
+               // border: "none",
+
                     width: drawerWidth,
                     boxSizing: "border-box",
                     bgcolor: "background.default",      // theme key; same result on both variants

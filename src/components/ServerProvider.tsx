@@ -6,13 +6,13 @@ import serverAxios from "@/lib/server-axios";
 export default async function ServerProvider({ children }: { children: React.ReactNode; }) {
   let user = null;
 
-  try {
-    const api = await serverAxios();
-    const res = await api.get('user/me');
-    user = res.data;
-  } catch {
-    user = null
-  }
+  // try {
+  //   const api = await serverAxios();
+  //   const res = await api.get('user/me');
+  //   user = res.data;
+  // } catch {
+  //   user = null
+  // }
 
   return (
     <ClientProvider user={user}>

@@ -4,9 +4,9 @@ const theme = createTheme({
     palette: {
         mode: "dark",
         primary: {
-            main: "#8b5cf6", // Purple from gradient
-            light: "#a78bfa",
-            dark: "#6d28d9",
+            main: "#ff00aaff", // Purple from gradient
+            light: "#f7258eff",
+            dark: "#ff009dff",
             contrastText: "#ffffff",
         },
         secondary: {
