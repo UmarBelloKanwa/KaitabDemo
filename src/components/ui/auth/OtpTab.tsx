@@ -51,8 +51,7 @@ export default function VerifyOtpTab({
     >
       <Typography
         component="h1"
-        variant="h4"
-        fontSize="xx-large"
+        variant="h5"
         sx={{ width: "100%", mt: 0 }}
       >
         Check your inbox

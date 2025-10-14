@@ -1,244 +1,207 @@
-"use client"
+"use client";
 import React from "react";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import LinearProgress from "@mui/material/LinearProgress";
-import Chip from "@mui/material/Chip";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+import {
+  Dialog,
+  DialogContent,
+  Paper,
+  IconButton,
+  LinearProgress,
+  Chip,
+  Avatar,
+  Stack,
+  Box,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import MenuBookIcon from "@mui/icons-material/LocalLibraryOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import DialogTitle from "@mui/material/DialogTitle";
 
 interface ProcessingToastProps {
-    isVisible?: boolean
-    onClose?: () => void
-    title?: string
-    description?: string
-    estimatedTime?: string
-    fileName?: string
-    author?: string
-    slug: string
+  isVisible?: boolean;
+  onClose?: () => void;
+  title?: string;
+  description?: string;
+  estimatedTime?: string;
+  fileName?: string;
+  author?: string;
+  slug: string;
 }
 
 export default function ProcessingToast({
-    isVisible = true,
-    onClose,
-    title = "Processing Your Data",
-    description = "Your form has been submitted successfully",
-    estimatedTime = "2-3 minutes",
-    author = "Author name",
-    fileName = "book_name.pdf",
-    slug,
+  isVisible = true,
+  onClose,
+  title = "Building your intelligent Robook",
+  description = "Your form has been submitted successfully.",
+  estimatedTime = "5–13 minutes",
+  author = "James Clear",
+  fileName,
+  slug,
 }: ProcessingToastProps) {
-    if (!isVisible) return null
-    const [uploadTime, setUploadTime] = React.useState("Now");
+  const theme = useTheme();
+  const [uploadTime, setUploadTime] = React.useState("");
 
-    React.useEffect(() => {
-        // Format the current time
-        const now = new Date();
-        const formattedTime = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-        setUploadTime(formattedTime);
-    }, []);
+  React.useEffect(() => {
+    const now = new Date();
+    const formatted = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setUploadTime(formatted);
+  }, []);
 
-    return (
-        <Modal open={isVisible}
-            sx={{
-                width: "43%",
-                m: "auto",
-                mt: 11,
-                boxShadow: 24,
-                p: 4,
-                borderRadius: 2,
-                minWidth: 300,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                animation: isVisible ? "slideInRight 0.4s ease-out" : "slideOutRight 0.3s ease-in",
-                "@keyframes slideInRight": {
-                    "0%": {
-                        transform: "translateX(100%)",
-                        opacity: 0,
-                    },
-                    "100%": {
-                        transform: "translateX(0)",
-                        opacity: 1,
-                    },
-                },
-                "@keyframes slideOutRight": {
-                    "0%": {
-                        transform: "translateX(0)",
-                        opacity: 1,
-                    },
-                    "100%": {
-                        transform: "translateX(100%)",
-                        opacity: 0,
-                    },
-                },
-            }}
+  if (!isVisible) return null;
 
+  return (
+    <Dialog
+      open={isVisible}
+      onClose={onClose}
+      fullWidth
+      maxWidth="xs"
+      PaperProps={{
+        sx: {
+          border: "1px solid red",
+          borderColor: "grey.800",
+          borderRadius: 2, // optional: rounded corners
+          p: { xs: 0, md: 1 },
+        },
+        elevation: 0,
+      }}
+    >
+      <DialogTitle>
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
         >
-            <Paper
-                elevation={8}
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+      <DialogContent>
+        <Stack spacing={2}>
+          {/* Header */}
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="flex-start"
+          >
+            <Box display="flex" alignItems="center" gap={2}>
+              <Avatar
                 sx={{
-                    width: "100%",
-                    borderRadius: 3,
-                    overflow: "hidden",
-                    color: "white",
-                    position: "relative",
-                    boxShadow: "0 12px 40px rgba(102, 126, 234, 0.3)",
+                  width: 58,
+                  height: 58,
+                  borderRadius: 1,
+                  color: "text.primary",
+                  bgcolor: "transparent"
                 }}
+              >
+                <MenuBookIcon fontSize="large" />
+              </Avatar>
+              <Box>
+                <Typography variant="h6" fontWeight="500" sx={{fontSize: {xs: "medium", sm: "large"}}}>
+                  {title}
+                </Typography>
+                {author && (
+                  <Typography variant="caption">
+                    {author}
+                  </Typography>
+                )}
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Status Chips */}
+          <Box display="flex" gap={1} flexWrap="wrap">
+            <Chip
+              icon={<NotificationsActiveIcon sx={{ fontSize: 16 }} />}
+              label="We'll notify you"
+              size="small"
+              sx={{ borderRadius: {xs: 0.5, sm: 2}, p: {sm:1.7} }}
+              variant="outlined"
+              
+            />
+            <Chip
+              label={`Estimated: ${estimatedTime}`}
+              size="small"
+              sx={{ borderRadius: {xs: 0.5, sm: 2}, p: {sm:1.7}}}
+              variant="outlined"
+            />
+          </Box>
+{/* Progress */}
+          <Box>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              flexWrap={"wrap"}
+              mb={1}
             >
-                <Box sx={{ padding: 3 }}>
-                    <Stack spacing={2}>
-                        {/* Header with close button */}
-                        <Box display="flex" alignItems="flex-start" justifyContent="space-between">
-                            <Box display="flex" alignItems="center" gap={2}>
-                                <Avatar
-                                    sx={{
-                                        backgroundColor: "rgba(255,255,255,0.2)",
-                                        backdropFilter: "blur(10px)",
-                                        width: 58,
-                                        height: 58,
-                                    }}
-                                >
-                                    <MenuBookIcon sx={{ color: "white", fontSize: 31 }} />
-                                </Avatar>
-                                <Box>
-                                    <Typography variant="h6" fontWeight="600" sx={{ fontSize: "1.1rem" }}>
-                                        {title}
-                                    </Typography>
-                                    <Typography variant="body2" sx={{ opacity: 0.9, fontSize: "0.85rem" }}>
-                                        {author}
-                                    </Typography>
-                                </Box>
-                            </Box>
+              <Typography variant="body2" fontWeight="500">
+                Processing...
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                This may take a few minutes
+              </Typography>
+            </Box>
+            <LinearProgress
+              sx={{
+                height: 6,
+                borderRadius: 3,
+              }}
+            />
+          </Box>
+          {/* File Info */}
+          <Paper
+            variant="outlined"
+            sx={{
+              borderRadius: 1.3,
+              p: 2,
+            }}
+          >
+            <Typography variant="body2" gutterBottom>
+              <strong>Description:</strong> {description}
+            </Typography>
+            {fileName && (
+              <Typography variant="body2" gutterBottom>
+                <strong>File:</strong> {fileName}
+              </Typography>
+            )}
+            <Typography variant="body2" gutterBottom>
+              <strong>Robook:</strong> {slug}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              Uploaded at {uploadTime}
+            </Typography>
+          </Paper>
 
-                            {true && (
-                                <IconButton
-                                    onClick={onClose}
-                                    size="small"
-                                    sx={{
-                                        color: "rgba(255,255,255,0.7)",
-                                        "&:hover": {
-                                            color: "white",
-                                            backgroundColor: "rgba(255,255,255,0.1)",
-                                        },
-                                    }}
-                                >
-                                    <CloseIcon fontSize="small" />
-                                </IconButton>
-                            )}
-                        </Box>
+          
 
-                        {/* Status chips */}
-                        <Box display="flex" gap={1} flexWrap="wrap" >
-                            <Chip
-                                icon={<NotificationsActiveIcon sx={{ fontSize: 14 }} />}
-                                label="We'll notify you"
-                                size="small"
-                                sx={{
-                                    backgroundColor: "rgba(74, 222, 128, 0.2)",
-                                    color: "white",
-                                    border: "1px solid rgba(74, 222, 128, 0.3)",
-                                    "& .MuiChip-icon": {
-                                        color: "#4ade80",
-                                    },
-                                }}
-                            />
-                            <Chip
-                                label={`Est. ${estimatedTime}`}
-                                size="small"
-                                sx={{
-                                    backgroundColor: "rgba(255,255,255,0.1)",
-                                    color: "white",
-                                    border: "1px solid rgba(255,255,255,0.2)",
-                                }}
-                            />
-                        </Box>
-
-                        {/* Action message */}
-                        <Box
-                            sx={{
-                                backgroundColor: "rgba(255,255,255,0.1)",
-                                borderRadius: 2,
-                                padding: 2,
-                                backdropFilter: "blur(10px)",
-                            }}
-                        >
-                            <Typography
-                                variant="body2"
-                                sx={{
-                                    opacity: 0.9,
-                                    display: "-webkit-box",
-                                    WebkitLineClamp: 1,         // limit to 1 lines
-                                    WebkitBoxOrient: "vertical",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                }}
-                                gutterBottom
-                            >
-                                Description: {description}
-                            </Typography>
-                            <Typography variant="body2" sx={{ opacity: 0.9 }} gutterBottom>
-                                File: {fileName}
-                            </Typography>
-                            <Typography variant="body2" sx={{ opacity: 0.9 }} gutterBottom>
-                                Robook: {slug}
-                            </Typography>
-                            <Typography variant="caption" sx={{ opacity: 0.8 }}>
-                                Uploaded at {uploadTime}
-                            </Typography>
-                        </Box>
-
-                        {/* Progress indicator */}
-                        <Box>
-                            <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-                                <Typography variant="body2" fontWeight="500">
-                                    Processing...
-                                </Typography>
-                                <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                                    This may take a few minutes
-                                </Typography>
-                            </Box>
-                            <LinearProgress
-                                sx={{
-                                    height: 6,
-                                    borderRadius: 3,
-                                    backgroundColor: "rgba(255,255,255,0.2)",
-                                    "& .MuiLinearProgress-bar": {
-                                        backgroundColor: "#4ade80",
-                                        borderRadius: 3,
-                                    },
-
-                                }}
-                            />
-                        </Box>
-
-                        {/* Action message */}
-                        <Box
-                            display="flex"
-                            alignItems="center"
-                            gap={1}
-                            sx={{
-                                backgroundColor: "rgba(255,255,255,0.1)",
-                                borderRadius: 2,
-                                padding: 1.5,
-                                backdropFilter: "blur(10px)",
-                            }}
-                        >
-                            <CheckCircleIcon sx={{ fontSize: 20, opacity: 0.9 }} />
-                            <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                                Feel free to close the box and continue with other tasks. We'll send you a notification once the process is completed.
-                            </Typography>
-                        </Box>
-                    </Stack>
-                </Box>
-            </Paper>
-        </Modal >
-    )
+          {/* Note */}
+          <Paper
+            variant="outlined"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1.5,
+              borderRadius: 1.3,
+              p: 1.5,
+            }}
+          >
+            <CheckCircleIcon color="success" sx={{ fontSize: 20 }} />
+            <Typography variant="body2">
+              You can close this window and continue working. We’ll notify you
+              once the process is complete.
+            </Typography>
+          </Paper>
+        </Stack>
+      </DialogContent>
+    </Dialog>
+  );
 }

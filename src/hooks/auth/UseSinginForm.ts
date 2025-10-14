@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import authApi from "@/api/auth";
+import authApi from "@/lib/api/auth";
 import { useUserStore } from "@/store/user-store";
 
 export default function useSigninForm() {

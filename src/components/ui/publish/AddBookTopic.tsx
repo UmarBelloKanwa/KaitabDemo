@@ -1,13 +1,16 @@
 'use client';
 
-import React from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
-import Chip from '@mui/material/Chip';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+import React, { useState, SyntheticEvent } from 'react';
+import {
+    Autocomplete,
+    Chip,
+    TextField,
+    Box,
+    CircularProgress,
+    IconButton
+} from '@mui/material';
 import ReplayIcon from '@mui/icons-material/Replay';
-import IconButton from '@mui/material/IconButton';
+import { useUserTopics } from "@/lib/api/topics"; // SWR hook
 
 interface AddBookTopicProps {
     onChange?: (topics: SelectedTopic[]) => void;
@@ -29,43 +32,32 @@ interface SelectedTopic {
 }
 
 const AddBookTopic: React.FC<AddBookTopicProps> = ({ onChange }) => {
-    const [inputValue, setInputValue] = React.useState('');
-    const [selectedTopics, setSelectedTopics] = React.useState<SelectedTopic[]>([]);
-    const [subjectOptions, setSubjectOptions] = React.useState<GroupedTopic[]>([]);
-    const [loading, setLoading] = React.useState<boolean>(false);
-    const [error, setError] = React.useState<string | null>(null);
+    const [inputValue, setInputValue] = useState('');
+    const [selectedTopics, setSelectedTopics] = useState<SelectedTopic[]>([]);
 
-    const fetchTopics = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 1200)); // simulate API delay
+    // ✅ Use SWR hook
+    const { data, error, isLoading, mutate } = useUserTopics();
+    // console.log("intersts", data);
 
-            // ✅ Fake topics
-            const fakeData: GroupedTopic[] = [
-                { id: '1', name: 'Artificial Intelligence', category: 'Technology', categoryId: 'tech' },
-                { id: '2', name: 'Machine Learning', category: 'Technology', categoryId: 'tech' },
-                { id: '3', name: 'Personal Finance', category: 'Business', categoryId: 'biz' },
-                { id: '4', name: 'Investing', category: 'Business', categoryId: 'biz' },
-                { id: '5', name: 'Self Improvement', category: 'Lifestyle', categoryId: 'life' },
-                { id: '6', name: 'Health & Fitness', category: 'Lifestyle', categoryId: 'life' },
-                { id: '7', name: 'Web Development', category: 'Technology', categoryId: 'tech' },
-                { id: '8', name: 'Psychology', category: 'Science', categoryId: 'sci' },
-            ];
-
-            setSubjectOptions(fakeData);
-        } catch (err: unknown) {
-            setError(`Failed to fetch topics, please try again`);
-        } finally {
-            setLoading(false);
+    // Transform data from API to Autocomplete-friendly format
+    const subjectOptions: GroupedTopic[] = React.useMemo(() => {
+        if (!data) return [];
+        const allTopics: GroupedTopic[] = [];
+        for (const category in data) {
+            const categoryTopics = data[category];
+            categoryTopics.forEach((item: { id: string; name: string; categoryId: string }) => {
+                allTopics.push({
+                    id: item.id,
+                    name: item.name,
+                    category,
+                    categoryId: item.categoryId,
+                });
+            });
         }
-    };
+        return allTopics;
+    }, [data]);
 
-    React.useEffect(() => {
-        fetchTopics();
-    }, []);
-
-    const handleChange = (_event: React.SyntheticEvent, newValue: (string | GroupedTopic)[]) => {
+    const handleChange = (_event: SyntheticEvent, newValue: (string | GroupedTopic)[]) => {
         const updated: SelectedTopic[] = newValue.map((val) => {
             if (typeof val === 'string') {
                 const match = val.match(/^Add\s+"(.+)"$/);
@@ -93,12 +85,12 @@ const AddBookTopic: React.FC<AddBookTopicProps> = ({ onChange }) => {
     };
 
     const filterOptions = (options: GroupedTopic[], state: { inputValue: string }) => {
-        const filtered = options.filter((option) =>
+        const filtered = options.filter(option =>
             option.name.toLowerCase().includes(state.inputValue.toLowerCase())
         );
 
-        const isExisting = options.some(
-            (option) => option.name.toLowerCase() === state.inputValue.toLowerCase()
+        const isExisting = options.some(option =>
+            option.name.toLowerCase() === state.inputValue.toLowerCase()
         );
 
         if (state.inputValue !== '' && !isExisting) {
@@ -118,7 +110,7 @@ const AddBookTopic: React.FC<AddBookTopicProps> = ({ onChange }) => {
             <Autocomplete
                 multiple
                 freeSolo
-                loading={loading}
+                loading={isLoading}
                 options={subjectOptions}
                 groupBy={(option) => option.category}
                 getOptionLabel={(option) =>
@@ -154,15 +146,15 @@ const AddBookTopic: React.FC<AddBookTopicProps> = ({ onChange }) => {
                         placeholder="Type or select a topic"
                         variant="outlined"
                         error={!!error}
-                        helperText={error ? error : "Select or add topics"}
+                        helperText={error ? `Failed to fetch topics: ${error.message}` : "Select or add topics"}
                         InputProps={{
                             ...params.InputProps,
                             endAdornment: (
                                 <>
-                                    {loading ? (
+                                    {isLoading ? (
                                         <CircularProgress color="inherit" size={20} />
                                     ) : error ? (
-                                        <IconButton onClick={fetchTopics}>
+                                        <IconButton onClick={() => mutate()}>
                                             <ReplayIcon fontSize="small" />
                                         </IconButton>
                                     ) : null}

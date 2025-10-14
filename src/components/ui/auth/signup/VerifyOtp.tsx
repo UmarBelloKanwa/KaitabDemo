@@ -1,7 +1,7 @@
 import React from "react";
 import OtpTab from "../OtpTab";
 import { useSignup } from "@/context/SignupContext";
-import { signupByVerifyingOtp } from "@/api/auth";
+import { signupByVerifyingOtp } from "@/lib/api/auth";
 import { useUserStore } from "@/store/user-store";
 
 export default function VerifyOtp() {

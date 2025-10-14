@@ -4,16 +4,16 @@ import type { SignupData } from "@/types/auth";
 const signIn = {
   // Login Using OTP
   submitEmail: async (data: { email: string }) => {
-    return await axios.post("auth/login/email", data);
+    return (await axios.post("auth/login/email", data)).data;
   },
 
   submitOtpCode: async (data: { otp_code: string }) => {
-    return await axios.post("auth/login/verify-otp", data);
+    return (await axios.post("auth/login/verify-otp", data)).data;
   },
 
   // Login using Password
   loginTo: async (data: { email: string; password: string }) => {
-    return await axios.post("auth/login", data);
+    return (await axios.post("auth/login", data)).data;
   },
 };
 
@@ -26,27 +26,25 @@ export const submitUserInfo = async (data: {
   birthDate: string;
   professionIds: number[];
 }) =>
-  await axios.post("user/set-info", {
+  (await axios.post("user/set-info", {
     full_name: data.fullName,
     birth_date: data.birthDate,
     profession_ids: data.professionIds,
-  });
+  })).data;
 
-export const getUserTopics = async (q?: string) =>
-  await axios.get(`topic/search-topic${q ? `?q=${q}` : ""}`);
 
 export const signupUserDataForOtp = async (data: SignupData) =>
-  await axios.post("auth/signup", {
+  (await axios.post("auth/signup", {
     topics: data.interests,
     full_name: data.fullName,
     birth_date: data.birthDate,
     email: data.email,
     password: data.password,
     confirm_password: data.confirmPassword,
-  });
+  })).data;
 
 export const signupByVerifyingOtp = async (data: SignupData) => {
-  return await axios.post("auth/signup/verify-otp", {
+  return (await axios.post("auth/signup/verify-otp", {
     topics: data.interests,
     full_name: data.fullName,
     birth_date: data.birthDate,
@@ -54,5 +52,7 @@ export const signupByVerifyingOtp = async (data: SignupData) => {
     password: data.password,
     confirm_password: data.confirmPassword,
     otp_code: data.otpCode,
-  });
+  })).data;
 };
+
+export const logout = async () => await axios.post("/logout")

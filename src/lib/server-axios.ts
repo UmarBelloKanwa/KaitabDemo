@@ -1,7 +1,7 @@
 "use server";
 
 import { createApi } from "./axios";
-import { getAllCookiesAsString } from "./features/auth/cookie";
+import { getAllCookiesAsString } from "./cookie";
 
 const serverAxios = async () => {
     const cookieHeader = await getAllCookiesAsString();

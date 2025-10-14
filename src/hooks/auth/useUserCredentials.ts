@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useSignup } from "@/context/SignupContext";
-import { signupUserDataForOtp } from "@/api/auth";
+import { signupUserDataForOtp } from "@/lib/api/auth";
 
 export default function useuserCredentialsPage() {
   type ProfessionOption = { id: number; name: string };

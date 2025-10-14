@@ -1,4 +1,4 @@
-import { api } from "@/lib/axios";
+import axios from "@/lib/axios";
 import { UserFormData } from "@/types/social";
 
 
@@ -17,20 +17,12 @@ export const publishBook = (data: UserFormData) => {
     if (data.coverPhoto) formData.append("cover_photo", data.coverPhoto);
     if (data.mainPhoto) formData.append("main_photo", data.mainPhoto);
 
-    return api.post("book/publish-book", formData, {
+    return axios.post("book/publish-book", formData, {
         // responseType: "stream",
         // adapter: 'fetch',
         headers: {
             "Content-Type": "multipart/form-data",
         },
-        timeout: 0, // disable timeout
-    });
-};
-
-export const getStreamNotifications = () => {
-    return api.get("notification/stream", {
-        responseType: "stream",
-        adapter: 'fetch',
         timeout: 0, // disable timeout
     });
 };

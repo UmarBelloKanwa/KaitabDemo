@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -12,8 +12,10 @@ import TextField from "@mui/material/TextField";
 import CameraAlt from "@mui/icons-material/CameraAlt";
 import FileUpload from "@/components/ui/publish/FileUpload";
 import AddBookTopic from "@/components/ui/publish/AddBookTopic";
-import { SelectedTopic } from "@/types/social";
+import usePublishPage from "@/hooks/publish/usePublishBook";
+import useAuthCheck from '@/hooks/auth/useAuthCheck';
 import ProcessingToast from "@/components/ui/publish/ProcessingToast";
+
 
 
 export default function PublishBook() {
@@ -25,6 +27,7 @@ export default function PublishBook() {
         isSubmitting, createBook, origin,
         showToast, closeToast
     } = usePublishPage();
+   const requireAuth = useAuthCheck();    
 
     return (
         <Container sx={{ height: "fit-content", pb: 1 }}>
@@ -230,142 +233,31 @@ export default function PublishBook() {
                     </Alert>
                 )}
 
-                <Box sx={{ width: "50%", m: "auto" }}>
+                <Box sx={{ width: "100%", m: "auto" }}>
                     <Button
                         type="submit"
                         variant="contained"
                         fullWidth
                         color="secondary"
                         loading={isSubmitting}
+                        disabled={!isFormValid() || isSubmitting}
                         loadingPosition="end"
-                        onClick={createBook}
-                        sx={{ borderRadius: 2 }}
+                        onClick={(e) => requireAuth(() => createBook(e))}
+                        sx={{  }}
                     >
                         {isSubmitting ? "Publishing..." : "Publish"}
                     </Button>
                 </Box>
-                <ProcessingToast
+                  <ProcessingToast
                     isVisible={showToast}
                     onClose={closeToast}
-                    title={formData.name}
-                    author={formData.author}
-                    description={formData.description}
+                    //title={formData.name}
+                    //author={formData.author}
+                    description={`Robook is a living extension of ${formData.author}'s mind.`}
                     fileName={formData.pdfFile?.name}
-                    estimatedTime="2-3 minutes"
                     slug={`${origin}/${formData.slug}`}
                 />
             </Box>
         </ Container>
     );
-}
-
-interface FormData {
-    name: string
-    author: string
-    slug: string
-    description: string
-    topics: SelectedTopic[]
-    coverPhoto: File | null
-    mainPhoto: File | null
-    pdfFile: File | null
-}
-function usePublishPage() {
-    const [formData, setFormData] = React.useState<FormData>({
-        name: "",
-        author: "",
-        slug: "",
-        description: "",
-        topics: [],
-        coverPhoto: null,
-        mainPhoto: null,
-        pdfFile: null,
-    });
-
-    const [coverPreview, setCoverPreview] = useState<string | null>(null);
-    const [mainPreview, setMainPreview] = useState<string | null>(null);
-    const [errors, setErrors] = useState<any>({});
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [showToast, setShowToast] = useState(false);
-    const origin = "https://robooks.example.com";
-
-    const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [field]: e.target.value });
-    };
-
-    const handleImageChange = (type: "coverPhoto" | "mainPhoto") => (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (type === "coverPhoto") {
-                setCoverPreview(reader.result as string);
-            } else {
-                setMainPreview(reader.result as string);
-            }
-        };
-        reader.readAsDataURL(file);
-
-        setFormData((prev) => ({ ...prev, [type]: file }));
-    };
-
-    const setPdf = (file: any) => {
-        setFormData((prev) => ({ ...prev, pdfFile: file }));
-    };
-
-    const isFormValid = () => {
-        return formData.name && formData.author && formData.slug && formData.pdfFile;
-    };
-
-    const createBook = () => {
-        setErrors({});
-        if (!isFormValid()) {
-            setErrors({ general: "Please fill all required fields." });
-            return;
-        }
-
-        setIsSubmitting(true);
-        setShowToast(true);
-
-        // Simulate API call
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setShowToast(false);
-
-            // Reset form after "publishing"
-            setFormData({
-                name: "",
-                author: "",
-                slug: "",
-                description: "",
-                topics: [],
-                coverPhoto: null,
-                mainPhoto: null,
-                pdfFile: null,
-            });
-            setCoverPreview(null);
-            setMainPreview(null);
-            alert("Book published successfully! ✅");
-        }, 3000);
-    };
-
-    const closeToast = () => setShowToast(false);
-
-    return {
-        coverPreview,
-        mainPreview,
-        handleImageChange,
-        setPdf,
-        handleInputChange,
-        formData,
-        setFormData,
-        errors,
-        setErrors,
-        isFormValid,
-        isSubmitting,
-        createBook,
-        origin,
-        showToast,
-        closeToast,
-    };
 }

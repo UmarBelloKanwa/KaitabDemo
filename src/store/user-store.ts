@@ -1,5 +1,6 @@
-import { create } from "zustand"
-import axios from "@/lib/axios" // 👈 import your configured Axios instance
+import { create } from "zustand";
+import { getUserMe } from "@/lib/api/user";
+import { logout } from "@/lib/api/auth";
 
 interface User {
     public_id: string
@@ -25,7 +26,7 @@ export const useUserStore = create<UserStore>((set) => ({
     fetchUser: async () => {
         set({ loading: true })
         try {
-            const res = await axios.get("/me")
+            const res = await getUserMe();
             set({ user: res.data.user || null })
         } catch (err: any) {
             // console.error("Failed to fetch user:", err.response?.data || err.message)
@@ -37,7 +38,7 @@ export const useUserStore = create<UserStore>((set) => ({
 
     logout: async () => {
         try {
-            await axios.post("/logout")
+            await logout();
         } catch (err: any) {
             // console.error("Logout failed:", err.response?.data || err.message)
         } finally {

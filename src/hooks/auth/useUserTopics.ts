@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { getUserTopics } from "@/api/auth";
+import { getUserTopics } from "@/lib/api/topics";
 import type { Category, Topic, TopicMap } from "@/types/auth";
 import { useSignup } from "@/context/SignupContext";
 

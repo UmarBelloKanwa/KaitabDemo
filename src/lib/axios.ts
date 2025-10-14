@@ -28,10 +28,10 @@ export function createApi(cookieHeader?: string): AxiosInstance {
             if (response.config.responseType === 'stream') {
                 return response;
             }
-            return response.data || response;
+            return response; //.data || response;
         },
         async (error) => {
-            console.log(error);
+            // console.log(error);
             const originalRequest = error.config;
             const isAuthEndpoint = originalRequest.url?.includes('/auth/');
             const is401 = error.response?.status === 401;
@@ -85,3 +85,7 @@ export function createApi(cookieHeader?: string): AxiosInstance {
 export const api = createApi();
 
 export default api;
+
+export const axiosFetcher = (url: string) => {
+    return api.get(url).then(res => res.data);
+};
