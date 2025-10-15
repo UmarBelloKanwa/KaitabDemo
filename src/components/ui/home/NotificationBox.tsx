@@ -20,11 +20,13 @@ import type { Notification } from "@/types/home";
 interface Props {
     notificationAnchor: HTMLDivElement | null;
     handleNotificationClose: () => void;
+    notificationActions: any 
 }
 
 export default function NotificationBox({
     notificationAnchor,
-    handleNotificationClose
+    handleNotificationClose,
+    notificationActions,
 }: Props) {
     //const router = useRouter();
     const isNotificationOpen = Boolean(notificationAnchor);
@@ -37,7 +39,7 @@ export default function NotificationBox({
         markAllAsRead,
         isLoading,
         errors
-    } = useNotifications();
+    } = notificationActions;
 
     const [hoverOverBox, setHoverOverBox] = React.useState(false);
     const [scrolling, setScrolling] = React.useState(false);

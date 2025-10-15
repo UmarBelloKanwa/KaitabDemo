@@ -243,7 +243,6 @@ export default function PublishBook() {
                         disabled={!isFormValid() || isSubmitting}
                         loadingPosition="end"
                         onClick={(e) => requireAuth(() => createBook(e))}
-                        sx={{  }}
                     >
                         {isSubmitting ? "Publishing..." : "Publish"}
                     </Button>

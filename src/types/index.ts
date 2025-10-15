@@ -1,6 +1,6 @@
 export interface User {
     public_id: string
-    full_name: string
+    name: string
     contact: string
 }
 

@@ -1,6 +1,6 @@
 "use server";
 
-import { createApi } from "./axios";
+import { createApi } from "../lib/axios";
 import { getAllCookiesAsString } from "./cookie";
 
 const serverAxios = async () => {
@@ -9,3 +9,8 @@ const serverAxios = async () => {
 };
 
 export default serverAxios;
+
+
+export const serverCatcheAxios = async (cookieHeader: string) => {
+    return createApi(cookieHeader);
+};

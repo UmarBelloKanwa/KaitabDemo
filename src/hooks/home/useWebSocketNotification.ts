@@ -9,10 +9,7 @@ export default function useWebSocketNotification() {
   const reconnectTimer = React.useRef<NodeJS.Timeout | null>(null);
 
   React.useEffect(() => {
-    const backendHttp =
-      process.env.NEXT_PUBLIC_BACKEND_URL || "http://127.0.0.1:8000";
-    const backendWs = backendHttp.replace(/^http/, "ws");
-    const url = `${backendWs}/api/py/notification/ws/notifications`;
+    const url = `/api/py/notification/ws/notifications`;
 
     const connect = () => {
       const ws = new WebSocket(url);

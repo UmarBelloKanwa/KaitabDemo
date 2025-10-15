@@ -3,6 +3,7 @@
 import React from "react";
 import authApi from "@/lib/api/auth";
 import { useUserStore } from "@/store/user-store";
+import { useUIStore } from "@/store/ui-store";
 
 export default function useSigninForm() {
   const [userEmail, setUserEmail] = React.useState<string | null>(null);
@@ -18,6 +19,7 @@ export default function useSigninForm() {
     "email"
   );
   const [isOtpStep, setIsOtpStep] = React.useState(false);
+  const {setDisplayAuthCard } = useUIStore();
 
   const handleSetEmail = (value: string) => {
     setUserEmail(value);
@@ -65,6 +67,7 @@ export default function useSigninForm() {
       setLoading(true);
       setErrors({});
       const res = await authApi.signIn.loginTo({ email, password });
+       setDisplayAuthCard(false);
     } catch (err: any) {
       console.log(err);
       setErrors((prev: any) => ({ ...prev, ...err }));
@@ -96,6 +99,7 @@ export default function useSigninForm() {
       // store the user globally
       if (res?.data?.user) {
         setUser(res.data.user);
+        setDisplayAuthCard(false);
       }
 
       return res;

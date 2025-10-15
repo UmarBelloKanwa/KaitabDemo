@@ -16,15 +16,15 @@ import AppBar from "@mui/material/AppBar";
 import Badge from "@mui/material/Badge";
 import useNotifications from "@/hooks/home/useNotification";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-import { useUserStore } from "@/store/user-store";
+// import { useUserStore } from "@/store/user-store";
 import Button from "@mui/material/Button";
 
-export default function Header() {
+export default function Header({user}: {user: any}) {
   const theme = useTheme();
   const requireAuth = useAuthCheck();
-  const { user } = useUserStore();
+  // const { user } = useUserStore();
 
-  const { unreadCount } = useNotifications();
+  const notificationActions = useNotifications();
   const [notificationAnchor, setNotificationAnchor] =
     React.useState<HTMLDivElement | null>(null);
   const boxRef = React.useRef<HTMLDivElement | null>(null);
@@ -38,6 +38,7 @@ export default function Header() {
       setNotificationAnchor(boxRef.current);
     });
   };
+  const unreadCount = notificationActions.unreadCount;
   return (
     <AppBar
       position="static"
@@ -46,7 +47,7 @@ export default function Header() {
       sx={{ borderRight: "none", backgroundColor: "background.default" }}
     >
       <Toolbar sx={{ justifyContent: "space-between", gap: 2 }}>
-        {!user ? (
+        {/* {!user ? (
           <Button
             variant="outlined"
             color="secondary"
@@ -54,36 +55,48 @@ export default function Header() {
           >
             Sign in to start
           </Button>
-        ) : (
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, flex: 1 }}>
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                Welcome back,
-              </Typography>
-              <Box
-                sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}
-              >
-                <Avatar
-                  sx={{
-                    bgcolor: theme.palette.primary.main,
-                    width: 20,
-                    height: 20,
-                    fontSize: 13,
-                  }}
+        ) : ( */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2, flex: 1 }}>
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Typography variant="body1" sx={{ color: "text.secondary" }}>
+              {user ? "Welcome back," : "Welcome to Kaitab"}
+            </Typography>
+            <Box
+              sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}
+            >
+              {user ? (
+                <>
+                  <Avatar
+                    sx={{
+                      bgcolor: theme.palette.primary.main,
+                      width: 20,
+                      height: 20,
+                      fontSize: 13,
+                    }}
+                  >
+                    {user?.full_name.charAt(0)}
+                  </Avatar>
+                  <Typography
+                    variant="body1"
+                    color="text.primary"
+                    fontWeight={"500"}
+                  >
+                    {user?.full_name}
+                  </Typography>
+                </>
+              ) : (
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => requireAuth(() => {})}
                 >
-                  {user?.full_name.charAt(0)}
-                </Avatar>
-                <Typography
-                  variant="body1"
-                  color="text.primary"
-                  fontWeight={"500"}
-                >
-                  {user?.full_name}
-                </Typography>
-              </Box>
+                  Sign in to start
+                </Button>
+              )}
             </Box>
           </Box>
-        )}
+        </Box>
+        {/* )} */}
         {/* <Box sx={{ display: { xs: "none", sm: "block" }, flex: 1 }}></Box> */}
         <Box ref={boxRef} sx={{ display: "flex", gap: 2 }}>
           <TextField
@@ -127,6 +140,7 @@ export default function Header() {
       <NotificationBox
         notificationAnchor={notificationAnchor}
         handleNotificationClose={handleNotificationClose}
+        notificationActions={notificationActions}
       />
     </AppBar>
   );

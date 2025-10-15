@@ -24,7 +24,7 @@ export default function ProfilePage() {
             }}
         >
             <Container
-                maxWidth="lg" // keeps md width on large screens
+                maxWidth="sm" // keeps md width on large screens
                 disableGutters
                 sx={{
                     width: "100%", // ensures full width on mobile
@@ -33,7 +33,7 @@ export default function ProfilePage() {
 
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={0}>
-                        <Grid size={{ xs: 12, sm: 7 }} sx={{
+                        <Grid sx={{
                             height: "100vh",
                             overflowY: "auto",
                             scrollbarWidth: "none", // Firefox
@@ -53,11 +53,11 @@ export default function ProfilePage() {
                                     setContentName={setContentName}
                                 />
                                 {contentName == "Posts" && <ProfilePosts />}
-                                {contentName == "Messages" && <RobookChat />}
+                                {/* {contentName == "Messages" && <RobookChat />} */}
                                 {contentName == "Chapters" && <SocialPost />}
                             </Box>
                         </Grid>
-                        <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />
+                        {/* <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />
                         <Grid size="grow" sx={{
                             height: "90vh",
                             overflowY: "auto",
@@ -75,7 +75,7 @@ export default function ProfilePage() {
                                 </>
                             ) : <RobookChat />}
                         </Grid>
-                        <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />
+                        <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} /> */}
 
                     </Grid>
                 </Box>

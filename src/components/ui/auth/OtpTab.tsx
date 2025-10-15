@@ -9,6 +9,8 @@ import OtpInput from "./OtpInput";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
 import { AxiosResponse } from "axios";
+import { useUIStore } from "@/store/ui-store";
+
 
 export default function VerifyOtpTab({
   email,
@@ -22,6 +24,7 @@ export default function VerifyOtpTab({
   const [otpCode, setOtpCode] = React.useState<string | null>(null);
   const [errors, setErrors] = React.useState<any | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const { setDisplayAuthCard } = useUIStore();
 
   const submit = async () => {
     try {
@@ -32,6 +35,7 @@ export default function VerifyOtpTab({
       setLoading(true);
       const res = await submitOtpCode(otpCode);
       setErrors(null);
+       setDisplayAuthCard(false);
     } catch (err: any) {
       setErrors(err);
     } finally {
