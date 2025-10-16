@@ -47,17 +47,8 @@ export default function Header({user}: {user: any}) {
       sx={{ borderRight: "none", backgroundColor: "background.default" }}
     >
       <Toolbar sx={{ justifyContent: "space-between", gap: 2 }}>
-        {/* {!user ? (
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={() => requireAuth(() => {})}
-          >
-            Sign in to start
-          </Button>
-        ) : ( */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, flex: 1 }}>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+        <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 2, flex: 1 }}>
+          <Box>
             <Typography variant="body1" sx={{ color: "text.secondary" }}>
               {user ? "Welcome back," : "Welcome to Kaitab"}
             </Typography>
@@ -96,8 +87,6 @@ export default function Header({user}: {user: any}) {
             </Box>
           </Box>
         </Box>
-        {/* )} */}
-        {/* <Box sx={{ display: { xs: "none", sm: "block" }, flex: 1 }}></Box> */}
         <Box ref={boxRef} sx={{ display: "flex", gap: 2 }}>
           <TextField
             placeholder="Search"
