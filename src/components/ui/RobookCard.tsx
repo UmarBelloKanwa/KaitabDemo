@@ -33,7 +33,7 @@ export default function RobookCard({ robook, where }: { robook: any, where: stri
                 p: 0.5,
                 background: theme.custom.gradient.primary,
             })}
-            onClick={() => router.push("/r/atomic-habits")}
+            onClick={() => router.push("/r/atomic")}
             elevation={0}
         >
             <Avatar
