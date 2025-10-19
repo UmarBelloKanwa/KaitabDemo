@@ -9,24 +9,26 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import TableOfContent from "@ui/robook/chapter/TableOfContent";
-import SocialPost from "@ui/robook/chapter/SocialMediaFeed";
-import { fetchRobook } from "@/actions/robook";
+import ChaptersFeed from "@ui/robook/chapter/ChaptersFeed";
+import { fetchRobook, fetchRobookState } from "@/actions/robook";
 
 export default async function RobookProfilePage({
   params,
 }: {
   params: { robookSlug: string };
 }) {
-    let robook = null;
-    const p = await params;
-    const slug = p.robookSlug;
+  const p = await params;
+  const slug = p.robookSlug;
+
+  let robook = null,
+    chapters = null;
+
   try {
-    robook = await fetchRobook(slug);
-    console.log(robook);
+    ({ robook, chapters } = await fetchRobookState(slug));
+    // console.log("Chapters", JSON.stringify(chapters));
   } catch (err) {
     console.log(err);
   }
-  // const [contentName, setContentName] = React.useState("Chapters");
   return (
     <Box
       sx={{
@@ -50,6 +52,7 @@ export default async function RobookProfilePage({
               sx={{
                 height: "100vh",
                 overflowY: "auto",
+                width: "100%",
                 scrollbarWidth: "none", // Firefox
                 "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
               }}
@@ -63,14 +66,13 @@ export default async function RobookProfilePage({
                   px: { xs: 2, sm: 2 },
                 }}
               >
-                              <ProfileInfo
-                                  robook={robook}
-                //   contentName={contentName}
-                //   setContentName={setContentName}
-                />
+                <ProfileInfo robook={robook} />
                 {/* {contentName == "Posts" && <ProfilePosts />} */}
                 {/* {contentName == "Messages" && <RobookChat />} */}
-                {/* {contentName == "Chapters" && <SocialPost />} */}
+                <ChaptersFeed
+                  robook={robook}
+                  chapters={chapters}
+                />
               </Box>
             </Grid>
             {/* <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />

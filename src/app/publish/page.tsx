@@ -40,7 +40,7 @@ export default function PublishBook() {
                 overflow: "hidden",
             }}>
                 <Typography sx={{ color: "text.secondary" }}>
-                    Transform your book into a Robook - an intelligent book that understands, interacts, and solves problems.
+                  Turn your book to Robook — Your AI social media agent that markets your book for you.
                 </Typography> <br />
 
                 {/* Cover Photo Upload */}

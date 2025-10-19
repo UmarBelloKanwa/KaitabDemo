@@ -1,4 +1,4 @@
-import axios from "@/lib/axios";
+import axios, { api } from "@/lib/axios";
 import { UserFormData } from "@/types/social";
 
 
@@ -26,3 +26,15 @@ export const publishBook = (data: UserFormData) => {
         timeout: 0, // disable timeout
     });
 };
+
+export const followBook = async (publicId: string) => {
+    return api.post(`book/follow/${publicId}`);
+}
+
+export const unfollowBook = async (publicId: string) => {
+    return api.delete(`book/unfollow/${publicId}`);
+}
+
+export const fetchBookChapters = async (publicId: string) => {
+
+}

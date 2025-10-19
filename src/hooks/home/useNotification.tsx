@@ -30,7 +30,7 @@ export default function useNotifications() {
       sendWSAction(NotificationAction.MARK_READ, id);
       await mutate(); // revalidate API data
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setErrors(err);
     }
   };
@@ -41,7 +41,7 @@ export default function useNotifications() {
       sendWSAction(NotificationAction.MARK_ALL_AS_READ);
       await mutate();
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       setErrors(err);
     }
   };

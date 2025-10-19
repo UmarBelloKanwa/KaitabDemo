@@ -19,8 +19,32 @@ export default async function decodeCookie(cookieName: string = "auth_flow") {
 
 
 export async function getAllCookiesAsString() {
-    const cookieStore = await cookies();
-    const allCookies = cookieStore.getAll();
+  const cookieStore = await cookies();
+  const allCookies = cookieStore.getAll();
 
-    return allCookies.map(({ name, value }) => `${name}=${value}`).join('; ');
+  // Look for specific cookies
+  const accessToken = allCookies.find((c) => c.name === "access_token");
+  const refreshToken = allCookies.find((c) => c.name === "refresh_token");
+
+  // Return cookies as a string (for headers, etc.)
+  const cookieString = allCookies
+    .map(({ name, value }) => `${name}=${value}`)
+    .join("; ");
+
+  return {
+    cookieString,
+    accessToken: accessToken?.value,
+    refreshToken: refreshToken?.value,
+  };
+}
+
+// Check if JWT token is expired
+export function isTokenExpired(token: string): boolean {
+  try {
+    const [, payload] = token.split(".");
+    const { exp } = JSON.parse(Buffer.from(payload, "base64").toString());
+    return Date.now() >= exp * 1000;
+  } catch {
+    return true; // invalid token → treat as expired
+  }
 }

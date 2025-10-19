@@ -1,104 +1,122 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
-    palette: {
-        mode: "dark",
-        primary: {
-            main: "#ff00aaff", // Purple from gradient
-            light: "#f7258eff",
-            dark: "#ff009dff",
-            contrastText: "#ffffff",
-        },
-        secondary: {
-            main: "#ec4899", // Pink accent from gradient
-        },
-        background: {
-            default: "#0d0d0fff", // Main content background
-            paper: "#161618ff", // Cards and panels
-        },
-        text: {
-            primary: "#ffffff",
-            secondary: "#9ca3af",
-        },
-        divider: "#27272a", // Thin gray divider
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#ff00aaff", // Purple from gradient
+      light: "#f7258eff",
+      dark: "#ff009dff",
+      contrastText: "#ffffff",
     },
-    typography: {
-        fontFamily: `"Plus Jakarta Sans", "Inter", "Roboto", "Helvetica", "Arial", sans-serif`,
-        h5: {
+    secondary: {
+      main: "#ec4899", // Pink accent from gradient
+    },
+    background: {
+      default: "#0d0d0fff", // Main content background
+      paper: "#161618ff", // Cards and panels
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#9ca3af",
+    },
+    divider: "#27272a", // Thin gray divider
+  },
+  typography: {
+    fontFamily: `"Plus Jakarta Sans", "Inter", "Roboto", "Helvetica", "Arial", sans-serif`,
+    h5: {
+      fontWeight: 600,
+      color: "#ffffff",
+    },
+    h6: {
+      fontWeight: 500,
+      color: "#ffffff",
+    },
+    body1: {
+      color: "#ffffff",
+    },
+    body2: {
+      color: "#9ca3af",
+    },
+    button: {
+      textTransform: "none",
+      fontWeight: 500,
+    },
+  },
+  custom: {
+    gradient: {
+      primary: "linear-gradient(90deg, #8a5cf644, #ec4899)",
+      primaryHover: "linear-gradient(90deg, #a78bfa, #f472b6)",
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          m: 0,
+          p: 0,
+          boxSizing: "border-box",
+          // Custom scrollbar styles
+          scrollbarColor: "#333 #1a1a1a",
+          "&::-webkit-scrollbar": {
+            width: 8,
+            height: 8,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#333",
+            borderRadius: 8,
+          },
+        },
+      },
+    },
+
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
+          fontWeight: 500,
+          textTransform: "none",
+        },
+        containedPrimary: ({ theme }) => ({
+          background: theme.custom.gradient.primary,
+          "&:hover": {
+            background: theme.custom.gradient.primaryHover,
+          },
+        }),
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: 12,
+          fontWeight: 500,
+          textTransform: "none",
+
+          // Custom class style
+          "&.gradientChip": {
+            background: theme.custom.gradient.primary,
+            color: theme.palette.primary.contrastText,
             fontWeight: 600,
-            color: "#ffffff",
-        },
-        h6: {
-            fontWeight: 500,
-            color: "#ffffff",
-        },
-        body1: {
-            color: "#ffffff",
-        },
-        body2: {
-            color: "#9ca3af",
-        },
-        button: {
-            textTransform: "none",
-            fontWeight: 500,
-        },
-    },
-    custom: {
-        gradient: {
-            primary: "linear-gradient(90deg, #8a5cf644, #ec4899)",
-            primaryHover: "linear-gradient(90deg, #a78bfa, #f472b6)",
-        }
-    },
-    shape: {
-        borderRadius: 12,
-    },
-    components: {
-        MuiCssBaseline: {
-            styleOverrides: {
-                body: {
-                    m: 0,
-                    p: 0,
-                    boxSizing: "border-box",
-                    // Custom scrollbar styles
-                    scrollbarColor: "#333 #1a1a1a",
-                    "&::-webkit-scrollbar": {
-                        width: 8,
-                        height: 8,
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                        backgroundColor: "#333",
-                        borderRadius: 8,
-                    },
-                },
+            "&:hover": {
+              background: theme.custom.gradient.primaryHover,
             },
-        },
+          },
+        }),
+      },
+    },
 
-        MuiButton: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 12,
-                    fontWeight: 500,
-                    textTransform: "none",
-                },
-                containedPrimary: ({ theme }) => ({
-                    background: theme.custom.gradient.primary,
-                    "&:hover": {
-                        background: theme.custom.gradient.primaryHover,
-                    },
-                }),
-            },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 12,
         },
-
-        MuiCard: {
-            styleOverrides: {
-                root: {
-                    borderRadius: 12,
-                },
-            },
-        },
+      },
     },
+  },
 });
-
 
 // const theme = createTheme({
 //   palette: {

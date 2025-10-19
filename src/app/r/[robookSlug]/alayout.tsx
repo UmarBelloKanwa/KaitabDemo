@@ -7,8 +7,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
   params: { robookSlug: string };
-  }) {
-  
+}) {
   // let robook = null;
   // try {
   //   robook = await fetchRobook(params.robookSlug);
@@ -16,10 +15,6 @@ export default async function Layout({
   // } catch (err) {
   //   console.log(err);
   // }
-  
-  return (
-    <>
-      <main>{children}</main>
-    </>
-  );
+
+  return <>{children}</>;
 }
