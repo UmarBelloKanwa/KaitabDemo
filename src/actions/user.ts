@@ -13,18 +13,6 @@ export const fetchUser = async () => {
   }
 };
 
-// export async function fetchSharedUserState(userId?: string) {
-//   if (!userId) return { user: null, settings: null };
-
-//   // Parallel fetches (faster!)
-//   const [user, /*settings*/] = await Promise.all([
-//     fetchUser(),
-//     //fetchSettings(userId)
-//   ]);
-
-//   return { user, /*settings*/ };
-// }
-
 // const getUser = unstable_cache(
 //   async (userId: string) => fetchUser(),
 //   ['user'],

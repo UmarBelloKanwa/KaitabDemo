@@ -17,9 +17,10 @@ export default function ActionsButton({robookPublicId,isFollowing, canFollow }: 
         sx={{
           borderColor: theme.palette.divider,
           color: theme.palette.text.disabled,
+          bgcolor: theme.palette.action.hover,
           flex: canFollow ? "unset" : 1,
           "&:hover": {
-            bgcolor: theme.palette.action.hover,
+            bgcolor: "transparent",
             color: theme.palette.text.primary,
             borderColor: theme.palette.divider,
           },

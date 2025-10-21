@@ -35,6 +35,10 @@ export const unfollowBook = async (publicId: string) => {
     return api.delete(`book/unfollow/${publicId}`);
 }
 
-export const fetchBookChapters = async (publicId: string) => {
+export const likeChapter = async (public_id: string) => {
+  return api.post(`book/chapter/${public_id}/like`)
+}
 
+export const unLikeChapter = async (public_id: string) => {
+  return api.post(`book/chapter/${public_id}/unlike`)
 }

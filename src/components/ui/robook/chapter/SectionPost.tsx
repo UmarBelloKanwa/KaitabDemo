@@ -34,6 +34,7 @@ import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 import { ExpandedPost } from "@ui/robook/post/ExpandedPost";
 import usersComments from "@/data/comments.json";
+import type { BookChapterResponse, Chapter, ChapterContent, ContentRole, ElementType } from "@/types/book";
 
 export default function SectionPost({ section, chapter, sectionIndex }: { section: any; chapter: any; sectionIndex: number; }) {
     const [liked, setLiked] = React.useState(false);

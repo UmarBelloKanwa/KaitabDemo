@@ -1,16 +1,37 @@
-import serverAxios from "@/actions/server-axios";
+import serverAxios, { serverCatcheAxios } from "@/actions/server-axios";
+import { getAllCookiesAsString } from "./cookie";
+import { unstable_cache } from "next/cache";
+import { revalidateTag, revalidatePath } from "next/cache";
 
 export const fetchRobook = async (robookSlug: string) => {
   const axios = await serverAxios();
   const res = await axios.get(`book/${robookSlug}`);
   return res.data;
-}
+};
+
+// export const fetchBookChapters = async (robookSlug: string) => {
+//   const cookieHeader = await getAllCookiesAsString();
+//   const axios = await serverCatcheAxios(cookieHeader);
+//   const cachedFun = unstable_cache(
+//     async (robookSlug: string) => {
+//       const res = await axios.get(`book/${robookSlug}/chapters`);
+//       return res.data;
+//     },
+//     [robookSlug],
+//     { revalidate: 0 }
+//   );
+
+//   return cachedFun(robookSlug);
+// };
+
 
 export const fetchBookChapters = async (robookSlug: string) => {
-  const axios = await serverAxios();
+
+  const cookieHeader = await getAllCookiesAsString();
+  const axios = await serverCatcheAxios(cookieHeader);
   const res = await axios.get(`book/${robookSlug}/chapters`);
   return res.data;
-}
+};
 
 export async function fetchRobookState(robookSlug: string) {
   try {
@@ -19,8 +40,7 @@ export async function fetchRobookState(robookSlug: string) {
       fetchBookChapters(robookSlug),
     ]);
 
-    const robook =
-      robookRes.status === "fulfilled" ? robookRes.value : null;
+    const robook = robookRes.status === "fulfilled" ? robookRes.value : null;
     const chapters =
       chaptersRes.status === "fulfilled" ? chaptersRes.value : [];
 
@@ -30,3 +50,9 @@ export async function fetchRobookState(robookSlug: string) {
     throw new Error("Failed to load robook data");
   }
 }
+
+export const fetchBookChapter = async (public_id: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`book/chapter/${public_id}`);
+  return res.data;
+};

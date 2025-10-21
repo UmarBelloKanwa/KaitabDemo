@@ -10,8 +10,9 @@ import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import TableOfContent from "@ui/robook/chapter/TableOfContent";
 import ChaptersFeed from "@ui/robook/chapter/ChaptersFeed";
-import { fetchRobook, fetchRobookState } from "@/actions/robook";
-
+import { fetchRobookState } from "@/actions/robook";
+import type { BookResponse, BookChapterResponse } from "@/types/book";
+import { fakeBook, fakeChapters } from "@/types/book";
 export default async function RobookProfilePage({
   params,
 }: {
@@ -20,8 +21,8 @@ export default async function RobookProfilePage({
   const p = await params;
   const slug = p.robookSlug;
 
-  let robook = null,
-    chapters = null;
+  let robook: BookResponse | null = null,
+    chapters: BookChapterResponse[] | null = null;
 
   try {
     ({ robook, chapters } = await fetchRobookState(slug));
@@ -29,6 +30,7 @@ export default async function RobookProfilePage({
   } catch (err) {
     console.log(err);
   }
+  console.log(chapters);
   return (
     <Box
       sx={{
@@ -69,10 +71,11 @@ export default async function RobookProfilePage({
                 <ProfileInfo robook={robook} />
                 {/* {contentName == "Posts" && <ProfilePosts />} */}
                 {/* {contentName == "Messages" && <RobookChat />} */}
-                <ChaptersFeed
-                  robook={robook}
-                  chapters={chapters}
-                />
+                {robook && chapters ? (
+                  <ChaptersFeed robook={robook} chapters={chapters} />
+                ) : (
+                  <h1> Login to be able to read the book </h1>
+                )}
               </Box>
             </Grid>
             {/* <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />

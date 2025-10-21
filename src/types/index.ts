@@ -1,14 +1,3 @@
-interface Chapter {
-  public_id: string;
-  title: string;
-  content: {
-    id: number;
-    title: string;
-    pageNumber: number;
-    pagesCount: number;
-    sections: any[];
-  };
-}
 
 export interface User {
     public_id: string

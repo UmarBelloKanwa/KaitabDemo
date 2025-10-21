@@ -22,7 +22,7 @@ export default function RootLayout({
         />
       </head>
       <body>
-          <HydrationProvider>
+        <HydrationProvider>
           <ClientProvider>{children}</ClientProvider>
         </HydrationProvider>
       </body>
