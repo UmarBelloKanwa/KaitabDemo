@@ -33,7 +33,7 @@ import type { BookResponse, BookChapterResponse } from "@/types/book";
 // }
 
 const ProfileCard = ({ robook }: { robook: BookResponse | null }) => {
-  console.log(robook, "in card");
+  // console.log(robook, "in card");
   if (!robook) {
     return <h1> Robook is not found </h1>;
   }

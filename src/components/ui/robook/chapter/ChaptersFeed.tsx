@@ -4,11 +4,11 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import ChaptersIcon from "@mui/icons-material/ImportContacts";
 import ChapterGroup from "./ChapterGroup";
-import bookData from "@/data/bookData.json";
 import type { BookResponse, BookChapterResponse } from "@/types/book";
 import Avatar from "@mui/material/Avatar";
+import Chapter from "@/components/ui/robook/chapter/Chapter";
+
 
 const ChaptersFeed = ({
   robook,
@@ -16,8 +16,8 @@ const ChaptersFeed = ({
 }: {
   robook: BookResponse;
   chapters: BookChapterResponse[];
-  }) => {
-  console.log(chapters);
+}) => {
+  // console.log(chapters);
   return (
     <Box sx={{ width: "100%", m: "auto" }}>
       <Paper
@@ -28,7 +28,7 @@ const ChaptersFeed = ({
           zIndex: 20,
           m: "auto",
           border: "1px solid divider",
-          bgcolor: "background.default"
+          bgcolor: "background.default",
         }}
       >
         <Box sx={{ maxWidth: "100%", mx: "auto", px: 1, py: 1 }}>
@@ -47,7 +47,7 @@ const ChaptersFeed = ({
             >
               {robook?.name.charAt(0)}
             </Avatar>
-            <Box sx={{mt: -1}}>
+            <Box sx={{ mt: -1 }}>
               <Typography variant="h6" fontWeight="bold">
                 {robook.name}
               </Typography>
@@ -60,9 +60,18 @@ const ChaptersFeed = ({
         </Box>
       </Paper>
 
-      <Box sx={{ m: "auto", mt: 1,}}>
+      <Box sx={{ m: "auto", mt: 1 }}>
         {chapters.map((chapter, id) => (
-          <ChapterGroup key={id} chapter={chapter} id={id} robook={robook} />
+          <ChapterGroup
+            key={id} // Client
+            chapter={chapter} 
+            id={id+1}
+          >
+            <Chapter
+              robook={robook} // SSR
+              chapter={chapter}
+            />
+          </ChapterGroup>
         ))}
       </Box>
     </Box>

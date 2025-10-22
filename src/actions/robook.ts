@@ -24,9 +24,7 @@ export const fetchRobook = async (robookSlug: string) => {
 //   return cachedFun(robookSlug);
 // };
 
-
 export const fetchBookChapters = async (robookSlug: string) => {
-
   const cookieHeader = await getAllCookiesAsString();
   const axios = await serverCatcheAxios(cookieHeader);
   const res = await axios.get(`book/${robookSlug}/chapters`);
@@ -55,4 +53,28 @@ export const fetchBookChapter = async (public_id: string) => {
   const axios = await serverAxios();
   const res = await axios.get(`book/chapter/${public_id}`);
   return res.data;
+};
+
+export const fetchChapterComments = async (chapter_id: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`book/chapter/${chapter_id}/comments`);
+  return res.data;
+};
+
+export const fetchChapterState = async (chapter_id: string) => {
+  try {
+    const [chapterRes, commentsRes] = await Promise.allSettled([
+      fetchBookChapter(chapter_id),
+      fetchChapterComments(chapter_id),
+    ]);
+
+    const chapter = chapterRes.status === "fulfilled" ? chapterRes.value : null;
+    const comments =
+      commentsRes.status === "fulfilled" ? commentsRes.value : [];
+
+    return { chapter, comments };
+  } catch (error) {
+    console.log("Error fetching chapter state:", error);
+    throw new Error("Failed to load chapter data");
+  }
 };

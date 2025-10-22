@@ -1,40 +1,27 @@
+"use server";
+
 import React from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import type { BookResponse, BookChapterResponse, Chapter } from "@/types/book";
-import { useRouter } from "next/navigation";
-import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import GetContent from "./GetContent";
-import {
-  LikeButton,
-  ShareButton,
-} from "@/components/ui/robook/chapter/ActionsButtons";
+import LikeButton from "./ActionsButtons/LikeButton";
+import ShareButton from "./ActionsButtons/ShareButton";
+import CommentButton from "./ActionsButtons/CommentButton";
+import ShowMoreButton from "./ActionsButtons/ShowMoreButton";
 
-export default function Chapter({
+export default async function Chapter({
   robook,
   chapter,
 }: {
   chapter: BookChapterResponse;
   robook: BookResponse;
 }) {
-  const [bookmarked, setBookmarked] = React.useState(false);
-  const [expanded, setExpanded] = React.useState(false);
-
-  const [randomComments, setRandomComments] = React.useState(chapter.comments_count);
-  const requireAuth = useAuthCheck();
-  const router = useRouter();
-
-  console.log(chapter)
+  // console.log(chapter);
 
   return (
     <Card
@@ -60,22 +47,7 @@ export default function Chapter({
             {robook.name.charAt(0)}
           </Avatar>
         }
-        action={
-          <IconButton
-            size="small"
-            onClick={() => setBookmarked(!bookmarked)}
-            sx={{
-              color: bookmarked ? "warning.main" : "text.secondary",
-              "&:hover": { bgcolor: "warning.light", color: "warning.main" },
-            }}
-          >
-            {bookmarked ? (
-              <BookmarkIcon fontSize="small" />
-            ) : (
-              <BookmarkBorderIcon />
-            )}
-          </IconButton>
-        }
+        action={<ShareButton />}
         title={
           <Typography variant="subtitle2" fontWeight="bold">
             {robook.name}
@@ -120,48 +92,23 @@ export default function Chapter({
               })}
             </Box>
 
-            {!expanded && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  height: "80px",
-                  background:
-                    "linear-gradient(to bottom, transparent 0%, rgba(26, 26, 26, 0.8) 50%, #1a1a1a 100%)",
-                  backdropFilter: "blur(2px)",
-                  pointerEvents: "none",
-                }}
-              />
-            )}
-
-            <Button
-              fullWidth
-              onClick={() => {
-                requireAuth(() =>
-                  router.push(`/r/${robook.slug}/${chapter.public_id}`)
-                );
-              }}
-              endIcon={
-                <KeyboardArrowDownIcon
-                  sx={{
-                    transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
-                    transition: "transform 0.3s",
-                  }}
-                />
-              }
+            <Box
               sx={{
-                bgcolor: "rgba(255, 255, 255, 0.05)",
-                color: "text.primary",
-                textTransform: "none",
-                "&:hover": {
-                  bgcolor: "rgba(255, 255, 255, 0.08)",
-                },
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: "80px",
+                background:
+                  "linear-gradient(to bottom, transparent 0%, rgba(26, 26, 26, 0.8) 50%, #1a1a1a 100%)",
+                backdropFilter: "blur(2px)",
+                pointerEvents: "none",
               }}
-            >
-              {expanded ? "Show less" : "Show more"}
-            </Button>
+            />
+            <ShowMoreButton
+              chapterPublicId={chapter.public_id}
+              robookSlug={robook.slug}
+            />
           </Box>
         </Box>
         <Box
@@ -173,40 +120,19 @@ export default function Chapter({
           }}
         >
           <Box sx={{ display: "flex", gap: 2 }}>
-            <LikeButton 
+            <LikeButton
               chapterPublicId={chapter.public_id}
               isLikedByUser={chapter.liked_by_user}
               likesCount={chapter.reaction_count}
             />
 
-            <Button
-              variant="text"
-              size="small"
-              onClick={() => {
-                requireAuth(() =>
-                  router.push(`/r/${robook.slug}/${chapter.public_id}`)
-                );
-              }}
-              startIcon={<ChatBubbleOutlineIcon />}
-              sx={{
-                color: "text.secondary",
-                textTransform: "none",
-              }}
-            >
-              {randomComments}
-            </Button>
-
-            <ShareButton />
+            <CommentButton
+              chapterPublicId={chapter.public_id}
+              commentCount={chapter.comment_count}
+              robookSlug={robook.slug}
+            />
           </Box>
-          <IconButton
-            onClick={() => setBookmarked(!bookmarked)}
-            sx={{
-              color: bookmarked ? "warning.main" : "text.secondary",
-              "&:hover": { bgcolor: "warning.light", color: "warning.main" },
-            }}
-          >
-            {bookmarked ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-          </IconButton>
+          <ShareButton />
         </Box>
       </CardContent>
     </Card>

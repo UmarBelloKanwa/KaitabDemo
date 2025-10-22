@@ -1,15 +1,41 @@
+"use server";
+
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import AppBar from "@/components/ui/robook/chapter/ChapterAppBar";
-import { fakeIndependentChapter } from "@/types/book";
 import ChapterFeed from "@/components/ui/robook/chapter/ChapterFeed";
+import { fetchChapterState } from "@/actions/robook";
+import type { IndependentChapter, Comment } from "@/types/book";
 
-export default function ChapterPage() {
+export default async function ChapterPage({
+  params,
+}: {
+  params: { chapterId: string };
+}) {
+  const p = await params;
+  const chapterId = p.chapterId;
+  let chapter: IndependentChapter | null = null,
+    comments: Comment[] | null = null;
+
+  try {
+    ({ chapter, comments } = await fetchChapterState(chapterId));
+  } catch (err) {
+    console.log(err);
+  }
+  console.log("Comments", comments);
+
   return (
     <Box sx={{ minHeight: "100vh", width: "100%" }}>
-      <AppBar />
+      {chapter?.book && (
+        <AppBar
+          robookSlug={chapter?.book?.slug}
+          robookName={chapter?.book?.name}
+          authorName={chapter?.book?.author?.name}
+          robookPhotoUrl={chapter?.book?.main_photo_url}
+        />
+      )}
       <Container maxWidth={false} sx={{ py: 3, maxWidth: 805 }}>
-        <ChapterFeed chapter={fakeIndependentChapter} />
+        <ChapterFeed chapter={chapter} comments={comments} />
       </Container>
     </Box>
   );

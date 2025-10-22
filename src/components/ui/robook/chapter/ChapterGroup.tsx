@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import SectionPost from "./SectionPost";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -9,21 +8,16 @@ import Collapse from "@mui/material/Collapse";
 import Paper from "@mui/material/Paper";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import type {
-  BookChapterResponse,
-  ChapterContent,
-  BookResponse,
-} from "@/types/book";
-import Chapter from "@/components/ui/robook/chapter/Chapter";
+import type { BookChapterResponse, BookResponse } from "@/types/book";
 
 export default function ChapterGroup({
+  children,
   chapter,
   id,
-  robook,
 }: {
+  children: React.ReactNode;
   chapter: BookChapterResponse;
   id: number;
-  robook: BookResponse;
 }) {
   const [collapsed, setCollapsed] = React.useState(true);
 
@@ -57,14 +51,12 @@ export default function ChapterGroup({
             </Typography>
             <Typography variant="caption" color="text.secondary">
               Chapter {id}
-              {/* {chapter.sections.length} sections • Pages {chapter.pageNumber}-
-                            {chapter.pageNumber + chapter.pagesCount - 1} */}
             </Typography>
           </Box>
         </Button>
       </Paper>
 
-      <Collapse in={!collapsed}>
+      <Collapse in={!collapsed} timeout="auto" unmountOnExit={false}>
         <Box
           sx={{
             display: "flex",
@@ -77,7 +69,7 @@ export default function ChapterGroup({
             m: "auto",
           }}
         >
-          <Chapter robook={robook} chapter={chapter} />
+          {children}
         </Box>
       </Collapse>
     </Box>

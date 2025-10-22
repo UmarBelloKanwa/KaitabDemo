@@ -29,6 +29,8 @@ const collapsedWidth = 64; // Width when collapsed (just icon)
 export default function Sidebar() {
   const requireAuth = useAuthCheck();
 
+  const companyName = "Spreadium";
+
   const theme = useTheme();
   const router = useRouter();
 
@@ -102,7 +104,7 @@ export default function Sidebar() {
           sx={{ m: 0, cursor: "pointer", display: { xs: "block", sm: "none" } }}
           onClick={() => router.push("/")}
         >
-          Kaitab
+          {companyName}
         </Typography>
       </Box>
     );
@@ -155,7 +157,7 @@ export default function Sidebar() {
               sx={{ m: 0 }}
               onClick={() => router.push("/")}
             >
-              Kaitab
+              {companyName}
             </Typography>
             <IconButton
               onClick={handleDrawerToggle}

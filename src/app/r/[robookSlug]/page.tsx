@@ -1,18 +1,15 @@
 "use server";
 
 import React from "react";
-import RobookChat from "@/components/ui/robook/chat/RobookChat";
-import ProfilePosts from "@/components/ui/robook/post/ProfilePosts";
 import Container from "@mui/material/Container";
 import ProfileInfo from "@/components/ui/robook/ProfileInfo";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Divider from "@mui/material/Divider";
-import TableOfContent from "@ui/robook/chapter/TableOfContent";
 import ChaptersFeed from "@ui/robook/chapter/ChaptersFeed";
 import { fetchRobookState } from "@/actions/robook";
 import type { BookResponse, BookChapterResponse } from "@/types/book";
-import { fakeBook, fakeChapters } from "@/types/book";
+
+
 export default async function RobookProfilePage({
   params,
 }: {
@@ -70,7 +67,6 @@ export default async function RobookProfilePage({
               >
                 <ProfileInfo robook={robook} />
                 {/* {contentName == "Posts" && <ProfilePosts />} */}
-                {/* {contentName == "Messages" && <RobookChat />} */}
                 {robook && chapters ? (
                   <ChaptersFeed robook={robook} chapters={chapters} />
                 ) : (
@@ -78,25 +74,6 @@ export default async function RobookProfilePage({
                 )}
               </Box>
             </Grid>
-            {/* <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} />
-                        <Grid size="grow" sx={{
-                            height: "90vh",
-                            overflowY: "auto",
-                            display: { xs: "none", sm: "block", },
-                            scrollbarWidth: "none", // Firefox
-                            p: 1,
-                            width: "100%",
-
-                            "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
-                        }}>
-                            {contentName == "Chapters" ? (
-                                <>
-                                    <TableOfContent />
-                                    <RobookChat />
-                                </>
-                            ) : <RobookChat />}
-                        </Grid>
-                        <Divider flexItem orientation="vertical" sx={{ display: { xs: "none", sm: "block", }, }} /> */}
           </Grid>
         </Box>
       </Container>

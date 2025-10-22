@@ -40,5 +40,9 @@ export const likeChapter = async (public_id: string) => {
 }
 
 export const unLikeChapter = async (public_id: string) => {
-  return api.post(`book/chapter/${public_id}/unlike`)
+  return api.delete(`book/chapter/${public_id}/unlike`)
+}
+
+export const CreateCommentToChapter = async (public_id: string, comment: string) => {
+    return api.post(`book/chapter/${public_id}/comment`, { comment_text: comment });
 }

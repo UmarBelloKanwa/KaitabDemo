@@ -14,61 +14,8 @@ export interface Chapter {
   sections: Section[];
 }
 
-export interface Section {
-  id: string;
-  title: string;
-  elements: Element[];
-}
 
-export type ElementType = "head" | "text" | "table" | "list" | "image";
 
-export type ContentRole =
-  | "paragraph"
-  | "aside"
-  | "figure"
-  | "footnote"
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "list"
-  | "section";
-
-export interface Element {
-  type: ElementType;
-  contentRole: ContentRole;
-  text: string;
-  style: ElementStyle;
-  rows?: string[][];
-  items?: string[];
-  src?: string;
-  alt?: string;
-}
-
-export interface ElementStyle {
-  width: string;
-  height: string;
-  color: string;
-  fontSize: string;
-  fontWeight: string;
-  // Optional additional CSS fields if you later want to support them:
-  // fontStyle?: string;
-  // textDecoration?: string;
-  // textAlign?: string;
-  // lineHeight?: string;
-  // margin?: string;
-  // padding?: string;
-  // border?: string;
-  // display?: string;
-  // position?: string;
-  // top?: string;
-  // left?: string;
-  // right?: string;
-  // bottom?: string;
-  // zIndex?: number;
-}
 export interface AuthorProfile {
   public_id: string; // UUID
   name: string;
@@ -115,7 +62,7 @@ export interface BookChapterResponse {
   content: ChapterContent;
 
   // Relationships
-  book?: BookResponse; // optional circular reference
+  book: BookResponse; // optional circular reference
   // comments?: BookChapterComment[];
   // reactions?: BookChapterReaction[];
 
@@ -131,7 +78,86 @@ export interface BookChapterResponse {
   liked_by_user: boolean;
 }
 
-// Example structure for the content JSON
+// Base style type
+export interface ElementStyle {
+  width: string;
+  height: string;
+  color: string;
+  fontSize: string;
+  fontWeight: string;
+}
+
+// Common roles for text-like content
+export type ContentRole =
+  | "paragraph"
+  | "aside"
+  | "figure"
+  | "footnote"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "list"
+  | "section";
+
+// Discriminated element types
+export type Element =
+  | TextElement
+  | HeadElement
+  | TableElement
+  | ListElement
+  | ImageElement;
+
+// --- Element Variants ---
+
+export interface TextElement {
+  type: "text";
+  contentRole: ContentRole;
+  text: string;
+  style: ElementStyle;
+  id?: number;
+}
+
+export interface HeadElement {
+  type: "head";
+  contentRole: ContentRole;
+  text: string;
+  style: ElementStyle;
+  id?: number;
+}
+
+export interface TableElement {
+  type: "table";
+  rows: string[][];
+  style: ElementStyle;
+  id?: number;
+}
+
+export interface ListElement {
+  type: "list";
+  items: string[];
+  style: ElementStyle;
+  id?: number;
+}
+
+export interface ImageElement {
+  type: "image";
+  src: string;
+  alt: string;
+  style: ElementStyle;
+  id?: number;
+}
+
+// --- Higher-level structures ---
+
+export interface Section {
+  id: string;
+  title: string;
+  elements: Element[];
+}
+
 export interface ChapterContent {
   id: number;
   title: string;
@@ -140,24 +166,6 @@ export interface ChapterContent {
   sections: Section[];
 }
 
-// Already defined Section and Element from your previous code
-export interface Section {
-  id: string;
-  title: string;
-  elements: Element[];
-}
-
-export interface Element {
-  type: ElementType;
-  contentRole: ContentRole;
-  text: string;
-  style: ElementStyle;
-  rows?: string[][];
-  items?: string[];
-  src?: string;
-  alt?: string;
-  id?: number;
-}
 
 export interface IndependentChapter extends BookChapterResponse {
   book: BookResponse;
@@ -588,3 +596,15 @@ export const fakeIndependentChapter = {
   ...fakeChapters[3],
   book: { ...fakeBook },
 };
+
+export interface User {
+  public_id: string;
+  name: string;
+}
+
+export interface Comment {
+  public_id: string;
+  user: User;
+  created_at: string;
+  comment_text: string;
+}
