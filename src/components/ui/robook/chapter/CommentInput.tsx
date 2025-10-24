@@ -7,14 +7,13 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import type { Comment } from "@/types/book";
-import { CreateCommentToChapter } from "@/lib/api/book";
 
 export default function CommentInput({
-  chapterId,
   setComments,
+  createComment,
 }: {
-  chapterId: string;
   setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
+  createComment: (txt: string) => Promise<any>; 
 }) {
   const [newComment, setNewComment] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -34,7 +33,7 @@ export default function CommentInput({
 
     try {
       // Send to backend
-      const res = await CreateCommentToChapter(chapterId, newComment);
+      const res = await createComment(newComment);
 
       // Replace temporary comment with the real one
       if (res?.data) {

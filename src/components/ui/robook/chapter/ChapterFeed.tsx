@@ -1,4 +1,5 @@
-"use server";
+"use client";
+//"use server";
 
 import React from "react";
 import Card from "@mui/material/Card";
@@ -12,12 +13,16 @@ import Button from "@mui/material/Button";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import LikeButton from "./ActionsButtons/LikeButton";
 import ShareButton from "./ActionsButtons/ShareButton";
+import { likeChapter, unLikeChapter } from "@/lib/api/book";
+import { CreateCommentToChapter } from "@/lib/api/book";
+
+
 
 import type { IndependentChapter } from "@/types/book";
 import CommentSection from "./CommentSection";
 import { Comment } from "@/types/book";
 
-export default async function ChapterFeed({
+export default function ChapterFeed({
   chapter,
   comments,
 }: {
@@ -110,7 +115,8 @@ export default async function ChapterFeed({
           >
             <Box sx={{ display: "flex", gap: 2 }}>
               <LikeButton
-                chapterPublicId={chapter.public_id}
+                createLike={async () => await likeChapter(chapter.public_id)}
+                removeLike={async () => await unLikeChapter(chapter.public_id)}
                 isLikedByUser={chapter.liked_by_user}
                 likesCount={chapter.reaction_count}
               />
@@ -133,7 +139,7 @@ export default async function ChapterFeed({
         </CardContent>
       </Card>
       <CommentSection
-        chapterId={chapter.public_id}
+        createComment={async (txt: string) => CreateCommentToChapter(chapter.public_id, txt) }
         usersComments={comments || []}
       />
     </>

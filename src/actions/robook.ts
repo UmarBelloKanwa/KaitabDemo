@@ -84,3 +84,15 @@ export const fetchChapterState = async (chapter_id: string) => {
     throw new Error("Failed to load chapter data");
   }
 };
+
+export const fetchBookPost = async (book_slug: string, public_id: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`post/${book_slug}/post/${public_id}`);
+  return res.data;
+}
+
+export const fetchBookPostComments = async (book_slug: string, public_id: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`post/${book_slug}/post/${public_id}/comments`);
+  return res.data;
+}

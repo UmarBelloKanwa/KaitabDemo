@@ -4,17 +4,17 @@ import React from "react";
 import Button from "@mui/material/Button";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { likeChapter, unLikeChapter } from "@/lib/api/book";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-
 
 export default function LikeButton({
   isLikedByUser,
-  chapterPublicId,
   likesCount,
+  createLike,
+  removeLike,
 }: {
+  createLike: () => {};
+  removeLike: () => {};
   isLikedByUser: boolean;
-  chapterPublicId: string;
   likesCount: number;
 }) {
   const [isLiked, setIsLiked] = React.useState(isLikedByUser);
@@ -31,9 +31,9 @@ export default function LikeButton({
 
     try {
       if (newLiked) {
-        await likeChapter(chapterPublicId);
+        await createLike();
       } else {
-        await unLikeChapter(chapterPublicId);
+        await removeLike();
       }
     } catch (err) {
       console.log("Like/unlike failed:", err);

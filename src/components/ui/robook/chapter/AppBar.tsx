@@ -1,24 +1,26 @@
 "use client";
 
 import * as React from "react";
+import { useQuery } from "@tanstack/react-query";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import BackButton from "./ActionsButtons/BackButton";
+import { fetchRobook } from "@/actions/robook";
+import type { BookResponse } from "@/types/book";
 
-function ResponsiveAppBar({
-  robookName,
-  authorName,
-  robookPhotoUrl,
-  robookSlug,
-}: {
-  robookSlug: string;
-  robookName: string;
-  authorName: string;
-  robookPhotoUrl: string;
-}) {
+interface Props {
+  backTo?: "chapters" | "posts";
+  robook: BookResponse
+}
+
+export default function ResponsiveAppBar({ robook, backTo }: Props) {
+  const robookPhotoUrl = robook.main_photo_url || "";
+  const robookName = robook.name;
+  const authorName = robook.author?.name || "Unknown";
+
   return (
     <AppBar
       elevation={0}
@@ -34,7 +36,7 @@ function ResponsiveAppBar({
       })}
     >
       <Toolbar sx={{ my: "auto", p: 0, mx: 0, gap: { xs: 1, md: 1 } }}>
-        <BackButton robookSlug={robookSlug} />
+        <BackButton robookSlug={robook.slug} backTo={backTo} />
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Avatar
             src={robookPhotoUrl}
@@ -44,7 +46,7 @@ function ResponsiveAppBar({
               borderRadius: 1,
             }}
           >
-            {robookName}
+            {robookName[0]}
           </Avatar>
           <Box
             sx={{
@@ -67,4 +69,3 @@ function ResponsiveAppBar({
     </AppBar>
   );
 }
-export default ResponsiveAppBar;

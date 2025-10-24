@@ -2,7 +2,7 @@
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
-import AppBar from "@/components/ui/robook/chapter/ChapterAppBar";
+import AppBar from "@/components/ui/robook/chapter/AppBar";
 import ChapterFeed from "@/components/ui/robook/chapter/ChapterFeed";
 import { fetchChapterState } from "@/actions/robook";
 import type { IndependentChapter, Comment } from "@/types/book";
@@ -22,19 +22,12 @@ export default async function ChapterPage({
   } catch (err) {
     console.log(err);
   }
-  console.log("Comments", comments);
+  // console.log("Comments", comments);
 
   return (
     <Box sx={{ minHeight: "100vh", width: "100%", position: "relative" }}>
       {/* Full-width AppBar */}
-      {chapter?.book && (
-        <AppBar
-          robookSlug={chapter.book.slug}
-          robookName={chapter.book.name}
-          authorName={chapter.book.author?.name}
-          robookPhotoUrl={chapter.book.main_photo_url}
-        />
-      )}
+      {chapter?.book && <AppBar robook={chapter.book} backTo="chapters" />}
 
       {/* Centered content but not restricted by layout container */}
       <Container maxWidth={false} sx={{ py: 3, maxWidth: 805, mx: "auto" }}>

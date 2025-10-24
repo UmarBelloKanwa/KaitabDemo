@@ -11,11 +11,11 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import CommentInput from "@/components/ui/robook/chapter/CommentInput";
 
 export default function CommentSection({
-  chapterId,
   usersComments,
+  createComment,
 }: {
-  chapterId: string;
   usersComments: Comment[];
+  createComment: (txt: string) => Promise<any>
 }) {
   const [comments, setComments] = React.useState<Comment[]>(usersComments);
 
@@ -37,7 +37,7 @@ export default function CommentSection({
           borderRadius: 2,
         }}
       >
-        <CommentInput chapterId={chapterId} setComments={setComments} />
+        <CommentInput createComment={createComment} setComments={setComments} />
       </Box>
 
       <Box sx={{ mt: 2 }}>

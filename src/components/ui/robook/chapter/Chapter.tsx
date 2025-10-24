@@ -13,6 +13,7 @@ import LikeButton from "./ActionsButtons/LikeButton";
 import ShareButton from "./ActionsButtons/ShareButton";
 import CommentButton from "./ActionsButtons/CommentButton";
 import ShowMoreButton from "./ActionsButtons/ShowMoreButton";
+import { likeChapter, unLikeChapter } from "@/lib/api/book";
 
 export default function Chapter({
   robook,
@@ -47,7 +48,7 @@ export default function Chapter({
             {robook.name.charAt(0)}
           </Avatar>
         }
-        action={<ShareButton />}
+        action={<ShareButton id={`chapters/${chapter.public_id}`} />}
         title={
           <Typography variant="subtitle2" fontWeight="bold">
             {robook.name}
@@ -140,7 +141,8 @@ export default function Chapter({
         >
           <Box sx={{ display: "flex", gap: 2 }}>
             <LikeButton
-              chapterPublicId={chapter.public_id}
+              createLike={async () => await likeChapter(chapter.public_id)}
+              removeLike={async () => await unLikeChapter(chapter.public_id)}
               isLikedByUser={chapter.liked_by_user}
               likesCount={chapter.reaction_count}
             />
@@ -151,7 +153,7 @@ export default function Chapter({
               robookSlug={robook.slug}
             />
           </Box>
-          <ShareButton />
+          <ShareButton id={`chapters/${chapter.public_id}`} />
         </Box>
       </CardContent>
     </Card>
