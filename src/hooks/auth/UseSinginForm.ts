@@ -4,8 +4,10 @@ import React from "react";
 import authApi from "@/lib/api/auth";
 import { useUserStore } from "@/store/user-store";
 import { useUIStore } from "@/store/ui-store";
+import { useRouter } from "next/navigation"; 
 
 export default function useSigninForm() {
+  const router = useRouter();
   const [userEmail, setUserEmail] = React.useState<string | null>(null);
   const [userPassword, setUserPassword] = React.useState<string | null>(null);
   const [errors, setErrors] = React.useState<any | null>({
@@ -67,7 +69,8 @@ export default function useSigninForm() {
       setLoading(true);
       setErrors({});
       const res = await authApi.signIn.loginTo({ email, password });
-       setDisplayAuthCard(false);
+      setDisplayAuthCard(false);
+      router.refresh();
     } catch (err: any) {
       console.log(err);
       setErrors((prev: any) => ({ ...prev, ...err }));
@@ -100,6 +103,7 @@ export default function useSigninForm() {
       if (res?.data?.user) {
         setUser(res.data.user);
         setDisplayAuthCard(false);
+        
       }
 
       return res;

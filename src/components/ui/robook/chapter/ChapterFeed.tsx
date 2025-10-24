@@ -36,8 +36,10 @@ export default async function ChapterFeed({
       <Card
         sx={{
           maxWidth: "100%",
+          border: { xs: "none", md: "1px solid divider" },
+          borderColor: { xs: "none", md: "divider" },
           bgcolor: "background.default",
-          boxShadow: { sm: 7, xs: 0 },
+          boxShadow: { sm: 2, xs: 0 },
           p: { xs: 0, sm: 1, md: 2 },
           pt: 1,
           mx: "auto",

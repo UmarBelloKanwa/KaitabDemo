@@ -31,19 +31,26 @@ export default function GetContent({ element }: { element: Element }) {
           alt={element?.alt}
           sx={{
             mb: 2,
-            width: element.style?.width || "auto",
-            height: element.style?.height || "auto",
+            // width: element.style?.width || "auto",
+            // height: element.style?.height || "auto",
             borderRadius: 1,
             display: "block",
+            width: "100%",
+            height: "auto",
+            maxWidth: "100%", // ensures never overflow
+            objectFit: "contain",
           }}
         />
       );
 
     case "list":
       return (
-        <Box component="ul" sx={{ pl: 3, mb: 2 }}>
+        <Box
+          component="ul"
+          sx={{ pl: { sm: 1, md: 2 }, mb: 2, width: "100%", maxWidth: "100%" }}
+        >
           {element?.items?.map((item, i) => (
-            <Box component="li" key={i} sx={{mb: 1}}>
+            <Box component="li" key={i} sx={{ mb: 1 }}>
               <Typography variant="body2">{item}</Typography>
             </Box>
           ))}
@@ -52,7 +59,17 @@ export default function GetContent({ element }: { element: Element }) {
 
     case "table":
       return (
-        <Box component="table" sx={{ borderCollapse: "collapse", mb: 2 }}>
+        <Box
+          component="table"
+          sx={{
+            mb: 2,
+            width: "100%", // ✅ makes table fit container
+            maxWidth: "100%",
+            borderCollapse: "collapse",
+            overflowX: "auto",
+            display: "block", // ✅ allows horizontal scroll if needed
+          }}
+        >
           <tbody>
             {element?.rows?.map((row, i) => (
               <Box component="tr" key={i}>
@@ -65,7 +82,8 @@ export default function GetContent({ element }: { element: Element }) {
                       borderColor: "grey.700",
                       borderRadius: 1,
                       p: 1,
-                      fontSize: element.style?.fontSize || "0.875rem",
+                      fontSize: "13px",
+                      wordBreak: "break-word",
                       // color: element.style?.color || "inherit",
                     }}
                   >

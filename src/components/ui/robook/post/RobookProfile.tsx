@@ -7,7 +7,7 @@ import Paper from "@mui/material/Paper";
 import Chip from "@mui/material/Chip";
 
 import Chat from "@mui/icons-material/Chat";
-import PostCard from "@/components/ui/robook/post/PostCard";
+import PostCard from "@/components/ui/robook/post/OldPostCard";
 import ChaptersList from "@/components/ui/robook/chapter/ChaptersList"
 
 

@@ -1,6 +1,6 @@
 "use client"
 
-import PostCard from "@/components/ui/robook/post/PostCard";
+import PostCard from "@/components/ui/robook/post/OldPostCard";
 import robook_chapters_posts from "@/data/robook_chapters_posts.json";
 import comments from "@/data/comments.json";
 import Box from "@mui/material/Box";

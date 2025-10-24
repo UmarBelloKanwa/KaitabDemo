@@ -608,3 +608,21 @@ export interface Comment {
   created_at: string;
   comment_text: string;
 }
+
+export enum VisibilityType {
+  PUBLIC = "public",
+  FRIENDS = "friends",
+  PRIVATE = "private",
+}
+
+export type BookPostDTO = {
+  book_public_id: string;  // UUID of the book
+  created_at: string;      // ISO date string
+  public_id: string;       // UUID of the post
+  content: string;         // Post content
+  visibility: VisibilityType // Visibility enum
+  updated_at: string;      // ISO date string
+  like_count: number;      // Number of likes
+  comment_count: number;   // Number of comments
+  liked_by_user: boolean;  // Whether the current user liked the post
+};

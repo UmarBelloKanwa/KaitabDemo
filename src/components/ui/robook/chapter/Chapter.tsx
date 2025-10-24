@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import React from "react";
 import Card from "@mui/material/Card";
@@ -14,7 +14,7 @@ import ShareButton from "./ActionsButtons/ShareButton";
 import CommentButton from "./ActionsButtons/CommentButton";
 import ShowMoreButton from "./ActionsButtons/ShowMoreButton";
 
-export default async function Chapter({
+export default function Chapter({
   robook,
   chapter,
 }: {
@@ -66,18 +66,37 @@ export default async function Chapter({
         sx={{ pb: 1 }}
       />
 
-      <CardContent sx={{ py: 0 }}>
+      <CardContent
+        sx={{
+          py: 0,
+          width: "100%",
+          maxWidth: "100%",
+          overflow: "hidden", // prevent internal overflow
+          boxSizing: "border-box",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
+            maxWidth: "100%",
             justifyContent: "center",
+            width: "100%",
+            overflow: "hidden",
           }}
         >
-          <Box sx={{ position: "relative" }}>
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              maxWidth: "100%",
+              overflow: "hidden",
+            }}
+          >
             <Box
               sx={{
                 maxHeight: "500px",
+                width: "100%",
                 overflow: "hidden",
               }}
             >

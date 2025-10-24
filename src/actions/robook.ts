@@ -1,7 +1,5 @@
 import serverAxios, { serverCatcheAxios } from "@/actions/server-axios";
-import { getAllCookiesAsString } from "./cookie";
 import { unstable_cache } from "next/cache";
-import { revalidateTag, revalidatePath } from "next/cache";
 
 export const fetchRobook = async (robookSlug: string) => {
   const axios = await serverAxios();
@@ -25,24 +23,32 @@ export const fetchRobook = async (robookSlug: string) => {
 // };
 
 export const fetchBookChapters = async (robookSlug: string) => {
-  const cookieHeader = await getAllCookiesAsString();
-  const axios = await serverCatcheAxios(cookieHeader);
+  const axios = await serverAxios();
   const res = await axios.get(`book/${robookSlug}/chapters`);
+  return res.data;
+};
+
+export const fetchInitialBookPosts = async (robookSlug: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`post/book/${robookSlug}/posts?limit=10&offset=0`);
   return res.data;
 };
 
 export async function fetchRobookState(robookSlug: string) {
   try {
-    const [robookRes, chaptersRes] = await Promise.allSettled([
+    const [robookRes, postsRes, chaptersRes] = await Promise.allSettled([
       fetchRobook(robookSlug),
+      fetchInitialBookPosts(robookSlug),
       fetchBookChapters(robookSlug),
     ]);
 
     const robook = robookRes.status === "fulfilled" ? robookRes.value : null;
+    const initialPosts = postsRes.status === "fulfilled" ? postsRes.value : null;
+    
     const chapters =
       chaptersRes.status === "fulfilled" ? chaptersRes.value : [];
 
-    return { robook, chapters };
+    return { robook, initialPosts, chapters };
   } catch (error) {
     console.log("Error fetching robook state:", error);
     throw new Error("Failed to load robook data");

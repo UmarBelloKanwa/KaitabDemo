@@ -1,22 +1,36 @@
-"use server";
+"use client";
 
 import React from "react";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import ChapterGroup from "./ChapterGroup";
-import type { BookResponse, BookChapterResponse } from "@/types/book";
+import type { BookChapterResponse } from "@/types/book";
 import Avatar from "@mui/material/Avatar";
 import Chapter from "@/components/ui/robook/chapter/Chapter";
+import { fetchRobook, fetchBookChapters } from "@/actions/robook";
+import { useQuery } from "@tanstack/react-query";
 
+const ChaptersFeed = ({ slug }: { slug: string }) => {
+  // Fetch robook metadata
+  const { data: robook } = useQuery({
+    queryKey: ["robook", slug],
+    queryFn: () => fetchRobook(slug),
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
-const ChaptersFeed = ({
-  robook,
-  chapters,
-}: {
-  robook: BookResponse;
-  chapters: BookChapterResponse[];
-}) => {
+  // Fetch chapters
+  const { data: chapters } = useQuery({
+    queryKey: ["chapters", slug],
+    queryFn: () => fetchBookChapters(slug),
+    staleTime: Infinity, // chapters usually don’t change
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  if (!robook || !chapters) return null; // or a loading skeleton
   // console.log(chapters);
   return (
     <Box sx={{ width: "100%", m: "auto" }}>
@@ -61,11 +75,11 @@ const ChaptersFeed = ({
       </Paper>
 
       <Box sx={{ m: "auto", mt: 1 }}>
-        {chapters.map((chapter, id) => (
+        {chapters.map((chapter: BookChapterResponse, id: number) => (
           <ChapterGroup
             key={id} // Client
-            chapter={chapter} 
-            id={id+1}
+            chapter={chapter}
+            id={id + 1}
           >
             <Chapter
               robook={robook} // SSR

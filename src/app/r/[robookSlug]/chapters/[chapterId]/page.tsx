@@ -25,16 +25,19 @@ export default async function ChapterPage({
   console.log("Comments", comments);
 
   return (
-    <Box sx={{ minHeight: "100vh", width: "100%" }}>
+    <Box sx={{ minHeight: "100vh", width: "100%", position: "relative" }}>
+      {/* Full-width AppBar */}
       {chapter?.book && (
         <AppBar
-          robookSlug={chapter?.book?.slug}
-          robookName={chapter?.book?.name}
-          authorName={chapter?.book?.author?.name}
-          robookPhotoUrl={chapter?.book?.main_photo_url}
+          robookSlug={chapter.book.slug}
+          robookName={chapter.book.name}
+          authorName={chapter.book.author?.name}
+          robookPhotoUrl={chapter.book.main_photo_url}
         />
       )}
-      <Container maxWidth={false} sx={{ py: 3, maxWidth: 805 }}>
+
+      {/* Centered content but not restricted by layout container */}
+      <Container maxWidth={false} sx={{ py: 3, maxWidth: 805, mx: "auto" }}>
         <ChapterFeed chapter={chapter} comments={comments} />
       </Container>
     </Box>

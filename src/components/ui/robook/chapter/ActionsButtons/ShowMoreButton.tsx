@@ -20,7 +20,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
     <Button
       fullWidth
       onClick={() => {
-        requireAuth(() => router.push(`/r/${robookSlug}/${chapterPublicId}`));
+        requireAuth(() => router.push(`/r/${robookSlug}/chapters/${chapterPublicId}`));
       }}
       endIcon={
         <KeyboardArrowDownIcon

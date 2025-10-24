@@ -11,7 +11,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useTheme } from "@mui/material/styles";
 import { followBook, unfollowBook } from "@/lib/api/book";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-import IosShareIcon from '@mui/icons-material/IosShareRounded';
+import IosShareIcon from "@mui/icons-material/IosShareRounded";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function ActionsButton({
   robookPublicId,
@@ -22,7 +24,20 @@ export default function ActionsButton({
   isFollowing: boolean;
   canFollow: boolean;
 }) {
+  const pathname = usePathname(); // e.g. "/r/atomic/chapters"
   const theme = useTheme();
+  const router = useRouter();
+
+  // Get last part of the path
+  const isChaptersPage = pathname.endsWith("/chapters");
+  const buttonLabel = isChaptersPage ? "Posts" : "Read";
+  // Split the path into segments
+  const segments = pathname.split("/").filter(Boolean);
+  // Example: ["r", "atomic", "chapters"]
+
+  // Get the book ID (2nd segment in /r/:bookId/...)
+  const bookId = segments[1];
+
   const [isFollowingBook, setIsFollowingBook] = React.useState(isFollowing);
   const requireAuth = useAuthCheck();
 
@@ -38,6 +53,14 @@ export default function ActionsButton({
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleNavigation = () => {
+    if (isChaptersPage) {
+      router.push(`/r/${bookId}`);
+    } else {
+      requireAuth(() => router.push(`/r/${bookId}/chapters`));
+    }
   };
 
   const handleShare = async () => {
@@ -73,7 +96,7 @@ export default function ActionsButton({
         <Button
           variant="contained"
           startIcon={isFollowingBook ? <CheckCircleIcon /> : null}
-          onClick={() => requireAuth(() => {})}
+          onClick={() => requireAuth(makeAction)}
           sx={{ flex: 1 }}
         >
           {isFollowingBook ? "Following" : "Follow"}
@@ -81,7 +104,7 @@ export default function ActionsButton({
       )}
       <Button
         variant="outlined"
-        onClick={() => requireAuth(makeAction)}
+        onClick={handleNavigation}
         sx={{
           borderColor: theme.palette.divider,
           color: theme.palette.text.disabled,
@@ -94,7 +117,7 @@ export default function ActionsButton({
           },
         }}
       >
-        Read
+        {buttonLabel}
       </Button>
       <IconButton
         onClick={handleMoreClick}

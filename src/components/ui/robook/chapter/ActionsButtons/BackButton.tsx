@@ -8,7 +8,7 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 export default function BackButton({ robookSlug }: { robookSlug: string }) {
   const router = useRouter();
   return (
-    <IconButton onClick={() => router.push(`/r/${robookSlug}`)}>
+    <IconButton onClick={() => router.push(`/r/${robookSlug}/chapters`)}>
       <ArrowBackOutlinedIcon />
     </IconButton>
   );

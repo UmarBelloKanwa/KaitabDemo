@@ -29,7 +29,7 @@ const collapsedWidth = 64; // Width when collapsed (just icon)
 export default function Sidebar() {
   const requireAuth = useAuthCheck();
 
-  const companyName = "Spreadium";
+  const companyName = "Sprem";
 
   const theme = useTheme();
   const router = useRouter();
