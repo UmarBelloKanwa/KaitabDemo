@@ -27,10 +27,10 @@ export default function Post({
   return (
     <>
       {robookData && <AppBar robook={robookData} />}
-      <Container maxWidth="sm" sx={{ mt: 2 }}>
+      <Container maxWidth="sm" sx={{ mt: 2, p: 0,gap: 1 }}>
         {post && robookData ? (
           <>
-            <PostCard post={post} robook={robookData} />
+            <PostCard post={post} robook={robookData} isPermanent={true} />
             <CommentSection
               usersComments={comments ?? []}
               createComment={async (txt: string) =>

@@ -160,7 +160,7 @@ export default function PostCard({
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                handlePostClick(e);
+                router.push(`/r/${robook.slug}/post/${post.public_id}`);
               }}
               sx={{
                 color: "#1DA1F2",
@@ -205,7 +205,7 @@ export default function PostCard({
               size="small"
               onClick={(e) => {
                 e.stopPropagation();
-                handlePostClick(e);
+                 router.push(`/r/${robook.slug}/post/${post.public_id}`);
               }}
               sx={{
                 color: "#6b7280",

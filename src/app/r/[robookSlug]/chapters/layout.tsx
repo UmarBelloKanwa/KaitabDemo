@@ -34,7 +34,7 @@ export default async function BookLayout({
 
 
   if (!robookData) {
-    return <h1 style={{ marginLeft: "3em" }}> Sorry, Robook not found</h1>;
+    return <h1 style={{ marginLeft: "3em" }}>Please login to be able to read the book </h1>;
   }
 
   const dehydratedState = dehydrate(queryClient);

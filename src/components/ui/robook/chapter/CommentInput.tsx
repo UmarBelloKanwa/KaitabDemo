@@ -7,14 +7,17 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import type { Comment } from "@/types/book";
+import useRequireAuth from "@/hooks/auth/useAuthCheck";
+import useAuthCheck from "@/hooks/auth/useAuthCheck";
 
 export default function CommentInput({
   setComments,
   createComment,
 }: {
   setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
-  createComment: (txt: string) => Promise<any>; 
+  createComment: (txt: string) => Promise<any>;
 }) {
+  const requireAuth = useAuthCheck();
   const [newComment, setNewComment] = React.useState("");
   const [loading, setLoading] = React.useState(false);
 
@@ -86,7 +89,9 @@ export default function CommentInput({
         />
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
-            onClick={handleAddComment}
+            onClick={() => {
+              requireAuth(handleAddComment);
+            }}
             disabled={!newComment.trim() || loading}
             variant="contained"
             sx={{

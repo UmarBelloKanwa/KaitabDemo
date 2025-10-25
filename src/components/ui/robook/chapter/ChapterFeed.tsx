@@ -39,10 +39,13 @@ export default function ChapterFeed({
   return (
     <>
       <Card
-        sx={{
+        sx={(theme) => ({
+          border:"1px solid divider",
+          borderColor:"divider",
           maxWidth: "100%",
-          border: { xs: "none", md: "1px solid divider" },
-          borderColor: { xs: "none", md: "divider" },
+          [theme.breakpoints.down("sm")]: {
+            border: "none",
+          },
           bgcolor: "background.default",
           boxShadow: { sm: 2, xs: 0 },
           p: { xs: 0, sm: 1, md: 2 },
@@ -50,7 +53,7 @@ export default function ChapterFeed({
           mx: "auto",
           mb: 1,
           // "&:hover": { boxShadow: 3 },
-        }}
+        })}
         elevation={0}
       >
         <CardHeader

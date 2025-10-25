@@ -25,7 +25,7 @@ export default async function BookLayout({
   const queryClient = new QueryClient();
 
   // Prefetch all data in parallel
-  const [robook, chapters, posts] = await Promise.all([
+  const [robook, chapters] = await Promise.all([
     queryClient.prefetchQuery({
       queryKey: ["robook", slug],
       queryFn: () => fetchRobook(slug),
@@ -36,23 +36,27 @@ export default async function BookLayout({
       queryFn: () => fetchBookChapters(slug),
       staleTime: Infinity,
     }),
-    queryClient.prefetchQuery({
-      queryKey: ["posts", slug],
-      queryFn: () => fetchInitialBookPosts(slug),
-      staleTime: 7 * 60 * 1000,
-    }),
   ]);
+
+  const initialBookPosts = await fetchInitialBookPosts(slug);
+  
+  // Inject into cache in the correct infinite-query shape
+  queryClient.setQueryData(["posts", slug], {
+    pages: [initialBookPosts],
+    pageParams: [0],
+  });
 
   // Get data from cache
   const robookData: BookResponse | undefined = queryClient.getQueryData([
     "robook",
     slug,
   ]);
-  const chaptersData: BookChapterResponse[] | undefined =
-    queryClient.getQueryData(["chapters", slug]);
+  
+  // const chaptersData: BookChapterResponse[] | undefined =
+  //   queryClient.getQueryData(["chapters", slug]);
 
-  if (!robookData || !chaptersData) {
-    return <h1>Sorry, Robook not found</h1>;
+  if (!robookData) {
+    return <h1 style={{ marginLeft: "3em" }}>Please login to be able to read the book </h1>;
   }
 
   const dehydratedState = dehydrate(queryClient);
