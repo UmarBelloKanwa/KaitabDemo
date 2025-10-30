@@ -2,20 +2,29 @@
 
 import React from "react";
 import Button from "@mui/material/Button";
-import ShareIcon from "@mui/icons-material/Share";
 import Snackbar from "@mui/material/Snackbar";
 import IosShareRoundedIcon from "@mui/icons-material/IosShareRounded";
 
-export default function ShareButton({ id = "" }: { id?: string }) {
+export default function ShareButton({
+  absolute = false,
+  id = "",
+}: {
+  absolute?: boolean;
+  id?: string;
+}) {
   const [open, setOpen] = React.useState(false);
 
   const handleShare = async () => {
     try {
-      // Copy current page URL
-      let url = window.location.href;
-      url += "/" + id;
+      const origin = window.location.origin;
+      const current = window.location.href;
+
+      const url = absolute
+        ? `${origin}/${id}`
+        : `${current}/${id}`;
+
       await navigator.clipboard.writeText(url);
-      setOpen(true); // show "Copied!" snackbar
+      setOpen(true);
     } catch (err) {
       console.log("Failed to copy link:", err);
     }
@@ -27,10 +36,7 @@ export default function ShareButton({ id = "" }: { id?: string }) {
         variant="text"
         size="small"
         startIcon={<IosShareRoundedIcon />}
-        sx={{
-          color: "text.secondary",
-          textTransform: "none",
-        }}
+        sx={{ color: "text.secondary", textTransform: "none" }}
         onClick={handleShare}
       >
         Share

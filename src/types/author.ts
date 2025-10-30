@@ -1,0 +1,46 @@
+import type { BookResponse} from "@/types/book";
+
+
+export type SocialLink = {
+  platform:
+    | "twitter"
+    | "x"
+    | "facebook"
+    | "instagram"
+    | "linkedin"
+    | "youtube"
+    | "github"
+    | "website"
+    | "tiktok"
+    | "medium";
+  url: string; // equivalent to HttpUrl in Pydantic
+  label?: string | null;
+};
+
+
+export interface Author {
+  public_id: string;
+  handle: string;
+  updated_at: string;
+  birth_date: string;
+  profile_picture: string;
+  about_self: string | null;
+  social_links: SocialLink[] | null; // you can refine this later if you know the exact structure
+  created_at: string;
+  user_public_id: string;
+  name: string;
+  contact: string;
+  cover_photo: string | null;
+  short_bio: string | null;
+  location: string | null;
+  expertise_area: string | null;
+  followers_count: number;
+  can_follow: boolean;
+  is_following: boolean;
+}
+
+
+export interface Robook extends BookResponse {
+  comments_count: number
+}
+

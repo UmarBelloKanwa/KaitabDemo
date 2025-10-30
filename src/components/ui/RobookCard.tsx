@@ -100,26 +100,9 @@ export default function RobookCard({ robook, where }: { robook: any, where: stri
                                 fontSize: "0.75rem",
                             }}
                         >
-                            {robook.author}
+                            {robook.topic}
                         </Typography>
 
-                        {/* <Typography
-                                        variant="body2"
-                                        color="text.primary"
-                                        sx={{
-                                            fontSize: "0.8rem",
-                                            lineHeight: 1.3,
-                                            overflow: "hidden",
-                                            display: "-webkit-box",
-                                            WebkitLineClamp: 2,
-                                            WebkitBoxOrient: "vertical",
-                                            textOverflow: "ellipsis",
-                                            whiteSpace: "nowrap",
-                                            color: "text.secondary"
-                                        }}
-                                    >
-                                        {robook.description}
-                                    </Typography> */}
                     </Box>
 
                     <Box

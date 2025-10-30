@@ -9,29 +9,6 @@ import Divider from "@mui/material/Divider";
 import ActionsButton from "@/components/ui/robook/ActionButtons";
 import type { BookResponse, BookChapterResponse } from "@/types/book";
 
-// {
-//   author_public_id: '3909ba0d-2f87-4954-9a8c-02ca8529059c',
-//   user_public_id: 'a0f3bd6a-8435-43d2-bbfd-add619f9f2b0',
-//   cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/public-assets/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/books/b4c7fe77-ef19-4e71-ba7f-59675a18430f.pdf/cover_photo.jpg?',
-//   name: 'Zero To One',
-//   custom_topics: [],
-//   uploaded_at: '2025-10-17T20:32:08.160667',
-//   slug: 'zero_to_one',
-//   public_id: 'b4c7fe77-ef19-4e71-ba7f-59675a18430f',
-//   main_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/public-assets/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/books/b4c7fe77-ef19-4e71-ba7f-59675a18430f.pdf/main_photo.jpg?',
-//   description: 'A book for building the future',
-//   updated_at: '2025-10-17T20:32:08.160693',
-//   topics: [ 'Productivity' ],
-//   followers_count: 0,
-//   can_follow: false,
-//   is_following: false,
-//   author: {
-//     public_id: '3909ba0d-2f87-4954-9a8c-02ca8529059c',
-//     name: 'Umar Bello Kanwa',
-//     profile_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/authors/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/profilejpg?'
-//   }
-// }
-
 const ProfileCard = ({ robook }: { robook: BookResponse | null }) => {
   // console.log(robook, "in card");
   if (!robook) {

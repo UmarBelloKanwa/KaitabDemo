@@ -16,8 +16,6 @@ import ShareButton from "./ActionsButtons/ShareButton";
 import { likeChapter, unLikeChapter } from "@/lib/api/book";
 import { CreateCommentToChapter } from "@/lib/api/book";
 
-
-
 import type { IndependentChapter } from "@/types/book";
 import CommentSection from "./CommentSection";
 import { Comment } from "@/types/book";
@@ -40,18 +38,20 @@ export default function ChapterFeed({
     <>
       <Card
         sx={(theme) => ({
-          border:"1px solid divider",
-          borderColor:"divider",
+          border: "1px solid",
+          borderColor: "divider",
           maxWidth: "100%",
-          [theme.breakpoints.down("sm")]: {
-            border: "none",
-          },
           bgcolor: "background.default",
           boxShadow: { sm: 2, xs: 0 },
           p: { xs: 0, sm: 1, md: 2 },
           pt: 1,
           mx: "auto",
           mb: 1,
+          [theme.breakpoints.down("sm")]: {
+            border: "none", // override border on small screens
+            boxShadow: 0, // optional: remove shadow on small screens
+            p: 0, // optional: adjust padding
+          },
           // "&:hover": { boxShadow: 3 },
         })}
         elevation={0}
@@ -142,7 +142,9 @@ export default function ChapterFeed({
         </CardContent>
       </Card>
       <CommentSection
-        createComment={async (txt: string) => CreateCommentToChapter(chapter.public_id, txt) }
+        createComment={async (txt: string) =>
+          CreateCommentToChapter(chapter.public_id, txt)
+        }
         usersComments={comments || []}
       />
     </>

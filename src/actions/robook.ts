@@ -98,3 +98,9 @@ export const fetchBookPost = async (book_slug: string, public_id: string) => {
   const res = await axios.get(`post/${book_slug}/post/${public_id}`);
   return res.data;
 }
+
+export const fetchBooks = async (offset?: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`book/robooks?limit=10&offset=${offset || 0}`);
+  return res.data;
+}

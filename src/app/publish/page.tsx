@@ -39,7 +39,7 @@ export default function PublishBook() {
                 height: "100%",
                 overflow: "hidden",
             }}>
-                <Typography sx={{ color: "text.secondary" }}>
+                <Typography >
                   Turn your book to Robook — Your AI social media agent that markets your book for you.
                 </Typography> <br />
 
@@ -135,7 +135,7 @@ export default function PublishBook() {
                         variant="body2"
                         component="div"
                         align="left"
-                        sx={{ color: "text.secondary", mb: 1 }}
+                        sx={{ mb: 1 }}
                     >
                         Upload book
                     </Typography>
@@ -149,7 +149,7 @@ export default function PublishBook() {
 
                 {/* Title Name Input */}
                 <Box sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+                    <Typography variant="body2" sx={{  mb: 1 }}>
                         Book name
                     </Typography>
                     <TextField
@@ -165,7 +165,7 @@ export default function PublishBook() {
 
                 {/* Author Input */}
                 <Box sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+                    <Typography variant="body2" sx={{  mb: 1 }}>
                         Author
                     </Typography>
                     <TextField
@@ -179,7 +179,7 @@ export default function PublishBook() {
                     />
                 </Box>
                 <Box sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+                    <Typography variant="body2" sx={{  mb: 1 }}>
                         Topic
                     </Typography>
                     <AddBookTopic
@@ -193,7 +193,7 @@ export default function PublishBook() {
                 </Box>
                 {/* Page name Input */}
                 <Box sx={{ mb: 1, mt: 3 }}>
-                    <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+                    <Typography variant="body2" sx={{  mb: 1 }}>
                         Book URL name (Robook)
                     </Typography>
                     <TextField
@@ -209,7 +209,7 @@ export default function PublishBook() {
 
                 {/* Description Input */}
                 <Box sx={{ mb: 1 }}>
-                    <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+                    <Typography variant="body2" sx={{  mb: 1 }}>
                         Description
                     </Typography>
                     <TextField
