@@ -3,7 +3,7 @@ import { fetchBooks } from "@/actions/robook";
 
 export function useInfiniteBooksTofollow() {
   return useInfiniteQuery({
-    queryKey: ["books"],
+    queryKey: ["robooks"],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
       const res = await fetchBooks(String(pageParam));

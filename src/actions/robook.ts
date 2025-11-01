@@ -99,8 +99,14 @@ export const fetchBookPost = async (book_slug: string, public_id: string) => {
   return res.data;
 }
 
-export const fetchBooks = async (offset?: string) => {
+export const fetchBooks = async (offset?: number) => {
   const axios = await serverAxios();
   const res = await axios.get(`book/robooks?limit=10&offset=${offset || 0}`);
   return res.data;
 }
+
+export const fetchBooksPosts = async (offset?: number) => {
+   const axios = await serverAxios();
+  const res = await axios.get(`post/books/posts?limit=10&offset=${offset || 0}`);
+  return res.data;
+}  

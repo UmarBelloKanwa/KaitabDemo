@@ -5,6 +5,7 @@ import type { BookResponse, BookChapterResponse } from "@/types/book";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { fetchRobook } from "@/actions/robook";
 import ClientQueryProvider from "@/providers/QueryProvider";
+import StoreItem from "@/components/ui/StoreItem";
 
 export default async function BookLayout({
   children,
@@ -40,6 +41,7 @@ export default async function BookLayout({
   const dehydratedState = dehydrate(queryClient);
   return (
     <ClientQueryProvider state={dehydratedState}>
+      <StoreItem type="book" data={robookData} />
       {children}
     </ClientQueryProvider>
   );

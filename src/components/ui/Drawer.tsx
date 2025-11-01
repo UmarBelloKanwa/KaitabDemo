@@ -22,11 +22,13 @@ import HomeIcon from "@mui/icons-material/HomeOutlined";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { useRouter } from "next/navigation";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
+import RecentItems from "./RecentItems";
+import UserDisplay from "./UserDisplay";
 
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
 
-export default function Sidebar() {
+export default function Sidebar({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
 
   const companyName = "Asinpire";
@@ -231,82 +233,14 @@ export default function Sidebar() {
             ))}
           </List>
 
-          <Typography
-            variant="subtitle2"
-            sx={{ color: theme.palette.text.secondary, mb: 1, mt: 3 }}
-          >
-            Recents
-          </Typography>
-          <List>
-            {recentChats.map((chat, index) => (
-              <ListItem
-                key={index}
-                disablePadding
-                onClick={() => {
-                  router.push(index === 0 ? "/r/atomic-habits" : "/jamesclear");
-                  if (isMobile) {
-                    handleDrawerToggle();
-                  }
-                }}
-              >
-                <ListItemButton
-                  sx={{
-                    borderRadius: 2,
-                    "&:hover": { bgcolor: theme.palette.action.hover },
-                  }}
-                >
-                  <ListItemAvatar>
-                    <Avatar
-                      src={chat.avatar}
-                      sx={{
-                        width: 30,
-                        height: 30,
-                        bgcolor: theme.palette.primary.main,
-                        borderRadius: index === 0 ? 0.7 : 2,
-                      }}
-                    >
-                      {chat.name[0]}
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={chat.name}
-                    sx={{ color: theme.palette.text.primary }}
-                    primaryTypographyProps={{ fontSize: "0.875rem" }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+          <RecentItems
+            handleDrawerToggle={handleDrawerToggle}
+            isMobile={isMobile}
+          />
         </Box>
 
         {/* User Profile */}
-        <Box sx={{ p: 2, borderTop: `1px solid ${theme.palette.divider}` }}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Avatar
-              sx={{
-                bgcolor: theme.palette.primary.main,
-                width: 32,
-                height: 32,
-              }}
-            >
-              U
-            </Avatar>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <Typography
-                variant="body2"
-                sx={{ color: theme.palette.text.primary, fontWeight: 500 }}
-              >
-                Umar Bello Kanwa
-              </Typography>
-              <Typography
-                variant="caption"
-                sx={{ color: theme.palette.text.secondary }}
-              >
-                @UmarBelloKanwa
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+        <UserDisplay user={user}/>
       </Box>
     </Drawer>
   );

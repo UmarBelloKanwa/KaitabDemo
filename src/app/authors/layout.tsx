@@ -6,24 +6,27 @@ import ClientQueryProvider from "@/providers/QueryProvider";
 import { fetchAuthors } from "@/actions/author";
 import { fetchBooks } from "@/actions/robook";
 
-
-export default async function RobooksListLayout({
+export default async function AuthorsAndRobooksListLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const queryClient = new QueryClient();
-  let initialAuthors, initialBooks;
+  let initialAuthors = [];
+  let initialBooks = [];
 
   try {
-    [initialAuthors, initialBooks] = await Promise.all([
+    const [authorsRes, booksRes] = await Promise.all([
       fetchAuthors(),
-      fetchBooks()
-    ])
+     fetchBooks(),
+    ]);
+    console.log("Fetched booksRes", booksRes);
+    initialAuthors = authorsRes ?? [];
+    initialBooks = booksRes ?? [];
   } catch (error) {
     console.log(error);
   }
- 
+
   queryClient.setQueryData(["authors"], {
     pages: [initialAuthors],
     pageParams: [0],
@@ -34,7 +37,7 @@ export default async function RobooksListLayout({
     pageParams: [0],
   });
 
-  
+  console.log("Initial Authors", initialAuthors);
 
   const dehydratedState = dehydrate(queryClient);
 

@@ -5,15 +5,16 @@ import React from "react";
 import { useUserStore } from "@/store/user-store";
 import { useUIStore } from "@/store/ui-store";
 import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
-import AppLayout from "@ui/AppLayout";
 import AuthCard from "@ui/auth/AuthCard";
 import { SWRConfig } from "swr";
+import Box from "@mui/material/Box";
 import { axiosFetcher } from "@/lib/axios";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import theme from "@/theme";
 
-export default function ClientProvider({ children }: { children: React.ReactNode }) {
+export default function ClientProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const setUser = useUserStore((state) => state.setUser);
   const displayAuthCard = useUIStore((state) => state.displayAuthCard);
   const setDisplayAuthCard = useUIStore((state) => state.setDisplayAuthCard);
@@ -26,13 +27,13 @@ export default function ClientProvider({ children }: { children: React.ReactNode
 
   return (
     <SWRConfig value={{ fetcher: axiosFetcher, revalidateOnFocus: false }}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppLayout>
-          <AuthCard displayAuthCard={displayAuthCard} setDisplayAuthCard={setDisplayAuthCard} />
-          {children}
-        </AppLayout>
-      </ThemeProvider>
+      <Box component="main" sx={{ flexGrow: 1, width: "100%" }}>
+        <AuthCard
+          displayAuthCard={displayAuthCard}
+          setDisplayAuthCard={setDisplayAuthCard}
+        />
+        {children}
+      </Box>
     </SWRConfig>
   );
 }

@@ -12,6 +12,7 @@ import {
   fetchInitialBookPosts,
 } from "@/actions/robook";
 import ClientQueryProvider from "@/providers/QueryProvider";
+import StoreItem from "@/components/ui/StoreItem";
 
 export default async function BookLayout({
   children,
@@ -62,6 +63,7 @@ export default async function BookLayout({
   const dehydratedState = dehydrate(queryClient);
   return (
     <ClientQueryProvider state={dehydratedState}>
+      <StoreItem type="book" data={robookData} />
        <Container
         maxWidth="sm"
         disableGutters

@@ -1,7 +1,6 @@
 "use server";
 
 import Container from "@mui/material/Container";
-// import { useTheme } from "@mui/material";
 import RobooksList from "@/components/ui/home/RobooksList";
 import CategoriesList from "@/components/ui/home/CategoriesList";
 import PostLists from "@/components/ui/home/PostList";
@@ -10,8 +9,11 @@ import Header from "@/components/ui/home/Header";
 import Box from "@mui/material/Box";
 import { fetchUser } from "@/actions/user";
 
+
+
 export default async function Home() {
   const user = await fetchUser(); // Catche data for 5 min.
+
   
   return (
     <Box

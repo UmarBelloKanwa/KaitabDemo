@@ -15,23 +15,19 @@ import { Search as SearchIcon } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
 import { useRouter } from "next/navigation";
 import AuthorsList from "@/components/ui/authors-robooks/AuthorsList";
-import RobookCard from "@ui/RobookCard";
-import robooks from "@/data/robooksList";
+import RobookCard from "@ui/author/RobookCard";
 import { useInfiniteAuthors } from "@/hooks/author/useInfiniteAuthors";
-import { useQuery } from "@tanstack/react-query";
-import { fetchAuthors } from "@/lib/api/author";
+import { useInfiniteBooksTofollow } from "@/hooks/robook/useInfiniteRobooksToFollow";
 
 export function Page({ page }: { page: "robooks" | "authors" }) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState("discover");
-  const [genreFilter, setGenreFilter] = useState("all");
-  const [sortBy, setSortBy] = useState("followers");
 
   const [activePage, setActivePage] = React.useState(page);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteAuthors();
+
   const loaderRef = React.useRef<HTMLDivElement | null>(null);
 
   const authors = data?.pages.flat() || [];
@@ -50,7 +46,31 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (!authors) return <h1> Sorry, failed to load authors</h1>;
+  console.log("Authors", authors)
+
+  // Books infinite query
+  const {
+    data: booksData,
+    fetchNextPage: fetchNextBooks,
+    hasNextPage: booksHasNextPage,
+    isFetchingNextPage: isFetchingNextBooks,
+  } = useInfiniteBooksTofollow();
+
+  const booksLoaderRef = React.useRef<HTMLDivElement | null>(null);
+  const books = booksData?.pages.flat() || [];
+
+  React.useEffect(() => {
+    if (!booksHasNextPage || isFetchingNextBooks) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) fetchNextBooks();
+    });
+
+    const node = booksLoaderRef.current;
+    if (node) observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [booksHasNextPage, isFetchingNextBooks, fetchNextBooks]);
 
   return (
     <Container maxWidth="sm" sx={{ my: 2 }}>
@@ -81,11 +101,12 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
               alignItems="center"
             >
               <ToggleButtonGroup
-                value={activeFilter}
+                value={activePage}
                 exclusive
-                onChange={(event, newFilter) => {
-                  if (newFilter !== null) {
-                    setActiveFilter(newFilter);
+                onChange={(event, newPage) => {
+                  if (newPage !== null) {
+                    router.replace(`/${newPage}`);
+                    setActivePage(newPage);
                   }
                 }}
                 size="small"
@@ -96,16 +117,15 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
                   },
                 }}
               >
-                <ToggleButton value="discover" sx={{ mr: 1 }}>
+                <ToggleButton value="authors" sx={{ mr: 1 }}>
                   Authors
                 </ToggleButton>
-                <ToggleButton value="following"> Robooks </ToggleButton>
+                <ToggleButton value="robooks"> Robooks </ToggleButton>
               </ToggleButtonGroup>
             </Box>
-          
           </Box>
         </Box>
-        {page === "authors" && (
+        {activePage === "authors" && (
           <>
             {authors.length === 0 ? (
               <p style={{ padding: "1rem", textAlign: "center", opacity: 0.7 }}>
@@ -133,14 +153,32 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
           </>
         )}
 
-        {page == "robooks" && (
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 2 }}>
-            {robooks.map((robook: any, index) => (
-              <React.Fragment key={index}>
-                <RobookCard robook={robook} where="profile" />
-              </React.Fragment>
-            ))}
-          </Box>
+        {activePage === "robooks" && (
+          <>
+            {books.length === 0 ? (
+              <p style={{ padding: "1rem", textAlign: "center", opacity: 0.7 }}>
+                No books available to explore right now.
+              </p>
+            ) : (
+              <List sx={{mb: 2}}>
+                {books.map((book: any, index: number) => (
+                  <React.Fragment key={index}>
+                    <RobookCard robook={book} where="profile" />
+                    {index < books.length - 1 && <Divider />}
+                  </React.Fragment>
+                ))}
+
+                {/* Infinite trigger */}
+                <div ref={booksLoaderRef} />
+
+                {isFetchingNextBooks && (
+                  <p style={{ padding: "0.5rem", textAlign: "center" }}>
+                    Loading more books...
+                  </p>
+                )}
+              </List>
+            )}
+          </>
         )}
       </Paper>
     </Container>

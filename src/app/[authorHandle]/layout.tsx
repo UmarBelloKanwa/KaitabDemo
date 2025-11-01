@@ -7,6 +7,7 @@ import { getAuthorProfile, getAuthorBooks } from "@/actions/author";
 import type { Author } from "@/types/author";
 import Container from "@mui/material/Container";
 import ProfileCard from "@ui/author/ProfileCard";
+import StoreItem from "@/components/ui/StoreItem";
 
 export default async function BookLayout({
   children,
@@ -27,7 +28,12 @@ export default async function BookLayout({
   });
 
   // Prefetch books
-  const initialBooks = await getAuthorBooks(handle);
+  let initialBooks;
+  try {
+    initialBooks = await getAuthorBooks(handle);
+  } catch (error) {
+    console.log(error);
+  }
   queryClient.setQueryData(["authorBooks", handle], {
     pages: [initialBooks],
     pageParams: [0],
@@ -46,6 +52,7 @@ export default async function BookLayout({
 
   return (
     <ClientQueryProvider state={dehydratedState}>
+      <StoreItem type="author" data={authorData} />
       <Container maxWidth="sm" sx={{ p: { xs: 2, sm: 2 } }}>
         <ProfileCard author={authorData} />
         {children}

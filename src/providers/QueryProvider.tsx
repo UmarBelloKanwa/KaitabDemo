@@ -5,7 +5,7 @@ import { ReactNode, useState } from "react";
 import { QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import { HydrationBoundary } from '@tanstack/react-query';
 
-export default function ClientQueryProvider({
+export default function QueryProvider({
   state,
   children,
 }: {

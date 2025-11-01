@@ -18,10 +18,17 @@ import useNotifications from "@/hooks/home/useNotification";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 // import { useUserStore } from "@/store/user-store";
 import Button from "@mui/material/Button";
+import { User } from "@/store/user-store";
+import { useRouter } from "next/navigation";
 
-export default function Header({user}: {user: any}) {
+interface InUser extends User {
+  full_name: string;
+}
+
+export default function Header({ user }: { user: InUser }) {
   const theme = useTheme();
   const requireAuth = useAuthCheck();
+  const router = useRouter();
   // const { user } = useUserStore();
 
   const notificationActions = useNotifications();
@@ -39,6 +46,7 @@ export default function Header({user}: {user: any}) {
     });
   };
   const unreadCount = notificationActions.unreadCount;
+  const isAuthor = !!user?.author;
   return (
     <AppBar
       position="static"
@@ -47,17 +55,31 @@ export default function Header({user}: {user: any}) {
       sx={{ borderRight: "none", backgroundColor: "background.default" }}
     >
       <Toolbar sx={{ justifyContent: "space-between", gap: 2 }}>
-        <Box sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center", gap: 2, flex: 1 }}>
+        <Box
+          sx={{
+            display: { xs: "none", sm: "flex" },
+            alignItems: "center",
+            gap: 2,
+            flex: 1,
+          }}
+        >
           <Box>
             <Typography variant="body1" sx={{ color: "text.secondary" }}>
               {user ? "Welcome back," : "Welcome to Kaitab"}
             </Typography>
             <Box
               sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}
+              onClick={() => requireAuth(() => {
+                if (isAuthor) { 
+                  router.push(`/${user?.author?.handle}`);
+                }
+              })}
+
             >
               {user ? (
                 <>
                   <Avatar
+                    src={isAuthor ? user?.author?.profile_picture : undefined}
                     sx={{
                       bgcolor: theme.palette.primary.main,
                       width: 20,
@@ -79,7 +101,6 @@ export default function Header({user}: {user: any}) {
                 <Button
                   variant="outlined"
                   color="secondary"
-                  onClick={() => requireAuth(() => {})}
                 >
                   Sign in to start
                 </Button>

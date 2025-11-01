@@ -44,14 +44,46 @@ export default function RobookCard({
       setIsFollowingBook((prev) => !prev);
     }
   };
-
+  const FollowButton = () => {
+    return (
+      <>
+        {robook.can_follow && (
+          <IconButton
+            size="small"
+            sx={{
+              px: 1,
+              py: 0.5,
+              width: "fit-content",
+              fontSize: "0.75rem",
+              mb: 1,
+              color: "text.secondary",
+              borderRadius: 0.9,
+              border: (theme) => `1px solid ${theme.palette.divider}`,
+              borderColor: "grey.800",
+              bgcolor: "background.paper",
+              "&:hover": {
+                bgcolor: "primary.main",
+                color: "white",
+              },
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              requireAuth(makeAction);
+            }}
+          >
+            {isFollowingBook ? "Following" : "Follow"}
+          </IconButton>
+        )}
+      </>
+    );
+  };
   return (
     <Card
       sx={(theme) => ({
         minWidth: where == "home" ? 300 : "100%",
-        flexShrink: 0, // ✅ Prevent shrinking in flex layouts
-        flexGrow: 0, // ✅ Prevent growing in flex layouts
-        height: 150,
+        flexShrink: 0, // Prevent shrinking in flex layouts
+        flexGrow: 0, // Prevent growing in flex layouts
+        height: where == "home" ? 130 : 150,
         cursor: "pointer",
         border: `1px solid ${theme.palette.divider}`,
         "&:hover": { transform: "translateY(-2px)" },
@@ -140,37 +172,11 @@ export default function RobookCard({
               }}
             >
               {[...(robook.topics ?? []), ...(robook.custom_topics ?? [])]
-                .slice(0, 3)
+                .slice(0, where == "home" ? 2 : 3)
                 .join(" • ")}
             </Typography>
           </Box>
-          {robook.can_follow && (
-            <IconButton
-              size="small"
-              sx={{
-                px: 1,
-                py: 0.5,
-                width: "fit-content",
-                fontSize: "0.75rem",
-                mb: 1,
-                color: "text.secondary",
-                borderRadius: 0.9,
-                border: (theme) => `1px solid ${theme.palette.divider}`,
-                borderColor: "grey.800",
-                bgcolor: "background.paper",
-                "&:hover": {
-                  bgcolor: "primary.main",
-                  color: "white",
-                },
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                requireAuth(makeAction);
-              }}
-            >
-              {isFollowingBook ? "Following" : "Follow"}
-            </IconButton>
-          )}
+          {where != "home" && <FollowButton />}
           <Box
             sx={{
               display: "flex",
@@ -185,26 +191,28 @@ export default function RobookCard({
           >
             {/* Follow Button */}
 
-            <IconButton
-              size="small"
-              sx={{
-                px: 1.5,
-                py: 0.5,
-                fontSize: "0.75rem",
-                color: "text.secondary",
-                borderRadius: 0.9,
-                border: (theme) => `1px solid ${theme.palette.divider}`,
-                borderColor: "grey.800",
-                bgcolor: "background.paper",
-                "&:hover": {
-                  bgcolor: "primary.main",
-                  color: "white",
-                },
-              }}
-            >
-              Read
-            </IconButton>
-
+            {where != "home" && (
+              <IconButton
+                size="small"
+                sx={{
+                  px: 1.5,
+                  py: 0.5,
+                  fontSize: "0.75rem",
+                  color: "text.secondary",
+                  borderRadius: 0.9,
+                  border: (theme) => `1px solid ${theme.palette.divider}`,
+                  borderColor: "grey.800",
+                  bgcolor: "background.paper",
+                  "&:hover": {
+                    bgcolor: "primary.main",
+                    color: "white",
+                  },
+                }}
+              >
+                Read
+              </IconButton>
+            )}
+            {where == "home" && <FollowButton />}
             {/* Interactions */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               <ChatIcon sx={{ fontSize: 14, color: "text.secondary" }} />
