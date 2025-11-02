@@ -120,9 +120,9 @@ export default function Sidebar({ user }: { user: any }) {
       sx={{
         width: sidebarOpen ? drawerWidth : 0,
         flexShrink: 0,
-        //border: "none",
+        border: "none",
         "& .MuiDrawer-paper": {
-          // border: "none",
+          border: "none",
 
           width: drawerWidth,
           boxSizing: "border-box",

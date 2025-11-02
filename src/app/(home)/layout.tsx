@@ -5,8 +5,12 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import ClientQueryProvider from "@/providers/QueryProvider";
 import { fetchAuthors } from "@/actions/author";
 import { fetchBooks, fetchBooksPosts } from "@/actions/robook";
-
-export default async function Layout({ children }: { children: React.ReactNode }) {
+import NavLayout from "./NavLayout";
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const queryClient = new QueryClient();
 
   const results = await Promise.allSettled([
@@ -16,8 +20,8 @@ export default async function Layout({ children }: { children: React.ReactNode }
   ]);
 
   const authorsRes = results[0].status === "fulfilled" ? results[0].value : [];
-  const postsRes   = results[1].status === "fulfilled" ? results[1].value : [];
-  const booksRes   = results[2].status === "fulfilled" ? results[2].value : [];
+  const postsRes = results[1].status === "fulfilled" ? results[1].value : [];
+  const booksRes = results[2].status === "fulfilled" ? results[2].value : [];
 
   queryClient.setQueryData(["authors"], {
     pages: [authorsRes],
@@ -35,10 +39,13 @@ export default async function Layout({ children }: { children: React.ReactNode }
   });
 
   const dehydratedState = dehydrate(queryClient);
+  console.log("Posts", postsRes);
+  // console.log("Authors", authorsRes);
+  // console.log("Books", booksRes);
 
   return (
     <ClientQueryProvider state={dehydratedState}>
-      {children}
+      <NavLayout>{children}</NavLayout>
     </ClientQueryProvider>
   );
 }

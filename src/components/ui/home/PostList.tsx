@@ -1,57 +1,44 @@
+"use client";
 
+import React from "react";
 import Box from "@mui/material/Box";
-import AuthorsLists from "./AuthorsList";
-import PostCard from "./PostCard";
-import robooks_posts from "@/data/robooks_posts.json";
-import comments from "@/data/comments.json";
-import type { PostCardProps } from "@/types";
-import Grid from "@mui/material/Grid";
+import PostCard from "@ui/robook/post/PostCard";
+import { useInfinitePosts } from "@/hooks/home/useInfinitePosts";
 
-const posts = robooks_posts.map((post: PostCardProps) => ({
-    ...post,
-    usersComments: comments,
-}));
+export default function HomePostLists() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfinitePosts();
+  const loaderRef = React.useRef<HTMLDivElement | null>(null);
 
-export default function PostLists() {
+  const posts = data?.pages.flat() || [];
+  React.useEffect(() => {
+    if (!hasNextPage || isFetchingNextPage) return;
 
-    return (
-        <Grid container spacing={{ sm: 2, }}
-            sx={{
-                width: { xs: "100%", md: "85%" },
-                m: "auto", mt: 2,
-                alignContent: "center",
-                alignItems: "flex-start",
-            }}
-        >
-            {/* Posts for user to scroll and view */}
-            <Grid size={{ xs: 12, sm: 7 }}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 2,
-                    }}
-                >
-                    {posts.map((robook_post, index) => (
-                        <PostCard key={index} {...robook_post} />
-                    ))}
-                </Box>
-            </Grid>
-            {/* A fixed side bar of authors (people) to follow */}
-            <Grid
-                size={{ xs: 0, sm: "grow" }}
-                sx={{
-                    display: { xs: "none", sm: "block" },
-                    position: "sticky",
-                    top: 0,
-                    height: "100vh",
-                    alignContent: "center",
-                    alignItems: "center",
-                    justifyContent: "center"
-                }}
-            >
-                <AuthorsLists />
-            </Grid>
-        </Grid>
-    );
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) fetchNextPage();
+    });
+
+    const node = loaderRef.current;
+    if (node) observer.observe(node);
+
+    return () => {
+      observer.disconnect(); // safer than unobserve()
+    };
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  if (!posts) return <h1> Sorry, failed to load posts</h1>;
+  console.log()
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+      }}
+    >
+      {posts.map((post, index) => (
+        <PostCard key={index} post={post} robook={post?.book}/>
+      ))}
+    </Box>
+  );
 }

@@ -16,7 +16,7 @@ import type { BookResponse } from "@/types/book";
 import type { Author } from "@/types/author";
 import { useRouter } from "next/navigation";
 import { followBook, unfollowBook } from "@/lib/api/book";
-
+import GroupAddOutlinedIcon from "@mui/icons-material/GroupOutlined";
 export default function RobookCard({
   robook,
   where,
@@ -85,16 +85,18 @@ export default function RobookCard({
         flexGrow: 0, // Prevent growing in flex layouts
         height: where == "home" ? 130 : 150,
         cursor: "pointer",
-        border: `1px solid ${theme.palette.divider}`,
+           border: `1px solid ${theme.palette.divider}`,
         "&:hover": { transform: "translateY(-2px)" },
         transition: "transform 0.2s",
         overflow: "hidden",
         borderRadius: 1.5,
         position: "relative",
-        p: { xs: 1, md: 1 },
-        background: theme.custom.gradient.primary,
+        p: { xs: 1, md: 1.1 },
+       backgroundColor: theme.palette.background.default,
+        boxShadow: 1,
+          background: theme.custom.gradient.primary,
       })}
-      onClick={() => router.push(`r/${robook.slug}`)}
+      onClick={() => router.push(`/r/${robook.slug}`)}
       elevation={0}
     >
       {/* <Avatar
@@ -111,7 +113,7 @@ export default function RobookCard({
       <Box sx={{ display: "flex", height: "100%", width: "100%" }}>
         <Box
           sx={{
-            width: { xs: 110, md: 150 },
+            width: { xs: 120, md: 150 },
             height: "100%",
             flexShrink: 0,
             borderRadius: "12px 0 0 12px",
@@ -152,7 +154,7 @@ export default function RobookCard({
                 variant="subtitle1"
                 component="div"
                 sx={{
-                  fontSize: "0.95rem",
+                  fontSize: "0.97rem",
                   lineHeight: 1.2,
                   overflow: "hidden",
                   textOverflow: "ellipsis",
@@ -168,7 +170,8 @@ export default function RobookCard({
               color="text.secondary"
               sx={{
                 mb: 1,
-                fontSize: "0.75rem",
+                fontSize: "0.71rem",
+                opacity: 0.8,
               }}
             >
               {[...(robook.topics ?? []), ...(robook.custom_topics ?? [])]
@@ -215,7 +218,24 @@ export default function RobookCard({
             {where == "home" && <FollowButton />}
             {/* Interactions */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <ChatIcon sx={{ fontSize: 14, color: "text.secondary" }} />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+
+              {/* <GroupAddOutlinedIcon /> */}
+
               <Typography variant="caption" color="text.secondary">
                 {robook.followers_count}
               </Typography>

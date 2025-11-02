@@ -54,7 +54,7 @@ export default function Header({ user }: { user: InUser }) {
       elevation={0}
       sx={{ borderRight: "none", backgroundColor: "background.default" }}
     >
-      <Toolbar sx={{ justifyContent: "space-between", gap: 2 }}>
+      <Toolbar sx={{ justifyContent: "space-between", gap: 2, p: 0, }}>
         <Box
           sx={{
             display: { xs: "none", sm: "flex" },
@@ -69,12 +69,13 @@ export default function Header({ user }: { user: InUser }) {
             </Typography>
             <Box
               sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}
-              onClick={() => requireAuth(() => {
-                if (isAuthor) { 
-                  router.push(`/${user?.author?.handle}`);
-                }
-              })}
-
+              onClick={() =>
+                requireAuth(() => {
+                  if (isAuthor) {
+                    router.push(`/${user?.author?.handle}`);
+                  }
+                })
+              }
             >
               {user ? (
                 <>
@@ -98,17 +99,14 @@ export default function Header({ user }: { user: InUser }) {
                   </Typography>
                 </>
               ) : (
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                >
+                <Button variant="outlined" color="secondary">
                   Sign in to start
                 </Button>
               )}
             </Box>
           </Box>
         </Box>
-        <Box ref={boxRef} sx={{ display: "flex", gap: 2 }}>
+        <Box ref={boxRef} sx={{ display: { xs: "flex", md: "none" }, gap: 2 }}>
           <TextField
             placeholder="Search"
             size="small"
@@ -147,11 +145,13 @@ export default function Header({ user }: { user: InUser }) {
           </Badge>
         </Box>
       </Toolbar>
-      <NotificationBox
-        notificationAnchor={notificationAnchor}
-        handleNotificationClose={handleNotificationClose}
-        notificationActions={notificationActions}
-      />
+      <Box sx={{ display: { xs: "block", md: "none" } }}>
+        <NotificationBox
+          notificationAnchor={notificationAnchor}
+          handleNotificationClose={handleNotificationClose}
+          notificationActions={notificationActions}
+        />
+      </Box>
     </AppBar>
   );
 }

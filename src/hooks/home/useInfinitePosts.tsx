@@ -1,12 +1,13 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchBooks } from "@/actions/robook";
+import { fetchBooksPosts } from "@/actions/robook";
 
-export function useInfiniteBooksTofollow() {
+
+export function useInfinitePosts() {
   return useInfiniteQuery({
-    queryKey: ["robooks"],
+    queryKey: ["booksPosts"],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
-      const res = await fetchBooks(pageParam);
+      const res = await fetchBooksPosts(pageParam);
       return res.data;
     },
     getNextPageParam: (lastPage, allPages) => {

@@ -107,6 +107,6 @@ export const fetchBooks = async (offset?: number) => {
 
 export const fetchBooksPosts = async (offset?: number) => {
    const axios = await serverAxios();
-  const res = await axios.get(`post/books/posts?limit=10&offset=${offset || 0}`);
+  const res = await axios.get(`feed/books/posts?limit=10&offset=${offset || 0}`);
   return res.data;
 }  

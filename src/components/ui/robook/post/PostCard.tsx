@@ -76,7 +76,7 @@ export default function PostCard({
       sx={{
         bgcolor: "background.default",
         mx: "auto",
-        boxShadow: 11,
+       // boxShadow: 7,
         borderRadius: 2,
         border: "1px solid",
         borderColor: "divider",

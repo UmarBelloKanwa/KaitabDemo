@@ -46,7 +46,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  console.log("Authors", authors)
+  console.log("Authors", authors);
 
   // Books infinite query
   const {
@@ -160,12 +160,11 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
                 No books available to explore right now.
               </p>
             ) : (
-              <List sx={{mb: 2}}>
+              <List>
                 {books.map((book: any, index: number) => (
-                  <React.Fragment key={index}>
+                  <Box key={index} sx={{ mb: 1.5 }}>
                     <RobookCard robook={book} where="profile" />
-                    {index < books.length - 1 && <Divider />}
-                  </React.Fragment>
+                  </Box>
                 ))}
 
                 {/* Infinite trigger */}

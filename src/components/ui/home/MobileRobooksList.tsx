@@ -51,16 +51,8 @@ export default function RobooksList() {
   };
 
   return (
-    <Box
-      sx={{
-        border: '1px solid red',
-        borderColor: "divider",
-        borderRadius: 2,
-        mt: 1,
-        p: 1,
-      }}
-    >
-      <Typography variant="h6" sx={{ ml: 1.5, mb: 1 }}>
+    <Box>
+      <Typography variant="h6" sx={{ ml: 1, my: 1, fontSize: "16px" }}>
         For you
       </Typography>
       <Box
@@ -93,17 +85,15 @@ export default function RobooksList() {
           onScroll={checkScroll}
           sx={{
             display: "flex",
-            flexDirection: "column",
-            gap: 0.5,
-            px: 1,
+            gap: 1,
             overflowX: "auto",
             scrollBehavior: "smooth",
             scrollbarWidth: "none", // Firefox
             "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
           }}
         >
-          {robooks.slice(0, 3).map((robook, index) => (
-            <Box sx={{ width: "100%", mt: 1 }} key={index}>
+          {robooks.map((robook, index) => (
+            <Box sx={{ width: 300, mt: 1 }} key={index}>
               <RobookCard robook={robook} where="home" />
             </Box>
           ))}
