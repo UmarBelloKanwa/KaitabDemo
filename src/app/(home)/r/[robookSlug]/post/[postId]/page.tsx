@@ -27,8 +27,20 @@ export default async function ChapterPage({
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", width: "100%", position: "relative" }}>
-      <PostContainer robookSlug={p.robookSlug} post={post} comments={comments} />
+    <Box
+      sx={{
+        m: 0,
+        p: { xs: 1 },
+        minHeight: "100vh",
+        width: "100%",
+        position: "relative",
+      }}
+    >
+      <PostContainer
+        robookSlug={p.robookSlug}
+        post={post}
+        comments={comments}
+      />
     </Box>
   );
 }

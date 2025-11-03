@@ -5,6 +5,7 @@ import { getAuthorBook, getAuthorBookComments } from "@/actions/author";
 import RobookIndieCard from "@/components/ui/author/RobookIndieCard";
 import type { Comment } from "@/types/book";
 import type { Robook } from "@/types/author";
+import Container from "@mui/material/Container";
 
 export default async function RobookCard({
   params,
@@ -22,21 +23,22 @@ export default async function RobookCard({
       getAuthorBook(p.authorHandle, p.robookSlug),
       getAuthorBookComments(p.authorHandle, p.robookSlug),
     ]);
-    console.log("Fetched book data:", book);
   } catch (error) {
     console.log("Error fetching book or comments:", error);
   }
-  console.log("Book data in page.tsx:", book)
+  console.log("Book data in page.tsx:", book);
   if (!book) {
     return <h1 style={{ marginLeft: "3em" }}> Sorry the Book is not found </h1>;
   }
 
   return (
-    <RobookIndieCard
-      authorHandle={p.authorHandle}
-      robookSlug={p.robookSlug}
-      robookData={book}
-      robookComments={comments}
-    />
+    <Container maxWidth="sm" sx={{ m: 0, p: 0, gap: 1 }}>
+      <RobookIndieCard
+        authorHandle={p.authorHandle}
+        robookSlug={p.robookSlug}
+        robookData={book}
+        robookComments={comments}
+      />
+    </Container>
   );
 }

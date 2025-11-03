@@ -76,10 +76,11 @@ export default function PostCard({
       sx={{
         bgcolor: "background.default",
         mx: "auto",
-       // boxShadow: 7,
+        boxShadow: 11,
+       
         borderRadius: 2,
-        border: "1px solid",
-        borderColor: "divider",
+       border: "1px solid",
+         borderColor: "rgba(255, 255, 255, 0.03)",
         width: "100%",
         p: 0,
       }}
@@ -97,12 +98,16 @@ export default function PostCard({
         >
           <Box
             sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 0 }}
-            onClick={() => router.push("/r/atomic-habits")}
           >
             <Avatar
               src={robook.main_photo_url || "/placeholder.svg"}
               alt={robook.name}
-              sx={{ width: 50, height: 50, borderRadius: 1 }}
+              sx={{
+                width: 50,
+                height: 50,
+                objectFit: "fill",
+                borderRadius: 1
+              }}
             >
               {robook.name.charAt(0)}
             </Avatar>
@@ -124,18 +129,18 @@ export default function PostCard({
                 </Typography>
                 <Typography
                   variant="caption"
-                  sx={{ flex: 1, color: "gray", fontWeight: 500 }}
+                  sx={{ flex: 1, color: "gray",  }}
                 >
                   {dayjs(post.created_at).fromNow(true)}
                 </Typography>
               </Typography>
 
-              <Typography variant="body2" sx={{ color: "#6b7280" }}>
+              <Typography variant="caption" sx={{ color: "#6b7280" }}>
                 By {robook.author.name}
               </Typography>
             </Box>
           </Box>
-          <ShareButton id={`post/${post.public_id}`} />
+          {/* <ShareButton id={`post/${post.public_id}`} /> */}
         </Box>
 
         <Box sx={{ mb: 1.5 }}>
@@ -144,7 +149,7 @@ export default function PostCard({
             sx={{
               color: "white",
               lineHeight: 1.6,
-              fontSize: { xs: "0.9em", sm: "14px", md: "15px" },
+              fontSize: { xs: "14px", sm: "14px", md: "15px" },
               whiteSpace: "pre-line",
               overflow: "hidden",
               display: "-webkit-box",

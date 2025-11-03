@@ -60,6 +60,7 @@ export default function RobookCardContent({
     <Card
       sx={{
         maxWidth: "100%",
+        width: "100%",
         bgcolor: "background.default",
         color: theme.palette.text.primary,
         // border: `1px solid ${theme.palette.divider}`,

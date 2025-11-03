@@ -85,16 +85,17 @@ export default function RobookCard({
         flexGrow: 0, // Prevent growing in flex layouts
         height: where == "home" ? 130 : 150,
         cursor: "pointer",
-           border: `1px solid ${theme.palette.divider}`,
+        border: `1px solid`,
+        borderColor: "rgba(255, 255, 255, 0.03)",
         "&:hover": { transform: "translateY(-2px)" },
         transition: "transform 0.2s",
         overflow: "hidden",
         borderRadius: 1.5,
         position: "relative",
         p: { xs: 1, md: 1.1 },
-       backgroundColor: theme.palette.background.default,
-        boxShadow: 1,
-          background: theme.custom.gradient.primary,
+      backgroundColor: theme.palette.background.default,
+        boxShadow: 11,
+        //  background: theme.custom.gradient.primary,
       })}
       onClick={() => router.push(`/r/${robook.slug}`)}
       elevation={0}

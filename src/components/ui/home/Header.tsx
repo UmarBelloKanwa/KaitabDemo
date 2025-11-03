@@ -54,7 +54,7 @@ export default function Header({ user }: { user: InUser }) {
       elevation={0}
       sx={{ borderRight: "none", backgroundColor: "background.default" }}
     >
-      <Toolbar sx={{ justifyContent: "space-between", gap: 2, p: 0, }}>
+      <Toolbar sx={{ justifyContent: "space-between", gap: 2, p: 0 }}>
         <Box
           sx={{
             display: { xs: "none", sm: "flex" },
@@ -106,7 +106,19 @@ export default function Header({ user }: { user: InUser }) {
             </Box>
           </Box>
         </Box>
-        <Box ref={boxRef} sx={{ display: { xs: "flex", md: "none" }, gap: 2 }}>
+        <Box
+          ref={boxRef}
+          sx={{
+            display: { xs: "flex", md: "none" },
+            gap: 2,
+            width: "fit-content",
+            m: "auto",
+            mt:-2,
+            alignContent: "center",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <TextField
             placeholder="Search"
             size="small"

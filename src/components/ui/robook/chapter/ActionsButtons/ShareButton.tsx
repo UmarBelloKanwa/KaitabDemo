@@ -3,7 +3,8 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import IosShareRoundedIcon from "@mui/icons-material/IosShareRounded";
+import IosShareRoundedIcon from '@mui/icons-material/IosShareRounded';
+import IconButton from "@mui/material/IconButton";
 
 export default function ShareButton({
   absolute = false,
@@ -19,9 +20,7 @@ export default function ShareButton({
       const origin = window.location.origin;
       const current = window.location.href;
 
-      const url = absolute
-        ? `${origin}/${id}`
-        : `${current}/${id}`;
+      const url = absolute ? `${origin}/${id}` : `${current}/${id}`;
 
       await navigator.clipboard.writeText(url);
       setOpen(true);
@@ -32,15 +31,15 @@ export default function ShareButton({
 
   return (
     <>
-      <Button
-        variant="text"
+      <IconButton
         size="small"
-        startIcon={<IosShareRoundedIcon />}
-        sx={{ color: "text.secondary", textTransform: "none" }}
+        sx={{ color: "text.secondary" }}
         onClick={handleShare}
       >
-        Share
-      </Button>
+        <IosShareRoundedIcon
+          fontSize="small"
+        />
+      </IconButton>
 
       <Snackbar
         open={open}

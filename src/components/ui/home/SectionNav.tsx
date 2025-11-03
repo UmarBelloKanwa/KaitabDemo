@@ -47,8 +47,8 @@ export default function SectionNav() {
   return (
     <Box sx={{
       mt: 2,
-      px: 2,
-
+      mx: 2,
+      p: 0,
     }}>
       <Box ref={boxRef} sx={{ display: "flex", gap: 2, mb: 2 }}>
         <TextField

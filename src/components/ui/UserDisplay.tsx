@@ -17,7 +17,14 @@ export default function UserDisplay({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
 
   return (
-    <Box sx={{ p: 2, border: `1px solid ${theme.palette.divider}`, borderRadius: 1 }}>
+    <Box sx={{
+      p: 2,
+       boxShadow: 11,
+       
+        borderRadius: 2,
+       border: "1px solid",
+         borderColor: "rgba(255, 255, 255, 0.03)",
+    }}>
       {user ? (
         <Box
           sx={{

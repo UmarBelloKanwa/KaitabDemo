@@ -15,19 +15,20 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
         bgcolor: "background.default",
         pt: { xs: 1, sm: 0 },
         width: "100%",
-        py: 3,
+        py: 0,
         px: { xs: 0, md: 1 },
       }}
     >
       <Grid
         container
-        spacing={{ sm: 2 }}
+        spacing={{ sm: 0 }}
         sx={{
           width: "100%",
           m: "auto",
           mt: 2,
           alignContent: "space-evenly",
           alignItems: "flex-start",
+          gap: 0,
         }}
       >
         {/* Posts for user to scroll and view */}
@@ -43,6 +44,8 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",
+            bgcolor: "transparent",
+            p:0
           }}
         >
           <SectionNav />

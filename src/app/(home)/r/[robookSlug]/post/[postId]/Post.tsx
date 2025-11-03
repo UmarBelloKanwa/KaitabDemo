@@ -5,7 +5,6 @@ import PostCard from "@/components/ui/robook/post/PostCard";
 import Container from "@mui/material/Container";
 import { useQuery } from "@tanstack/react-query";
 import { fetchRobook } from "@/actions/robook";
-import AppBar from "@/components/ui/robook/chapter/AppBar";
 import CommentSection from "@/components/ui/robook/chapter/CommentSection";
 import { createCommentToBookPost } from "@/lib/api/book";
 
@@ -25,9 +24,7 @@ export default function Post({
   });
 
   return (
-    <>
-      {robookData && <AppBar robook={robookData} />}
-      <Container maxWidth="sm" sx={{ mt: 2, p: 0,gap: 1 }}>
+      <Container maxWidth="sm" sx={{ m: 0, p: 0, gap: 1 }}>
         {post && robookData ? (
           <>
             <PostCard post={post} robook={robookData} isPermanent={true} />
@@ -42,6 +39,5 @@ export default function Post({
           <h1> Sorry, Post is not found </h1>
         )}
       </Container>
-    </>
   );
 }

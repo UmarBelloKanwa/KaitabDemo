@@ -11,7 +11,12 @@ export default async function Home() {
   const user = await fetchUser(); // Catche data for 5 min.
 
   return (
-    <Box>
+    <Box
+      sx={{
+        mt: 2,
+        px: { xs: 1 },
+      }}
+    >
       <Header user={user} />
       <RobooksList />
       <Box

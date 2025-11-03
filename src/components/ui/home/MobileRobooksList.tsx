@@ -52,7 +52,7 @@ export default function RobooksList() {
 
   return (
     <Box>
-      <Typography variant="h6" sx={{ ml: 1, my: 1, fontSize: "16px" }}>
+      <Typography variant="h6" sx={{ ml: 2, fontSize: "16px" }}>
         For you
       </Typography>
       <Box
