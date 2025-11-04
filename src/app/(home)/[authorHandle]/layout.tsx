@@ -46,6 +46,7 @@ export default async function BookLayout({
           mt: 0,
           display: { xs: "block", sm: "block", md: "flex" },
           gap: 0,
+          m: "aauto",
           alignContent: "start",
           alignItems: "start",
           justifyContent: "start",
@@ -54,7 +55,7 @@ export default async function BookLayout({
         }}
       >
         <BackButton title="Book" />
-        <Box sx={{ ml: { md: -2 }, flex: 1 }}>{children}</Box>
+        <Box sx={{ ml: { md: -2, sm: "auto", xs: "auto" }, flex: 1 }}>{children}</Box>
       </Box>
     </ClientQueryProvider>
   );

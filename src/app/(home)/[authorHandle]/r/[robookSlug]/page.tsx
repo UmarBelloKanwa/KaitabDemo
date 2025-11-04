@@ -32,7 +32,7 @@ export default async function RobookCard({
   }
 
   return (
-    <Container maxWidth="sm" sx={{ m: 0, p: 0, gap: 1 }}>
+    <Container maxWidth="sm" sx={{ m: "auto", p: 0, gap: 1 }}>
       <RobookIndieCard
         authorHandle={p.authorHandle}
         robookSlug={p.robookSlug}
