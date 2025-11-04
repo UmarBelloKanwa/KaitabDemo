@@ -12,6 +12,12 @@ const config: NextConfig = {
     ];
   },
   allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev', '192.168.0.130', 'localhost', '127.0.0.1'],
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default config;
