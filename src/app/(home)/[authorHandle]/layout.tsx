@@ -32,7 +32,7 @@ export default async function BookLayout({
 
   if (!authorData) {
     return (
-      <h1 style={{ marginLeft: "3em" }}>Sorry, the author was not found.</h1>
+      <h1 style={{ marginLeft: "3em" }}> Sorry, the author was not found.</h1>
     );
   }
 
