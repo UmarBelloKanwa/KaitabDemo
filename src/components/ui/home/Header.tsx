@@ -65,7 +65,7 @@ export default function Header({ user }: { user: InUser }) {
         >
           <Box>
             <Typography variant="body1" sx={{ color: "text.secondary" }}>
-              {user ? "Welcome back," : "Welcome to Kaitab"}
+              {user ? "Welcome back," : "Welcome to Feedple"}
             </Typography>
             <Box
               sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}

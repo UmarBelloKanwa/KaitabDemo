@@ -60,14 +60,14 @@ export default function SigninForm() {
                                 fontSize="xx-large"
                                 sx={{ width: '100%' }}
                             >
-                                Kaitab
+                                Feedple
                             </Typography>
                             <Typography
                                 component="p"
                                 variant='body1'
                                 sx={{ width: '100%' }}
                             >
-                                Sign in &mdash; where books are living minds.
+                                Sign in &mdash; the place for thoughtful minds.
                             </Typography>
                         </Box>
                         {(Boolean(errors.general)) && (

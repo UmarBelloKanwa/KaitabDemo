@@ -4,7 +4,7 @@ import ClientProvider from "@/providers/ClientProvider";
 import HydrationProvider from "@/providers/HydrationProvider";
 
 export const metadata: Metadata = {
-  title: "Kaitab",
+  title: "Feedple",
   description: "A modern way to learn and share books",
 };
 

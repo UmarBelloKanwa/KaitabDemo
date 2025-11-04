@@ -31,7 +31,7 @@ const collapsedWidth = 64; // Width when collapsed (just icon)
 export default function Sidebar({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
 
-  const companyName = "Asinpire";
+  const companyName = "Feedple";
 
   const theme = useTheme();
   const router = useRouter();

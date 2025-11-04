@@ -78,7 +78,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
         <Box p={0}>
           <TextField
             fullWidth
-            placeholder="Search kaitab"
+            placeholder="Search Feedple "
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             InputProps={{
