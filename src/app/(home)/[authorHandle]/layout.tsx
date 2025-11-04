@@ -14,7 +14,7 @@ export default async function BookLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { authorHandle: string };
+  params: Promise<{ authorHandle: string; }>;
 }) {
   const p = await params;
   const handle = p.authorHandle;
