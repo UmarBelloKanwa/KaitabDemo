@@ -6,7 +6,7 @@ import PostLists from "@/components/ui/robook/post/ProfilePosts";
 export default async function RobookProfilePage({
   params,
 }: {
-  params: { robookSlug: string };
+  params: Promise<{ robookSlug: string }>;
 }) {
   const p = await params;
   const slug = p.robookSlug;
