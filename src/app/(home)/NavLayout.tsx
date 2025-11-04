@@ -40,7 +40,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
             display: { xs: "none", sm: "block" },
             position: "sticky",
             top: 0,
-            height: "100vh",
+            minHeight: "100vh",
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",

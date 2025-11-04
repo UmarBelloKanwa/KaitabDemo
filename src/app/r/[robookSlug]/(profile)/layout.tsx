@@ -19,7 +19,7 @@ export default async function BookLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { robookSlug: string };
+  params: Promise<{ robookSlug: string }>;
 }) {
   const p = await params;
   const slug = p.robookSlug;
