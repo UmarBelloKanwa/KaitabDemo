@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import { fetchUser } from "@/actions/user";
 
 export default async function Home() {
-  const user = await fetchUser(); // Catche data for 5 min.
+  const user = await fetchUser(); // Catche data for 5 min. But not
 
   return (
     <Box
