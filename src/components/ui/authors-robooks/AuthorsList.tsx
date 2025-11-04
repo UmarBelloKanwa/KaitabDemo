@@ -44,7 +44,7 @@ export default function AuthorsList({ member }: { member: Author }) {
         onClick={() => router.push(`/${member.handle}`)}
       >
         <ListItemAvatar>
-          <Avatar src={member.profile_picture} sx={{ width: 48, height: 48 }} />
+          <Avatar src={member?.profile_picture || ""} sx={{ width: 48, height: 48 }} />
         </ListItemAvatar>
         <ListItemText
           sx={{ mr: { xs: 0, sm: 2 } }}
