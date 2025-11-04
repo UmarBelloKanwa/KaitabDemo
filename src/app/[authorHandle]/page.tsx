@@ -7,9 +7,9 @@ import { getAuthorProfile } from "@/actions/author";
 export default async function AuthorProfile({ 
   params
 }:{
-  params: {
+  params: Promise<{
     authorHandle: string;
-  }
+  }>
   }) {
   const p = await params;
   

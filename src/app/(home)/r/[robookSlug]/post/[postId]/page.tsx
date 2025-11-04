@@ -8,10 +8,10 @@ import PostContainer from "./Post";
 export default async function ChapterPage({
   params,
 }: {
-  params: {
+  params: Promise<{
     robookSlug: string;
     postId: string;
-  };
+  }>;
 }) {
   const p = await params;
   let post: BookPostDTO | null = null,

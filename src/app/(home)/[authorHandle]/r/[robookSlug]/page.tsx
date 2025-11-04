@@ -10,10 +10,10 @@ import Container from "@mui/material/Container";
 export default async function RobookCard({
   params,
 }: {
-  params: {
+  params: Promise<{
     authorHandle: string;
     robookSlug: string;
-  };
+  }>;
 }) {
   const p = await params;
   let book: Robook | null = null;

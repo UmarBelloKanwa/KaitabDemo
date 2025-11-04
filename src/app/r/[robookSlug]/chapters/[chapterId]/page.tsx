@@ -10,7 +10,7 @@ import type { IndependentChapter, Comment } from "@/types/book";
 export default async function ChapterPage({
   params,
 }: {
-  params: { chapterId: string };
+  params: Promise<{ chapterId: string }>;
 }) {
   const p = await params;
   const chapterId = p.chapterId;
