@@ -3,6 +3,13 @@ import type { Metadata } from "next";
 import ClientProvider from "@/providers/ClientProvider";
 import HydrationProvider from "@/providers/HydrationProvider";
 
+// This app needs to read cookies during server-side data fetching (HydrationProvider
+// prefetches the current user using server actions that access cookies). That
+// prevents static (SSG) rendering for routes. Force the app to be dynamic so Next
+// doesn't attempt to statically render pages and raise the DYNAMIC_SERVER_USAGE
+// error.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Feedple",
   description: "A modern way to learn and share books",

@@ -86,6 +86,6 @@ export const api = createApi();
 
 export default api;
 
-export const axiosFetcher = (url: string) => {
+export const axiosFetcher = async (url: string) => {
     return api.get(url).then(res => res.data);
 };
