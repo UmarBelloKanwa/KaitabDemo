@@ -14,7 +14,7 @@ export default async function BookLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ authorHandle: string; }>;
+  params: Promise<{ authorHandle: string }>;
 }) {
   const p = await params;
   const handle = p.authorHandle;
@@ -41,21 +41,34 @@ export default async function BookLayout({
   return (
     <ClientQueryProvider state={dehydratedState}>
       <StoreItem type="author" data={authorData} />
-       <Box
+      <Box
         sx={{
           mt: 0,
-          display: { xs: "block", sm: "block", md: "flex" },
+          display: "flex",
+          p: 0,
+          flexDirection: { xs: "column", sm: "column", md: "row" }, // correct
           gap: 0,
-          m: "aauto",
-          alignContent: "start",
-          alignItems: "start",
-          justifyContent: "start",
-          justifyItems: "start",
-
+          mx: "auto", // simpler than m: "auto"
+          alignItems: { xs: "center", md: "start" },
+          justifyContent: { xs: "center", md: "start" },
+          width: "100%",
         }}
       >
         <BackButton title="Book" />
-        <Box sx={{ ml: { md: -2, sm: "auto", xs: "auto" }, flex: 1 }}>{children}</Box>
+
+        <Box
+          sx={{
+            flex: 1,
+            p: { xs: 1, sm: 1, md: 0 },
+            mx: "auto", // centers it horizontally inside parent
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </ClientQueryProvider>
   );

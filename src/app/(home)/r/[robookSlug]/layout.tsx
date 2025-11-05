@@ -59,7 +59,7 @@ export default async function BookPostLayout({
         }}
       >
         <BackButton title="Post" />
-        <Box sx={{ ml: { md: -2 } }}>{children}</Box>
+        <Box sx={{ ml: { md: -5 } }}>{children}</Box>
       </Box>
     </ClientQueryProvider>
   );

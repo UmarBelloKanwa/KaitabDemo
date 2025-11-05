@@ -31,7 +31,6 @@ export default function ResponsiveAppBar({ title }: { title?: string }) {
       <Toolbar
         sx={{
           my: "auto",
-          p: { xs: 1 },
           height: { xs: "100%", sm: "100%", md: "fit-content" },
           maxWidth: { xs: "100%", sm: "fit-content", md: "fit-content" },
           mx: 0,

@@ -32,12 +32,26 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
         }}
       >
         {/* Posts for user to scroll and view */}
-        <Grid size={{ xs: 12, sm: 7.5 }}>{children}</Grid>
-        
+        <Grid
+          size={{
+            xs: 12,
+            sm: 12,
+            md: 7.5,
+          }}
+          sx={{
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          {children}
+        </Grid>
+
         <Grid
           size={{ xs: 0, sm: "grow" }}
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", sm: "none", md: "block" },
             position: "sticky",
             top: 0,
             minHeight: "100vh",
@@ -45,7 +59,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
             alignItems: "center",
             justifyContent: "center",
             bgcolor: "transparent",
-            p:0
+            p: 0,
           }}
         >
           <SectionNav />

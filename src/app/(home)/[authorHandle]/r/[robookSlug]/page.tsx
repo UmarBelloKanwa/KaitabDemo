@@ -5,7 +5,7 @@ import { getAuthorBook, getAuthorBookComments } from "@/actions/author";
 import RobookIndieCard from "@/components/ui/author/RobookIndieCard";
 import type { Comment } from "@/types/book";
 import type { Robook } from "@/types/author";
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 
 export default async function RobookCard({
   params,
@@ -32,13 +32,21 @@ export default async function RobookCard({
   }
 
   return (
-    <Container maxWidth="sm" sx={{ m: "auto", p: 0, gap: 1 }}>
+    <Box
+      sx={{
+        m: "auto",
+        width: "100%",
+        position: "relative",
+        p: 0,
+        ml: {md: -3}
+      }}
+    >
       <RobookIndieCard
         authorHandle={p.authorHandle}
         robookSlug={p.robookSlug}
         robookData={book}
         robookComments={comments}
       />
-    </Container>
+    </Box>
   );
 }

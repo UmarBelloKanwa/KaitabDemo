@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { Robook, Author } from "@/types/author";
 import CommentSection from "@ui/robook/chapter/CommentSection";
 import { createCommentToBook } from "@/lib/api/author";
-import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 
 export default function RobookIndieCard({
   authorHandle,
@@ -33,7 +33,7 @@ export default function RobookIndieCard({
   }
 
   return (
-    <Box sx={{ width: "100%", m: "auto" }}>
+    <Container maxWidth="sm" sx={{ width:"100%", m: 0, p: 0, gap: 1 }}>
       <RobookCardContent
         robook={robookData}
         author={author}
@@ -45,6 +45,6 @@ export default function RobookIndieCard({
           return await createCommentToBook(robookData.slug, txt);
         }}
       />
-    </Box>
+    </Container>
   );
 }
