@@ -105,13 +105,13 @@ export default function UserTopicsPage() {
                                 ? "primary.main"
                                 : "transparent",
                               color: isSelected ? "white" : "inherit",
-                              "&:hover": {
-                                bgcolor: isSelected
-                                  ? "primary.dark"
-                                  : "primary.50",
-                                transform: "translateY(-1px)",
-                                boxShadow: 1,
-                              },
+                              // "&:hover": {
+                              //   bgcolor: isSelected
+                              //     ? "primary.dark"
+                              //     : "primary.50",
+                              //   transform: "translateY(-1px)",
+                              //   boxShadow: 1,
+                              // },
                             }}
                           />
                         </Grid>

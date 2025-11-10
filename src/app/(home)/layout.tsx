@@ -39,7 +39,7 @@ export default async function Layout({
   });
 
   const dehydratedState = dehydrate(queryClient);
-  console.log("Posts", postsRes);
+  // console.log("Posts", postsRes);
   // console.log("Authors", authorsRes);
   // console.log("Books", booksRes);
 

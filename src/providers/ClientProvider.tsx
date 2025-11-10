@@ -20,7 +20,6 @@ export default function ClientProvider({
   const setDisplayAuthCard = useUIStore((state) => state.setDisplayAuthCard);
 
   const { data: user, isLoading } = useCurrentUser();
-
   React.useEffect(() => {
     if (!isLoading) setUser(user);
   }, [user, isLoading, setUser]);
