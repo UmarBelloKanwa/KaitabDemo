@@ -15,6 +15,9 @@ import IosShareIcon from "@mui/icons-material/IosShareRounded";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+
 export default function ActionsButton({
   robookPublicId,
   isFollowing,
@@ -58,8 +61,12 @@ export default function ActionsButton({
   const handleNavigation = () => {
     if (isChaptersPage) {
       router.push(`/r/${bookId}`);
+      setValue("posts");
     } else {
-      requireAuth(() => router.push(`/r/${bookId}/chapters`));
+      requireAuth(() => {
+        router.push(`/r/${bookId}/chapters`);
+        setValue("chapters");
+      });
     }
   };
 
@@ -89,62 +96,103 @@ export default function ActionsButton({
       setIsFollowingBook((prev) => !prev);
     }
   };
+  const [value, setValue] = React.useState(
+    isChaptersPage ? "chapters" : "posts"
+  );
 
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    handleNavigation();
+  };
   return (
-    <Box sx={{ display: "flex", gap: 1.5, mb: 2 }}>
-      {canFollow && (
+    <Box>
+      <Box sx={{ display: "flex", gap: 1.5, mb: 0.7 }}>
         <Button
           variant="contained"
           startIcon={isFollowingBook ? <CheckCircleIcon /> : null}
           onClick={() => requireAuth(makeAction)}
-          sx={{ flex: 1 }}
+          disabled={!canFollow}
+          fullWidth
         >
           {isFollowingBook ? "Following" : "Follow"}
         </Button>
-      )}
-      <Button
-        variant="outlined"
-        onClick={handleNavigation}
-        sx={{
-          borderColor: theme.palette.divider,
-          color: theme.palette.text.disabled,
-          bgcolor: theme.palette.action.hover,
-          flex: canFollow ? "unset" : 1,
-          "&:hover": {
-            bgcolor: "transparent",
-            color: theme.palette.text.primary,
+        {/* <Button
+          variant="outlined"
+          onClick={handleNavigation}
+          sx={{
             borderColor: theme.palette.divider,
-          },
-        }}
-      >
-        {buttonLabel}
-      </Button>
-      <IconButton
-        onClick={handleMoreClick}
-        sx={{
-          color: theme.palette.text.secondary,
-          "&:hover": {
-            color: theme.palette.text.primary,
+            color: theme.palette.text.disabled,
             bgcolor: theme.palette.action.hover,
-          },
-        }}
-      >
-        <IosShareIcon />
-      </IconButton>
+            flex: canFollow ? "unset" : 1,
+            "&:hover": {
+              bgcolor: "transparent",
+              color: theme.palette.text.primary,
+              borderColor: theme.palette.divider,
+            },
+          }}
+          fullWidth
+        >
+          {buttonLabel}
+        </Button> */}
+        <IconButton
+          onClick={handleMoreClick}
+          sx={{
+            color: theme.palette.text.secondary,
+            "&:hover": {
+              color: theme.palette.text.primary,
+              bgcolor: theme.palette.action.hover,
+            },
+          }}
+        >
+          <IosShareIcon />
+        </IconButton>
 
-      {/* More Menu */}
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={handleShare}>Copy Link</MenuItem>
-      </Menu>
+        {/* More Menu */}
+        <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+          <MenuItem onClick={handleShare}>Copy Link</MenuItem>
+        </Menu>
 
-      {/* Snackbar */}
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={2000}
-        onClose={() => setSnackbarOpen(false)}
-        message="Link copied to clipboard!"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      />
+        {/* Snackbar */}
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={2000}
+          onClose={() => setSnackbarOpen(false)}
+          message="Link copied to clipboard!"
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        />
+      </Box>
+      <Box sx={{ width: "100%" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          sx={{
+            px: { xs: 3, sm: 5, md: 9 },
+            minHeight: 36, // reduce total height of the Tabs bar
+            "& .MuiTabs-indicator": {
+              height: 2, // thinner bottom border
+            },
+          }}
+        >
+          <Tab
+            label="Posts"
+            value="posts"
+            sx={{
+              minWidth: 120, // makes the tab horizontally larger
+              py: 0, // reduces vertical padding
+              minHeight: 36, // aligns with Tabs bar height
+            }}
+          />
+          <Tab sx={{ flexGrow: 1, visibility: "hidden" }} />
+          <Tab
+            label="Chapters"
+            value="chapters"
+            sx={{
+              minWidth: 120,
+              py: 0,
+              minHeight: 36,
+            }}
+          />
+        </Tabs>
+      </Box>
     </Box>
   );
 }
