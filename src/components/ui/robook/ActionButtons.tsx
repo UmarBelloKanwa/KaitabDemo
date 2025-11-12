@@ -113,7 +113,7 @@ export default function ActionsButton({
           disabled={!canFollow}
           fullWidth
         >
-          {isFollowingBook ? "Following" : "Follow"}
+          {canFollow ? (isFollowingBook ? "Following" : "Follow") : "Owner"}
         </Button>
         {/* <Button
           variant="outlined"
@@ -165,7 +165,11 @@ export default function ActionsButton({
           value={value}
           onChange={handleChange}
           sx={{
-            px: { xs: 3, sm: 5, md: 9 },
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: { xs: 3, sm: 5, md: 9 },
+            px: { xs: "auto", sm: 5, md: 9 },
             minHeight: 36, // reduce total height of the Tabs bar
             "& .MuiTabs-indicator": {
               height: 2, // thinner bottom border
@@ -176,17 +180,15 @@ export default function ActionsButton({
             label="Posts"
             value="posts"
             sx={{
-              minWidth: 120, // makes the tab horizontally larger
               py: 0, // reduces vertical padding
               minHeight: 36, // aligns with Tabs bar height
             }}
           />
-          <Tab sx={{ flexGrow: 1, visibility: "hidden" }} />
+
           <Tab
             label="Chapters"
             value="chapters"
             sx={{
-              minWidth: 120,
               py: 0,
               minHeight: 36,
             }}
