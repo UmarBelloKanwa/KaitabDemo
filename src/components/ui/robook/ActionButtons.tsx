@@ -168,13 +168,16 @@ export default function ActionsButton({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            gap: { xs: 3, sm: 5, md: 9 },
-            px: { xs: "auto", sm: 5, md: 9 },
+            "& .MuiTabs-flexContainer": {
+              gap: { xs: 6, sm: 9, md: 11 }, // 👈 works here
+            },
+            px: { xs: 0, sm: 5, md: 9 },
             minHeight: 36, // reduce total height of the Tabs bar
             "& .MuiTabs-indicator": {
               height: 2, // thinner bottom border
             },
           }}
+          centered
         >
           <Tab
             label="Posts"
