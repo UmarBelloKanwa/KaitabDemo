@@ -80,7 +80,7 @@ function AuthorCard({ user, index }: { user: any; index: number }) {
         boxShadow: 1,
       }}
       onClick={() => {
-        router.push(`/r/${user.handle}`);
+        router.push(`/${user.handle}`);
       }}
     >
       <Box

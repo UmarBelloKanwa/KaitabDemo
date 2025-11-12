@@ -15,7 +15,7 @@ export default function CommentSection({
   createComment,
 }: {
   usersComments: Comment[];
-  createComment: (txt: string) => Promise<any>
+  createComment: (txt: string) => Promise<any>;
 }) {
   const [comments, setComments] = React.useState<Comment[]>(usersComments);
 
@@ -80,7 +80,9 @@ export default function CommentSection({
                       ·
                     </Typography>
                     <Typography variant="body2" sx={{ color: "#6b7280" }}>
-                      {dayjs(comment.created_at).fromNow()}
+                      {dayjs().diff(dayjs(comment.created_at), "minute") < 1
+                        ? "just now"
+                        : dayjs(comment.created_at).fromNow()}
                     </Typography>
                   </Box>
 
