@@ -169,9 +169,9 @@ export default function ActionsButton({
             alignItems: "center",
             justifyContent: "center",
             "& .MuiTabs-flexContainer": {
-              gap: { xs: 6, sm: 9, md: 11 }, // 👈 works here
+              gap: { xs: 6, sm: 9, md: 13 }, // 👈 works here
             },
-            px: { xs: 0, sm: 5, md: 9 },
+            px: { xs: 0, sm: 3, md: 9 },
             minHeight: 36, // reduce total height of the Tabs bar
             "& .MuiTabs-indicator": {
               height: 2, // thinner bottom border
