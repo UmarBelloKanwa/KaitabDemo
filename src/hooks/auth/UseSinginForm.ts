@@ -94,19 +94,19 @@ export default function useSigninForm() {
 
   const submitOtpCode = async (otp_code: string) => {
     try {
-      const res = await authApi.signIn.submitOtpCode({ otp_code });
+      const data = await authApi.signIn.submitOtpCode({ otp_code });
 
       // get Zustand store (outside React)
       const { setUser } = useUserStore.getState();
 
       // store the user globally
-      if (res?.data?.user) {
-        setUser(res.data.user);
+      if (data?.user) {
+        setUser(data.user);
         setDisplayAuthCard(false);
-        
+        router.refresh();
       }
 
-      return res;
+      return data;
     } catch (error) {
       // console.error("OTP verification failed:", error);
       throw error;
