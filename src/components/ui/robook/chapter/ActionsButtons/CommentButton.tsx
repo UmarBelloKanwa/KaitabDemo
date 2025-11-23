@@ -23,7 +23,7 @@ export default function CommentButton({
       variant="text"
       size="small"
       onClick={() => {
-        requireAuth(() => router.push(`/r/${robookSlug}/${chapterPublicId}`));
+        requireAuth(() => router.push(`/r/${robookSlug}/chapters/${chapterPublicId}`));
       }}
       startIcon={<ChatBubbleOutlineIcon />}
       sx={{
