@@ -1,10 +1,11 @@
 "use server";
 
 import React from "react";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import ClientQueryProvider from "@/providers/QueryProvider";
+import { dehydrate, QueryClient, HydrationBoundary } from "@tanstack/react-query";
 import { fetchAuthors } from "@/actions/author";
-import { fetchBooks, fetchBooksPosts } from "@/actions/robook";
+import { fetchBooks } from "@/actions/robook";
+import { fetchAuthorsPosts } from "@/actions/author";
+
 import NavLayout from "./NavLayout";
 export default async function Layout({
   children,
@@ -15,7 +16,7 @@ export default async function Layout({
 
   const results = await Promise.allSettled([
     fetchAuthors(),
-    fetchBooksPosts(),
+    fetchAuthorsPosts(),
     fetchBooks(),
   ]);
 
@@ -28,7 +29,7 @@ export default async function Layout({
     pageParams: [0],
   });
 
-  queryClient.setQueryData(["booksPosts"], {
+  queryClient.setQueryData(["authorsPosts"], {
     pages: [postsRes],
     pageParams: [0],
   });
@@ -38,14 +39,18 @@ export default async function Layout({
     pageParams: [0],
   });
 
+  postsRes.forEach((post: any) => {
+    queryClient.setQueryData(["post", post.public_id], post);
+  });
+
   const dehydratedState = dehydrate(queryClient);
   // console.log("Posts", postsRes);
   // console.log("Authors", authorsRes);
   // console.log("Books", booksRes);
 
   return (
-    <ClientQueryProvider state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       <NavLayout>{children}</NavLayout>
-    </ClientQueryProvider>
+    </HydrationBoundary>
   );
 }

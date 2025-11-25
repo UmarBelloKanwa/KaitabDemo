@@ -1,4 +1,3 @@
-import axios from "@/lib/axios";
 import useSWR from "swr";
 
 export const useUserNotifications = () => {

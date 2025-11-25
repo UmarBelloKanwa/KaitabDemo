@@ -9,7 +9,7 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 import {
   fetchRobook,
   fetchBookChapters,
-  fetchInitialBookPosts,
+  // fetchInitialBookPosts,
 } from "@/actions/robook";
 import ClientQueryProvider from "@/providers/QueryProvider";
 import StoreItem from "@/components/ui/StoreItem";
@@ -39,13 +39,13 @@ export default async function BookLayout({
     }),
   ]);
 
-  const initialBookPosts = await fetchInitialBookPosts(slug);
+  // const initialBookPosts = await fetchInitialBookPosts(slug);
   
   // Inject into cache in the correct infinite-query shape
-  queryClient.setQueryData(["posts", slug], {
-    pages: [initialBookPosts],
-    pageParams: [0],
-  });
+  // queryClient.setQueryData(["posts", slug], {
+  //   pages: [initialBookPosts],
+  //   pageParams: [0],
+  // });
 
   // Get data from cache
   const robookData: BookResponse | undefined = queryClient.getQueryData([

@@ -1,12 +1,12 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchBookPost } from "@/lib/api/book";
+import { fetchAuthorPost } from "@/lib/api/author";
 
-export function useInfinitePosts(book_slug: string) {
+export function useInfinitePosts(author_handle: string) {
   return useInfiniteQuery({
-    queryKey: ["posts", book_slug],
+    queryKey: ["posts", author_handle],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
-      const res = await fetchBookPost(book_slug, String(pageParam));
+      const res = await fetchAuthorPost(author_handle, String(pageParam));
       return res.data;
     },
     getNextPageParam: (lastPage, allPages) => {

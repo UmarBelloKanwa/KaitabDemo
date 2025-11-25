@@ -15,10 +15,11 @@ import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import updateLocale from "dayjs/plugin/updateLocale"; // 👈 Import this!
+import type { Author } from "@/types/author";
 
 import LikeButton from "@ui/robook/chapter/ActionsButtons/LikeButton";
 import ShareButton from "@ui/robook/chapter/ActionsButtons/ShareButton";
-import { likeBookPost, unLikeBookPost } from "@/lib/api/book";
+import { likeAuthorPost, unLikeAuthorPost } from "@/lib/api/author";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocale); // Extend with updateLocale first
@@ -43,14 +44,16 @@ dayjs.updateLocale("en", {
 
 export default function PostCard({
   isPermanent = false,
-  robook,
+  author,
   post,
 }: {
-  robook: BookResponse;
+  author: Author;
   post: BookPostDTO;
   isPermanent?: boolean;
 }) {
   const router = useRouter();
+
+  const url = `/${author.handle}/post/${post.public_id}`;
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {
@@ -66,7 +69,7 @@ export default function PostCard({
       return;
     }
     if (!isPermanent) {
-      router.push(`/r/${robook.slug}/post/${post.public_id}`);
+      router.push(url);
     }
   };
 
@@ -100,8 +103,8 @@ export default function PostCard({
             sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 0 }}
           >
             <Avatar
-              src={robook.main_photo_url || "/placeholder.svg"}
-              alt={robook.name}
+              src={author.profile_picture || "/placeholder.svg"}
+              alt={author.name}
               sx={{
                 width: 50,
                 height: 50,
@@ -109,7 +112,7 @@ export default function PostCard({
                 borderRadius: 1
               }}
             >
-              {robook.name.charAt(0)}
+              {author.name.charAt(0)}
             </Avatar>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
               <Typography
@@ -123,7 +126,7 @@ export default function PostCard({
                   alignItems: "center",
                 }}
               >
-                {robook.name}
+                {author.name}
                 <Typography variant="body2" sx={{ color: "#6b7280" }}>
                   ·
                 </Typography>
@@ -136,7 +139,7 @@ export default function PostCard({
               </Typography>
 
               <Typography variant="caption" sx={{ color: "#6b7280" }}>
-                By {robook.author.name}
+                @{author.handle}
               </Typography>
             </Box>
           </Box>
@@ -165,7 +168,7 @@ export default function PostCard({
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                router.push(`/r/${robook.slug}/post/${post.public_id}`);
+                router.push(url);
               }}
               sx={{
                 color: "#1DA1F2",
@@ -200,8 +203,8 @@ export default function PostCard({
             }}
           >
             <LikeButton
-              createLike={async () => await likeBookPost(post.public_id)}
-              removeLike={async () => await unLikeBookPost(post.public_id)}
+              createLike={async () => await likeAuthorPost(post.public_id)}
+              removeLike={async () => await unLikeAuthorPost(post.public_id)}
               isLikedByUser={post.liked_by_user}
               likesCount={post.like_count}
             />
@@ -210,7 +213,7 @@ export default function PostCard({
               size="small"
               onClick={(e) => {
                 e.stopPropagation();
-                 router.push(`/r/${robook.slug}/post/${post.public_id}`);
+                 router.push(url);
               }}
               sx={{
                 color: "#6b7280",

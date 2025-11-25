@@ -9,25 +9,46 @@ import type { Comment } from "@/types/book";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import CommentInput from "@/components/ui/robook/chapter/CommentInput";
+import CircularProgress from "@mui/material/CircularProgress";
+dayjs.extend(relativeTime);
 
 export default function CommentSection({
-  usersComments,
+  fetchComments,
   createComment,
 }: {
-  usersComments: Comment[];
+  fetchComments: () => Promise<Comment[]>; // should be async
   createComment: (txt: string) => Promise<any>;
 }) {
-  const [comments, setComments] = React.useState<Comment[]>(usersComments);
+  const [comments, setComments] = React.useState<Comment[]>([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
 
-  dayjs.extend(relativeTime);
+  React.useEffect(() => {
+    let isMounted = true;
+
+    async function load() {
+      try {
+        const data = await fetchComments();
+        if (isMounted) {
+          setComments(data);
+          setLoading(false);
+        }
+      } catch (err: any) {
+        if (isMounted) {
+          setError("Failed to load comments");
+          setLoading(false);
+        }
+      }
+    }
+
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchComments]);
 
   return (
-    <Box
-      sx={{
-        p: { xs: 0, sm: 1, md: 2 },
-        pb: { md: 0 },
-      }}
-    >
+    <Box sx={{ p: { xs: 0, sm: 1, md: 2 }, pb: { md: 0 } }}>
       <Box
         sx={{
           p: 2,
@@ -41,34 +62,33 @@ export default function CommentSection({
       </Box>
 
       <Box sx={{ mt: 2 }}>
-        {!comments ||
-          (comments.length <= 0 && (
-            <Typography variant="caption"> Be the first to comment </Typography>
-          ))}
-        {comments.length > 0 &&
+        {loading && (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+            <CircularProgress size={22} />
+          </Box>
+        )}
+
+        {error && (
+          <Typography variant="caption" sx={{ color: "red" }}>
+            {error}
+          </Typography>
+        )}
+
+        {!loading && comments.length === 0 && (
+          <Typography variant="caption">Be the first to comment</Typography>
+        )}
+
+        {!loading &&
+          comments.length > 0 &&
           comments.map((comment, index) => (
-            <Box
-              key={index}
-              sx={{
-                p: 0,
-                py: 1,
-                // "&:hover": { bgcolor: "rgba(255, 255, 255, 0.03)" },
-                // transition: "background-color 0.2s",
-              }}
-            >
+            <Box key={index} sx={{ p: 0, py: 1 }}>
               <Box sx={{ display: "flex", gap: 1.5 }}>
-                <Avatar src={undefined} sx={{ width: 40, height: 40 }}>
+                <Avatar sx={{ width: 40, height: 40 }}>
                   {comment.user.name.charAt(0).toUpperCase()}
                 </Avatar>
 
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                    }}
-                  >
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <Typography
                       variant="body1"
                       sx={{ fontWeight: "bold", color: "white" }}
@@ -79,6 +99,7 @@ export default function CommentSection({
                     <Typography variant="body2" sx={{ color: "#6b7280" }}>
                       ·
                     </Typography>
+
                     <Typography variant="body2" sx={{ color: "#6b7280" }}>
                       {dayjs().diff(dayjs(comment.created_at), "minute") < 1
                         ? "just now"
@@ -100,6 +121,7 @@ export default function CommentSection({
                   </Typography>
                 </Box>
               </Box>
+
               <Divider sx={{ opacity: 0.3 }} />
             </Box>
           ))}

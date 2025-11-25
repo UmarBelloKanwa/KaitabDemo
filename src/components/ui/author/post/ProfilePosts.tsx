@@ -3,19 +3,23 @@ import React from "react";
 import Box from "@mui/material/Box";
 import PostCard from "./PostCard";
 import type { BookPostDTO } from "@/types/book";
-import { fetchInitialBookPosts, fetchRobook } from "@/actions/robook";
+import {
+  fetchInitialAuthorPosts,
+  getAuthorProfile
+  // fetchRobook
+} from "@/actions/author";
 import { useQuery } from "@tanstack/react-query";
-import { useInfinitePosts } from "@/hooks/robook/useInfiniteRobookPost";
+import { useInfinitePosts } from "@/hooks/author/useInfiniteAuthorPost";
 
-export default function RobookProfilePosts({ slug }: { slug: string }) {
+export default function AuthorPosts({ handle }: { handle: string }) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfinitePosts(slug);
+    useInfinitePosts(handle);
   const loaderRef = React.useRef<HTMLDivElement | null>(null);
 
   // Fetch robook metadata (cached from layout if prefetched)
-  const { data: robook } = useQuery({
-    queryKey: ["robook", slug],
-    queryFn: () => fetchRobook(slug),
+  const { data: author } = useQuery({
+    queryKey: ["author", handle],
+    queryFn: () => getAuthorProfile(handle),
     staleTime: Infinity,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -38,7 +42,7 @@ export default function RobookProfilePosts({ slug }: { slug: string }) {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  if (!robook) return <h1> Sorry, No Robook found </h1>; // or a loading skeleton
+  // if (!robook) return <h1> Sorry, No Robook found </h1>; // or a loading skeleton
 
   if (!posts) return <h1> Sorry, failed to load posts</h1>;
 
@@ -53,7 +57,7 @@ export default function RobookProfilePosts({ slug }: { slug: string }) {
       }}
     >
       {posts.map((post: BookPostDTO, index: number) => (
-        <PostCard key={index} robook={robook} post={post} />
+        <PostCard key={index} author={author} post={post} />
       ))}
       <div ref={loaderRef} />
       {isFetchingNextPage && <p>Loading more...</p>}

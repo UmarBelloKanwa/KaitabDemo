@@ -65,3 +65,32 @@ export const fetchAuthors = async (offset?: string) => {
  return api.get(`/author/authors/to-follow?limit=10&offset=${offset || 0}`);
 }
 
+export const likeAuthorPost = async (public_id: string) => {
+  return api.post(`post/author/post/${public_id}/like`);
+};
+
+export const unLikeAuthorPost = async (public_id: string) => {
+  return api.delete(`post/author/${public_id}/unlike`);
+};
+
+export const createCommentToAuthorPost = async (
+  public_id: string,
+  comment: string
+) => {
+  return api.post(`post/author/post/${public_id}/comment`, {
+    comment_text: comment,
+  });
+};
+
+
+export const fetchAuthorPostComments = async (author_handle: string, public_id: string) => {
+  const res = await api.get(`post/${author_handle}/post/${public_id}/comments`);
+  return res.data;
+}
+
+
+// Fetch book post for independent page of post
+export const fetchAuthorPost = async (author_handle: string, public_id: string) => {
+  const res = await api.get(`post/${author_handle}/post/${public_id}`);
+  return res.data;
+}

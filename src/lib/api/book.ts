@@ -26,13 +26,13 @@ export const publishBook = (data: UserFormData) => {
   });
 };
 
-export const followBook = async (publicId: string) => {
-  return api.post(`book/follow/${publicId}`);
-};
+// export const followBook = async (publicId: string) => {
+//   return api.post(`book/follow/${publicId}`);
+// };
 
-export const unfollowBook = async (publicId: string) => {
-  return api.delete(`book/unfollow/${publicId}`);
-};
+// export const unfollowBook = async (publicId: string) => {
+//   return api.delete(`book/unfollow/${publicId}`);
+// };
 
 export const likeChapter = async (public_id: string) => {
   return api.post(`book/chapter/${public_id}/like`);
@@ -49,25 +49,4 @@ export const CreateCommentToChapter = async (
   return api.post(`book/chapter/${public_id}/comment`, {
     comment_text: comment,
   });
-};
-
-export const likeBookPost = async (public_id: string) => {
-  return api.post(`post/book/post/${public_id}/like`);
-};
-
-export const unLikeBookPost = async (public_id: string) => {
-  return api.delete(`post/book/${public_id}/unlike`);
-};
-
-export const createCommentToBookPost = async (
-  public_id: string,
-  comment: string
-) => {
-  return api.post(`post/book/post/${public_id}/comment`, {
-    comment_text: comment,
-  });
-};
-
-export const fetchBookPost = async (book_slug: string, pageParam: string) => {
-  return api.get(`post/book/${book_slug}/posts?limit=10&offset=${pageParam}`);
 };

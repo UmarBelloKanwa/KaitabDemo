@@ -2,13 +2,15 @@
 
 import React from "react";
 import Box from "@mui/material/Box";
-import PostCard from "@ui/robook/post/PostCard";
+import PostCard from "@ui/author/post/PostCard";
 import { useInfinitePosts } from "@/hooks/home/useInfinitePosts";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 
 export default function HomePostLists() {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfinitePosts();
   const loaderRef = React.useRef<HTMLDivElement | null>(null);
+  const queryClient = useQueryClient();
 
   const posts = data?.pages.flat() || [];
   React.useEffect(() => {
@@ -27,7 +29,14 @@ export default function HomePostLists() {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (!posts) return <h1> Sorry, failed to load posts</h1>;
-  console.log()
+
+  React.useEffect(() => {
+    posts.forEach((post: any) => {
+      queryClient.setQueryData(["post", post.public_id], post);
+    });
+  }, [posts, queryClient]);
+
+  // console.log(posts[0].author)
   return (
     <Box
       sx={{
@@ -37,7 +46,7 @@ export default function HomePostLists() {
       }}
     >
       {posts.map((post, index) => (
-        <PostCard key={index} post={post} robook={post?.book}/>
+        <PostCard key={index} post={post} author={post.author} />
       ))}
     </Box>
   );

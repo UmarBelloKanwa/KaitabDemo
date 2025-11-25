@@ -1,21 +1,15 @@
 "use server";
-import ProfileCard from "@ui/author/ProfileCard";
-import Container from "@mui/material/Container";
-import Author from "@ui/author/Author";
-import { getAuthorProfile } from "@/actions/author";
 
-export default async function AuthorProfile({ 
-  params
-}:{
-  params: Promise<{
-    authorHandle: string;
-  }>
-  }) {
+import React from "react";
+import PostLists from "@/components/ui/author/post/ProfilePosts";
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ authorHandle: string }>;
+}) {
   const p = await params;
-  
-  return (
-    <>
-      <Author handle={p.authorHandle} />
-    </>
-  );
+  const handle = p.authorHandle;
+
+  return <PostLists handle={handle} />;
 }

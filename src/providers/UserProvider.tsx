@@ -2,14 +2,19 @@
 
 // app/providers/HydrationProvider.tsx
 import { ReactNode } from "react";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
+import {
+  QueryClient,
+  dehydrate,
+  HydrationBoundary,
+} from "@tanstack/react-query";
 import { fetchUser } from "@/actions/user";
-import QueryProvider from "./QueryProvider";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Box from "@mui/material/Box";
 import Sidebar from "@ui/Drawer";
 
-export default async function HydrationProvider({
+import ClientProvider from "@/providers/ClientProvider";
+
+export default async function UserProvider({
   children,
 }: {
   children: ReactNode;
@@ -24,13 +29,15 @@ export default async function HydrationProvider({
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <QueryProvider state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       <ThemeProvider>
-        <Box sx={{ display: { xs: "block", sm: "fex" }, height: "fit-content" }}>
+        <Box
+          sx={{ display: { xs: "block", sm: "fex" }, height: "fit-content" }}
+        >
           <Sidebar user={user} />
-          {children}
+          <ClientProvider>{children}</ClientProvider>
         </Box>
       </ThemeProvider>
-    </QueryProvider>
+    </HydrationBoundary>
   );
 }

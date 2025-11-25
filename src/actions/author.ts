@@ -37,3 +37,22 @@ export const fetchAuthors = async (offset?: number) => {
   return res.data;
 }
 
+export const fetchInitialAuthorPosts = async (authorHandle: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`post/author/${authorHandle}/posts?limit=10&offset=0`);
+  return res.data;
+};
+
+// Fetch book post for independent page of post
+export const fetchAuthorPost = async (author_handle: string, public_id: string) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`post/${author_handle}/post/${public_id}`);
+  return res.data;
+}
+
+
+export const fetchAuthorsPosts = async (offset?: number) => {
+  const axios = await serverAxios();
+  const res = await axios.get(`feed/authors/posts?limit=10&offset=${offset || 0}`);
+  return res.data;
+}  

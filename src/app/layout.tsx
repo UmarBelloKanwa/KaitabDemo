@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
-import ClientProvider from "@/providers/ClientProvider";
-import HydrationProvider from "@/providers/HydrationProvider";
+import UserProvider from "@/providers/UserProvider";
+import Providers from "@/providers/Providers";
 
 // This app needs to read cookies during server-side data fetching (HydrationProvider
 // prefetches the current user using server actions that access cookies). That
@@ -29,9 +29,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <HydrationProvider>
-          <ClientProvider>{children}</ClientProvider>
-        </HydrationProvider>
+        <Providers>
+          <UserProvider>{children}</UserProvider>
+        </Providers>
       </body>
     </html>
   );

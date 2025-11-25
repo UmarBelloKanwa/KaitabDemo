@@ -1,15 +1,10 @@
 "use server";
 
-import React from "react";
-import PostLists from "@/components/ui/robook/post/ProfilePosts";
+import ChaptersFeed from "@/components/ui/robook/chapter/ChaptersFeed";
 
-export default async function RobookProfilePage({
-  params,
-}: {
-  params: Promise<{ robookSlug: string }>;
-}) {
+export default async function ChaptersPage({ params }: { params: Promise<{ robookSlug: string }> }) {
   const p = await params;
   const slug = p.robookSlug;
 
-  return <PostLists slug={slug} />;
+  return <ChaptersFeed slug={slug} />;
 }

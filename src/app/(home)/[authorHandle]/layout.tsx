@@ -1,11 +1,6 @@
 "use server";
 
 import React from "react";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import ClientQueryProvider from "@/providers/QueryProvider";
-import { getAuthorProfile } from "@/actions/author";
-import type { Author } from "@/types/author";
-import StoreItem from "@/components/ui/StoreItem";
 import BackButton from "@/components/ui/common/AppBar";
 import Box from "@mui/material/Box";
 
@@ -18,29 +13,9 @@ export default async function BookLayout({
 }) {
   const p = await params;
   const handle = p.authorHandle;
-  const queryClient = new QueryClient();
-
-  // Prefetch author
-  await queryClient.prefetchQuery({
-    queryKey: ["author", handle],
-    queryFn: () => getAuthorProfile(handle),
-    staleTime: Infinity,
-  });
-
-  // Retrieve the cached author data
-  const authorData = queryClient.getQueryData<Author>(["author", handle]);
-
-  if (!authorData) {
-    return (
-      <h1 style={{ marginLeft: "3em" }}> Sorry, the author was not found.</h1>
-    );
-  }
-
-  const dehydratedState = dehydrate(queryClient);
-
+ 
   return (
-    <ClientQueryProvider state={dehydratedState}>
-      <StoreItem type="author" data={authorData} />
+    <>
       <Box
         sx={{
           mt: 0,
@@ -55,7 +30,6 @@ export default async function BookLayout({
         }}
       >
         <BackButton title="Book" />
-
         <Box
           sx={{
             flex: 1,
@@ -70,6 +44,6 @@ export default async function BookLayout({
           {children}
         </Box>
       </Box>
-    </ClientQueryProvider>
+    </>
   );
 }

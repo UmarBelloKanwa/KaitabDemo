@@ -1,15 +1,22 @@
 "use server";
 
 import React from "react";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import ClientQueryProvider from "@/providers/QueryProvider";
-import { getAuthorProfile, getAuthorBooks } from "@/actions/author";
+import {
+  dehydrate,
+  QueryClient,
+  HydrationBoundary,
+} from "@tanstack/react-query";
+import {
+  getAuthorProfile,
+  getAuthorBooks,
+  fetchInitialAuthorPosts,
+} from "@/actions/author";
 import type { Author } from "@/types/author";
 import Container from "@mui/material/Container";
 import ProfileCard from "@ui/author/ProfileCard";
 import StoreItem from "@/components/ui/StoreItem";
 
-export default async function BookLayout({
+export default async function AuthorLayout({
   children,
   params,
 }: {
@@ -39,8 +46,23 @@ export default async function BookLayout({
     pageParams: [0],
   });
 
+  const initialBookPosts = await fetchInitialAuthorPosts(handle);
+
+  // Inject into cache in the correct infinite-query shape
+  queryClient.setQueryData(["posts", handle], {
+    pages: [initialBookPosts],
+    pageParams: [0],
+  });
+
   // Retrieve the cached author data
   const authorData = queryClient.getQueryData<Author>(["author", handle]);
+
+  if (initialBookPosts) {
+    initialBookPosts.forEach((post: any) => {
+      post.author = authorData;
+      queryClient.setQueryData(["post", post.public_id], post);
+    });
+  }
 
   if (!authorData) {
     return (
@@ -51,12 +73,12 @@ export default async function BookLayout({
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <ClientQueryProvider state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       <StoreItem type="author" data={authorData} />
       <Container maxWidth="sm" sx={{ p: { xs: 2, sm: 2 } }}>
         <ProfileCard author={authorData} />
         {children}
       </Container>
-    </ClientQueryProvider>
+    </HydrationBoundary>
   );
 }

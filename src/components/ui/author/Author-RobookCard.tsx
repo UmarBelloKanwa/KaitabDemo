@@ -111,7 +111,7 @@ export default function RobookCardContent({
         </Box>
 
         {/* Tweet content */}
-        <Box sx={{ ml: { xs: 4, sm: 6.5 }, mb: 2 }}>
+        <Box sx={{ ml: { xs: 4, sm: 5.5 }, mb: 2 }}>
           <RobookCard robook={robook} where="profile" />
         </Box>
 
@@ -122,10 +122,10 @@ export default function RobookCardContent({
             display: "flex",
             alignItems: "center",
             gap: { xs: 1, sm: 4 },
-            mt: 2,
-            pb: 1,
-            borderBottom: "1px solid",
-            borderColor: "divider",
+            mt: 1,
+            // pb: 1,
+            // borderBottom: "1px solid",
+            // borderColor: "divider",
             maxWidth: "100%",
           }}
         >
@@ -135,6 +135,7 @@ export default function RobookCardContent({
               alignItems: "center",
               gap: { xs: 0, sm: 1 },
               p: 0.5,
+              pt: 0
             }}
             onClick={() => {
               router.push(`/${authorHandle}/r/${robook.slug}#comments`);

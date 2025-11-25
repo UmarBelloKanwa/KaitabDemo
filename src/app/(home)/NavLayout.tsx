@@ -16,7 +16,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
         pt: { xs: 1, sm: 0 },
         width: "100%",
         py: 0,
-        px: { xs: 0, md: 1 },
+        px: { xs: 0, md: 0 },
       }}
     >
       <Grid

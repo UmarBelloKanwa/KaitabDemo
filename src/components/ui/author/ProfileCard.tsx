@@ -13,6 +13,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import type { Author } from "@/types/author";
 import SocialLinks from "@/components/ui/author/SocialLinks";
 import ActionsButtons from "./ActionsButtons";
+import TabsButton from "@/components/ui/author/TabsButtons";
 
 export default function ProfileCard({ author }: { author: Author }) {
   const theme = useTheme();
@@ -113,7 +114,7 @@ export default function ProfileCard({ author }: { author: Author }) {
           isFollowing={author.is_following}
           authorPublicId={author.public_id}
         />
-        
+        <TabsButton />
         <Divider sx={{ borderColor: theme.palette.divider, mb: 0 }} />
         
         {/* Bottom Navigation */}

@@ -6,7 +6,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import ActionsButton from "@/components/ui/robook/ActionButtons";
+import ActionsButton from "@/components/ui/author/TabsButtons";
 import type { BookResponse, BookChapterResponse } from "@/types/book";
 
 const ProfileCard = ({ robook }: { robook: BookResponse | null }) => {
@@ -93,7 +93,7 @@ const ProfileCard = ({ robook }: { robook: BookResponse | null }) => {
           </Typography>
 
           {/* Links */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 0 }}>
             <Typography
               component="div"
               variant="caption"
@@ -106,17 +106,17 @@ const ProfileCard = ({ robook }: { robook: BookResponse | null }) => {
           </Box>
 
           {/* Subscriber Count */}
-          <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>
+          {/* <Typography variant="body2" sx={{ color: "text.secondary", mb: 2 }}>
             {robook.followers_count} followers
-          </Typography>
+          </Typography> */}
         </Box>
         {/* Action Buttons */}
-        <ActionsButton
+        {/* <ActionsButton
           canFollow={robook.can_follow}
           robookPublicId={robook.public_id}
           isFollowing={robook.is_following}
         />
-        <Divider sx={{ borderColor: "divider", mb: 0 }} />
+        <Divider sx={{ borderColor: "divider", mb: 0 }} /> */}
       </CardContent>
     </Card>
   );
