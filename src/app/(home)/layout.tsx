@@ -43,11 +43,11 @@ export default async function Layout({
     pageParams: [0],
   });
 
-  // if (postsRes) {
-  //   postsRes.forEach((post: any) => {
-  //     queryClient.setQueryData(["post", post.public_id], post);
-  //   });
-  // }
+  if (postsRes) {
+    postsRes.forEach((post: any) => {
+      queryClient.setQueryData(["post", post.public_id], post);
+    });
+  }
 
   const dehydratedState = dehydrate(queryClient);
   // console.log("Posts", postsRes);
