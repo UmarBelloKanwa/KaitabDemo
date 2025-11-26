@@ -107,10 +107,10 @@ export default function PostCard({
                 router.push(`/${author.handle}`);
               }}
               sx={{
-                width: 50,
-                height: 50,
+                width: 48,
+                height: 48,
                 objectFit: "fill",
-                borderRadius: 1,
+               // borderRadius: 1,
               }}
             >
               {author.name.charAt(0)}
@@ -118,7 +118,7 @@ export default function PostCard({
             <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
               <Typography
                 component="div"
-                variant="body1"
+                variant="body2"
                 onClick={() => {
                   router.push(`/${author.handle}`);
                 }}
@@ -153,7 +153,7 @@ export default function PostCard({
             sx={{
               color: "white",
               lineHeight: 1.6,
-              fontSize: { xs: "14px", sm: "14px", md: "15px" },
+              fontSize: { xs: "14px", sm: "14px", md: "14px" },
               whiteSpace: "pre-line",
               overflow: "hidden",
               display: "-webkit-box",

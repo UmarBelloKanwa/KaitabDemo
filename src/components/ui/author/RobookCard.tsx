@@ -94,25 +94,23 @@ export default function RobookCard({
                 {robook.name}
               </Typography>
             </Box>
-
-           
-
+            {where != "home" && (
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{
+                  mb: 0.7,
+                  fontSize: "0.8rem",
+                  display: "-webkit-box",
+                  WebkitLineClamp: where == "home" ? 1 : 2,
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                }}
+              >
+                {robook.description}
+              </Typography>
+            )}
             <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{
-                mb: 0.7,
-                fontSize: "0.8rem",
-                display: "-webkit-box",
-                WebkitLineClamp: where == "home" ? 1 : 2,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            >
-              {robook.description}
-            </Typography>
-
-             <Typography
               variant="body2"
               color="text.secondary"
               sx={{
@@ -139,27 +137,26 @@ export default function RobookCard({
               mt: "auto",
             }}
           >
-
             {/* {where != "home" && ( */}
-              <IconButton
-                size="small"
-                sx={{
-                  px: 1.5,
-                  py: 0.5,
-                  fontSize: "0.75rem",
-                  color: "text.secondary",
-                  borderRadius: 0.6,
-                  border: (theme) => `1px solid ${theme.palette.divider}`,
-                  borderColor: "grey.800",
-                  bgcolor: "background.paper",
-                  "&:hover": {
-                    bgcolor: "primary.main",
-                    color: "white",
-                  },
-                }}
-              >
-                Read
-              </IconButton>
+            <IconButton
+              size="small"
+              sx={{
+                px: 1.5,
+                py: 0.5,
+                fontSize: "0.75rem",
+                color: "text.secondary",
+                borderRadius: 0.6,
+                border: (theme) => `1px solid ${theme.palette.divider}`,
+                borderColor: "grey.800",
+                bgcolor: "background.paper",
+                "&:hover": {
+                  bgcolor: "primary.main",
+                  color: "white",
+                },
+              }}
+            >
+              Read
+            </IconButton>
             {/* )} */}
             {/* {where == "home" && <FollowButton />} */}
             {/* Interactions */}
