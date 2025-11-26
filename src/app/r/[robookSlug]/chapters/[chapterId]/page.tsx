@@ -11,7 +11,7 @@ import { fetchBookChapter } from "@/lib/api/book";
 export default function ChapterPage({
   params,
 }: {
-  params:  Promise<{ chapterId: string }>;
+  params:  Promise<{ chapterId: string, robookSlug: string }>;
 }) {
   const p = React.use(params);
   const chapterId = p.chapterId;
@@ -25,8 +25,19 @@ export default function ChapterPage({
       if (cached) return cached; // <-- This prevents unnecessary fetch
       return await fetchBookChapter(chapterId);
     },
-    staleTime: 1000 * 60 * 10, // not required but makes it feel snappier
+    staleTime: Infinity, // not required but makes it feel snappier
   });
+
+   const { data: robook, isLoading, isError } = useQuery({
+      queryKey: ["robook", p.robookSlug],
+      queryFn: async () => {
+        const cached = queryClient.getQueryData(["robook", p.robookSlug]);
+        return cached; // Prevent unnecessary fetch
+      },
+      staleTime: Infinity, // optional
+   });
+  
+  chapter.book = chapter.book ?? robook;
 
   return (
     <Box sx={{ minHeight: "100vh", width: "100%", position: "relative" }}>
