@@ -8,8 +8,8 @@ import {
   fetchAuthorPostComments,
   fetchAuthorPost,
 } from "@/lib/api/author";
-// import { fetchAuthorPost,  } from "@/actions/author";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Post({
   authorHandle,
@@ -20,33 +20,43 @@ export default function Post({
 }) {
   const queryClient = useQueryClient();
 
-  const { data: post } = useQuery({
+  const { data: post, isLoading, isError } = useQuery({
     queryKey: ["post", postId],
     queryFn: async () => {
       const cached = queryClient.getQueryData(["post", postId]);
-      if (cached) return cached; // <-- This prevents unnecessary fetch
+      if (cached) return cached; // Prevent unnecessary fetch
       return await fetchAuthorPost(authorHandle, postId);
     },
-    staleTime: 1000 * 60 * 10, // not required but makes it feel snappier
+    // staleTime: 1000 * 60 * 10, // optional
   });
+
+  if (isLoading) {
+    return (
+      <Container maxWidth="sm" sx={{ m: 0, p: 0, display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+        <CircularProgress />
+      </Container>
+    );
+  }
+
+  if (isError || !post) {
+    return (
+      <Container maxWidth="sm" sx={{ m: 0, p: 0 }}>
+        <h1>Sorry, Post is not found</h1>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="sm" sx={{ m: 0, p: 0, gap: 1 }}>
-      {post ? (
-        <>
-          <PostCard post={post} author={post.author} isPermanent={true} />
-          <CommentSection
-            fetchComments={async () =>
-              fetchAuthorPostComments(authorHandle, postId)
-            }
-            createComment={async (txt: string) =>
-              await createCommentToAuthorPost(post.public_id, txt)
-            }
-          />
-        </>
-      ) : (
-        <h1> Sorry, Post is not found </h1>
-      )}
+      <PostCard post={post} author={post.author} isPermanent={true} />
+      <CommentSection
+        fetchComments={async () =>
+          fetchAuthorPostComments(authorHandle, postId)
+        }
+        createComment={async (txt: string) =>
+          await createCommentToAuthorPost(post.public_id, txt)
+        }
+      />
     </Container>
   );
 }

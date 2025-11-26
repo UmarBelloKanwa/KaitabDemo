@@ -31,7 +31,7 @@ export default function ChapterPage({
   return (
     <Box sx={{ minHeight: "100vh", width: "100%", position: "relative" }}>
       {/* Full-width AppBar */}
-      {chapter?.book && <AppBar robook={chapter.book} backTo="chapters" />}
+      {chapter?.book && <AppBar robook={chapter.book} />}
 
       {/* Centered content but not restricted by layout container */}
       <Container maxWidth={false} sx={{ py: 3, maxWidth: 805, mx: "auto" }}>

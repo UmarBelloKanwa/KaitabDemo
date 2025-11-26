@@ -11,6 +11,7 @@ import { fetchUser } from "@/actions/user";
 import ThemeProvider from "@/providers/ThemeProvider";
 import Box from "@mui/material/Box";
 import Sidebar from "@ui/Drawer";
+import getQueryClient from "@/lib/get-query-client";
 
 import ClientProvider from "@/providers/ClientProvider";
 
@@ -19,7 +20,7 @@ export default async function UserProvider({
 }: {
   children: ReactNode;
 }) {
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   // Prefetch server-side
   await queryClient.prefetchQuery({ queryKey: ["user"], queryFn: fetchUser });

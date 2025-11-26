@@ -101,10 +101,10 @@ export default function RobookCard({
               variant="body2"
               color="text.secondary"
               sx={{
-                mb: 1,
+                mb: 0.7,
                 fontSize: "0.8rem",
                 display: "-webkit-box",
-                WebkitLineClamp: 2,
+                WebkitLineClamp: where == "home" ? 1 : 2,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
               }}
@@ -116,7 +116,7 @@ export default function RobookCard({
               variant="body2"
               color="text.secondary"
               sx={{
-                mb: 1,
+                mb: 0.7,
                 fontSize: "0.71rem",
                 opacity: 0.8,
               }}
@@ -139,9 +139,8 @@ export default function RobookCard({
               mt: "auto",
             }}
           >
-            {/* Follow Button */}
 
-            {where != "home" && (
+            {/* {where != "home" && ( */}
               <IconButton
                 size="small"
                 sx={{
@@ -161,7 +160,7 @@ export default function RobookCard({
               >
                 Read
               </IconButton>
-            )}
+            {/* )} */}
             {/* {where == "home" && <FollowButton />} */}
             {/* Interactions */}
             {/* <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>

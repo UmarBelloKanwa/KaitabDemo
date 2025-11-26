@@ -26,7 +26,7 @@ export default function ChapterFeed({
   if (!chapter) {
     return <h1> No chapter, please login to be able to read the chapter </h1>;
   }
-  console.log(chapter);
+  // console.log(chapter);
 
   const robook = chapter.book;
 

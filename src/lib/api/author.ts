@@ -94,3 +94,14 @@ export const fetchAuthorPost = async (author_handle: string, public_id: string) 
   const res = await api.get(`post/${author_handle}/post/${public_id}`);
   return res.data;
 }
+
+
+export const getAuthorBookComments = async (author_handle: string, robook_slug: string) => { 
+  const res = await api.get(`/book/${robook_slug}/comments`);
+  return res.data;
+}
+
+export const getAuthorBook = async (author_handle: string, robook_slug: string) => { 
+  const res = await api.get(`/author/${author_handle}/book/${robook_slug}`);
+  return res.data;
+}

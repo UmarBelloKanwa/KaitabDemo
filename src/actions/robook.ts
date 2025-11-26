@@ -38,3 +38,11 @@ export const fetchBooks = async (offset?: number) => {
   const res = await axios.get(`book/robooks?limit=10&offset=${offset || 0}`);
   return res.data;
 }
+
+
+
+export const fetchBookChapter = async (public_id: string) => {
+  const api = await serverAxios();
+  const res = await api.get(`book/chapter/${public_id}`);
+  return res.data;
+};

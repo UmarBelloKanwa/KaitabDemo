@@ -10,7 +10,7 @@ export default async function SinglePostPage({
     authorHandle: string;
     postId: string;
   }>;
-}) {
+  }) {
   const p = await params;
 
   return (

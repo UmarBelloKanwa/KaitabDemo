@@ -18,12 +18,6 @@ export const getAuthorBook = async (author_handle: string, robook_slug: string) 
   return res.data;
 }
 
-export const getAuthorBookComments = async (author_handle: string, robook_slug: string) => { 
-  const api = await serverAxios();
-  const res = await api.get(`/book/${robook_slug}/comments`);
-  return res.data;
-}
-
 export const getCurrentAuthorProfile = async () => { 
   const api = await serverAxios();
   const res = await api.get(`/author/me`);

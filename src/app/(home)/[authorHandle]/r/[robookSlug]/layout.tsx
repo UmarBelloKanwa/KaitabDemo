@@ -3,19 +3,31 @@
 import React from "react";
 import BackButton from "@/components/ui/common/AppBar";
 import Box from "@mui/material/Box";
+import getQueryClient from "@/lib/get-query-client";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { getAuthorBook } from "@/actions/author";
 
-export default async function BookLayout({
+export default async function libRobookLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ authorHandle: string }>;
+  params: Promise<{ authorHandle: string; robookSlug: string }>;
 }) {
   const p = await params;
-  const handle = p.authorHandle;
- 
+
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["robook", p.robookSlug],
+    queryFn: () => getAuthorBook(p.authorHandle, p.robookSlug),
+    staleTime: Infinity,
+  });
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <>
+    <HydrationBoundary state={dehydratedState}>
       <Box
         sx={{
           mt: 0,
@@ -44,6 +56,6 @@ export default async function BookLayout({
           {children}
         </Box>
       </Box>
-    </>
+    </HydrationBoundary>
   );
 }

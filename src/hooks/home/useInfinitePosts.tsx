@@ -4,7 +4,7 @@ import { fetchAuthorsPosts } from "@/actions/author";
 
 export function useInfinitePosts() {
   return useInfiniteQuery({
-    queryKey: ["authorsPosts"],
+    queryKey: ["posts"],
     initialPageParam: 0,
     queryFn: async ({ pageParam }) => {
       const res = await fetchAuthorsPosts(pageParam);

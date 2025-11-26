@@ -3,20 +3,21 @@
 import React from "react";
 import {
   dehydrate,
-  QueryClient,
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { fetchAuthors } from "@/actions/author";
 import { fetchBooks } from "@/actions/robook";
 import { fetchAuthorsPosts } from "@/actions/author";
+import getQueryClient from "@/lib/get-query-client";
 
 import NavLayout from "./NavLayout";
+import { authors } from "@/data/fake";
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   const results = await Promise.allSettled([
     fetchAuthors(),
@@ -33,19 +34,31 @@ export default async function Layout({
     pageParams: [0],
   });
 
-  queryClient.setQueryData(["authorsPosts"], {
-    pages: [postsRes],
-    pageParams: [0],
-  });
+  if (authors) {
+    authors.forEach((author: any) => {
+      queryClient.setQueryData(["author", author.public_id], author);
+    });
+  }
 
-  queryClient.setQueryData(["robooks"], {
-    pages: [booksRes],
+  queryClient.setQueryData(["posts"], {
+    pages: [postsRes],
     pageParams: [0],
   });
 
   if (postsRes) {
     postsRes.forEach((post: any) => {
       queryClient.setQueryData(["post", post.public_id], post);
+    });
+  }
+
+  queryClient.setQueryData(["robooks"], {
+    pages: [booksRes],
+    pageParams: [0],
+  });
+
+  if (booksRes) {
+    booksRes.forEach((robook: any) => {
+      queryClient.setQueryData(["robook", robook.public_id], robook);
     });
   }
 

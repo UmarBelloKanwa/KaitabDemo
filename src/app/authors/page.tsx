@@ -46,7 +46,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  console.log("Authors", authors);
+  // console.log("Authors", authors);
 
   // Books infinite query
   const {

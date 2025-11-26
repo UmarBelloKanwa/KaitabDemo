@@ -1,20 +1,18 @@
 "use server";
 
 import React from "react";
-import {
-  dehydrate,
-  QueryClient,
-  HydrationBoundary,
-} from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+
 import {
   getAuthorProfile,
   getAuthorBooks,
   fetchInitialAuthorPosts,
 } from "@/actions/author";
-import type { Author } from "@/types/author";
+
 import Container from "@mui/material/Container";
 import ProfileCard from "@ui/author/ProfileCard";
 import StoreItem from "@/components/ui/StoreItem";
+import getQueryClient from "@/lib/get-query-client";
 
 export default async function AuthorLayout({
   children,
@@ -23,51 +21,53 @@ export default async function AuthorLayout({
   children: React.ReactNode;
   params: Promise<{ authorHandle: string }>;
 }) {
-  const p = await params;
-  const handle = p.authorHandle;
-  const queryClient = new QueryClient();
+  const { authorHandle: handle } = await params;
 
-  // Prefetch author
-  await queryClient.prefetchQuery({
-    queryKey: ["author", handle],
-    queryFn: () => getAuthorProfile(handle),
-    staleTime: Infinity,
-  });
+  const queryClient = getQueryClient();
 
-  // Prefetch books
-  let initialBooks;
-  try {
-    initialBooks = await getAuthorBooks(handle);
-  } catch (error) {
-    console.log(error);
-  }
-  queryClient.setQueryData(["authorBooks", handle], {
-    pages: [initialBooks],
-    pageParams: [0],
-  });
+  // 🚀 Run all async backend actions IN PARALLEL
+  const [authorData, initialBooks, initialBookPosts] = await Promise.all([
+    getAuthorProfile(handle), // profile
+    getAuthorBooks(handle), // books
+    fetchInitialAuthorPosts(handle), // initial posts
+  ]);
 
-  const initialBookPosts = await fetchInitialAuthorPosts(handle);
-
-  // Inject into cache in the correct infinite-query shape
-  queryClient.setQueryData(["posts", handle], {
-    pages: [initialBookPosts],
-    pageParams: [0],
-  });
-
-  // Retrieve the cached author data
-  const authorData = queryClient.getQueryData<Author>(["author", handle]);
-
-  if (initialBookPosts) {
-    initialBookPosts.forEach((post: any) => {
-      post.author = authorData;
-      queryClient.setQueryData(["post", post.public_id], post);
-    });
-  }
-
+  // If author doesn't exist
   if (!authorData) {
     return (
       <h1 style={{ marginLeft: "3em" }}>Sorry, the author was not found.</h1>
     );
+  }
+
+  // Cache author
+  queryClient.setQueryData(["author", handle], authorData);
+
+  // Cache books (infinite-query format)
+  if (initialBooks) {
+    queryClient.setQueryData(["robooks", handle], {
+      pages: [initialBooks],
+      pageParams: [0],
+    });
+
+    // Also index each book individually + attach author
+    initialBooks.forEach((book: any) => {
+      book.author = authorData;
+      queryClient.setQueryData(["robook", book.public_id], book);
+    });
+  }
+
+  // Cache posts (infinite-query format)
+  if (initialBookPosts) {
+    queryClient.setQueryData(["posts", handle], {
+      pages: [initialBookPosts],
+      pageParams: [0],
+    });
+
+    // Also index each post individually + attach author
+    initialBookPosts.forEach((post: any) => {
+      post.author = authorData;
+      queryClient.setQueryData(["post", post.public_id], post);
+    });
   }
 
   const dehydratedState = dehydrate(queryClient);

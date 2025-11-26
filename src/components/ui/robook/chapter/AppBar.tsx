@@ -16,7 +16,7 @@ interface Props {
   robook: BookResponse
 }
 
-export default function ResponsiveAppBar({ robook, backTo }: Props) {
+export default function ResponsiveAppBar({ robook, }: Props) {
   const robookPhotoUrl = robook.main_photo_url || "";
   const robookName = robook.name;
   const authorName = robook.author?.name || "Unknown";
@@ -36,7 +36,7 @@ export default function ResponsiveAppBar({ robook, backTo }: Props) {
       })}
     >
       <Toolbar sx={{ my: "auto", p: 0, mx: 0, gap: { xs: 1, md: 1 } }}>
-        <BackButton robookSlug={robook.slug} backTo={backTo} />
+        <BackButton  />
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
           <Avatar
             src={robookPhotoUrl}

@@ -67,7 +67,7 @@ export default function RecentsItems({
                       width: 30,
                       height: 30,
                       bgcolor: theme.palette.primary.main,
-                      borderRadius: index === 0 ? 0.7 : 2,
+                      borderRadius: item.type === "book" ? 0.7 : 2,
                     }}
                   >
                     {item.name[0]}

@@ -11,6 +11,8 @@ import {
   fetchBookChapters,
 } from "@/actions/robook";
 import StoreItem from "@/components/ui/StoreItem";
+import getQueryClient from "@/lib/get-query-client";
+
 
 export default async function BookLayout({
   children,
@@ -21,7 +23,7 @@ export default async function BookLayout({
 }) {
   const p = await params;
   const slug = p.robookSlug;
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   // Prefetch all data in parallel
   await Promise.all([
