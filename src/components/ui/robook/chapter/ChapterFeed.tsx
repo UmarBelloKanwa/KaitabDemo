@@ -1,5 +1,4 @@
 "use client";
-//"use server";
 
 import React from "react";
 import Card from "@mui/material/Card";
@@ -14,18 +13,15 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import LikeButton from "./ActionsButtons/LikeButton";
 import ShareButton from "./ActionsButtons/ShareButton";
 import { likeChapter, unLikeChapter } from "@/lib/api/book";
-import { CreateCommentToChapter } from "@/lib/api/book";
+import { CreateCommentToChapter, fetchChapterComments } from "@/lib/api/book";
 
 import type { IndependentChapter } from "@/types/book";
 import CommentSection from "./CommentSection";
-import { Comment } from "@/types/book";
 
 export default function ChapterFeed({
   chapter,
-  comments,
 }: {
   chapter: IndependentChapter | null;
-  comments: Comment[] | null;
 }) {
   if (!chapter) {
     return <h1> No chapter, please login to be able to read the chapter </h1>;
@@ -145,7 +141,7 @@ export default function ChapterFeed({
         createComment={async (txt: string) =>
           CreateCommentToChapter(chapter.public_id, txt)
         }
-        usersComments={comments || []}
+        fetchComments={async () => fetchChapterComments(chapter.public_id)}
       />
     </>
   );

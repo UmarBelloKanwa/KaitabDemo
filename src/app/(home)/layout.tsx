@@ -1,7 +1,11 @@
 "use server";
 
 import React from "react";
-import { dehydrate, QueryClient, HydrationBoundary } from "@tanstack/react-query";
+import {
+  dehydrate,
+  QueryClient,
+  HydrationBoundary,
+} from "@tanstack/react-query";
 import { fetchAuthors } from "@/actions/author";
 import { fetchBooks } from "@/actions/robook";
 import { fetchAuthorsPosts } from "@/actions/author";
@@ -39,9 +43,11 @@ export default async function Layout({
     pageParams: [0],
   });
 
-  postsRes.forEach((post: any) => {
-    queryClient.setQueryData(["post", post.public_id], post);
-  });
+  // if (postsRes) {
+  //   postsRes.forEach((post: any) => {
+  //     queryClient.setQueryData(["post", post.public_id], post);
+  //   });
+  // }
 
   const dehydratedState = dehydrate(queryClient);
   // console.log("Posts", postsRes);

@@ -5,13 +5,11 @@ import Container from "@mui/material/Container";
 import ProfileInfo from "@/components/ui/robook/ProfileInfo";
 import Box from "@mui/material/Box";
 import type { BookResponse, BookChapterResponse } from "@/types/book";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import {
   fetchRobook,
   fetchBookChapters,
-  // fetchInitialBookPosts,
 } from "@/actions/robook";
-import ClientQueryProvider from "@/providers/QueryProvider";
 import StoreItem from "@/components/ui/StoreItem";
 
 export default async function BookLayout({
@@ -26,7 +24,7 @@ export default async function BookLayout({
   const queryClient = new QueryClient();
 
   // Prefetch all data in parallel
-  const [robook, chapters] = await Promise.all([
+  await Promise.all([
     queryClient.prefetchQuery({
       queryKey: ["robook", slug],
       queryFn: () => fetchRobook(slug),
@@ -39,13 +37,13 @@ export default async function BookLayout({
     }),
   ]);
 
-  // const initialBookPosts = await fetchInitialBookPosts(slug);
-  
-  // Inject into cache in the correct infinite-query shape
-  // queryClient.setQueryData(["posts", slug], {
-  //   pages: [initialBookPosts],
-  //   pageParams: [0],
-  // });
+  const chapters: BookChapterResponse[] | undefined = queryClient.getQueryData(["chapters", slug]);
+
+  if (chapters && Array.isArray(chapters)) {
+    chapters.forEach((chapter) => {
+      queryClient.setQueryData(["chapter", chapter.public_id], chapter);
+    });
+  }
 
   // Get data from cache
   const robookData: BookResponse | undefined = queryClient.getQueryData([
@@ -53,16 +51,14 @@ export default async function BookLayout({
     slug,
   ]);
   
-  // const chaptersData: BookChapterResponse[] | undefined =
-  //   queryClient.getQueryData(["chapters", slug]);
-
   if (!robookData) {
     return <h1 style={{ marginLeft: "3em" }}>Please login to be able to read the book </h1>;
   }
 
   const dehydratedState = dehydrate(queryClient);
+  
   return (
-    <ClientQueryProvider state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       <StoreItem type="book" data={robookData} />
        <Container
         maxWidth="sm"
@@ -81,6 +77,6 @@ export default async function BookLayout({
         <ProfileInfo robook={robookData} />
         <Box sx={{ width: "100%", mt: 0 }}>{children}</Box>
       </Container>
-    </ClientQueryProvider>
+    </HydrationBoundary>
   );
 }

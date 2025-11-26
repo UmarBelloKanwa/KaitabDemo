@@ -80,10 +80,10 @@ export default function PostCard({
         bgcolor: "background.default",
         mx: "auto",
         boxShadow: 11,
-       
+
         borderRadius: 2,
-       border: "1px solid",
-         borderColor: "rgba(255, 255, 255, 0.03)",
+        border: "1px solid",
+        borderColor: "rgba(255, 255, 255, 0.03)",
         width: "100%",
         p: 0,
       }}
@@ -99,17 +99,18 @@ export default function PostCard({
             mb: 1.5,
           }}
         >
-          <Box
-            sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 0 }}
-          >
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 0 }}>
             <Avatar
               src={author.profile_picture || "/placeholder.svg"}
               alt={author.name}
+              onClick={() => {
+                router.push(`/${author.handle}`);
+              }}
               sx={{
                 width: 50,
                 height: 50,
                 objectFit: "fill",
-                borderRadius: 1
+                borderRadius: 1,
               }}
             >
               {author.name.charAt(0)}
@@ -118,6 +119,9 @@ export default function PostCard({
               <Typography
                 component="div"
                 variant="body1"
+                onClick={() => {
+                  router.push(`/${author.handle}`);
+                }}
                 sx={{
                   fontWeight: "bold",
                   color: "white",
@@ -130,10 +134,7 @@ export default function PostCard({
                 <Typography variant="body2" sx={{ color: "#6b7280" }}>
                   ·
                 </Typography>
-                <Typography
-                  variant="caption"
-                  sx={{ flex: 1, color: "gray",  }}
-                >
+                <Typography variant="caption" sx={{ flex: 1, color: "gray" }}>
                   {dayjs(post.created_at).fromNow(true)}
                 </Typography>
               </Typography>
@@ -213,7 +214,7 @@ export default function PostCard({
               size="small"
               onClick={(e) => {
                 e.stopPropagation();
-                 router.push(url);
+                router.push(url);
               }}
               sx={{
                 color: "#6b7280",

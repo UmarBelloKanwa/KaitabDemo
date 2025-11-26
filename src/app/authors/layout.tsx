@@ -2,9 +2,10 @@
 
 import React from "react";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
-import ClientQueryProvider from "@/providers/QueryProvider";
 import { fetchAuthors } from "@/actions/author";
 import { fetchBooks } from "@/actions/robook";
+import { HydrationBoundary } from '@tanstack/react-query';
+
 
 export default async function AuthorsAndRobooksListLayout({
   children,
@@ -42,8 +43,8 @@ export default async function AuthorsAndRobooksListLayout({
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <ClientQueryProvider state={dehydratedState}>
+    <HydrationBoundary state={dehydratedState}>
       {children}
-    </ClientQueryProvider>
+    </HydrationBoundary>
   );
 }

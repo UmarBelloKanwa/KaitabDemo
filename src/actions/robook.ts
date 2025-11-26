@@ -1,5 +1,4 @@
 import serverAxios, { serverCatcheAxios } from "@/actions/server-axios";
-import { unstable_cache } from "next/cache";
 
 export const fetchRobook = async (robookSlug: string) => {
   const axios = await serverAxios();
@@ -7,27 +6,11 @@ export const fetchRobook = async (robookSlug: string) => {
   return res.data;
 };
 
-// export const fetchBookChapters = async (robookSlug: string) => {
-//   const cookieHeader = await getAllCookiesAsString();
-//   const axios = await serverCatcheAxios(cookieHeader);
-//   const cachedFun = unstable_cache(
-//     async (robookSlug: string) => {
-//       const res = await axios.get(`book/${robookSlug}/chapters`);
-//       return res.data;
-//     },
-//     [robookSlug],
-//     { revalidate: 0 }
-//   );
-
-//   return cachedFun(robookSlug);
-// };
-
 export const fetchBookChapters = async (robookSlug: string) => {
   const axios = await serverAxios();
   const res = await axios.get(`book/${robookSlug}/chapters`);
   return res.data;
 };
-
 
 
 export async function fetchRobookState(robookSlug: string) {
@@ -48,36 +31,6 @@ export async function fetchRobookState(robookSlug: string) {
     throw new Error("Failed to load robook data");
   }
 }
-
-export const fetchBookChapter = async (public_id: string) => {
-  const axios = await serverAxios();
-  const res = await axios.get(`book/chapter/${public_id}`);
-  return res.data;
-};
-
-export const fetchChapterComments = async (chapter_id: string) => {
-  const axios = await serverAxios();
-  const res = await axios.get(`book/chapter/${chapter_id}/comments`);
-  return res.data;
-};
-
-export const fetchChapterState = async (chapter_id: string) => {
-  try {
-    const [chapterRes, commentsRes] = await Promise.allSettled([
-      fetchBookChapter(chapter_id),
-      fetchChapterComments(chapter_id),
-    ]);
-
-    const chapter = chapterRes.status === "fulfilled" ? chapterRes.value : null;
-    const comments =
-      commentsRes.status === "fulfilled" ? commentsRes.value : [];
-
-    return { chapter, comments };
-  } catch (error) {
-    console.log("Error fetching chapter state:", error);
-    throw new Error("Failed to load chapter data");
-  }
-};
 
 
 export const fetchBooks = async (offset?: number) => {

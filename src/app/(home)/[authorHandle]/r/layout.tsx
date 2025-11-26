@@ -29,7 +29,7 @@ export default async function BookLayout({
           width: "100%",
         }}
       >
-        <BackButton title="Book" />
+        <BackButton title="Robook" />
         <Box
           sx={{
             flex: 1,

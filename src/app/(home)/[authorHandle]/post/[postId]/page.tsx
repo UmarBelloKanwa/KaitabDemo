@@ -3,7 +3,7 @@
 import Box from "@mui/material/Box";
 import PostContainer from "./Post";
 
-export default async function ChapterPage({
+export default async function SinglePostPage({
   params,
 }: {
   params: Promise<{

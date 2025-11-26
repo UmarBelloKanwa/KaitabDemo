@@ -50,3 +50,14 @@ export const CreateCommentToChapter = async (
     comment_text: comment,
   });
 };
+
+
+export const fetchBookChapter = async (public_id: string) => {
+  const res = await api.get(`book/chapter/${public_id}`);
+  return res.data;
+};
+
+export const fetchChapterComments = async (chapter_id: string) => {
+  const res = await api.get(`book/chapter/${chapter_id}/comments`);
+  return res.data;
+};

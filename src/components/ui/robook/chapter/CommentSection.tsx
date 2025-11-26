@@ -68,11 +68,11 @@ export default function CommentSection({
           </Box>
         )}
 
-        {error && (
+        {/* {error && (
           <Typography variant="caption" sx={{ color: "red" }}>
             {error}
           </Typography>
-        )}
+        )} */}
 
         {!loading && comments.length === 0 && (
           <Typography variant="caption">Be the first to comment</Typography>
