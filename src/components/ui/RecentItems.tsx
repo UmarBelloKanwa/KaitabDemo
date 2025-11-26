@@ -66,6 +66,7 @@ export default function RecentsItems({
                     sx={{
                       width: 30,
                       height: 30,
+                      objectFit: "fill",
                       bgcolor: theme.palette.primary.main,
                       borderRadius: item.type === "book" ? 0.7 : 2,
                     }}
