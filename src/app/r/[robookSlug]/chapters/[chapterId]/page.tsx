@@ -37,7 +37,7 @@ export default function ChapterPage({
       staleTime: Infinity, // optional
    });
   
-  chapter.book = chapter.book ?? robook;
+  chapter.book = chapter?.book ?? robook;
 
   return (
     <Box sx={{ minHeight: "100vh", width: "100%", position: "relative" }}>

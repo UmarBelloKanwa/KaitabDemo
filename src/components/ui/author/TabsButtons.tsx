@@ -2,7 +2,7 @@
 
 import React from "react";
 import Box from "@mui/material/Box";
-import useAuthCheck from "@/hooks/auth/useAuthCheck";
+//import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Tabs from "@mui/material/Tabs";
@@ -21,17 +21,17 @@ export default function TabsButton() {
   // Get the book ID (2nd segment in /r/:bookId/...)
   const bookId = segments[0];
 
-  const requireAuth = useAuthCheck();
+  //const requireAuth = useAuthCheck();
 
   const handleNavigation = () => {
     if (isLibraryPage) {
       router.push(`/${bookId}`);
       setValue("activity");
     } else {
-      requireAuth(() => {
+     // requireAuth(() => {
         router.push(`/${bookId}/library`);
         setValue("library");
-      });
+     // });
     }
   };
 
