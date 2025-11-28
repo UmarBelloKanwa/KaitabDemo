@@ -65,7 +65,6 @@ export default async function AuthorLayout({
 
     // Also index each post individually + attach author
     initialBookPosts.forEach((post: any) => {
-      post.author = authorData;
       queryClient.setQueryData(["post", post.public_id], post);
     });
   }

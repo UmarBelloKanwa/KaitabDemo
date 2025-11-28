@@ -42,7 +42,7 @@ export default function Author({ handle }: { handle: string }) {
   if (!author) return <h1> Sorry, No Author found </h1>; // or a loading skeleton
 
   if (!books) return <h1> Sorry, failed to load books </h1>;
-  console.log(books);
+  // console.log(books);
 
   return (
     <>

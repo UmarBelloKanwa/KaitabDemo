@@ -84,7 +84,7 @@ export default function ActionsButton({
   };
 
   return (
-    <Box sx={{ display: "flex", gap: 1.5, mb: 0 }}>
+    <Box sx={{ display: "flex", gap: 1.5, my: 0, }}>
       {canFollow ? (
         <Button
           variant="contained"

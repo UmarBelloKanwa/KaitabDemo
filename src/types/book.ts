@@ -14,8 +14,6 @@ export interface Chapter {
   sections: Section[];
 }
 
-
-
 export interface AuthorProfile {
   public_id: string; // UUID
   name: string;
@@ -165,7 +163,6 @@ export interface ChapterContent {
   pagesCount: number;
   sections: Section[];
 }
-
 
 export interface IndependentChapter extends BookChapterResponse {
   book: BookResponse;
@@ -616,13 +613,17 @@ export enum VisibilityType {
 }
 
 export type BookPostDTO = {
-  book_public_id: string;  // UUID of the book
-  created_at: string;      // ISO date string
-  public_id: string;       // UUID of the post
-  content: string;         // Post content
-  visibility: VisibilityType // Visibility enum
-  updated_at: string;      // ISO date string
-  like_count: number;      // Number of likes
-  comment_count: number;   // Number of comments
-  liked_by_user: boolean;  // Whether the current user liked the post
+  book_public_id: string; // UUID of the book
+  created_at: string; // ISO date string
+  public_id: string; // UUID of the post
+  content: string; // Post content
+  visibility: VisibilityType; // Visibility enum
+  updated_at: string; // ISO date string
+  like_count: number; // Number of likes
+  comment_count: number; // Number of comments
+  liked_by_user: boolean; // Whether the current user liked the post
+
+  is_human: boolean;
+  is_book_post: boolean;
+  book: BookResponse | null;
 };

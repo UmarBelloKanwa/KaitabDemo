@@ -6,6 +6,7 @@ import {
   MenuItem,
   useTheme,
   Tooltip,
+  Chip
 } from "@mui/material";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -21,19 +22,19 @@ const getPlatformIcon = (platform: string) => {
   switch (platform.toLowerCase()) {
     case "twitter":
     case "x":
-      return <TwitterIcon sx={{ fontSize: 16 }} />;
+      return <TwitterIcon sx={{ fontSize: "small" }} />;
     case "linkedin":
-      return <LinkedInIcon sx={{ fontSize: 16 }} />;
+      return <LinkedInIcon sx={{ fontSize: "small" }} />;
     case "facebook":
-      return <FacebookIcon sx={{ fontSize: 16 }} />;
+      return <FacebookIcon sx={{ fontSize: "small" }} />;
     case "instagram":
-      return <InstagramIcon sx={{ fontSize: 16 }} />;
+      return <InstagramIcon sx={{ fontSize: "small" }} />;
     case "youtube":
-      return <YouTubeIcon sx={{ fontSize: 16 }} />;
+      return <YouTubeIcon sx={{ fontSize: "small" }} />;
     case "github":
-      return <GitHubIcon sx={{ fontSize: 16 }} />;
+      return <GitHubIcon sx={{ fontSize: "small" }} />;
     default:
-      return <LanguageIcon sx={{ fontSize: 16 }} />;
+      return <LanguageIcon sx={{ fontSize: "small" }} />;
   }
 };
 
@@ -49,7 +50,7 @@ export default function SocialLinks({ links }: { links: SocialLink[] }) {
   const hiddenLinks = links.slice(2);
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 0.5 }}>
       {visibleLinks.map((link, index) => (
         <Tooltip title={link.label || link.platform} key={index}>
           <Box
@@ -63,8 +64,9 @@ export default function SocialLinks({ links }: { links: SocialLink[] }) {
             }}
             onClick={() => window.open(link.url, "_blank")}
           >
+            
             {getPlatformIcon(link.platform)}
-            <Typography variant="body2" sx={{ textTransform: "capitalize" }}>
+            <Typography variant="body2" sx={{ textTransform: "capitalize", fontSize: "small" }}>
               {link.platform}
             </Typography>
           </Box>
@@ -78,6 +80,7 @@ export default function SocialLinks({ links }: { links: SocialLink[] }) {
               color: theme.palette.text.disabled,
               cursor: "pointer",
               "&:hover": { color: theme.palette.text.primary },
+              fontSize: "small"
             }}
             onClick={handleOpen}
           >

@@ -20,6 +20,7 @@ import type { Author } from "@/types/author";
 import LikeButton from "@ui/robook/chapter/ActionsButtons/LikeButton";
 import ShareButton from "@ui/robook/chapter/ActionsButtons/ShareButton";
 import { likeAuthorPost, unLikeAuthorPost } from "@/lib/api/author";
+import RobookCard from "../RobookCard";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocale); // Extend with updateLocale first
@@ -80,7 +81,6 @@ export default function PostCard({
         bgcolor: "background.default",
         mx: "auto",
         boxShadow: 11,
-
         borderRadius: 2,
         border: "1px solid",
         borderColor: "rgba(255, 255, 255, 0.03)",
@@ -110,7 +110,7 @@ export default function PostCard({
                 width: 48,
                 height: 48,
                 objectFit: "fill",
-               // borderRadius: 1,
+                // borderRadius: 1,
               }}
             >
               {author.name.charAt(0)}
@@ -139,12 +139,48 @@ export default function PostCard({
                 </Typography>
               </Typography>
 
-              <Typography variant="caption" sx={{ color: "#6b7280" }}>
-                @{author.handle}
-              </Typography>
+              {post?.is_human ? (
+                <Typography variant="caption" sx={{ color: "grey" }}>
+                  @{author.handle}
+                </Typography>
+              ) : (
+                <Typography
+                  component="span"
+                  variant="caption"
+                  sx={{ color: "grey" }}
+                >
+                  @cortex &nbsp; • &nbsp; (living digital mind)
+                </Typography>
+              )}
             </Box>
           </Box>
-          {/* <ShareButton id={`post/${post.public_id}`} /> */}
+          <Box sx={{ position: "relative", display: "inline-block" }}>
+            <Avatar
+              src={author.profile_picture}
+              sx={(theme) => ({
+                bgcolor: theme.palette.primary.main,
+                width: 20,
+                height: 20,
+                border: `1px solid ${theme.palette.divider}`,
+                color: theme.palette.text.primary,
+              })}
+            >
+              {author.name.charAt(0)}
+            </Avatar>
+
+            {/* Online indicator */}
+            <Box
+              sx={(theme) => ({
+                position: "absolute",
+                bottom: 1,
+                right: 1,
+                width: 5,
+                height: 5,
+                bgcolor: "green", // green
+                borderRadius: "50%",
+              })}
+            />
+          </Box>
         </Box>
 
         <Box sx={{ mb: 1.5 }}>
@@ -184,6 +220,12 @@ export default function PostCard({
             >
               Show more
             </Button>
+          )}
+
+          {post.is_book_post && post.book && (
+            <Box sx={{ mt: 2 }}>
+              <RobookCard robook={post.book} where="profile" />
+            </Box>
           )}
         </Box>
 
