@@ -1,3 +1,3 @@
-import axios from "@/lib/axios";
+import { api }  from "@/lib/axios";
 
-export const getUserMe = async () => await axios.get("user/me");
+export const getUserMe = async () => await api.get("user/me");

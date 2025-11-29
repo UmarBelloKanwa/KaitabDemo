@@ -14,6 +14,8 @@ import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import IosShareIcon from "@mui/icons-material/IosShareRounded";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import SettingCard from "./CortexSettingCard";
 
 export default function ActionsButton({
   authorPublicId,
@@ -83,8 +85,10 @@ export default function ActionsButton({
     }
   };
 
+  const [displaySettingsCard, setDisplaySettingsCard] = React.useState(false);
+
   return (
-    <Box sx={{ display: "flex", gap: 1.5, my: 0, }}>
+    <Box sx={{ display: "flex", gap: 0, my: 0 }}>
       {canFollow ? (
         <Button
           variant="contained"
@@ -103,7 +107,21 @@ export default function ActionsButton({
           Edit Profile
         </Button>
       )}
-
+      {!canFollow && (
+        <IconButton
+          onClick={() => setDisplaySettingsCard(true)}
+          sx={{
+            alignSelf: "flex-end",
+            color: theme.palette.text.secondary,
+            "&:hover": {
+              color: theme.palette.text.primary,
+              bgcolor: theme.palette.action.hover,
+            },
+          }}
+        >
+          <SettingsOutlinedIcon />
+        </IconButton>
+      )}
       <IconButton
         onClick={handleMoreClick}
         sx={{
@@ -130,6 +148,11 @@ export default function ActionsButton({
         onClose={() => setSnackbarOpen(false)}
         message="Link copied to clipboard!"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      />
+
+      <SettingCard
+        displaySettingsCard={displaySettingsCard}
+        setDisplaySettingsCard={setDisplaySettingsCard}
       />
     </Box>
   );

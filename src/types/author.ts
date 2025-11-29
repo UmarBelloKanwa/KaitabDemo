@@ -1,5 +1,5 @@
 import type { BookResponse} from "@/types/book";
-
+import type { Cortex } from "@/types/cortex";
 
 export type SocialLink = {
   platform:
@@ -37,6 +37,7 @@ export interface Author {
   followers_count: number;
   can_follow: boolean;
   is_following: boolean;
+  cortex: Cortex | null;
 }
 
 
