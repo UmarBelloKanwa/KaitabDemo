@@ -19,8 +19,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useUserStore } from "@/store/user-store";
-import type { CortexSettings } from "@/types/cortex";
+import type { Cortex } from "@/types/cortex";
 import { updateCortexSettings } from "@/lib/api/cortex";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function SettingsCard({
   displaySettingsCard,
@@ -28,19 +29,23 @@ export default function SettingsCard({
 }: {
   displaySettingsCard: boolean;
   setDisplaySettingsCard: (value: boolean) => void;
-  }) {
+}) {
   const { user } = useUserStore();
-  console.log("User in CortexSettingCard:", user?.author?.cortex);
-  
-  const cortexSettings = user?.author?.cortex?.setting
-  
+
+  const queryClient = useQueryClient();
+
+  // read the cached cortex data
+  const cortex: Cortex | undefined = queryClient.getQueryData(["cortex"]);
+
+
+  const cortexSettings = cortex?.setting;
+
   const [isAwakened, setIsAwakened] = useState(
     cortexSettings?.is_awakened || false
   );
   const [autoPostEnabled, setAutoPostEnabled] = useState(
     cortexSettings?.auto_post_enabled || false
   );
-
 
   const [loading, setLoading] = useState(false);
 
@@ -219,7 +224,11 @@ export default function SettingsCard({
 
                 {/* Helper Text When Trying to Enable Autopost While Not Awakened */}
                 {!isAwakened && (
-                  <Typography variant="caption" color="warning" sx={{ pl: 0.5 }}>
+                  <Typography
+                    variant="caption"
+                    color="warning"
+                    sx={{ pl: 0.5 }}
+                  >
                     Awaken your Cortex first to enable auto posting.
                   </Typography>
                 )}
@@ -238,7 +247,7 @@ export default function SettingsCard({
                 {loading ? (
                   <CircularProgress size={22} sx={{ color: "white" }} />
                 ) : (
-                  "Save Settings"
+                  "Guide my Cortex"
                 )}
               </Button>
             </Box>

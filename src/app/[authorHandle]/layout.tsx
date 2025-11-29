@@ -42,6 +42,10 @@ export default async function AuthorLayout({
   // Cache author
   queryClient.setQueryData(["author", handle], authorData);
 
+  if (authorData.is_owner) {
+    queryClient.setQueryData(["cortex"], authorData.cortex);
+  }
+
   // Cache books (infinite-query format)
   if (initialBooks) {
     queryClient.setQueryData(["robooks", handle], {
