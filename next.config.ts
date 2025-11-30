@@ -1,9 +1,9 @@
 import { NextConfig } from "next";
-import { BACKEND_URL } from "./env-config";
+import getBackendUrl from "./getBackendUrl";
 
 const config: NextConfig = {
   async rewrites() {
-    const apiTarget = BACKEND_URL;
+    const apiTarget = getBackendUrl();
     return [
       {
         source: "/api/py/:path*",

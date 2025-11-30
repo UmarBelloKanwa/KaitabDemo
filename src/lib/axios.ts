@@ -1,5 +1,6 @@
 // src/lib/api.ts
 import axios, { AxiosInstance } from 'axios';
+import getBackendUrl from "../../getBackendUrl";
 
 const isServer = typeof window === 'undefined';
 
@@ -14,9 +15,7 @@ export function createApi(cookieHeader?: string): AxiosInstance {
     }
 
     const instance = axios.create({
-        baseURL: isServer
-            ? process.env.BACKEND_URL || 'http://127.0.0.1:8000/api/py/'
-            : '/api/py/',
+        baseURL: isServer ? getBackendUrl() : '/api/py/',
         withCredentials: true,
         headers,
     });
