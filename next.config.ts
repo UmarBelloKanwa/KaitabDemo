@@ -1,9 +1,9 @@
 import { NextConfig } from "next";
+import { BACKEND_URL } from "./env-config";
 
 const config: NextConfig = {
   async rewrites() {
-    const apiTarget =
-      process.env.BACKEND_URL || "http://127.0.0.1:8000/api/py/";
+    const apiTarget = BACKEND_URL;
     return [
       {
         source: "/api/py/:path*",
