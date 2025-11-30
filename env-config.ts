@@ -1,3 +1,4 @@
+
 const IS_DEVELOPMENT = process.env.APP_ENV === 'development';
 const IS_RENDER = process.env.IS_RENDER === 'True';
 
