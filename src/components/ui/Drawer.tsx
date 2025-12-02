@@ -14,17 +14,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { useTheme, useMediaQuery } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
-import PersonIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import HomeIcon from "@mui/icons-material/HomeOutlined";
-import LocalLibraryIcon from "@mui/icons-material/LocalLibraryOutlined";
 import { useRouter } from "next/navigation";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import RecentItems from "./RecentItems";
 import UserDisplay from "./UserDisplay";
-
+import ArticleIcon from '@mui/icons-material/ArticleOutlined';
+import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
 
@@ -40,12 +38,12 @@ export default function Sidebar({ user }: { user: any }) {
     { name: "Home", icon: <HomeIcon />, onClick: () => router.push("/") },
     {
       name: "Creators",
-      icon: <PersonIcon />,
+      icon: <RecordVoiceOverOutlinedIcon />,
       onClick: () => router.push("/creators"),
     },
     {
       name: "Contents",
-      icon: <LocalLibraryIcon />,
+      icon: <ArticleIcon />,
       onClick: () => router.push("/contents"),
     },
   ];
