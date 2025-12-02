@@ -137,13 +137,11 @@ export default function ProfileCard({ author }: { author: Author }) {
                 color: theme.palette.text.primary,
                 fontWeight: "bold",
                 fontSize: "1em",
-                display: "flex",
-                flexDirection: "raw",
-                gap: 1.3,
+
               }}
             >
-              Cortex{" "}
-              {true ? (
+              Cortex &nbsp;
+              {!author.can_follow ? (
                 <Button
                   variant="outlined"
                   size="small"
@@ -153,7 +151,7 @@ export default function ProfileCard({ author }: { author: Author }) {
                     borderRadius: 2,
                     lineHeight: 0.9,
                     gap: -1,
-                    py: 0,
+                    py: 1,
                     px: 1
                   }}
                   startIcon={(
@@ -184,7 +182,7 @@ export default function ProfileCard({ author }: { author: Author }) {
               component="div"
               sx={{ color: theme.palette.text.secondary, fontSize: "11px" }}
             >
-              {!true ? "Active" : <span style={{ opacity: 0.5 }}> Upgrade for digital mind </span>}
+              {author.can_follow ? "Active" : <span style={{ opacity: 0.5 }}> Upgrade for digital mind </span>}
             </Typography>
           </Box>
         </Box>
