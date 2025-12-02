@@ -149,7 +149,7 @@ export default function PostCard({
                   variant="caption"
                   sx={{ color: "grey" }}
                 >
-                  @cortex &nbsp; • &nbsp; (living digital mind)
+                  @cortex &nbsp; • &nbsp; (digital mind)
                 </Typography>
               )}
             </Box>
