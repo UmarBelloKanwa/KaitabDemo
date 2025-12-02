@@ -4,7 +4,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import type { BookResponse } from "@/types/book";
 import { useRouter } from "next/navigation";
 export default function RobookCard({
@@ -60,7 +60,9 @@ export default function RobookCard({
               width: "100%",
               height: "100%",
               objectFit: "fill",
-              borderRadius: 1.1,
+              border: "1px solid",
+              borderColor: "divider",
+              borderRadius: 0.8,
             }}
           />
         </Box>
@@ -116,7 +118,6 @@ export default function RobookCard({
               sx={{
                 mb: 0.7,
                 fontSize: "0.71rem",
-                opacity: 0.8,
               }}
             >
               {[...(robook.topics ?? []), ...(robook.custom_topics ?? [])]
@@ -138,25 +139,26 @@ export default function RobookCard({
             }}
           >
             {/* {where != "home" && ( */}
-            <IconButton
-              size="small"
-              sx={{
-                px: 1.5,
+            <Button
+              variant="outlined"
+              sx={(theme) => ({
+                backgroundColor: theme.palette.background.paper,
+                color: theme.palette.text.primary,
+                border: "1px solid " + theme.palette.divider,
+                borderRadius: 0.6,
+                boxShadow: theme.shadows[1],   // elevation
+                px: 1,
                 py: 0.5,
                 fontSize: "0.75rem",
-                color: "text.secondary",
-                borderRadius: 0.6,
-                border: (theme) => `1px solid ${theme.palette.divider}`,
-                borderColor: "grey.800",
-                bgcolor: "background.paper",
+                textTransform: "none",
                 "&:hover": {
-                  bgcolor: "primary.main",
-                  color: "white",
+                  boxShadow: theme.shadows[8],
+                  backgroundColor: theme.palette.background.paper,
                 },
-              }}
+              })}
             >
               Read
-            </IconButton>
+            </Button>
             {/* )} */}
             {/* {where == "home" && <FollowButton />} */}
             {/* Interactions */}

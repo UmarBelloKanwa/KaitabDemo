@@ -52,10 +52,16 @@ export default function Header({ user }: { user: InUser }) {
       position="static"
       variant="elevation"
       elevation={0}
-      sx={{ borderRight: "none", backgroundColor: "background.default" }}
+      sx={{
+        borderRight: "none",
+        backgroundColor: "background.default",
+        display: { xs: "flex", md: "none" },
+      }}
     >
-      <Toolbar sx={{ justifyContent: "space-between", gap: 2, p: 0 }}>
-        <Box
+      <Toolbar sx={{
+        justifyContent: "space-between", gap: 2, p: 0,
+      }}>
+        {/* <Box
           sx={{
             display: { xs: "none", sm: "flex" },
             alignItems: "center",
@@ -99,13 +105,13 @@ export default function Header({ user }: { user: InUser }) {
                   </Typography>
                 </>
               ) : (
-                <Button variant="outlined" color="secondary">
+                <Button variant="outlined" color="secondary" size="small">
                   Sign in to start
                 </Button>
               )}
             </Box>
           </Box>
-        </Box>
+        </Box> */}
         <Box
           ref={boxRef}
           sx={{
@@ -113,7 +119,7 @@ export default function Header({ user }: { user: InUser }) {
             gap: 2,
             width: "fit-content",
             m: "auto",
-            mt:-2,
+            mt: -2,
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",

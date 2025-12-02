@@ -175,7 +175,7 @@ export default function Sidebar({ user }: { user: any }) {
           <Button
             fullWidth
             variant="contained"
-            startIcon={<AddIcon />}
+            // startIcon={<AddIcon />}
             sx={{
               textTransform: "none",
               borderRadius: 2,
