@@ -37,16 +37,16 @@ export default function Sidebar({ user }: { user: any }) {
   const router = useRouter();
 
   const navItems = [
-    { name: "Discover", icon: <HomeIcon />, onClick: () => router.push("/") },
+    { name: "Home", icon: <HomeIcon />, onClick: () => router.push("/") },
     {
-      name: "Authors",
+      name: "Creators",
       icon: <PersonIcon />,
-      onClick: () => router.push("/authors"),
+      onClick: () => router.push("/creators"),
     },
     {
-      name: "Robooks",
+      name: "Contents",
       icon: <LocalLibraryIcon />,
-      onClick: () => router.push("/robooks"),
+      onClick: () => router.push("/contents"),
     },
   ];
 
@@ -237,7 +237,7 @@ export default function Sidebar({ user }: { user: any }) {
         </Box>
 
         {/* User Profile */}
-        <UserDisplay user={user}/>
+        <UserDisplay user={user} />
       </Box>
     </Drawer>
   );

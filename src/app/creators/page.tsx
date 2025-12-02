@@ -118,9 +118,9 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
                 }}
               >
                 <ToggleButton value="authors" sx={{ mr: 1 }}>
-                  Authors
+                  Creators
                 </ToggleButton>
-                <ToggleButton value="robooks"> Robooks </ToggleButton>
+                <ToggleButton value="robooks"> Contents </ToggleButton>
               </ToggleButtonGroup>
             </Box>
           </Box>

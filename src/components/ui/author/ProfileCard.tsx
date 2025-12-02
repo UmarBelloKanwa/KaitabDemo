@@ -151,7 +151,7 @@ export default function ProfileCard({ author }: { author: Author }) {
                     borderRadius: 2,
                     lineHeight: 0.9,
                     gap: -1,
-                    py: 1,
+                    py: 0.5,
                     px: 1
                   }}
                   startIcon={(

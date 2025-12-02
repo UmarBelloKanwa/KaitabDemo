@@ -1,6 +1,6 @@
 "use server";
 
-import AuthorsAndRobooksListLayout from "@/app/authors/layout";
+import AuthorsAndRobooksListLayout from "@/app/creators/layout";
 
 import React from "react";
 
@@ -9,7 +9,7 @@ export default async function RobooksListLayout({
 }: {
   children: React.ReactNode;
 }) {
- 
+
 
   return (
     <AuthorsAndRobooksListLayout>
