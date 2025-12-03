@@ -64,8 +64,8 @@ export default function RecentsItems({
                         : item.profile_picture || undefined
                     }
                     sx={{
-                      width: 30,
-                      height: 30,
+                      width: 25,
+                      height: 25,
                       objectFit: "fill",
                       bgcolor: theme.palette.primary.main,
                       borderRadius: item.type === "book" ? 0.7 : 2,
@@ -77,7 +77,7 @@ export default function RecentsItems({
                 <ListItemText
                   primary={item.name}
                   sx={{ color: theme.palette.text.primary }}
-                  primaryTypographyProps={{ fontSize: "0.875rem" }}
+                  primaryTypographyProps={{ fontSize: "0.75rem", color: "grey" }}
                 />
               </ListItemButton>
             </ListItem>

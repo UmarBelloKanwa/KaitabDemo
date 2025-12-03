@@ -135,7 +135,7 @@ export default function Sidebar({ user }: { user: any }) {
         }}
       >
         {/* Header */}
-        <Box sx={{ mb: 3 }}>
+        <Box sx={{ mb: 2 }}>
           <Box
             sx={{
               display: "flex",
@@ -207,7 +207,7 @@ export default function Sidebar({ user }: { user: any }) {
                   <ListItemButton
                     sx={{
                       borderRadius: 2,
-                      mb: 0.3,
+                      mb: 0,
                       "&:hover": { bgcolor: theme.palette.action.hover },
                     }}
                   >
@@ -236,11 +236,11 @@ export default function Sidebar({ user }: { user: any }) {
         <UserDisplay
           user={user}
           handleDrawerToggle={() => {
-          if (isMobile) {
-            // only auto-close on mobile
-            handleDrawerToggle();
-          }
-        }} />
+            if (isMobile) {
+              // only auto-close on mobile
+              handleDrawerToggle();
+            }
+          }} />
       </Box>
     </Drawer>
   );
