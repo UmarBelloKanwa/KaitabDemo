@@ -35,7 +35,7 @@ export default function UserDisplay({ user, handleDrawerToggle }: { user: any, h
               }}
               sx={{
                 borderRadius: 2,
-                mb: 0.3,
+                mb: 0,
                 "&:hover": { bgcolor: "action.hover" },
               }}
             >
