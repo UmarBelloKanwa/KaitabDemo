@@ -25,6 +25,7 @@ import ArticleIcon from '@mui/icons-material/ArticleOutlined';
 import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 export default function Sidebar({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
@@ -35,23 +36,17 @@ export default function Sidebar({ user }: { user: any }) {
   const router = useRouter();
 
   const navItems = [
-    { name: "Home", icon: <HomeIcon />, onClick: () => router.push("/") },
+    { name: "Home", icon: HomeIcon, onClick: () => router.push("/") },
     {
       name: "Creators",
-      icon: <RecordVoiceOverOutlinedIcon />,
+      icon: RecordVoiceOverOutlinedIcon,
       onClick: () => router.push("/creators"),
     },
     {
       name: "Contents",
-      icon: <ArticleIcon />,
+      icon: ArticleIcon,
       onClick: () => router.push("/contents"),
     },
-  ];
-
-  const recentChats = [
-    { name: "Atomic Habits", avatar: "/atomic-habits.jpg" },
-    { name: "Hal Elrod", avatar: "/hal-elrod.jpg" },
-    { name: "James Clear", avatar: "/james-clear.jpg" },
   ];
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -195,37 +190,40 @@ export default function Sidebar({ user }: { user: any }) {
         {/* Navigation */}
         <Box sx={{ flex: 1, px: 0 }}>
           <List>
-            {navItems.map((item, index) => (
-              <ListItem
-                key={index}
-                disablePadding
-                onClick={() => {
-                  item.onClick(); // navigate
-                  if (isMobile) {
-                    // only auto-close on mobile
-                    handleDrawerToggle();
-                  }
-                }}
-              >
-                <ListItemButton
-                  sx={{
-                    borderRadius: 2,
-                    mb: 0.3,
-                    "&:hover": { bgcolor: theme.palette.action.hover },
+            {navItems.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <ListItem
+                  key={index}
+                  disablePadding
+                  onClick={() => {
+                    item.onClick(); // navigate
+                    if (isMobile) {
+                      // only auto-close on mobile
+                      handleDrawerToggle();
+                    }
                   }}
                 >
-                  <ListItemIcon
-                    sx={{ color: theme.palette.text.primary, minWidth: 36 }}
+                  <ListItemButton
+                    sx={{
+                      borderRadius: 2,
+                      mb: 0.3,
+                      "&:hover": { bgcolor: theme.palette.action.hover },
+                    }}
                   >
-                    {item.icon}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.name}
-                    sx={{ color: theme.palette.text.primary }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
+                    <ListItemIcon
+                      sx={{ color: theme.palette.text.primary, minWidth: 36 }}
+                    >
+                      <Icon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.name}
+                      sx={{ color: theme.palette.text.primary }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              )
+            })}
           </List>
 
           <RecentItems
@@ -235,7 +233,14 @@ export default function Sidebar({ user }: { user: any }) {
         </Box>
 
         {/* User Profile */}
-        <UserDisplay user={user} />
+        <UserDisplay
+          user={user}
+          handleDrawerToggle={() => {
+          if (isMobile) {
+            // only auto-close on mobile
+            handleDrawerToggle();
+          }
+        }} />
       </Box>
     </Drawer>
   );

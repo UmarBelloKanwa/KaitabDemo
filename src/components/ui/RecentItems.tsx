@@ -26,7 +26,7 @@ export default function RecentsItems({
     <>
       <Typography
         variant="subtitle2"
-        sx={{ color: theme.palette.text.secondary, mb: 1, mt: 3 }}
+        sx={{ color: theme.palette.text.secondary, mb: 0.3, mt: 0.5 }}
       >
         Recents
       </Typography>

@@ -90,24 +90,47 @@ export default function ActionsButton({
   return (
     <Box sx={{ display: "flex", gap: 0, my: 0 }}>
       {canFollow ? (
-        <Button
-          variant="contained"
-          startIcon={isFollowingAuthor ? <CheckCircleIcon /> : null}
-          onClick={() => requireAuth(makeAction)}
-          sx={{ flex: 1 }}
-        >
-          {isFollowingAuthor ? "Following" : "Follow"}
-        </Button>
+        <Box sx={{ display: "flex", gap: 1, flexDirection: "row", width: "100%" }}>
+          <Button
+            variant="contained"
+            startIcon={isFollowingAuthor ? <CheckCircleIcon /> : null}
+            onClick={() => requireAuth(makeAction)}
+            sx={{ flex: 1 }}
+          >
+            {isFollowingAuthor ? "Subscribed" : "Subscribe"}
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={isFollowingAuthor ? <CheckCircleIcon /> : null}
+            onClick={() => requireAuth(makeAction)}
+            sx={(theme) => ({
+              flex: 1,
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              border: "1px solid " + theme.palette.divider,
+              boxShadow: theme.shadows[1],   // elevation
+              textTransform: "none",
+              "&:hover": {
+                boxShadow: theme.shadows[8],
+                backgroundColor: theme.palette.background.paper,
+              },
+            })}
+          >
+            {isFollowingAuthor ? "Following" : "Follow"}
+
+          </Button>
+        </Box>
       ) : (
         <Button
           variant="contained"
           onClick={() => requireAuth(() => router.push(`/profile/edit`))}
+          fullWidth
           sx={{ flex: 1 }}
         >
           Edit Profile
         </Button>
       )}
-      {!canFollow && (
+      {/* {!canFollow && (
         <IconButton
           onClick={() => setDisplaySettingsCard(true)}
           sx={{
@@ -121,16 +144,23 @@ export default function ActionsButton({
         >
           <SettingsOutlinedIcon />
         </IconButton>
-      )}
+      )} */}
       <IconButton
         onClick={handleMoreClick}
         sx={{
           alignSelf: "flex-end",
-          color: theme.palette.text.secondary,
+          borderRadius: 1,
+          ml: 1,
+          backgroundColor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          border: "1px solid " + theme.palette.divider,
+          boxShadow: theme.shadows[1],   // elevation
+          textTransform: "none",
           "&:hover": {
-            color: theme.palette.text.primary,
-            bgcolor: theme.palette.action.hover,
+            boxShadow: theme.shadows[8],
+            backgroundColor: theme.palette.background.paper,
           },
+
         }}
       >
         <MoreHorizIcon />
