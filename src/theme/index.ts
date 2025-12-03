@@ -75,11 +75,22 @@ const theme = createTheme({
 
     MuiButton: {
       styleOverrides: {
-        root: {
+        root: ({theme}) => ({
           borderRadius: 12,
           fontWeight: 500,
           textTransform: "none",
-        },
+          "&.elevated": {
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            border: "1px solid " + theme.palette.divider,
+            boxShadow: theme.shadows[1],   // elevation
+            textTransform: "none",
+            "&:hover": {
+              boxShadow: theme.shadows[8],
+              backgroundColor: theme.palette.background.paper,
+            },
+          }
+        }),
         containedPrimary: ({ theme }) => ({
           background: theme.custom.gradient.primary,
           "&:hover": {

@@ -49,7 +49,7 @@ export default function UserMenuPopup({
       {
         label: "Settings",
         icon: Settings,
-        onClick: () => { },
+        onClick: () => { router.push("/settings") },
       },
     ] : []),
     {

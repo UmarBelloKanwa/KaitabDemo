@@ -67,21 +67,13 @@ export default function UserDisplay({ user, handleDrawerToggle }: { user: any, h
       >
         <Button
           variant="outlined"
+          className="elevated"
           fullWidth
-          sx={(theme) => ({
-            backgroundColor: theme.palette.background.paper,
-            color: theme.palette.text.primary,
-            border: "1px solid " + theme.palette.divider,
+          sx={{
             borderRadius: 2,
-            boxShadow: theme.shadows[1],   // elevation
-            textTransform: "none",
-            "&:hover": {
-              boxShadow: theme.shadows[8],
-              backgroundColor: theme.palette.background.paper,
-            },
-          })}
+          }}
           onClick={() => {
-            requireAuth(() => { });
+            requireAuth(() => { router.push("/upgrade/premium") });
           }}
         >
           Upgrade

@@ -1,18 +1,15 @@
-"use server";
+"use client";
 
-import { getCurrentAuthorProfile } from "@/actions/author";
 import type { AuthorProfileResponse } from "@/types/profile-edit";
 import { redirect } from "next/navigation";
 import EditProfileForm from "@ui/profile-edit/EditProfile";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default async function EditProfilePage() { 
-  let authorProfile: AuthorProfileResponse | null = null;
-  try {
-    authorProfile = await getCurrentAuthorProfile();
-    // console.log("Current author profile:", authorProfile);
-  } catch(err) {
-    console.log("Error fetching current author profile:")
-  }
+export default function EditProfilePage() { 
+  const queryClient = useQueryClient();
+  
+  const authorProfile: AuthorProfileResponse | undefined = queryClient.getQueryData(["currentAuthor"]);
+  
   if (!authorProfile) { 
     return redirect("/");
   }

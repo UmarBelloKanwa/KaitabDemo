@@ -15,7 +15,7 @@ import IosShareIcon from "@mui/icons-material/IosShareRounded";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import SettingCard from "./CortexSettingCard";
+import SettingCard from "../settings/CortexSettingCard";
 
 export default function ActionsButton({
   authorPublicId,

@@ -3,7 +3,6 @@
 // app/providers/HydrationProvider.tsx
 import { ReactNode } from "react";
 import {
-  QueryClient,
   dehydrate,
   HydrationBoundary,
 } from "@tanstack/react-query";
@@ -24,7 +23,16 @@ export default async function UserProvider({
 
   // Prefetch server-side
   await queryClient.prefetchQuery({ queryKey: ["user"], queryFn: fetchUser });
-  const user = queryClient.getQueryData(["user"]);
+  const user: any = queryClient.getQueryData(["user"]);
+  
+  if (user?.author) {
+    queryClient.setQueryData(["author", user?.author?.handle], user?.author);
+    queryClient.setQueryData(["currentAuthor"], user?.author);
+
+    //if (user?.author?.is_owner) {
+      queryClient.setQueryData(["cortex"], user?.author?.cortex);
+    //}
+  }
 
   // Pass dehydrated state to client provider
   const dehydratedState = dehydrate(queryClient);

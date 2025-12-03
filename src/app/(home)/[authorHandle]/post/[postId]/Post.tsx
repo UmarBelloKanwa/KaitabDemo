@@ -27,7 +27,7 @@ export default function Post({
       if (cached) return cached; // Prevent unnecessary fetch
       return await fetchAuthorPost(authorHandle, postId);
     },
-    // staleTime: 1000 * 60 * 10, // optional
+    staleTime: Infinity, // optional
   });
 
   if (isLoading) {

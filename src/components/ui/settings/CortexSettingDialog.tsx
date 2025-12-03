@@ -30,9 +30,14 @@ export default function SettingsCard({
   displaySettingsCard: boolean;
   setDisplaySettingsCard: (value: boolean) => void;
 }) {
-  const { user } = useUserStore();
+  
+  let { user } = useUserStore();
 
   const queryClient = useQueryClient();
+
+  if (!user) {
+    user = queryClient.getQueryData(["user"]) || null;
+  }
 
   // read the cached cortex data
   const cortex: Cortex | undefined = queryClient.getQueryData(["cortex"]);

@@ -11,8 +11,8 @@ import Providers from "@/providers/Providers";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "Feedple",
-  description: "A modern way to learn and share books",
+  title: "Feed | Feedple",
+  description: "A social platform to share ideas while training your digital mind.",
 };
 
 export default function RootLayout({

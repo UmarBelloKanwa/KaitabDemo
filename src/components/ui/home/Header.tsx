@@ -16,20 +16,14 @@ import AppBar from "@mui/material/AppBar";
 import Badge from "@mui/material/Badge";
 import useNotifications from "@/hooks/home/useNotification";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-// import { useUserStore } from "@/store/user-store";
 import Button from "@mui/material/Button";
-import { User } from "@/store/user-store";
 import { useRouter } from "next/navigation";
 
-interface InUser extends User {
-  full_name: string;
-}
 
-export default function Header({ user }: { user: InUser }) {
+export default function Header() {
   const theme = useTheme();
   const requireAuth = useAuthCheck();
   const router = useRouter();
-  // const { user } = useUserStore();
 
   const notificationActions = useNotifications();
   const [notificationAnchor, setNotificationAnchor] =
@@ -46,7 +40,7 @@ export default function Header({ user }: { user: InUser }) {
     });
   };
   const unreadCount = notificationActions.unreadCount;
-  const isAuthor = !!user?.author;
+
   return (
     <AppBar
       position="static"
@@ -61,57 +55,6 @@ export default function Header({ user }: { user: InUser }) {
       <Toolbar sx={{
         justifyContent: "space-between", gap: 2, p: 0,
       }}>
-        {/* <Box
-          sx={{
-            display: { xs: "none", sm: "flex" },
-            alignItems: "center",
-            gap: 2,
-            flex: 1,
-          }}
-        >
-          <Box>
-            <Typography variant="body1" sx={{ color: "text.secondary" }}>
-              {user ? "Welcome back," : "Welcome to Feedple"}
-            </Typography>
-            <Box
-              sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}
-              onClick={() =>
-                requireAuth(() => {
-                  if (isAuthor) {
-                    router.push(`/${user?.author?.handle}`);
-                  }
-                })
-              }
-            >
-              {user ? (
-                <>
-                  <Avatar
-                    src={isAuthor ? user?.author?.profile_picture : undefined}
-                    sx={{
-                      bgcolor: theme.palette.primary.main,
-                      width: 20,
-                      height: 20,
-                      fontSize: 13,
-                    }}
-                  >
-                    {user?.full_name.charAt(0)}
-                  </Avatar>
-                  <Typography
-                    variant="body1"
-                    color="text.primary"
-                    fontWeight={"500"}
-                  >
-                    {user?.full_name}
-                  </Typography>
-                </>
-              ) : (
-                <Button variant="outlined" color="secondary" size="small">
-                  Sign in to start
-                </Button>
-              )}
-            </Box>
-          </Box>
-        </Box> */}
         <Box
           ref={boxRef}
           sx={{

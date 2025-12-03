@@ -1,15 +1,8 @@
 import { create } from "zustand";
 import { getUserMe } from "@/lib/api/user";
 import { logout } from "@/lib/api/auth";
-import { Author } from "@/types/author";
+import type { User } from "@/types";
 
-export interface User {
-    public_id: string
-    name: string
-    contact: string
-    author?: Author | null
-    // avatar?: string
-}
 
 interface UserStore {
     user: User | null
