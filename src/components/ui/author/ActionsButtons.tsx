@@ -11,11 +11,8 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useTheme } from "@mui/material/styles";
 import { followAuthor, unfollowAuthor } from "@/lib/api/author";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-import IosShareIcon from "@mui/icons-material/IosShareRounded";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import SettingCard from "../settings/CortexSettingCard";
 
 export default function ActionsButton({
   authorPublicId,
@@ -30,16 +27,6 @@ export default function ActionsButton({
 
   const pathname = usePathname(); // e.g. "/r/atomic/chapters"
   const theme = useTheme();
-
-  // Get last part of the path
-  const isChaptersPage = pathname.endsWith("/chapters");
-  const buttonLabel = isChaptersPage ? "Posts" : "Read";
-  // Split the path into segments
-  const segments = pathname.split("/").filter(Boolean);
-  // Example: ["r", "atomic", "chapters"]
-
-  // Get the Author ID (2nd segment in /r/:AuthorId/...)
-  const AuthorId = segments[1];
 
   const [isFollowingAuthor, setIsFollowingAuthor] = React.useState(isFollowing);
   const requireAuth = useAuthCheck();
@@ -85,7 +72,6 @@ export default function ActionsButton({
     }
   };
 
-  const [displaySettingsCard, setDisplaySettingsCard] = React.useState(false);
 
   return (
     <Box sx={{ display: "flex", gap: 0, my: 0 }}>
@@ -130,21 +116,7 @@ export default function ActionsButton({
           Edit Profile
         </Button>
       )}
-      {/* {!canFollow && (
-        <IconButton
-          onClick={() => setDisplaySettingsCard(true)}
-          sx={{
-            alignSelf: "flex-end",
-            color: theme.palette.text.secondary,
-            "&:hover": {
-              color: theme.palette.text.primary,
-              bgcolor: theme.palette.action.hover,
-            },
-          }}
-        >
-          <SettingsOutlinedIcon />
-        </IconButton>
-      )} */}
+    
       <IconButton
         onClick={handleMoreClick}
         sx={{
@@ -178,11 +150,6 @@ export default function ActionsButton({
         onClose={() => setSnackbarOpen(false)}
         message="Link copied to clipboard!"
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      />
-
-      <SettingCard
-        displaySettingsCard={displaySettingsCard}
-        setDisplaySettingsCard={setDisplaySettingsCard}
       />
     </Box>
   );
