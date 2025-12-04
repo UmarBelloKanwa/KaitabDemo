@@ -5,6 +5,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "@/types";
 import CortexSettingCard from "@/components/ui/settings/CortexSettingCard";
 import { useRouter } from "next/navigation";
+import IconButton from "@mui/material/IconButton";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -31,7 +33,7 @@ export default function SettingsPage() {
     >
       <Box sx={{ maxWidth: 600, mx: "auto" }}>
         {/* Account Section */}
-        <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
+        <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
           Account
         </Typography>
 
@@ -127,7 +129,7 @@ export default function SettingsPage() {
                 Handle
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                {author.handle}
+                @{author.handle}
               </Typography>
             </Box>
             <Button
@@ -145,11 +147,58 @@ export default function SettingsPage() {
           </Stack>
         </Paper>
 
-        {/* Publications Section */}
-        <Typography variant="h5" sx={{ mb: 3, fontWeight: 600 }}>
-          Cortex
+        <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
+          Publication
         </Typography>
 
+        <Paper
+          elevation={0}
+          sx={{
+            p: 2,
+            border: (theme) => `1px solid ${theme.palette.divider}`,
+            mb: 4,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              mb: 2,
+              cursor: "pointer",
+              "&:hover": {
+                opacity: 0.8,
+              },
+            }}
+          >
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Avatar
+                src={author.profile_picture}
+                sx={{ width: 40, height: 40 }}
+              />
+              <Box>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  {author.name}
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                  Owner
+                </Typography>
+              </Box>
+            </Stack>
+            <IconButton
+              onClick={() => {
+                router.push("/settings/payments");
+              }}
+            >
+              <ChevronRightIcon sx={{ color: "text.secondary" }} />
+            </IconButton>
+          </Box>
+        </Paper>
+
+        {/* Cortex Section */}
+        <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
+          Cortex
+        </Typography>
         <Paper
           elevation={0}
           sx={{
