@@ -19,7 +19,7 @@ import RobookCard from "@ui/author/RobookCard";
 import { useInfiniteAuthors } from "@/hooks/author/useInfiniteAuthors";
 import { useInfiniteBooksTofollow } from "@/hooks/robook/useInfiniteRobooksToFollow";
 
-export function Page({ page }: { page: "robooks" | "authors" }) {
+export function Page({ page }: { page: "contents" | "creators" }) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -30,7 +30,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
 
   const loaderRef = React.useRef<HTMLDivElement | null>(null);
 
-  const authors = data?.pages.flat() || [];
+  const creators = data?.pages.flat() || [];
   React.useEffect(() => {
     if (!hasNextPage || isFetchingNextPage) return;
 
@@ -46,7 +46,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  // console.log("Authors", authors);
+  // console.log("Authors", creators);
 
   // Books infinite query
   const {
@@ -117,26 +117,26 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
                   },
                 }}
               >
-                <ToggleButton value="authors" sx={{ mr: 1 }}>
+                <ToggleButton value="creators" sx={{ mr: 1 }}>
                   Creators
                 </ToggleButton>
-                <ToggleButton value="robooks"> Contents </ToggleButton>
+                <ToggleButton value="contents"> Contents </ToggleButton>
               </ToggleButtonGroup>
             </Box>
           </Box>
         </Box>
-        {activePage === "authors" && (
+        {activePage === "creators" && (
           <>
-            {authors.length === 0 ? (
+            {creators.length === 0 ? (
               <p style={{ padding: "1rem", textAlign: "center", opacity: 0.7 }}>
-                No authors to show yet
+                No creators to show yet
               </p>
             ) : (
               <List>
-                {authors.map((author, index) => (
+                {creators.map((author, index) => (
                   <React.Fragment key={index}>
                     <AuthorsList member={author} />
-                    {index < authors.length - 1 && <Divider />}
+                    {index < creators.length - 1 && <Divider />}
                   </React.Fragment>
                 ))}
 
@@ -153,7 +153,7 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
           </>
         )}
 
-        {activePage === "robooks" && (
+        {activePage === "contents" && (
           <>
             {books.length === 0 ? (
               <p style={{ padding: "1rem", textAlign: "center", opacity: 0.7 }}>
@@ -185,5 +185,5 @@ export function Page({ page }: { page: "robooks" | "authors" }) {
 }
 
 export default function Authors() {
-  return <Page page="authors" />;
+  return <Page page="creators" />;
 }

@@ -11,7 +11,7 @@ import Providers from "@/providers/Providers";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: "Feed | Feedple",
+  title: "Feedple",
   description: "A social platform to share ideas while training your digital mind.",
 };
 

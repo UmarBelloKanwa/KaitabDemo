@@ -8,10 +8,19 @@ import {
 import { fetchAuthors } from "@/actions/author";
 import { fetchBooks } from "@/actions/robook";
 import { fetchAuthorsPosts } from "@/actions/author";
+import type { Metadata } from "next";
+
 import getQueryClient from "@/lib/get-query-client";
 
 import NavLayout from "./NavLayout";
 import { authors } from "@/data/fake";
+
+export const metadata: Metadata = {
+  title: "Home | Feedple",
+  description: "A social platform to share ideas while training your digital mind.",
+};
+
+
 export default async function Layout({
   children,
 }: {
