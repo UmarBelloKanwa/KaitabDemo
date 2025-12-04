@@ -60,7 +60,7 @@ export default function RecentsItems({
                   <Avatar
                     src={
                       item.type === "book"
-                        ? item.main_photo_url || undefined
+                        ? item.cover_photo_url || undefined
                         : item.profile_picture || undefined
                     }
                     sx={{

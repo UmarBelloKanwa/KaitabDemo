@@ -23,10 +23,8 @@ interface ProcessingToastProps {
   isVisible?: boolean;
   onClose?: () => void;
   title?: string;
-  description?: string;
   estimatedTime?: string;
   fileName?: string;
-  author?: string;
   slug: string;
 }
 
@@ -34,9 +32,7 @@ export default function ProcessingToast({
   isVisible = true,
   onClose,
   title = "Building your intelligent Robook",
-  description = "Your form has been submitted successfully.",
   estimatedTime = "5–13 minutes",
-  author = "James Clear",
   fileName,
   slug,
 }: ProcessingToastProps) {
@@ -108,11 +104,7 @@ export default function ProcessingToast({
                 <Typography variant="h6" fontWeight="500" sx={{fontSize: {xs: "medium", sm: "large"}}}>
                   {title}
                 </Typography>
-                {author && (
-                  <Typography variant="caption">
-                    {author}
-                  </Typography>
-                )}
+                
               </Box>
             </Box>
           </Box>
@@ -165,16 +157,13 @@ export default function ProcessingToast({
               p: 2,
             }}
           >
-            <Typography variant="body2" gutterBottom>
-              <strong>Description:</strong> {description}
-            </Typography>
             {fileName && (
               <Typography variant="body2" gutterBottom>
                 <strong>File:</strong> {fileName}
               </Typography>
             )}
             <Typography variant="body2" gutterBottom>
-              <strong>Robook:</strong> {slug}
+              <strong>Book:</strong> {slug}
             </Typography>
             <Typography variant="caption" color="text.secondary">
               Uploaded at {uploadTime}

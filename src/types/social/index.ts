@@ -28,10 +28,8 @@ export interface SelectedTopic {
 }
 
 export interface UserFormData {
-    mainPhoto: File | null;
     coverPhoto: File | null;
     pdfFile: File | null;
-    author: string;
     name: string;
     slug: string;
     topics: SelectedTopic[];

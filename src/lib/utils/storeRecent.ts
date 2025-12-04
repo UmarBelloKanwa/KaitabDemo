@@ -12,7 +12,7 @@ export const storeRecent = (type: "book" | "author", data: Author | Book) => {
         type: "book";
         name: string;
         slug: string;
-        main_photo_url?: string | null;
+        cover_photo_url?: string | null;
       }
     | {
         type: "author";
@@ -29,7 +29,7 @@ export const storeRecent = (type: "book" | "author", data: Author | Book) => {
           type: "book" as const,
           name: (data as Book).name,
           slug: (data as Book).slug,
-          main_photo_url: (data as Book).main_photo_url,
+          cover_photo_url: (data as Book).cover_photo_url,
         }
       : {
           type: "author" as const,

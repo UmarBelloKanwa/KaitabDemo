@@ -3,7 +3,7 @@ export const robooks = [
     slug: 'atomicha',
     user_public_id: 'a0f3bd6a-8435-43d2-bbfd-add619f9f2b0',
     public_id: '5955dc3c-4d8f-4fb9-a126-fa4e18826078',
-    main_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/72a8cabb-2db3-4b2c-99af-d61bff95d24d.pdf/main_photo.jpg?',
+    cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/72a8cabb-2db3-4b2c-99af-d61bff95d24d.pdf/main_photo.jpg?',
     cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/72a8cabb-2db3-4b2c-99af-d61bff95d24d.pdf/cover_photo.png?',
     name: 'Atomic Habits',
     extra_metadata: {
@@ -29,7 +29,7 @@ export const robooks = [
     slug: 'adobe',
     user_public_id: 'a0f3bd6a-8435-43d2-bbfd-add619f9f2b0',
     public_id: '77dc238a-2dc9-421d-a6cd-1bb1b4f5d099',
-    main_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/d5faa7cb-64a8-47a0-b9d1-01aa2e6f0555.pdf/main_photo.jpg?',
+    cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/d5faa7cb-64a8-47a0-b9d1-01aa2e6f0555.pdf/main_photo.jpg?',
     cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/d5faa7cb-64a8-47a0-b9d1-01aa2e6f0555.pdf/cover_photo.png?',
     name: 'Atomic Habits',
     extra_metadata: {
@@ -55,7 +55,7 @@ export const robooks = [
     slug: 'zero_to_one',
     user_public_id: 'a0f3bd6a-8435-43d2-bbfd-add619f9f2b0',
     public_id: 'b4c7fe77-ef19-4e71-ba7f-59675a18430f',
-    main_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/public-assets/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/books/b4c7fe77-ef19-4e71-ba7f-59675a18430f.pdf/main_photo.jpg?',
+    cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/public-assets/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/books/b4c7fe77-ef19-4e71-ba7f-59675a18430f.pdf/main_photo.jpg?',
     cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/public-assets/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/books/b4c7fe77-ef19-4e71-ba7f-59675a18430f.pdf/cover_photo.jpg?',
     name: 'Zero To One',
     extra_metadata: {
@@ -81,7 +81,7 @@ export const robooks = [
     slug: 'atomic',
     user_public_id: 'a0f3bd6a-8435-43d2-bbfd-add619f9f2b0',
     public_id: 'c95b9103-3e22-4091-9541-cd8f8f95dac6',
-    main_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/f652d32f-4df9-44de-a450-61b2bfe57892.pdf/main_photo.jpg?',
+    cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/f652d32f-4df9-44de-a450-61b2bfe57892.pdf/main_photo.jpg?',
     cover_photo_url: 'https://neqvzkaepzawrdpjzjrd.supabase.co/storage/v1/object/public/books/a0f3bd6a-8435-43d2-bbfd-add619f9f2b0/f652d32f-4df9-44de-a450-61b2bfe57892.pdf/cover_photo.png?',
     name: 'Atomic Habits',
     extra_metadata: {

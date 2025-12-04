@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function ResponsiveAppBar({ robook, }: Props) {
-  const robookPhotoUrl = robook.main_photo_url || "";
+  const robookPhotoUrl = robook.cover_photo_url || "";
   const robookName = robook.name;
   const authorName = robook.author?.name || "Unknown";
 

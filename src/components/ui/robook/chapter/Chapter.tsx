@@ -39,7 +39,7 @@ export default function Chapter({
       <CardHeader
         avatar={
           <Avatar
-            src={robook.main_photo_url}
+            src={robook.cover_photo_url}
             sx={{
               bgcolor: "primary.light",
               borderRadius: 1,

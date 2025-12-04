@@ -17,7 +17,6 @@ import useAuthCheck from '@/hooks/auth/useAuthCheck';
 import ProcessingToast from "@/components/ui/publish/ProcessingToast";
 
 
-
 export default function PublishBook() {
     const {
         coverPreview, handleImageChange,
@@ -40,7 +39,7 @@ export default function PublishBook() {
                 overflow: "hidden",
             }}>
                 <Typography >
-                  Turn your book to Robook — Your AI social media agent that markets your book for you.
+                  Your book cover
                 </Typography> <br />
 
                 {/* Cover Photo Upload */}
@@ -59,6 +58,7 @@ export default function PublishBook() {
                         "&:hover": {
                             borderColor: "rgba(33, 19, 116, 0.7)",
                         },
+                        mb:2,
                     }}
                 >
                     <input
@@ -86,7 +86,7 @@ export default function PublishBook() {
                 </Box>
 
                 {/* Main Photo Upload */}
-                <Box
+                {/* <Box
                     sx={{
                         position: "relative",
                         mt: -3,
@@ -127,7 +127,7 @@ export default function PublishBook() {
                             <CameraAlt sx={{ color: "white", fontSize: 28 }} />
                         </IconButton>
                     </label>
-                </Box>
+                </Box> */}
 
                 {/* PDF Upload */}
                 <Box sx={{ mb: 1.5 }}>
@@ -155,7 +155,7 @@ export default function PublishBook() {
                     <TextField
                         fullWidth
                         value={formData.name}
-                        placeholder="Robook name"
+                        placeholder="Book name"
                         onChange={handleInputChange("name")}
                         helperText={errors.name || "Enter the name of the book"}
                         error={Boolean(errors.name)}
@@ -164,7 +164,7 @@ export default function PublishBook() {
                 </Box>
 
                 {/* Author Input */}
-                <Box sx={{ mb: 1 }}>
+                {/* <Box sx={{ mb: 1 }}>
                     <Typography variant="body2" sx={{  mb: 1 }}>
                         Author
                     </Typography>
@@ -177,7 +177,7 @@ export default function PublishBook() {
                         error={Boolean(errors.author)}
                         sx={{ mb: 2 }}
                     />
-                </Box>
+                </Box> */}
                 <Box sx={{ mb: 1 }}>
                     <Typography variant="body2" sx={{  mb: 1 }}>
                         Topic
@@ -194,14 +194,14 @@ export default function PublishBook() {
                 {/* Page name Input */}
                 <Box sx={{ mb: 1, mt: 3 }}>
                     <Typography variant="body2" sx={{  mb: 1 }}>
-                        Book URL name (Robook)
+                        Book slug
                     </Typography>
                     <TextField
                         fullWidth
-                        placeholder="Book name"
+                        placeholder="my_book_name"
                         value={formData.slug}
                         onChange={handleInputChange("slug")}
-                        helperText={errors.slug || `Create a unique name so people can easily find your Robook at ${origin}/yourbook.`}
+                        helperText={errors.slug || `Create a unique name so people can easily find your book at ${origin}/r/yourbook.`}
                         error={Boolean(errors.slug)}
                         sx={{ mb: 2 }}
                     />
@@ -250,9 +250,7 @@ export default function PublishBook() {
                   <ProcessingToast
                     isVisible={showToast}
                     onClose={closeToast}
-                    //title={formData.name}
-                    //author={formData.author}
-                    description={`Robook is a living extension of ${formData.author}'s mind.`}
+                    title={formData.name}
                     fileName={formData.pdfFile?.name}
                     slug={`${origin}/${formData.slug}`}
                 />

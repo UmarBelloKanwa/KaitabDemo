@@ -12,7 +12,7 @@ import type { BookResponse, BookChapterResponse } from "@/types/book";
 const ProfileCard = ({ robook }: { robook: BookResponse | null }) => {
   // console.log(robook, "in card");
   if (!robook) {
-    return <h1> Robook is not found </h1>;
+    return <h1> Book is not found </h1>;
   }
   return (
     <Card
@@ -33,7 +33,7 @@ const ProfileCard = ({ robook }: { robook: BookResponse | null }) => {
         sx={{
           height: { xs: 200, sm: 261 },
           borderRadius: 1,
-          backgroundImage: `url(${robook.main_photo_url})`,
+          backgroundImage: `url(${robook.cover_photo_url})`,
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

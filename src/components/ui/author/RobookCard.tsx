@@ -54,7 +54,7 @@ export default function RobookCard({
         >
           <Box
             component="img"
-            src={robook.main_photo_url}
+            src={robook.cover_photo_url}
             alt={robook.name}
             sx={{
               width: "100%",

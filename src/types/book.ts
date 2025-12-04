@@ -31,8 +31,8 @@ export interface BookResponse {
   author_public_id: string; // UUID
   user_public_id: string; // UUID
 
-  // cover_photo_url: string;
-  main_photo_url: string;
+  cover_photo_url: string;
+  // main_photo_url: string;
   name: string;
   description?: string;
 
@@ -177,7 +177,7 @@ export const fakeBook: BookResponse = {
     profile_photo_url: "/brian-tracy.jpg",
   },
   author_public_id: "hhhhh",
-  main_photo_url: "/zero-to-one.jpg",
+  cover_photo_url: "/zero-to-one.jpg",
   custom_topics: ["Technology", "Startup", "Enterprenuership"],
   topics: ["Productivity"],
   can_follow: true,

@@ -79,7 +79,7 @@ const ChaptersFeed = ({ slug }: { slug: string }) => {
         <Box sx={{ maxWidth: "100%", mx: "auto", px: 1, py: 1 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
             <Avatar
-              src={robook?.main_photo_url}
+              src={robook?.cover_photo_url}
               sx={{
                 width: { xs: 50, sm: 60 },
                 height: { xs: 50, sm: 60 },

@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 
 type ErrorState = {
     pdfFile: string;
-    author: string;
     name: string;
     topics: string;
     slug: string;
@@ -22,10 +21,8 @@ export default function usePublishPage() {
     const router = useRouter();
 
     const [formData, setFormData] = useState<UserFormData>({
-        mainPhoto: null as File | null,
         coverPhoto: null as File | null,
         pdfFile: null as File | null,
-        author: "",
         name: "",
         slug: "",
         topics: [],
@@ -34,7 +31,6 @@ export default function usePublishPage() {
 
     const baseErr: ErrorState = {
         pdfFile: "",
-        author: "",
         name: "",
         topics: "",
         slug: "",
@@ -53,11 +49,9 @@ export default function usePublishPage() {
         return (
             formData.name.trim() !== "" &&
             formData.slug !== null &&
-            formData.author.trim() !== "" &&
             formData.description.trim() !== "" &&
             formData.topics.length > 0 &&
             formData.coverPhoto !== null &&
-            formData.mainPhoto !== null &&
             formData.pdfFile !== null
             // Object.values(errors).every((val) => val === "")
         );
@@ -72,7 +66,6 @@ export default function usePublishPage() {
             // console.log(res);
             setErrors({
                 pdfFile: "",
-                author: "",
                 name: "",
                 slug: "",
                 topics: "",
@@ -90,7 +83,6 @@ export default function usePublishPage() {
 
                 const newErrors = {
                     pdfFile: err.file || "",
-                    author: err.author || "",
                     name: err.book_name || "",
                     topics: err.topics || "",
                     slug: err.slug || "",
@@ -105,7 +97,7 @@ export default function usePublishPage() {
     }
 
 
-    const handleImageChange = (field: "coverPhoto" | "mainPhoto") => (
+    const handleImageChange = (field: "coverPhoto") => (
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
         const file = e.target.files?.[0];
@@ -115,9 +107,10 @@ export default function usePublishPage() {
 
             if (field === "coverPhoto") {
                 setCoverPreview(previewURL);
-            } else {
-                setMainPreview(previewURL);
             }
+            // else {
+            //     setMainPreview(previewURL);
+            // }
         }
     };
 
