@@ -131,6 +131,7 @@ export default function Sidebar({ user }: { user: any }) {
           display: "flex",
           flexDirection: "column",
           px: 3,
+          pt: 1.5,
         }}
       >
         {/* Header */}
