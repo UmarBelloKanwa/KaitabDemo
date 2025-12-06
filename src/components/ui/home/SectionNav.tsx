@@ -3,8 +3,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import AuthorsLists from "@ui/home/AuthorsList";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -19,7 +17,6 @@ import useNotifications from "@/hooks/home/useNotification";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 // import { useUserStore } from "@/store/user-store";
 import Button from "@mui/material/Button";
-import { User } from "@/store/user-store";
 import { useRouter } from "next/navigation";
 import RobooksList from "./RobooksList";
 
@@ -46,7 +43,6 @@ export default function SectionNav() {
 
   return (
     <Box sx={{
-      mt: 2,
       width: "95%",
       mx: 0,
       p: 0,

@@ -60,9 +60,9 @@ export default function RobooksList() {
         p: 1,
       }}
     >
-      <Typography variant="h6" sx={{ ml: 1.5, mb: 0.5,  }}>
+      {/* <Typography variant="h6" sx={{ ml: 1.5, mb: 0.5,  }}>
         For you
-      </Typography>
+      </Typography> */}
       <Box
         sx={{ position: "relative", maxWidth: "100%" }}
         onMouseEnter={() => setHover(true)}

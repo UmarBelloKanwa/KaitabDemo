@@ -131,7 +131,6 @@ export default function Sidebar({ user }: { user: any }) {
           display: "flex",
           flexDirection: "column",
           px: 3,
-          pt: 2.5,
         }}
       >
         {/* Header */}
@@ -168,7 +167,6 @@ export default function Sidebar({ user }: { user: any }) {
           <Button
             fullWidth
             variant="contained"
-            // startIcon={<AddIcon />}
             sx={{
               textTransform: "none",
               borderRadius: 2,

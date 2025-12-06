@@ -52,9 +52,9 @@ export default function RobooksList() {
 
   return (
     <Box>
-      <Typography variant="h6" sx={{ ml: 2, fontSize: "13px", fontWeight: "bold", color: "text.secondary" }}>
+      {/* <Typography variant="h6" sx={{ ml: 2, fontSize: "13px", fontWeight: "bold", color: "text.secondary" }}>
         For you
-      </Typography>
+      </Typography> */}
       <Box
         sx={{ position: "relative", maxWidth: "100%" }}
         onMouseEnter={() => setHover(true)}
@@ -93,7 +93,7 @@ export default function RobooksList() {
           }}
         >
           {robooks.map((robook, index) => (
-            <Box sx={{ width: 300, mt: 1 }} key={index}>
+            <Box sx={{ width: 300,  }} key={index}>
               <RobookCard robook={robook} where="home" />
             </Box>
           ))}

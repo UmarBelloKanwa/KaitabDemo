@@ -4,7 +4,7 @@ import RobooksList from "@/components/ui/home/MobileRobooksList";
 import PostLists from "@/components/ui/home/PostList";
 import Header from "@/components/ui/home/Header";
 import Box from "@mui/material/Box";
-import { fetchUser } from "@/actions/user";
+import StatusArea from "@/components/ui/editor/StatusArea";
 
 export default async function Home() {
   return (
@@ -14,7 +14,16 @@ export default async function Home() {
         px: { xs: 1 },
       }}
     >
-      <Header />
+      <Box
+        sx={{
+          m: "auto",
+          mt: {xs: -2},
+          width: "100%",
+        }}
+      >
+        <Header />
+        <StatusArea />
+      </Box>
       <RobooksList />
       <Box
         sx={{
@@ -25,6 +34,6 @@ export default async function Home() {
       >
         <PostLists />
       </Box>
-      </Box>
+    </Box>
   );
 }

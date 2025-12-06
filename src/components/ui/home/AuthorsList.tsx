@@ -38,7 +38,7 @@ export default function AuthorsLists() {
         overflowY: "auto",
       })}
     >
-      <Typography variant="h6" sx={{ mb: 1 }}>
+      <Typography variant="h6" sx={{ mb: 1, fontSize: "13px", fontWeight: "bold", color: "text.secondary" }}>
         Who to follow
       </Typography>
       <Box
