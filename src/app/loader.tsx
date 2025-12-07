@@ -10,6 +10,7 @@ export default function RouterLoadingListener() {
 
   const loadingRef = useRef(false);
   const originalPushRef = useRef(router.push);
+  const originalBackRef = useRef(router.back);
   const originalReplaceRef = useRef(router.replace);
   const safetyTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -20,6 +21,14 @@ export default function RouterLoadingListener() {
 
   // ✅ PATCH router
   useEffect(() => {
+    // patch back
+    router.back = (...args: Parameters<typeof router.back>) => {
+      const target = args.length > 0 && args[0] ? getTargetPath(args[0]) : "";
+      if (target === pathname) return originalBackRef.current(...args);
+      start();
+      return originalBackRef.current(...args);
+    };
+
     router.push = (...args: Parameters<typeof router.push>) => {
       const target = getTargetPath(args[0]);
       if (target === pathname) return originalPushRef.current(...args);
@@ -37,13 +46,15 @@ export default function RouterLoadingListener() {
     return () => {
       router.push = originalPushRef.current;
       router.replace = originalReplaceRef.current;
+      router.back = originalBackRef.current; // ✅ restore back
     };
   }, [router, pathname]);
 
-  const getTargetPath = (href: any) => {
-    if (typeof href === "string") return href.split("?")[0];
-    if (typeof href === "object" && "pathname" in href) return href.pathname;
-    return null;
+  const getTargetPath = (target: any) => {
+    // implement your logic to get target path
+    if (typeof target === "string") return target;
+    if (typeof target === "object" && target.pathname) return target.pathname;
+    return "";
   };
 
   const start = () => {

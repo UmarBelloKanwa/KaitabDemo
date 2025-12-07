@@ -46,7 +46,7 @@ export default function PriceLayout({ children }: { children: React.ReactNode })
           aria-label="close"
           onClick={() => {
             // navigate back or to a safe page
-            router.push("/");
+            router.back();
           }}
           size="large"
         >
