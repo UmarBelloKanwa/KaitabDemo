@@ -54,12 +54,14 @@ export default function StatusInput() {
           onChange={(e) => setInput(e.target.value)}
           variant="standard"
           size="small"
-          InputProps={{
-            disableUnderline: true, // Also removes underline for standard variant
+          slotProps={{
+            input: { disableUnderline: true, } // Also removes underline for standard variant
           }}
           sx={{
-            border: "none",
             bgcolor: "background.paper",
+            boxShadow: 11,
+            border: "1px solid",
+            borderColor: "rgba(255, 255, 255, 0.03)",
             py: 1,
             px: 2,
             borderRadius: 2,

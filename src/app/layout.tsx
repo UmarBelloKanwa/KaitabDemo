@@ -2,7 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import UserProvider from "@/providers/UserProvider";
 import Providers from "@/providers/Providers";
-
+import RouterLoadingListener from "./loader";
 // This app needs to read cookies during server-side data fetching (HydrationProvider
 // prefetches the current user using server actions that access cookies). That
 // prevents static (SSG) rendering for routes. Force the app to be dynamic so Next
@@ -30,7 +30,10 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <RouterLoadingListener/>
+            {children}
+          </UserProvider>
         </Providers>
       </body>
     </html>
