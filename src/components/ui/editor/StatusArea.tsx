@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import { Avatar, TextField, IconButton, Paper, Stack } from "@mui/material";
-import { VideoCall, Image, Share } from "@mui/icons-material";
-import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
-import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "@/types";
+import { useRouter } from "next/navigation";
 
 export default function StatusInput() {
   const [input, setInput] = useState("");
@@ -18,7 +16,9 @@ export default function StatusInput() {
   if (!user) {
     return <></>;
   }
+
   const isAuthor = !!user?.author;
+  const router = useRouter();
 
   return (
     <Paper
@@ -39,7 +39,16 @@ export default function StatusInput() {
         <Avatar
           alt="User avatar"
           src={isAuthor ? user?.author?.profile_picture : undefined}
-          sx={{ width: 47, height: 47, flexShrink: 0 }}
+          sx={{
+            width: 47, height: 47,
+            flexShrink: 0,
+             cursor: "pointer"  
+          }}
+          onClick={() => {
+            if (isAuthor){
+              router.push(`/${user?.author?.handle}`);
+            }
+          }}
         >
           {isAuthor
             ? user?.author?.name.charAt(0).toUpperCase()
@@ -55,7 +64,10 @@ export default function StatusInput() {
           variant="standard"
           size="small"
           slotProps={{
-            input: { disableUnderline: true, } // Also removes underline for standard variant
+            input: { disableUnderline: true, readOnly: true,} // Also removes underline for standard variant
+          }}
+          onClick={() => {
+            router.push("/publish");
           }}
           sx={{
             bgcolor: "background.paper",
@@ -65,6 +77,7 @@ export default function StatusInput() {
             py: 1,
             px: 2,
             borderRadius: 2,
+            cursor: "pointer",
             fontSize: "small",
           }}
         />
