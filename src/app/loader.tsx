@@ -13,28 +13,23 @@ export default function RouterLoadingListener() {
   const originalReplaceRef = useRef(router.replace);
   const safetyTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // ✅ STOP loading when route actually changes
+  // ✅ STOP loading when route changes
   useEffect(() => {
     stop();
   }, [pathname]);
 
-  // ✅ PATCH router ONCE (safe)
+  // ✅ PATCH router
   useEffect(() => {
     router.push = (...args: Parameters<typeof router.push>) => {
       const target = getTargetPath(args[0]);
-
-      // ✅ PREVENT stuck loader on same route
       if (target === pathname) return originalPushRef.current(...args);
-
       start();
       return originalPushRef.current(...args);
     };
 
     router.replace = (...args: Parameters<typeof router.replace>) => {
       const target = getTargetPath(args[0]);
-
       if (target === pathname) return originalReplaceRef.current(...args);
-
       start();
       return originalReplaceRef.current(...args);
     };
@@ -45,34 +40,40 @@ export default function RouterLoadingListener() {
     };
   }, [router, pathname]);
 
-  // ✅ Extract target path safely
   const getTargetPath = (href: any) => {
     if (typeof href === "string") return href.split("?")[0];
     if (typeof href === "object" && "pathname" in href) return href.pathname;
     return null;
   };
 
-  // ✅ START loader
   const start = () => {
     if (loadingRef.current) return;
     loadingRef.current = true;
 
     const bar = document.getElementById("top-loader");
-    if (bar) bar.style.opacity = "1";
+    const overlay = document.getElementById("top-loader-overlay");
 
-    // ✅ SAFETY: auto-hide after 7s no matter what
+    if (bar) bar.style.opacity = "1";
+    if (overlay) overlay.style.opacity = "0.4";
+
+    // Prevent all clicks/interactions
+    if (overlay) overlay.style.pointerEvents = "auto";
+
     if (safetyTimerRef.current) clearTimeout(safetyTimerRef.current);
-    safetyTimerRef.current = setTimeout(() => {
-      stop();
-    }, 7000);
+    safetyTimerRef.current = setTimeout(() => stop(), 11000);
   };
 
-  // ✅ STOP loader
   const stop = () => {
     loadingRef.current = false;
 
     const bar = document.getElementById("top-loader");
+    const overlay = document.getElementById("top-loader-overlay");
+
     if (bar) bar.style.opacity = "0";
+    if (overlay) {
+      overlay.style.opacity = "0";
+      overlay.style.pointerEvents = "none";
+    }
 
     if (safetyTimerRef.current) {
       clearTimeout(safetyTimerRef.current);
@@ -81,26 +82,46 @@ export default function RouterLoadingListener() {
   };
 
   return (
-    <Box
-      id="top-loader"
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        zIndex: 9999,
-        opacity: 0,
-        transition: "opacity 0.2s ease",
-      }}
-    >
-      <LinearProgress
+    <>
+      {/* Overlay to freeze body */}
+      <Box
+        id="top-loader-overlay"
         sx={{
-          height: 2,
-          "& .MuiLinearProgress-bar": {
-            boxShadow: "0 0 10px rgba(79,70,229,0.7)",
-          },
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0,0,0,0.4)",
+          opacity: 0,
+          pointerEvents: "none",
+          transition: "opacity 0.2s ease",
+          zIndex: 9998,
         }}
       />
-    </Box>
+
+      {/* Top loader bar */}
+      <Box
+        id="top-loader"
+        sx={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          zIndex: 9999,
+          opacity: 0,
+          transition: "opacity 0.2s ease",
+        }}
+      >
+        <LinearProgress
+          sx={{
+            height: 2,
+            "& .MuiLinearProgress-bar": {
+              boxShadow: "0 0 10px rgba(79,70,229,0.7)",
+            },
+          }}
+        />
+      </Box>
+    </>
   );
 }
