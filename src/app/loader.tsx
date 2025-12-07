@@ -60,7 +60,7 @@ export default function RouterLoadingListener() {
     if (overlay) overlay.style.pointerEvents = "auto";
 
     if (safetyTimerRef.current) clearTimeout(safetyTimerRef.current);
-    safetyTimerRef.current = setTimeout(() => stop(), 11000);
+    safetyTimerRef.current = setTimeout(() => stop(), 30000);
   };
 
   const stop = () => {

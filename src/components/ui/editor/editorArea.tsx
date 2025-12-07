@@ -115,7 +115,7 @@ export function EditorComponent() {
     console.log("HTML:", contentHTML);
   };
 
-  if (!editor) return <div>Loading editor...</div>;
+  if (!editor) return <div></div>;
 
   return (
     <Box
