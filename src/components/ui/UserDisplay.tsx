@@ -23,12 +23,12 @@ export default function UserDisplay({ user, handleDrawerToggle }: { user: any, h
         <List>
           <ListItem
             disablePadding
-
           >
             <ListItemButton
               onClick={() => {
                 requireAuth(() => {
                   if (isAuthor) {
+                    handleDrawerToggle();
                     router.push(`/${user?.author?.handle}`);
                   }
                 });

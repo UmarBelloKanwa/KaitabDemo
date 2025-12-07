@@ -25,7 +25,6 @@ import ArticleIcon from '@mui/icons-material/ArticleOutlined';
 import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
 const drawerWidth = 280;
 const collapsedWidth = 64; // Width when collapsed (just icon)
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 export default function Sidebar({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
