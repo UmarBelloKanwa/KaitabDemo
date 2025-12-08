@@ -293,8 +293,7 @@ export function SimpleEditor() {
         <Box
           sx={{
             display: "flex",
-            mt: { xs: 4, sm: 4, md: 1 },
-            mx: 1,
+            m: 1,
             bgcolor: "background.default",
             alignItems: "center",
           }}
