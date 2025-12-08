@@ -1,7 +1,5 @@
-"use client"
-
-import { EditorComponent } from "@/components/ui/editor/EditorArea";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
 
 export default function Page() {
-  return <EditorComponent />
+  return <SimpleEditor />
 }

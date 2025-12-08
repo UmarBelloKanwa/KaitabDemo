@@ -27,14 +27,16 @@ export default function AuthCard({
       onClose={handleClose}
       maxWidth="xs"
       fullWidth
-      PaperProps={{
-        sx: {
-          border: "1px solid red",
-          borderColor: "grey.800",
-          borderRadius: 2, // optional: rounded corners
-          p: { xs: 0, md: 1 },
-        },
-        elevation: 0,
+      slotProps={{
+        paper: {
+          sx: {
+            border: "1px solid red",
+            borderColor: "grey.800",
+            borderRadius: 2, // optional: rounded corners
+            p: { xs: 0, md: 1 },
+          },
+          elevation: 0,
+        }
       }}
     >
       {tab === "login" && (

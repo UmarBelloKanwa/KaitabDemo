@@ -28,20 +28,24 @@ import {
   TableHeader,
   TableCell,
 } from "@tiptap/extension-table";
+import { Placeholder } from "@tiptap/extensions";
 
 export default function useTipTapEditor() {
   const [title, setTitle] = useState("");
   const [preview, setPreview] = useState(false);
   const [subtitle, setSubtitle] = useState("");
-  const [byline, setByline] = useState("");
-  const [showBylineDialog, setShowBylineDialog] = useState(false);
-  const [bylineInput, setBylineInput] = useState("");
   const [styleAnchorEl, setStyleAnchorEl] = useState<null | HTMLElement>(null);
   const [moreAnchorEl, setMoreAnchorEl] = useState<null | HTMLElement>(null);
+  const [linkText, setLinkText] = useState("");
+  const [linkUrl, setLinkUrl] = useState("");
+  const [showLinkDialog, setShowLinkDialog] = useState(false);
 
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ heading: { levels: [1, 2, 3] } }),
+      Placeholder.configure({
+        placeholder: "Write something …",
+      }),
       Link.configure({ openOnClick: false }),
       Image,
       TableKit.configure({ resizable: true }),
@@ -49,7 +53,7 @@ export default function useTipTapEditor() {
       TableHeader,
       TableCell,
     ],
-    content: "<p>Start writing...</p>",
+    content: "",
     editorProps: { attributes: { class: "ProseMirror" } },
     immediatelyRender: false,
   });
@@ -80,11 +84,6 @@ export default function useTipTapEditor() {
         .run();
   }, [editor]);
 
-  const handleSaveByline = () => {
-    setByline(bylineInput);
-    setShowBylineDialog(false);
-  };
-
   const handleSaveArticle = () => {
     if (!editor) return;
     const contentJSON = editor.getJSON();
@@ -94,6 +93,48 @@ export default function useTipTapEditor() {
   };
 
   if (!editor) return null;
+
+  const handleCreateLink = () => {
+    if (!editor || !linkUrl) return;
+
+    const { from, to } = editor.state.selection;
+    const hasSelection = from !== to;
+
+    if (hasSelection) {
+      // Case 1: Apply link to selected text
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href: linkUrl })
+        .setTextSelection({
+          from: to,
+          to: to,
+        }) // move cursor after the selection
+        .unsetLink() // remove active link mark
+        .run();
+    } else {
+      // Case 2: Insert new text as link
+      editor
+        .chain()
+        .focus()
+        .insertContent({
+          type: "text",
+          text: linkText || linkUrl,
+          marks: [{ type: "link", attrs: { href: linkUrl } }],
+        })
+        .setTextSelection({
+          from: editor.state.selection.to,
+          to: editor.state.selection.to,
+        }) // move cursor after inserted link
+        .unsetLink() // ensure further typing is normal
+        .run();
+    }
+
+    setLinkText("");
+    setLinkUrl("");
+    setShowLinkDialog(false);
+  };
 
   const styleMenuItems = [
     {
@@ -158,7 +199,11 @@ export default function useTipTapEditor() {
   ];
 
   const insertButtons = [
-    { icon: LinkIcon, title: "Add Link", action: addLink },
+    {
+      icon: LinkIcon,
+      title: "Add Link",
+      action: () => setShowLinkDialog(true),
+    },
     { icon: ImageIcon, title: "Add Image", action: addImage },
     { icon: TableChart, title: "Insert Table", action: insertTable },
   ];
@@ -195,13 +240,15 @@ export default function useTipTapEditor() {
     setTitle,
     subtitle,
     setSubtitle,
-    setShowBylineDialog,
-    showBylineDialog,
-    bylineInput,
-    setBylineInput,
-    handleSaveByline,
     handleSaveArticle,
-    preview,
     togglePreview,
+    preview,
+    handleCreateLink,
+    showLinkDialog,
+    setShowLinkDialog,
+    setLinkText,
+    setLinkUrl,
+    linkUrl,
+    linkText,
   };
 }

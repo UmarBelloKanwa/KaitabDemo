@@ -21,6 +21,7 @@ import Button from "@mui/material/Button";
 import BackButton from "@/components/ui/common/BackButton";
 import { EditorContent } from "@tiptap/react";
 import useTipTapEditor from "@/hooks/editor/useEditor";
+import StyledEditorBox from "@/components/ui/editor/StyledEditorBox";
 
 export function EditorComponent() {
   const theme = useTheme();
@@ -45,14 +46,16 @@ export function EditorComponent() {
     setTitle,
     subtitle,
     setSubtitle,
-    setShowBylineDialog,
-    showBylineDialog,
-    bylineInput,
-    setBylineInput,
-    handleSaveByline,
     handleSaveArticle,
     togglePreview,
     preview,
+    handleCreateLink,
+    showLinkDialog,
+    setShowLinkDialog,
+    setLinkText,
+    setLinkUrl,
+    linkUrl,
+    linkText
   } = acts;
 
   return (
@@ -74,7 +77,7 @@ export function EditorComponent() {
             variant={preview ? "contained" : "outlined"}
             className={"elevated"}
             onClick={togglePreview}
-            sx={{ textTransform: "none", px: 2, }}
+            sx={{ textTransform: "none", px: 2 }}
           >
             {preview ? "Edit" : "Preview"}
           </Button>
@@ -90,11 +93,10 @@ export function EditorComponent() {
       </Box>
       <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
         {preview ? (
-          <Box
+          <StyledEditorBox
             sx={{
               p: 2,
               bgcolor: "background.default",
-             // border: `1px solid ${theme.palette.divider}`,
               minHeight: "100vh",
               whiteSpace: "pre-wrap",
             }}
@@ -267,7 +269,7 @@ export function EditorComponent() {
               </Paper>
 
               {/* Content Inputs */}
-              <Box sx={{ px: 3, py: 3 }}>
+              <Box sx={{ px: 3, py: 1 }}>
                 <input
                   type="text"
                   placeholder="Title"
@@ -303,116 +305,79 @@ export function EditorComponent() {
                 />
 
                 <Dialog
-                  open={showBylineDialog}
-                  onClose={() => setShowBylineDialog(false)}
+                  maxWidth="xs"
+                  open={showLinkDialog}
+                  onClose={() => setShowLinkDialog(false)}
+                  slotProps={{
+                    paper: {
+                      sx: {
+                        border: "1px solid",
+                        borderColor: "grey.800",
+                        borderRadius: 2,
+                        p: { xs: 0, md: 1 },
+                      },
+                      elevation: 0,
+                    },
+                  }}
                 >
-                  <DialogTitle>Add Byline</DialogTitle>
+                  <DialogTitle>Create a link</DialogTitle>
+
                   <DialogContent sx={{ minWidth: 300 }}>
                     <TextField
                       autoFocus
                       margin="dense"
-                      label="Author name"
+                      label="Enter text"
                       fullWidth
                       variant="outlined"
-                      value={bylineInput}
-                      onChange={(e) => setBylineInput(e.target.value)}
+                      value={linkText}
+                      onChange={(e) => setLinkText(e.target.value)}
+                    />
+
+                    <TextField
+                      margin="dense"
+                      label="Enter URL"
+                      fullWidth
+                      variant="outlined"
+                      value={linkUrl}
+                      onChange={(e) => setLinkUrl(e.target.value)}
+                      placeholder="https://example.com"
                     />
                   </DialogContent>
+
                   <DialogActions>
-                    <Button onClick={() => setShowBylineDialog(false)}>
-                      Cancel
+                    <Button onClick={handleCreateLink} variant="contained">
+                      Link
                     </Button>
-                    <Button onClick={handleSaveByline} variant="contained">
-                      Save
+
+                    <Button onClick={() => setShowLinkDialog(false)}>
+                      Cancel
                     </Button>
                   </DialogActions>
                 </Dialog>
 
                 {/* TipTap Editor */}
-                <Box
+                <StyledEditorBox
                   sx={{
+                    px: 0,
                     "& .ProseMirror": {
+                      px: 0,
                       outline: "none",
                       minHeight: 300,
                       fontSize: theme.typography.body1.fontSize,
                       lineHeight: theme.typography.body1.lineHeight,
                       color: theme.palette.text.primary,
-                      "& h1": {
-                        fontSize: theme.typography.h4.fontSize,
-                        fontWeight: theme.typography.h4.fontWeight,
-                        marginTop: theme.spacing(1),
-                        marginBottom: theme.spacing(1),
-                      },
-                      "& h2": {
-                        fontSize: theme.typography.h5.fontSize,
-                        fontWeight: theme.typography.h5.fontWeight,
-                        marginTop: theme.spacing(0.5),
-                        marginBottom: theme.spacing(0.5),
-                      },
-                      "& h3": {
-                        fontSize: theme.typography.h6.fontSize,
-                        fontWeight: theme.typography.h6.fontWeight,
-                        marginTop: theme.spacing(0.3),
-                        marginBottom: theme.spacing(0.3),
-                      },
-                      "& p": { margin: theme.spacing(0.5, 0) },
-                      "& ul, & ol": {
-                        paddingLeft: theme.spacing(3),
-                        margin: theme.spacing(0.5, 0),
-                      },
-                      "& li": { marginBottom: theme.spacing(0.25) },
-                      "& blockquote": {
-                        paddingLeft: theme.spacing(1),
-                        borderLeft: `3px solid ${theme.palette.divider}`,
-                        margin: theme.spacing(0.5, 0),
-                        color: theme.palette.text.secondary,
-                        fontStyle: "italic",
-                      },
-                      "& a": {
-                        color: theme.palette.primary.main,
-                        textDecoration: "underline",
-                        cursor: "pointer",
-                      },
-                      "& img": {
-                        maxWidth: "100%",
-                        height: "auto",
-                        margin: theme.spacing(0.5, 0),
-                      },
-                      "& table": {
-                        borderCollapse: "collapse",
-                        width: "100%",
-                        margin: theme.spacing(0.5, 0),
-                      },
-                      "& th, & td": {
-                        border: `1px solid ${theme.palette.divider}`,
-                        padding: theme.spacing(0.5),
-                        textAlign: "left",
-                      },
-                      "& th": {
-                        backgroundColor: theme.palette.background.default,
-                        fontWeight: 600,
-                      },
-                      "& code": {
-                        backgroundColor: theme.palette.action.hover,
-                        padding: theme.spacing(0.2, 0.4),
-                        borderRadius: theme.shape.borderRadius,
-                        fontFamily: "monospace",
-                      },
-                      "& pre": {
-                        backgroundColor: theme.palette.action.hover,
-                        padding: theme.spacing(1),
-                        borderRadius: theme.shape.borderRadius,
-                        overflow: "auto",
-                      },
-                      "& hr": {
-                        borderTop: `1px solid ${theme.palette.divider}`,
-                        margin: theme.spacing(1, 0),
+                      "& p.is-editor-empty:first-child::before": {
+                        content: "attr(data-placeholder)",
+                        color: "grey",
+                        float: "left",
+                        pointerEvents: "none",
+                        height: 0,
                       },
                     },
                   }}
                 >
                   <EditorContent editor={editor} />
-                </Box>
+                </StyledEditorBox>
               </Box>
 
               {/* Footer Stats */}

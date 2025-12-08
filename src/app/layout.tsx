@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import UserProvider from "@/providers/UserProvider";
 import Providers from "@/providers/Providers";
 import RouterLoadingListener from "./loader";
+import "./global.scss";
 // This app needs to read cookies during server-side data fetching (HydrationProvider
 // prefetches the current user using server actions that access cookies). That
 // prevents static (SSG) rendering for routes. Force the app to be dynamic so Next

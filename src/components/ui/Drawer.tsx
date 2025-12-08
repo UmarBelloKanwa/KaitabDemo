@@ -109,6 +109,7 @@ export default function Sidebar({ user }: { user: any }) {
       variant={drawerVariant}
       open={isMobile ? sidebarOpen : true}
       onClose={handleDrawerToggle}
+      id="appDrawer"
       sx={{
         width: sidebarOpen ? drawerWidth : 0,
         flexShrink: 0,
