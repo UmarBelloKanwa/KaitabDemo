@@ -97,6 +97,8 @@ export function shouldShowLinkButton(props: {
 export function useLinkHandler(props: LinkHandlerProps) {
   const { editor, onSetLink } = props
   const [url, setUrl] = useState<string | null>(null)
+  const [text, setText] = useState("")
+
 
   useEffect(() => {
     if (!editor) return
@@ -124,26 +126,39 @@ export function useLinkHandler(props: LinkHandlerProps) {
   }, [editor])
 
   const setLink = useCallback(() => {
-    if (!url || !editor) return
+  if (!url || !editor) return
 
-    const { selection } = editor.state
-    const isEmpty = selection.empty
+  const { selection } = editor.state
+  const isEmpty = selection.empty
 
-    let chain = editor.chain().focus()
+  const chain = editor.chain().focus()
 
-    chain = chain.extendMarkRange("link").setLink({ href: url })
+  if (isEmpty) {
+    // ✅ Insert CUSTOM TEXT and apply link
+    chain.insertContent({
+      type: "text",
+      text: text || url, // ✅ fallback only if user didn't type text
+      marks: [
+        {
+          type: "link",
+          attrs: { href: url },
+        },
+      ],
+    })
+  } else {
+    // ✅ Apply link to selected text
+    chain.extendMarkRange("link").setLink({ href: url })
+  }
 
-    if (isEmpty) {
-      chain = chain.insertContent({ type: "text", text: url })
-    }
+  chain.run()
 
-    chain.run()
+  setUrl("")
+  setText("")
 
-    setUrl(null)
+  onSetLink?.()
+}, [editor, onSetLink, url, text])
 
-    onSetLink?.()
-  }, [editor, onSetLink, url])
-
+ 
   const removeLink = useCallback(() => {
     if (!editor) return
     editor
@@ -171,6 +186,8 @@ export function useLinkHandler(props: LinkHandlerProps) {
   return {
     url: url || "",
     setUrl,
+    text,
+    setText,
     setLink,
     removeLink,
     openLink,

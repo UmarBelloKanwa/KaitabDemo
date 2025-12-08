@@ -272,7 +272,7 @@ export function SimpleEditor() {
       createdAt: new Date().toISOString(),
     };
 
-    console.log("✅ SAVED ARTICLE:", articleData);
+    console.log(" SAVED ARTICLE:", articleData);
 
     // Example:
     // await fetch('/api/article', { method: 'POST', body: JSON.stringify(articleData) })
@@ -284,13 +284,13 @@ export function SimpleEditor() {
   }, [preview, editor]);
 
   return (
-    <div className="simple-editor-wrapper">
+    <Box component="div" className="simple-editor-wrapper" sx={{ width: "100%", maxWidth: "100%" }}>
       <EditorContext.Provider value={{ editor }}>
         <Box
           sx={{
             display: "flex",
-            p: 2,
-            px: 2,
+            mt: { xs: 4, sm: 4, md: 1 },
+            mx: 1,
             bgcolor: "background.default",
             alignItems: "center",
           }}
@@ -328,35 +328,38 @@ export function SimpleEditor() {
             mx: "auto",
           }}
         >
-          <Toolbar
-            ref={toolbarRef}
-            style={{
-              ...(isMobile
-                ? {
-                    bottom: `calc(100% - ${height - rect.y}px)`,
-                  }
-                : {}),
-            }}
-          >
-            {mobileView === "main" ? (
-              <MainToolbarContent
-                onHighlighterClick={() => setMobileView("highlighter")}
-                onLinkClick={() => setMobileView("link")}
-                isMobile={isMobile}
-              />
-            ) : (
-              <MobileToolbarContent
-                type={mobileView === "highlighter" ? "highlighter" : "link"}
-                onBack={() => setMobileView("main")}
-              />
-            )}
-          </Toolbar>
-          <Box>
+          {!preview && (
+            <Toolbar
+              ref={toolbarRef}
+              style={{
+                ...(isMobile
+                  ? {
+                      bottom: `calc(100% - ${height - rect.y}px)`,
+                    }
+                  : {}),
+              }}
+            >
+              {mobileView === "main" ? (
+                <MainToolbarContent
+                  onHighlighterClick={() => setMobileView("highlighter")}
+                  onLinkClick={() => setMobileView("link")}
+                  isMobile={isMobile}
+                />
+              ) : (
+                <MobileToolbarContent
+                  type={mobileView === "highlighter" ? "highlighter" : "link"}
+                  onBack={() => setMobileView("main")}
+                />
+              )}
+            </Toolbar>
+          )}
+          <Box sx={{m: 1}}>
             <input
               type="text"
               placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              readOnly={preview}
               style={{
                 width: "100%",
                 fontSize: theme.typography.h3.fontSize,
@@ -374,6 +377,7 @@ export function SimpleEditor() {
               placeholder="Add a subtitle..."
               value={subtitle}
               onChange={(e) => setSubtitle(e.target.value)}
+              readOnly={preview}
               style={{
                 width: "100%",
                 fontSize: theme.typography.body1.fontSize,
@@ -387,7 +391,7 @@ export function SimpleEditor() {
             />
 
             {preview ? (
-               <EditorContent
+              <EditorContent
                 editor={editor}
                 role="presentation"
                 className="simple-editor-content"
@@ -402,6 +406,6 @@ export function SimpleEditor() {
           </Box>
         </Box>
       </EditorContext.Provider>
-    </div>
+    </Box>
   );
 }
