@@ -284,7 +284,11 @@ export function SimpleEditor() {
   }, [preview, editor]);
 
   return (
-    <Box component="div" className="simple-editor-wrapper" sx={{ width: "100%", maxWidth: "100%" }}>
+    <Box
+      component="div"
+      className="simple-editor-wrapper"
+      sx={{ width: "100%", maxWidth: "100%" }}
+    >
       <EditorContext.Provider value={{ editor }}>
         <Box
           sx={{
@@ -353,7 +357,7 @@ export function SimpleEditor() {
               )}
             </Toolbar>
           )}
-          <Box sx={{m: 1}}>
+          <Box sx={{ m: 1 }}>
             <input
               type="text"
               placeholder="Title"

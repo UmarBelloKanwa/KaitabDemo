@@ -5,14 +5,12 @@ import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { useTheme, useMediaQuery } from "@mui/material";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -21,14 +19,15 @@ import { useRouter } from "next/navigation";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import RecentItems from "./RecentItems";
 import UserDisplay from "./UserDisplay";
-import ArticleIcon from '@mui/icons-material/ArticleOutlined';
-import RecordVoiceOverOutlinedIcon from '@mui/icons-material/RecordVoiceOverOutlined';
+import ArticleIcon from "@mui/icons-material/ArticleOutlined";
+import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
+import { usePathname } from "next/navigation";
+
 const drawerWidth = 280;
-const collapsedWidth = 64; // Width when collapsed (just icon)
 
 export default function Sidebar({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
-
+  const pathname = usePathname();
   const companyName = "Feedple";
 
   const theme = useTheme();
@@ -66,6 +65,14 @@ export default function Sidebar({ user }: { user: any }) {
   React.useEffect(() => {
     setSidebarOpen(!isMobile); // auto-sync with screen size
   }, [isMobile]);
+
+  const hideDrawer =
+    pathname.startsWith("/publish") ||
+    pathname.startsWith("/upgrade") 
+  
+  if (hideDrawer) {
+    return <></>;
+  }
 
   if (!sidebarOpen) {
     return (
@@ -221,7 +228,7 @@ export default function Sidebar({ user }: { user: any }) {
                     />
                   </ListItemButton>
                 </ListItem>
-              )
+              );
             })}
           </List>
 
@@ -239,7 +246,8 @@ export default function Sidebar({ user }: { user: any }) {
               // only auto-close on mobile
               handleDrawerToggle();
             }
-          }} />
+          }}
+        />
       </Box>
     </Drawer>
   );

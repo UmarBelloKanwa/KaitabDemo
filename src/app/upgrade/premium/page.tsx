@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
 import {
   Box,
@@ -15,37 +15,38 @@ import {
   Stack,
   ToggleButtonGroup,
   ToggleButton,
-} from "@mui/material"
-import { styled } from "@mui/material/styles"
-import CloseIcon from "@mui/icons-material/Close"
-import CheckIcon from "@mui/icons-material/Check"
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined"
-import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined"
-import MicNoneIcon from "@mui/icons-material/MicNone"
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline"
-import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined"
-import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined"
-import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined"
-import AddIcon from "@mui/icons-material/Add"
-import BoltIcon from "@mui/icons-material/Bolt"
-import { useState } from "react"
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import CloseIcon from "@mui/icons-material/Close";
+import CheckIcon from "@mui/icons-material/Check";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
+import MicNoneIcon from "@mui/icons-material/MicNone";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
+import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
+import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import BoltIcon from "@mui/icons-material/Bolt";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface PlanFeature {
-  icon: React.ElementType
-  text: string
-  subtext?: string
+  icon: React.ElementType;
+  text: string;
+  subtext?: string;
 }
 
 interface PricingPlan {
-  id: string
-  name: string
-  price: number | "Free"
-  currency?: string
-  period?: string
-  buttonText: string
-  buttonVariant: "outlined" | "contained"
-  isPopular?: boolean
-  features: PlanFeature[]
+  id: string;
+  name: string;
+  price: number | "Free";
+  currency?: string;
+  period?: string;
+  buttonText: string;
+  buttonVariant: "outlined" | "contained";
+  isPopular?: boolean;
+  features: PlanFeature[];
 }
 
 const pricingPlans: PricingPlan[] = [
@@ -104,7 +105,7 @@ const pricingPlans: PricingPlan[] = [
       { icon: AddIcon, text: "Everything in Cortex" },
     ],
   },
-]
+];
 
 const StyledCard = styled(Card)(({ theme }) => ({
   background: theme.palette.background.paper,
@@ -112,7 +113,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(3),
   // border: `1px solid ${theme.palette.divider}`,
   position: "relative",
-}))
+}));
 
 const StarField = styled(Box)({
   position: "absolute",
@@ -120,27 +121,30 @@ const StarField = styled(Box)({
   opacity: 0.5,
   overflow: "hidden",
   pointerEvents: "none",
-})
+});
 
-const Star = styled("div")<{ left: number; top: number; opacity: number }>(({ left, top, opacity, theme }) => ({
-  position: "absolute",
-  width: 5,
-  height: 5,
-  borderRadius: "50%",
-  backgroundColor: theme.palette.primary.main,
-  left: `${left}%`,
-  top: `${top}%`,
-  opacity,
-}))
+const Star = styled("div")<{ left: number; top: number; opacity: number }>(
+  ({ left, top, opacity, theme }) => ({
+    position: "absolute",
+    width: 5,
+    height: 5,
+    borderRadius: "50%",
+    backgroundColor: theme.palette.primary.main,
+    left: `${left}%`,
+    top: `${top}%`,
+    opacity,
+  })
+);
 
 export default function PricingPage() {
-  const [planType, setPlanType] = useState("individual")
+  const [planType, setPlanType] = useState("individual");
+  const router = useRouter();
 
   const stars = Array.from({ length: 50 }, () => ({
     left: Math.random() * 100,
     top: Math.random() * 100,
     opacity: Math.random() * 0.7 + 0.3,
-  }))
+  }));
 
   return (
     <Box
@@ -156,12 +160,20 @@ export default function PricingPage() {
       {/* Starry background */}
       <StarField>
         {stars.map((star, i) => (
-          <Star key={i} left={star.left} top={star.top} opacity={star.opacity} />
+          <Star
+            key={i}
+            left={star.left}
+            top={star.top}
+            opacity={star.opacity}
+          />
         ))}
       </StarField>
 
       {/* Close button */}
       <IconButton
+        onClick={() => {
+          router.back();
+        }}
         sx={{
           position: "absolute",
           top: 16,
@@ -177,32 +189,43 @@ export default function PricingPage() {
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
         <Box sx={{ textAlign: "center", mb: 6 }}>
-          <Typography variant="h1" sx={{ fontSize: { xs: "2.5rem", md: "3rem" }, mb: 2 }}>
+          <Typography
+            variant="h1"
+            sx={{ fontSize: { xs: "2.5rem", md: "3rem" }, mb: 2 }}
+          >
             Cortex
           </Typography>
-          <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>Introducing Cortex</Typography>
-          <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>Safe Personalized SuperIntelligence</Typography>
+          <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>
+            Introducing Cortex
+          </Typography>
+          <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>
+            Safe Personalized SuperIntelligence
+          </Typography>
         </Box>
 
         {/* Tabs */}
-        <Box sx={{ display: "flex", justifyContent: "center", mb: 6 }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 6 }}>
           <ToggleButtonGroup
-            value={planType} exclusive
+            value={planType}
+            exclusive
             onChange={(e, value) => value && setPlanType(value)}
             size="small"
             sx={{
               borderRadius: 50,
               "& .MuiToggleButton-root": {
                 borderRadius: 50,
-                border: "none"
+                border: "none",
               },
               p: 0.2,
-              bgcolor: "black"
+              bgcolor: "black",
             }}
           >
-            <ToggleButton size="small" value="individual">Individual</ToggleButton>
-            <ToggleButton size="small" value="business">Business</ToggleButton>
+            <ToggleButton size="small" value="individual">
+              Individual
+            </ToggleButton>
+            <ToggleButton size="small" value="business">
+              Business
+            </ToggleButton>
           </ToggleButtonGroup>
         </Box>
 
@@ -221,7 +244,15 @@ export default function PricingPage() {
                   />
                 )}
                 <CardContent sx={{ p: 0 }}>
-                  <Typography sx={{ color: "text.secondary", fontSize: "0.875rem", mb: 1 }}>{plan.name}</Typography>
+                  <Typography
+                    sx={{
+                      color: "text.secondary",
+                      fontSize: "0.875rem",
+                      mb: 1,
+                    }}
+                  >
+                    {plan.name}
+                  </Typography>
 
                   {/* Price Display */}
                   {plan.price === "Free" ? (
@@ -230,10 +261,20 @@ export default function PricingPage() {
                     </Typography>
                   ) : (
                     <Box sx={{ mb: 1 }}>
-                      <Typography component="span" sx={{ fontSize: "2rem", fontWeight: 700 }}>
+                      <Typography
+                        component="span"
+                        sx={{ fontSize: "2rem", fontWeight: 700 }}
+                      >
                         ${plan.price.toFixed(2)}
                       </Typography>
-                      <Typography component="span" sx={{ fontSize: "0.9rem", color: "text.secondary", ml: 1 }}>
+                      <Typography
+                        component="span"
+                        sx={{
+                          fontSize: "0.9rem",
+                          color: "text.secondary",
+                          ml: 1,
+                        }}
+                      >
                         {plan.currency}/{plan.period}
                       </Typography>
                     </Box>
@@ -258,24 +299,51 @@ export default function PricingPage() {
                   {/* Features List */}
                   <Stack spacing={2}>
                     {plan.features.map((feature, index) => {
-                      const IconComponent = feature.icon
+                      const IconComponent = feature.icon;
                       return (
-                        <Stack key={index} direction="row" spacing={1.5} alignItems="flex-start">
-                          <IconComponent sx={{ fontSize: 20, color: "text.secondary", flexShrink: 0, mt: 0.25 }} />
+                        <Stack
+                          key={index}
+                          direction="row"
+                          spacing={1.5}
+                          alignItems="flex-start"
+                        >
+                          <IconComponent
+                            sx={{
+                              fontSize: 20,
+                              color: "text.secondary",
+                              flexShrink: 0,
+                              mt: 0.25,
+                            }}
+                          />
                           {feature.subtext ? (
                             <Box>
-                              <Typography sx={{ fontSize: "0.875rem", color: "grey.300", fontWeight: 500 }}>
+                              <Typography
+                                sx={{
+                                  fontSize: "0.875rem",
+                                  color: "grey.300",
+                                  fontWeight: 500,
+                                }}
+                              >
                                 {feature.text}
                               </Typography>
-                              <Typography sx={{ fontSize: "0.75rem", color: "text.disabled" }}>
+                              <Typography
+                                sx={{
+                                  fontSize: "0.75rem",
+                                  color: "text.disabled",
+                                }}
+                              >
                                 {feature.subtext}
                               </Typography>
                             </Box>
                           ) : (
-                            <Typography sx={{ fontSize: "0.875rem", color: "grey.300" }}>{feature.text}</Typography>
+                            <Typography
+                              sx={{ fontSize: "0.875rem", color: "grey.300" }}
+                            >
+                              {feature.text}
+                            </Typography>
                           )}
                         </Stack>
-                      )
+                      );
                     })}
                   </Stack>
                 </CardContent>
@@ -285,5 +353,5 @@ export default function PricingPage() {
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }
