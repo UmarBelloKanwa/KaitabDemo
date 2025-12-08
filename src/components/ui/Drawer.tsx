@@ -28,6 +28,8 @@ const drawerWidth = 280;
 export default function Sidebar({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
   const pathname = usePathname();
+
+  const logoSrc = "/app/logo-name.png";
   const companyName = "Feedple";
 
   const theme = useTheme();
@@ -104,13 +106,13 @@ export default function Sidebar({ user }: { user: any }) {
 
         <Box
           sx={{
-            width: "35%",
+            width: "38%",
             height: "100%",
             mb: -1,
           }}
         >
           <img
-            src="/app/logo-two.png"
+            src={logoSrc}
             alt="App Logo"
             onClick={handleDrawerToggle}
             style={{
@@ -175,12 +177,12 @@ export default function Sidebar({ user }: { user: any }) {
           >
             <Box
               sx={{
-                width: { xs: "50%", sm: "50%", md: "50%" },
+                width: { xs: "53%", sm: "53%", md: "50%" },
                 height: "100%",
               }}
             >
               <img
-                src="/app/logo-two.png"
+                src={logoSrc}
                 alt="App Logo"
                 onClick={() => router.push("/")}
                 style={{
