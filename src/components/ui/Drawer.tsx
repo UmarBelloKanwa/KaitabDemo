@@ -67,9 +67,8 @@ export default function Sidebar({ user }: { user: any }) {
   }, [isMobile]);
 
   const hideDrawer =
-    pathname.startsWith("/publish") ||
-    pathname.startsWith("/upgrade") 
-  
+    pathname.startsWith("/publish") || pathname.startsWith("/upgrade");
+
   if (hideDrawer) {
     return <></>;
   }
@@ -85,7 +84,9 @@ export default function Sidebar({ user }: { user: any }) {
           height: "fit-content",
           display: "flex",
           alignItems: "center",
-          gap: { xs: 2, sm: 0 },
+          alignContent: "center",
+          justifyItems: "centre",
+          gap: { xs: 1.5, sm: 0 },
           justifyContent: "space-arround",
         }}
       >
@@ -94,19 +95,40 @@ export default function Sidebar({ user }: { user: any }) {
           sx={{
             borderRadius: 2,
             bgcolor: theme.palette.background.paper,
+            p: 0.9,
             color: theme.palette.text.primary,
           }}
         >
           <MenuIcon />
         </IconButton>
-        <Typography
+
+        <Box
+          sx={{
+            width: "35%",
+            height: "100%",
+            mb: -1,
+          }}
+        >
+          <img
+            src="/app/logo-two.png"
+            alt="App Logo"
+            onClick={handleDrawerToggle}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+          />
+        </Box>
+
+        {/* <Typography
           variant="h6"
           color="text.primary"
           sx={{ m: 0, cursor: "pointer", display: { xs: "block", sm: "none" } }}
           onClick={() => router.push("/")}
         >
           {companyName}
-        </Typography>
+        </Typography> */}
       </Box>
     );
   }
@@ -116,7 +138,6 @@ export default function Sidebar({ user }: { user: any }) {
       variant={drawerVariant}
       open={isMobile ? sidebarOpen : true}
       onClose={handleDrawerToggle}
-      id="appDrawer"
       sx={{
         width: sidebarOpen ? drawerWidth : 0,
         flexShrink: 0,
@@ -147,6 +168,34 @@ export default function Sidebar({ user }: { user: any }) {
             sx={{
               display: "flex",
               alignItems: "center",
+              gap: 1.2,
+              width: "fit-content",
+              my: 1,
+            }}
+          >
+            <Box
+              sx={{
+                width: { xs: "50%", sm: "50%", md: "50%" },
+                height: "100%",
+              }}
+            >
+              <img
+                src="/app/logo-two.png"
+                alt="App Logo"
+                onClick={() => router.push("/")}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </Box>
+          </Box>
+
+          {/* <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
               justifyContent: "space-between",
             }}
           >
@@ -167,7 +216,7 @@ export default function Sidebar({ user }: { user: any }) {
             >
               <ChevronLeft />
             </IconButton>
-          </Box>
+          </Box> */}
         </Box>
 
         {/* Create Button */}
