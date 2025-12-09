@@ -22,6 +22,7 @@ import UserDisplay from "./UserDisplay";
 import ArticleIcon from "@mui/icons-material/ArticleOutlined";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import { usePathname } from "next/navigation";
+import "./drawer.css";
 
 const drawerWidth = 280;
 
@@ -66,6 +67,9 @@ export default function Sidebar({ user }: { user: any }) {
 
   React.useEffect(() => {
     setSidebarOpen(!isMobile); // auto-sync with screen size
+    if (isMobile) {
+      document.querySelector(".nav-box")?.classList.add("show");
+    }
   }, [isMobile]);
 
   const hideDrawer =
@@ -75,55 +79,64 @@ export default function Sidebar({ user }: { user: any }) {
     return <></>;
   }
 
-  if (!sidebarOpen) {
-    return (
-      <Box
-        sx={{
-          pl: { sm: 2, xs: 2.5 },
-          pr: { sm: "unset", xs: 2.5 },
-          pt: 1.5,
-          pb: { xs: 1, sm: "unset" },
-          height: "fit-content",
-          display: "flex",
-          alignItems: "center",
-          alignContent: "center",
-          justifyItems: "centre",
-          gap: { xs: 1.5, sm: 0 },
-          justifyContent: "space-arround",
-        }}
-      >
-        <IconButton
-          onClick={handleDrawerToggle}
-          sx={{
-            borderRadius: 2,
-            bgcolor: theme.palette.background.paper,
-            p: 0.9,
-            color: theme.palette.text.primary,
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+  // React.useEffect(() => {
+  //   if (sidebarOpen) {
+  //     document.querySelector(".short-nav")?.classList.add("show");
+  //   } else {
+  //     document.querySelector(".short-nav")?.classList.remove("show");
+  //   }
+  // }, [sidebarOpen]);
 
+  return (
+    <>
+      <div className="short-nav">
         <Box
           sx={{
-            width: "38%",
-            height: "100%",
-            mb: -1,
+            pl: { sm: 2, xs: 2.5 },
+            pr: { sm: "unset", xs: 2.5 },
+            pt: 1.5,
+            pb: { xs: 1, sm: "unset" },
+            height: "fit-content",
+            display: "flex",
+            alignItems: "center",
+            alignContent: "center",
+            justifyItems: "centre",
+            gap: { xs: 1.5, sm: 0 },
+            justifyContent: "space-arround",
           }}
         >
-          <img
-            src={logoSrc}
-            alt="App Logo"
+          <IconButton
             onClick={handleDrawerToggle}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
+            sx={{
+              borderRadius: 2,
+              bgcolor: theme.palette.background.paper,
+              p: 0.9,
+              color: theme.palette.text.primary,
             }}
-          />
-        </Box>
+          >
+            <MenuIcon />
+          </IconButton>
 
-        {/* <Typography
+          <Box
+            sx={{
+              width: "38%",
+              height: "100%",
+              mb: -1,
+            }}
+          >
+            <img
+              src={logoSrc}
+              alt="App Logo"
+              onClick={handleDrawerToggle}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+              }}
+            />
+          </Box>
+
+          {/* <Typography
           variant="h6"
           color="text.primary"
           sx={{ m: 0, cursor: "pointer", display: { xs: "block", sm: "none" } }}
@@ -131,70 +144,69 @@ export default function Sidebar({ user }: { user: any }) {
         >
           {companyName}
         </Typography> */}
-      </Box>
-    );
-  }
+        </Box>
+      </div>
 
-  return (
-    <Drawer
-      variant={drawerVariant}
-      open={isMobile ? sidebarOpen : true}
-      onClose={handleDrawerToggle}
-      sx={{
-        width: sidebarOpen ? drawerWidth : 0,
-        flexShrink: 0,
-        "& .MuiDrawer-paper": {
-          width: drawerWidth,
-          boxSizing: "border-box",
-          bgcolor: "background.default", // theme key; same result on both variants
-          backgroundImage: "none", // kill dark-mode overlay
-        },
-      }}
-      elevation={0}
-      ModalProps={{
-        keepMounted: true, // optional: better mobile performance
-      }}
-    >
-      <Box
-        sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          px: 3,
-          pt: 1.5,
-        }}
-      >
-        {/* Header */}
-        <Box sx={{ mb: 2 }}>
+      <div className="nav-box">
+        <Drawer
+          variant={drawerVariant}
+          open={isMobile ? sidebarOpen : true}
+          onClose={handleDrawerToggle}
+          sx={{
+            width: sidebarOpen ? drawerWidth : 0,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+              bgcolor: "background.default", // theme key; same result on both variants
+              backgroundImage: "none", // kill dark-mode overlay
+            },
+          }}
+          elevation={0}
+          ModalProps={{
+            keepMounted: true, // optional: better mobile performance
+          }}
+        >
           <Box
             sx={{
+              height: "100%",
               display: "flex",
-              alignItems: "center",
-              gap: 1.2,
-              width: "fit-content",
-              my: 1,
+              flexDirection: "column",
+              px: 3,
+              pt: 1.5,
             }}
           >
-            <Box
-              sx={{
-                width: { xs: "53%", sm: "53%", md: "50%" },
-                height: "100%",
-              }}
-            >
-              <img
-                src={logoSrc}
-                alt="App Logo"
-                onClick={() => router.push("/")}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
+            {/* Header */}
+            <Box sx={{ mb: 2 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1.2,
+                  width: "fit-content",
+                  my: 1,
                 }}
-              />
-            </Box>
-          </Box>
+              >
+                <Box
+                  sx={{
+                    width: { xs: "53%", sm: "53%", md: "50%" },
+                    height: "100%",
+                  }}
+                >
+                  <img
+                    src={logoSrc}
+                    alt="App Logo"
+                    onClick={() => router.push("/")}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                  />
+                </Box>
+              </Box>
 
-          {/* <Box
+              {/* <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -219,87 +231,92 @@ export default function Sidebar({ user }: { user: any }) {
               <ChevronLeft />
             </IconButton>
           </Box> */}
-        </Box>
+            </Box>
 
-        {/* Create Button */}
-        <Box>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              textTransform: "none",
-              borderRadius: 2,
-            }}
-            onClick={() => {
-              requireAuth(() => {
-                router.push("/publish"); // navigate
-                if (isMobile) {
-                  // only auto-close on mobile
-                  handleDrawerToggle();
-                }
-              });
-            }}
-          >
-            Publish
-          </Button>
-        </Box>
-
-        {/* Navigation */}
-        <Box sx={{ flex: 1, px: 0 }}>
-          <List>
-            {navItems.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <ListItem
-                  key={index}
-                  disablePadding
-                  onClick={() => {
-                    item.onClick(); // navigate
+            {/* Create Button */}
+            <Box>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  textTransform: "none",
+                  borderRadius: 2,
+                }}
+                onClick={() => {
+                  requireAuth(() => {
+                    router.push("/publish"); // navigate
                     if (isMobile) {
                       // only auto-close on mobile
                       handleDrawerToggle();
                     }
-                  }}
-                >
-                  <ListItemButton
-                    sx={{
-                      borderRadius: 2,
-                      mb: 0,
-                      "&:hover": { bgcolor: theme.palette.action.hover },
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{ color: theme.palette.text.primary, minWidth: 36 }}
+                  });
+                }}
+              >
+                Publish
+              </Button>
+            </Box>
+
+            {/* Navigation */}
+            <Box sx={{ flex: 1, px: 0 }}>
+              <List>
+                {navItems.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <ListItem
+                      key={index}
+                      disablePadding
+                      onClick={() => {
+                        item.onClick(); // navigate
+                        if (isMobile) {
+                          // only auto-close on mobile
+                          handleDrawerToggle();
+                        }
+                      }}
                     >
-                      <Icon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={item.name}
-                      sx={{ color: theme.palette.text.primary }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
+                      <ListItemButton
+                        sx={{
+                          borderRadius: 2,
+                          mb: 0,
+                          "&:hover": { bgcolor: theme.palette.action.hover },
+                        }}
+                      >
+                        <ListItemIcon
+                          sx={{
+                            color: theme.palette.text.primary,
+                            minWidth: 36,
+                          }}
+                        >
+                          <Icon />
+                        </ListItemIcon>
+                        <ListItemText
+                          primary={item.name}
+                          sx={{ color: theme.palette.text.primary }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
 
-          <RecentItems
-            handleDrawerToggle={handleDrawerToggle}
-            isMobile={isMobile}
-          />
-        </Box>
+              <RecentItems
+                handleDrawerToggle={handleDrawerToggle}
+                isMobile={isMobile}
+              />
+            </Box>
 
-        {/* User Profile */}
-        <UserDisplay
-          user={user}
-          handleDrawerToggle={() => {
-            if (isMobile) {
-              // only auto-close on mobile
-              handleDrawerToggle();
-            }
-          }}
-        />
-      </Box>
-    </Drawer>
+            {/* User Profile */}
+            <UserDisplay
+              user={user}
+              handleDrawerToggle={() => {
+                if (isMobile) {
+                  // only auto-close on mobile
+                  handleDrawerToggle();
+                }
+              }}
+            />
+          </Box>
+        </Drawer>
+      </div>
+    </>
   );
 }

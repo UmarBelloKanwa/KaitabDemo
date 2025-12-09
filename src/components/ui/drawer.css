@@ -1,0 +1,20 @@
+.nav-box.show {
+  display: block !important;
+}
+
+.short-nav {
+  display: none;
+}
+
+.short-nav.show {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .nav-box {
+    display: none;
+  }
+  .short-nav {
+    display: block;
+  }
+}
