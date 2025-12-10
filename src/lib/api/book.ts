@@ -6,7 +6,6 @@ export const publishBook = (data: UserFormData) => {
 
   // Append text fields
   formData.append("book_name", data.name);
-  formData.append("author", data.author);
   formData.append("description", data.description);
   formData.append("slug", data.slug);
   formData.append("topics", JSON.stringify(data.topics));
@@ -14,7 +13,6 @@ export const publishBook = (data: UserFormData) => {
   // Append file fields (check for null)
   if (data.pdfFile) formData.append("file", data.pdfFile);
   if (data.coverPhoto) formData.append("cover_photo", data.coverPhoto);
-  if (data.mainPhoto) formData.append("main_photo", data.mainPhoto);
 
   return axios.post("book/publish-book", formData, {
     // responseType: "stream",
