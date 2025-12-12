@@ -29,12 +29,13 @@ import "./simple-editor.scss";
 // import StyledEditorBox from "@/components/ui/editor/StyledEditorBox";
 import Box from "@mui/material/Box";
 import MuiTypography from "@mui/material/Typography";
+import type {Article} from "@/types/article";
 
-export function MainArticleView({ content }: { content: any }) {
+export function MainArticleView({ article }: { article: Article }) {
 
   const inPreview = {
     editable: false, // make it read-only
-    content: content, // initial content from main editor
+    content: article.content, // initial content from main editor
     extensions: [
       StarterKit,
       Image,
@@ -61,8 +62,8 @@ export function MainArticleView({ content }: { content: any }) {
     >
       <EditorContext.Provider value={{ editor: previewEditor as Editor }}>
           <Box>
-            <MuiTypography variant="h1"> </MuiTypography>
-            <MuiTypography variant="h3"> </MuiTypography>
+            <MuiTypography variant="h1"> {article.title} </MuiTypography>
+            <MuiTypography variant="h3"> {article.subtitle } </MuiTypography>
             <EditorContent
               editor={previewEditor}
               role="presentation"

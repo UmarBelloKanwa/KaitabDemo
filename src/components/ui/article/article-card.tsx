@@ -126,7 +126,7 @@ export default function ArticleCard({ article }: { article: Article }) {
         </Box>
 
         <Box>
-          <MainArticleView content={article.content} />
+          <MainArticleView article={article} />
         </Box>
 
         <Box
