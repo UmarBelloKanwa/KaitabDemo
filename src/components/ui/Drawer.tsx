@@ -156,6 +156,7 @@ export default function Sidebar({ user }: { user: any }) {
             width: sidebarOpen ? drawerWidth : 0,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
+            //  border: "none",
               width: drawerWidth,
               boxSizing: "border-box",
               bgcolor: "background.default", // theme key; same result on both variants
@@ -173,7 +174,7 @@ export default function Sidebar({ user }: { user: any }) {
               display: "flex",
               flexDirection: "column",
               px: 3,
-              pt: 1.5,
+              pt: 2.5,
             }}
           >
             {/* Header */}
@@ -297,11 +298,12 @@ export default function Sidebar({ user }: { user: any }) {
                   );
                 })}
               </List>
-
-              <RecentItems
-                handleDrawerToggle={handleDrawerToggle}
-                isMobile={isMobile}
-              />
+              <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+                <RecentItems
+                  handleDrawerToggle={handleDrawerToggle}
+                  isMobile={isMobile}
+                />
+              </Box>
             </Box>
 
             {/* User Profile */}

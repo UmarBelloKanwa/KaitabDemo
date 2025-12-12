@@ -8,10 +8,11 @@ import {
 import { fetchAuthors } from "@/actions/author";
 import { fetchBooks } from "@/actions/robook";
 import { fetchAuthorsPosts } from "@/actions/author";
+import { getArticlesPreviews } from "@/actions/article";
 
 import getQueryClient from "@/lib/get-query-client";
 
-import NavLayout from "./NavLayout";
+import NavLayout from "../../components/ui/home/NavLayout";
 import { authors } from "@/data/fake";
 
 export default async function Layout({
@@ -24,12 +25,15 @@ export default async function Layout({
   const results = await Promise.allSettled([
     fetchAuthors(),
     fetchAuthorsPosts(),
-    fetchBooks(),
+   // fetchBooks(),
+    getArticlesPreviews(),
   ]);
 
   const authorsRes = results[0].status === "fulfilled" ? results[0].value : [];
   const postsRes = results[1].status === "fulfilled" ? results[1].value : [];
-  const booksRes = results[2].status === "fulfilled" ? results[2].value : [];
+  //const booksRes = results[2].status === "fulfilled" ? results[2].value : [];
+  const initialArticlesPreviews = results[2].status === "fulfilled" ? results[2].value : [];
+
 
   queryClient.setQueryData(["authors"], {
     pages: [authorsRes],
@@ -53,17 +57,31 @@ export default async function Layout({
     });
   }
 
-  queryClient.setQueryData(["robooks"], {
-    pages: [booksRes],
-    pageParams: [0],
-  });
+  // queryClient.setQueryData(["robooks"], {
+  //   pages: [booksRes],
+  //   pageParams: [0],
+  // });
+  // if (booksRes) {
+  //   booksRes.forEach((robook: any) => {
+  //     queryClient.setQueryData(["robook", robook.public_id], robook);
+  //   });
+  // }
 
-  if (booksRes) {
-    booksRes.forEach((robook: any) => {
-      queryClient.setQueryData(["robook", robook.public_id], robook);
+  if (initialArticlesPreviews) {
+    // ArticlesPreviews
+    queryClient.setQueryData(["articlesPreviews"], {
+      pages: [initialArticlesPreviews],
+      pageParams: [0],
+    });
+
+    initialArticlesPreviews.forEach((articlePreview: any) => {
+      queryClient.setQueryData(
+        ["articlesPreviews", articlePreview.public_id],
+        articlePreview
+      );
     });
   }
-
+  
   const dehydratedState = dehydrate(queryClient);
   // console.log("Posts", postsRes);
   // console.log("Authors", authorsRes);

@@ -83,7 +83,7 @@ export default function PostCard({
         boxShadow: 11,
         borderRadius: 2,
         border: "1px solid",
-        borderColor: "rgba(255, 255, 255, 0.03)",
+        borderColor: "rgba(255, 255, 255, 0.05)",
         width: "100%",
         p: 0,
       }}
@@ -222,11 +222,11 @@ export default function PostCard({
             </Button>
           )}
 
-          {post.is_book_post && post.book && (
+          {/* {post.is_book_post && post.book && (
             <Box sx={{ mt: 2 }}>
               <RobookCard robook={post.book} where="profile" />
             </Box>
-          )}
+          )} */}
         </Box>
 
         <Box

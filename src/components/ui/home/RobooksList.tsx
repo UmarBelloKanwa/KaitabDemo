@@ -53,11 +53,11 @@ export default function RobooksList() {
   return (
     <Box
       sx={{
-        border: '1px solid red',
-        borderColor: "divider",
+        // border: '1px solid red',
+        // borderColor: "divider",
         borderRadius: 2,
-        mt: 1,
         p: 1,
+        pt: 0,
       }}
     >
       {/* <Typography variant="h6" sx={{ ml: 1.5, mb: 0.5,  }}>

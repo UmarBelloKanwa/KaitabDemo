@@ -48,7 +48,7 @@ export default function CommentSection({
   }, [fetchComments]);
 
   return (
-    <Box sx={{ p: { xs: 0, sm: 1, md: 2 }, pb: { md: 0 } }}>
+    <Box sx={{ p: { xs: 0, sm: 1, md: 0 }, mt: 2}}>
       <Box
         sx={{
           p: 2,

@@ -36,7 +36,6 @@ export const publishArticle = async (data: {
 
 
 export const getArticleComments = async (author_handle: string, article_public_id: string) => { 
-  console.log("article_public_id", article_public_id)
   const res = await api.get(`article/${article_public_id}/comments`);
   return res.data;
 }
@@ -57,4 +56,8 @@ export const unLikeArticle = async (public_id: string) => {
   return api.delete(`article/${public_id}/unlike`);
 };
 
+export const getArticlesPreviews = async (pageParam?: string) => {
+  const res = await api.get(`/feed/articles?limit=10&offset=${pageParam ?? 0}`);
+  return res//.data;
+}
 

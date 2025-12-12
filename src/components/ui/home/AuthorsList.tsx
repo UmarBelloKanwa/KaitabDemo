@@ -26,19 +26,19 @@ export default function AuthorsLists() {
   return (
     <Box
       sx={(theme) => ({
-        border: `1px solid ${theme.palette.divider}`,
+       // border: `1px solid ${theme.palette.divider}`,
         height: "fit-content",
         m: "auto",
         boxShadow: 1,
         p: 2,
-        pt: 1,
+        pt: 0,
         borderRadius: 2,
         scrollbarWidth: "none", // Firefox
         "&::-webkit-scrollbar": { display: "none" }, // Chrome/Safari
         overflowY: "auto",
       })}
     >
-      <Typography variant="h6" sx={{ mb: 1, fontSize: "13px", fontWeight: "bold", color: "text.secondary" }}>
+      <Typography variant="h6" sx={{ ml: 1, mb: 1, fontSize: "13px", fontWeight: "bold", color: "text.secondary" }}>
         Who to follow
       </Typography>
       <Box

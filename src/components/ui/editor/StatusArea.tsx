@@ -26,12 +26,13 @@ export default function StatusInput() {
       sx={{
         bgcolor: "background.default",
         mx: "auto",
-        px: 1,
-        // boxShadow: 11,
-        borderRadius: 2,
-        // border: "1px solid",
-        borderColor: "rgba(255, 255, 255, 0.07)",
-        mb: 2,
+        p: 1.5,
+        px: 2,
+        boxShadow: 11,
+        borderRadius: 1.3,
+        border: "1px solid",
+        borderColor: "divider",
+        mb: 1,
       }}
     >
       <Stack direction="row" spacing={1} alignItems="center">
@@ -40,7 +41,7 @@ export default function StatusInput() {
           alt="User avatar"
           src={isAuthor ? user?.author?.profile_picture : undefined}
           sx={{
-            width: 47, height: 47,
+            width: 45, height: 45,
             flexShrink: 0,
              cursor: "pointer"  
           }}
@@ -70,12 +71,12 @@ export default function StatusInput() {
             router.push("/publish");
           }}
           sx={{
-            bgcolor: "background.paper",
-            boxShadow: 11,
-            border: "1px solid",
-            borderColor: "rgba(255, 255, 255, 0.03)",
-            py: 1,
-            px: 2,
+           // bgcolor: "background.paper",
+           // boxShadow: 11,
+           // border: "1px solid",
+           // borderColor: "rgba(255, 255, 255, 0.03)",
+            // py: 1,
+             px: 1,
             borderRadius: 2,
             cursor: "pointer",
             fontSize: "small",

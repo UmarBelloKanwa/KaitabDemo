@@ -7,3 +7,8 @@ export const getAuthorArticle = async (author_handle: string, articleId: string)
 }
 
 
+export const getArticlesPreviews = async (pageParam?: string) => {
+  const api = await serverAxios();
+  const res = await api.get(`/feed/articles?limit=10&offset=${pageParam ?? 0}`);
+  return res.data;
+}

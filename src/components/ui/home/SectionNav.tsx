@@ -19,6 +19,7 @@ import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import RobooksList from "./RobooksList";
+import RecentItems from "@/components/ui/RecentItems";
 
 export default function SectionNav() {
   const theme = useTheme();
@@ -46,8 +47,9 @@ export default function SectionNav() {
       width: "95%",
       mx: 0,
       p: 0,
+      mt: 2,
     }}>
-      <Box ref={boxRef} sx={{ display: "flex", gap: 2, mb: 2 }}>
+      <Box ref={boxRef} sx={{ display: "flex", gap: 2, mb: 2, px: 2, }}>
         <TextField
           placeholder="Search"
           size="small"
@@ -91,7 +93,10 @@ export default function SectionNav() {
         notificationActions={notificationActions}
       />
       <AuthorsLists />
-      <RobooksList />
+      <Box sx={{px: 2}}>
+        
+      <RecentItems handleDrawerToggle={() => { }} isMobile={false} />
+        </Box>
     </Box>
   );
 }
