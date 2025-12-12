@@ -36,7 +36,8 @@ export const publishArticle = async (data: {
 
 
 export const getArticleComments = async (author_handle: string, article_public_id: string) => { 
-  const res = await api.get(`/article/${article_public_id}/comments`);
+  console.log("article_public_id", article_public_id)
+  const res = await api.get(`article/${article_public_id}/comments`);
   return res.data;
 }
 

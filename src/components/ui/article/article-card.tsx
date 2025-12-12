@@ -131,7 +131,7 @@ export default function ArticleCard({ article }: { article: Article }) {
 
         <Box
           sx={{
-            pt: 1.5,
+            pt: 0.5,
             borderTop: "1px solid",
             borderColor: "divider",
             display: "flex",

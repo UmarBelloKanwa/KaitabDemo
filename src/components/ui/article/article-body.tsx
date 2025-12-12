@@ -2,10 +2,7 @@
 
 import Container from "@mui/material/Container";
 import CommentSection from "@/components/ui/robook/chapter/CommentSection";
-import {
-  createCommentToArticle,
-  getArticleComments,
-} from "@/lib/api/article";
+import { createCommentToArticle, getArticleComments } from "@/lib/api/article";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import CircularProgress from "@mui/material/CircularProgress";
 import type { Article } from "@/types/article";
@@ -20,10 +17,17 @@ export default function Article({
 }) {
   const queryClient = useQueryClient();
 
-  let { data: article, isLoading, isError } = useQuery<Article | undefined>({
+  let {
+    data: article,
+    isLoading,
+    isError,
+  } = useQuery<Article | undefined>({
     queryKey: ["article", articleId],
     queryFn: async (): Promise<Article | undefined> => {
-      const cached = queryClient.getQueryData<Article | undefined>(["article", articleId]);
+      const cached = queryClient.getQueryData<Article | undefined>([
+        "article",
+        articleId,
+      ]);
       return cached;
       // if (cached) return cached; // Prevent unnecessary fetch
       // return await fetchAuthorPost(authorHandle, articleId);
@@ -33,7 +37,17 @@ export default function Article({
 
   if (isLoading) {
     return (
-      <Container maxWidth="sm" sx={{ m: 0, p: 0, display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+      <Container
+        maxWidth="sm"
+        sx={{
+          m: 0,
+          p: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "50vh",
+        }}
+      >
         <CircularProgress />
       </Container>
     );
@@ -54,7 +68,7 @@ export default function Article({
       <ArticleCard article={article} />
       <CommentSection
         fetchComments={async () =>
-          getArticleComments(authorHandle, articleId)
+          await getArticleComments(authorHandle, article.public_id)
         }
         createComment={async (txt: string) =>
           await createCommentToArticle(article.public_id, txt)
