@@ -1,6 +1,6 @@
-import axios, { api } from "@/lib/axios";
+import { api } from "@/lib/axios";
 
-export const publishArticle = (data: {
+export const publishArticle = async (data: {
   title: string | null;
   subtitle: string | null;
   content: any;
@@ -24,7 +24,7 @@ export const publishArticle = (data: {
     formData.append("tempUrls", img.tempUrl); // temporary blob URL
   });
 
-  return axios.post("article/publish", formData, {
+  return await api.post("article/publish", formData, {
     // responseType: "stream",
     // adapter: 'fetch',
     headers: {
@@ -33,3 +33,27 @@ export const publishArticle = (data: {
     timeout: 0, // disable timeout
   });
 };
+
+
+export const getArticleComments = async (author_handle: string, article_public_id: string) => { 
+  const res = await api.get(`/article/${article_public_id}/comments`);
+  return res.data;
+}
+
+export const createCommentToArticle = async (
+  article_public_id: string,
+  content: string
+) => {
+  return api.post(`article/${article_public_id}/comment`, { comment_text: content });
+};
+
+
+export const likeArticle = async (public_id: string) => {
+  return api.post(`article/${public_id}/like`);
+};
+
+export const unLikeArticle = async (public_id: string) => {
+  return api.delete(`article/${public_id}/unlike`);
+};
+
+

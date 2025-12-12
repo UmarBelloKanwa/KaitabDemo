@@ -28,9 +28,12 @@ import { publishArticle } from "@/lib/api/article";
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils";
 import { editorStorage } from "@/lib/indexdb-storage";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-import content from "./data/content.json";
+import { useRouter } from "next/navigation";
+import type { Article } from "@/types/article";
+// import content from "./data/content.json";
 
 export default function useSimpleEditor() {
+  const router = useRouter();
   const requireAuth = useAuthCheck();
 
   const [title, setTitle] = useState("");
@@ -52,7 +55,9 @@ export default function useSimpleEditor() {
 
   const toolbarRef = useRef<HTMLDivElement>(null);
   const [isPreview, setIsPreview] = useState(false);
-  const [editorContent, setEditorContent] = useState<any>({...content} as any);
+  const [editorContent, setEditorContent] = useState<any>({
+    /*...content*/
+  } as any);
   const [previewContent, setPreviewContent] = useState<any>({} as any);
   const [isLoaded, setIsLoaded] = useState(false);
   const [imageBlobs, setImageBlobs] = useState<{ [key: string]: Blob }>({});
@@ -279,9 +284,11 @@ export default function useSimpleEditor() {
         content: editor.getJSON(),
         images: images,
       });
+      const publishedArticle: Article = res.data as Article;
       setAlertMessage("Article published successfully!");
       setAlertType("success");
       setAlertOpen(true);
+      router.push(`/${publishedArticle.author.handle}/library`)
     } catch (err: any) {
       setAlertMessage(err?.message || "Failed to publish article.");
       setAlertType("error");

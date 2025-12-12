@@ -49,7 +49,6 @@ import useSimpleEditor from "@/components/tiptap-templates/simple/use-simple-edi
 import { ThemeToggle } from "@/components/tiptap-templates/simple/theme-toggle";
 import BackButton from "@/components/ui/common/BackButton";
 
-
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss";
 // import StyledEditorBox from "@/components/ui/editor/StyledEditorBox";
@@ -171,7 +170,7 @@ export function SimpleEditor() {
     alertOpen,
     alertMessage,
     alertType,
-    setAlertOpen
+    setAlertOpen,
   } = useSimpleEditor();
   return (
     <Box
@@ -179,22 +178,22 @@ export function SimpleEditor() {
       className="simple-editor-wrapper"
       sx={{ width: "100%", maxWidth: "100%" }}
     >
-       <Snackbar
-              open={alertOpen}
-              autoHideDuration={3000}
-              onClose={() => setAlertOpen(false)}
-              anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            >
-              <Alert
-                severity={alertType}
-                variant="filled"
-                onClose={() => setAlertOpen(false)}
-                sx={{ width: "100%" }}
-              >
-                {alertMessage}
-              </Alert>
-            </Snackbar>
-      
+      <Snackbar
+        open={alertOpen}
+        autoHideDuration={3000}
+        onClose={() => setAlertOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          severity={alertType}
+          variant="filled"
+          onClose={() => setAlertOpen(false)}
+          sx={{ width: "100%" }}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
+
       <EditorContext.Provider value={{ editor }}>
         <Box
           sx={{

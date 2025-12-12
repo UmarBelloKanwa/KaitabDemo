@@ -4,18 +4,18 @@ import React from "react";
 import { getAuthorProfile } from "@/actions/author";
 import type { Author } from "@/types/author";
 import { useQuery } from "@tanstack/react-query";
-import { useInfiniteAuthorBooks } from "@/hooks/author/useInfiniteAuthorBooks";
 import Box from "@mui/material/Box";
-import RobookCard from "./Author-RobookCard";
-import type { Robook } from "@/types/author";
+import type { ArticlePreview } from "@/types/article";
+import ArticleCard from "@/components/ui/article/article-preview-card";
+import { useInfiniteAuthorArticlesPreviews } from "@/hooks/author/useInfiniteAuthorArticles";
 
 export default function Author({ handle }: { handle: string }) {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteAuthorBooks(handle);
+    useInfiniteAuthorArticlesPreviews(handle);
   const loaderRef = React.useRef<HTMLDivElement | null>(null);
 
   const { data: author } = useQuery({
-    queryKey: ["author", handle],
+    queryKey: ["authorArticlesPreviews", handle],
     queryFn: () => getAuthorProfile(handle),
     staleTime: Infinity,
     refetchOnMount: false,
@@ -23,7 +23,7 @@ export default function Author({ handle }: { handle: string }) {
     refetchOnReconnect: false,
   });
 
-  const books = data?.pages.flat() || [];
+  const articlesPreviews = data?.pages.flat() || [];
   React.useEffect(() => {
     if (!hasNextPage || isFetchingNextPage) return;
 
@@ -41,16 +41,17 @@ export default function Author({ handle }: { handle: string }) {
 
   if (!author) return <h1> Sorry, No Author found </h1>; // or a loading skeleton
 
-  if (!books) return <h1> Sorry, failed to load books </h1>;
-  // console.log(books);
+  if (!articlesPreviews) return <h1> Sorry, failed to load articlesPreviews </h1>;
+
+  // console.log(articlesPreviews);
 
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
-        {books.map((robook: Robook, index: number) => (
-          <React.Fragment key={index}>
-            <RobookCard authorHandle={handle} robook={robook} author={author} />
-          </React.Fragment>
+        {articlesPreviews.map((articlePreview: ArticlePreview, index: number) => (
+          <Box sx={{ px: {md: 2}, m: "auto" }} key={index} >
+            <ArticleCard articlePreview={articlePreview} />
+          </Box>
         ))}
         <div ref={loaderRef} />
         {isFetchingNextPage && <p>Loading more...</p>}

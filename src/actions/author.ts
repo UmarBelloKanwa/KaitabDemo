@@ -50,3 +50,16 @@ export const fetchAuthorsPosts = async (offset?: number) => {
   const res = await axios.get(`feed/authors/posts?limit=10&offset=${offset || 0}`);
   return res.data;
 }  
+
+// articles
+export const getAuthorArticles = async (author_handle: string, pageParam?: string) => {
+  const api = await serverAxios();
+  const res = await api.get(`/author/${author_handle}/articles?limit=10&offset=${pageParam ?? 0}`);
+  return res.data;
+}
+
+export const getAuthorArticle = async (author_handle: string, articleId: string) => {
+  const api = await serverAxios();
+  const res = await api.get(`/article/${author_handle}/articles/${articleId}`);
+  return res.data;
+}

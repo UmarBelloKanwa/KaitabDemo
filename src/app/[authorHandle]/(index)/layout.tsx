@@ -7,6 +7,7 @@ import {
   getAuthorProfile,
   getAuthorBooks,
   fetchInitialAuthorPosts,
+  getAuthorArticles,
 } from "@/actions/author";
 
 import Container from "@mui/material/Container";
@@ -26,11 +27,13 @@ export default async function AuthorLayout({
   const queryClient = getQueryClient();
 
   // 🚀 Run all async backend actions IN PARALLEL
-  const [authorData, initialBooks, initialBookPosts] = await Promise.all([
-    getAuthorProfile(handle), // profile
-    getAuthorBooks(handle), // books
-    fetchInitialAuthorPosts(handle), // initial posts
-  ]);
+  const [authorData, /*initialBooks,*/ initialBookPosts, initialArticlesPreviews] =
+    await Promise.all([
+      getAuthorProfile(handle), // profile
+      // getAuthorBooks(handle), // books
+      fetchInitialAuthorPosts(handle), // initial posts
+      getAuthorArticles(handle),
+    ]);
 
   // If author doesn't exist
   if (!authorData) {
@@ -46,19 +49,19 @@ export default async function AuthorLayout({
     queryClient.setQueryData(["cortex"], authorData.cortex);
   }
 
-  // Cache books (infinite-query format)
-  if (initialBooks) {
-    queryClient.setQueryData(["robooks", handle], {
-      pages: [initialBooks],
-      pageParams: [0],
-    });
+  // // Cache books (infinite-query format)
+  // if (initialBooks) {
+  //   queryClient.setQueryData(["robooks", handle], {
+  //     pages: [initialBooks],
+  //     pageParams: [0],
+  //   });
 
-    // Also index each book individually + attach author
-    initialBooks.forEach((book: any) => {
-      book.author = authorData;
-      queryClient.setQueryData(["robook", book.public_id], book);
-    });
-  }
+  //   // Also index each book individually + attach author
+  //   initialBooks.forEach((book: any) => {
+  //     book.author = authorData;
+  //     queryClient.setQueryData(["robook", book.public_id], book);
+  //   });
+  // }
 
   // Cache posts (infinite-query format)
   if (initialBookPosts) {
@@ -70,6 +73,22 @@ export default async function AuthorLayout({
     // Also index each post individually + attach author
     initialBookPosts.forEach((post: any) => {
       queryClient.setQueryData(["post", post.public_id], post);
+    });
+  }
+
+  if (initialArticlesPreviews) {
+    // authorArticlesPreviews
+    queryClient.setQueryData(["authorArticlesPreviews", handle], {
+      pages: [initialArticlesPreviews],
+      pageParams: [0],
+    });
+
+    initialArticlesPreviews.forEach((articlePreview: any) => {
+      articlePreview.author = authorData;
+      queryClient.setQueryData(
+        ["authorArticlesPreviews", articlePreview.public_id],
+        articlePreview
+      );
     });
   }
 
