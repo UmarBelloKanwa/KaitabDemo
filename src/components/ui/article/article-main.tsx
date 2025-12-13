@@ -62,8 +62,8 @@ export function MainArticleView({ article }: { article: Article }) {
     >
       <EditorContext.Provider value={{ editor: previewEditor as Editor }}>
           <Box>
-            <MuiTypography variant="h5"> {article.title} </MuiTypography>
-            <MuiTypography variant="h6"> {article.subtitle } </MuiTypography>
+            <MuiTypography variant="h5" sx={{mb: 2}}> {article.title} </MuiTypography>
+            <MuiTypography variant="h6" sx={{mb: 1}}> {article.subtitle } </MuiTypography>
             <EditorContent
               editor={previewEditor}
               role="presentation"
