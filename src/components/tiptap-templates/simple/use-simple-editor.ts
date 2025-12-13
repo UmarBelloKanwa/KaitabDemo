@@ -289,7 +289,7 @@ export default function useSimpleEditor() {
       setAlertMessage("Article published successfully!");
       setAlertType("success");
       setAlertOpen(true);
-      router.push(`/${publishedArticle.author.handle}/library`)
+      router.push(`/${publishedArticle.author.handle}/c/${publishedArticle.public_id}`)
     } catch (err: any) {
       console.log("Publish ERror", err);
       setAlertMessage(err?.message || JSON.stringify(err) || "Failed to publish article.");
