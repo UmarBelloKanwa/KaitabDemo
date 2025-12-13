@@ -27,7 +27,7 @@ export const publishArticle = async (data: {
     formData.append("tempUrls", img.tempUrl); // temporary blob URL
   });
 
-  return await api.post("article/publish", formData, {
+  const res =  await api.post("article/publish", formData, {
     // responseType: "stream",
     // adapter: 'fetch',
     headers: {
@@ -35,6 +35,7 @@ export const publishArticle = async (data: {
     },
     timeout: 0, // disable timeout
   });
+  return res
 };
 
 
