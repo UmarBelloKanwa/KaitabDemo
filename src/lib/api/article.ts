@@ -57,7 +57,7 @@ export const unLikeArticle = async (public_id: string) => {
 };
 
 export const getArticlesPreviews = async (pageParam?: string) => {
-  const res = await api.get(`/feed/articles?limit=10&offset=${pageParam ?? 0}`);
+  const res = await api.get(`feed/articles?limit=10&offset=${pageParam ?? 0}`);
   return res//.data;
 }
 
