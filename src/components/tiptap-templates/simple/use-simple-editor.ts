@@ -285,12 +285,14 @@ export default function useSimpleEditor() {
         images: images,
       });
       const publishedArticle: Article = res.data as Article;
+      console.log("publishedArticle", publishedArticle);
       setAlertMessage("Article published successfully!");
       setAlertType("success");
       setAlertOpen(true);
       router.push(`/${publishedArticle.author.handle}/library`)
     } catch (err: any) {
-      setAlertMessage(err?.message || "Failed to publish article.");
+      console.log("Publish ERror", err);
+      setAlertMessage(err?.message || JSON.stringify(err) || "Failed to publish article.");
       setAlertType("error");
       setAlertOpen(true);
     } finally {

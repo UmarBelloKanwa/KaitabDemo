@@ -219,7 +219,7 @@ export function SimpleEditor() {
               variant="contained"
               loading={isSubmitting}
               loadingPosition="end"
-              onClick={() => requireAuth(async () => await handleSaveArticle())}
+              onClick={async () => await requireAuth(handleSaveArticle)}
               sx={{
                 textTransform: "none",
                 borderRadius: 2,
