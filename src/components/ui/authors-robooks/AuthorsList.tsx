@@ -93,7 +93,6 @@ export default function AuthorsList({ member }: { member: Author }) {
                     sx={{
                       borderRadius: 20,
                       textTransform: "none",
-                      minWidth: 80,
                     }}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -104,12 +103,12 @@ export default function AuthorsList({ member }: { member: Author }) {
                   >
                     Follow
                   </Button>
-                  <IconButton size="small">
+                  {/* <IconButton size="small">
                     <MoreVertIcon />
-                  </IconButton>
+                  </IconButton> */}
                 </Box>
               </Box>
-              <Typography variant="body2" sx={{ mt: 0.5 }}>
+              <Typography variant="caption" color="grey" sx={{ mt: 0.5 }}>
                 {member.short_bio}
               </Typography>
 
@@ -117,7 +116,6 @@ export default function AuthorsList({ member }: { member: Author }) {
                 <Chip
                   label={member.expertise_area || "Author"}
                   size="small"
-                  variant="outlined"
                   sx={{
                     fontSize: "0.75rem",
                     borderRadius: 10,
@@ -125,12 +123,10 @@ export default function AuthorsList({ member }: { member: Author }) {
                 />
               </Box>
 
-              <Box display="flex" alignItems="center" gap={2} mb={1}>
+              {/* <Box display="flex" alignItems="center" gap={2} mb={1}>
                 <Box display="flex" alignItems="center" gap={0.5}>
                   <Rating value={5} precision={0.1} size="small" readOnly />
-                  {/* <Typography variant="body2" color="text.secondary">
-                                        {member.rating}
-                                    </Typography> */}
+                
                 </Box>
                 <Box display="flex" alignItems="center" gap={0.5}>
                   <BookIcon sx={{ fontSize: 16, color: "text.secondary" }} />
@@ -138,7 +134,7 @@ export default function AuthorsList({ member }: { member: Author }) {
                     {member.books_count} publications
                   </Typography>
                 </Box>
-              </Box>
+              </Box> */}
 
               <Typography variant="caption" color="text.secondary">
                 {/* • */} {member.followers_count} followers

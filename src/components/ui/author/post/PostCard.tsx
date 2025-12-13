@@ -208,7 +208,6 @@ export default function PostCard({
                 router.push(url);
               }}
               sx={{
-                color: "#1DA1F2",
                 textTransform: "none",
                 p: 0,
                 minWidth: "auto",

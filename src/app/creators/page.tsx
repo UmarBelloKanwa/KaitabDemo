@@ -19,7 +19,7 @@ import RobookCard from "@ui/author/RobookCard";
 import { useInfiniteAuthors } from "@/hooks/author/useInfiniteAuthors";
 import { useInfiniteBooksTofollow } from "@/hooks/robook/useInfiniteRobooksToFollow";
 
-export function Page({ page }: { page: "contents" | "creators" }) {
+export function Page({ page }: { page: "creators" }) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -49,28 +49,8 @@ export function Page({ page }: { page: "contents" | "creators" }) {
   // console.log("Authors", creators);
 
   // Books infinite query
-  const {
-    data: booksData,
-    fetchNextPage: fetchNextBooks,
-    hasNextPage: booksHasNextPage,
-    isFetchingNextPage: isFetchingNextBooks,
-  } = useInfiniteBooksTofollow();
-
-  const booksLoaderRef = React.useRef<HTMLDivElement | null>(null);
-  const books = booksData?.pages.flat() || [];
-
-  React.useEffect(() => {
-    if (!booksHasNextPage || isFetchingNextBooks) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) fetchNextBooks();
-    });
-
-    const node = booksLoaderRef.current;
-    if (node) observer.observe(node);
-
-    return () => observer.disconnect();
-  }, [booksHasNextPage, isFetchingNextBooks, fetchNextBooks]);
+  
+ 
 
   return (
     <Container maxWidth="sm" sx={{ my: 2 }}>
@@ -94,39 +74,9 @@ export function Page({ page }: { page: "contents" | "creators" }) {
               },
             }}
           />
-          <Box display="flex" gap={1} mt={1} flexWrap={"wrap"}>
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <ToggleButtonGroup
-                value={activePage}
-                exclusive
-                onChange={(event, newPage) => {
-                  if (newPage !== null) {
-                    router.replace(`/${newPage}`);
-                    setActivePage(newPage);
-                  }
-                }}
-                size="small"
-                sx={{
-                  "& .MuiToggleButton-root": {
-                    borderRadius: 20,
-                    px: 3,
-                  },
-                }}
-              >
-                <ToggleButton value="creators" sx={{ mr: 1 }}>
-                  Creators
-                </ToggleButton>
-                <ToggleButton value="contents"> Contents </ToggleButton>
-              </ToggleButtonGroup>
-            </Box>
-          </Box>
+          
         </Box>
-        {activePage === "creators" && (
-          <>
+       
             {creators.length === 0 ? (
               <p style={{ padding: "1rem", textAlign: "center", opacity: 0.7 }}>
                 No creators to show yet
@@ -150,35 +100,9 @@ export function Page({ page }: { page: "contents" | "creators" }) {
                 )}
               </List>
             )}
-          </>
-        )}
+     
 
-        {activePage === "contents" && (
-          <>
-            {books.length === 0 ? (
-              <p style={{ padding: "1rem", textAlign: "center", opacity: 0.7 }}>
-                No books available to explore right now.
-              </p>
-            ) : (
-              <List>
-                {books.map((book: any, index: number) => (
-                  <Box key={index} sx={{ mb: 1.5 }}>
-                    <RobookCard robook={book} where="profile" />
-                  </Box>
-                ))}
-
-                {/* Infinite trigger */}
-                <div ref={booksLoaderRef} />
-
-                {isFetchingNextBooks && (
-                  <p style={{ padding: "0.5rem", textAlign: "center" }}>
-                    Loading more books...
-                  </p>
-                )}
-              </List>
-            )}
-          </>
-        )}
+       
       </Paper>
     </Container>
   );

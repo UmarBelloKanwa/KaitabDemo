@@ -8,7 +8,11 @@ import Box from "@mui/material/Box";
 import StatusArea from "@/components/ui/editor/StatusArea";
 import CategoriesList from "@/components/ui/home/CategoriesList";
 
-export default async function HomeLayout({ children }: { children: React.ReactNode }) {
+export default async function HomeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <Box
       sx={{
@@ -19,23 +23,28 @@ export default async function HomeLayout({ children }: { children: React.ReactNo
       <Box
         sx={{
           m: "auto",
-          mt: {xs: -2},
-          width: "100%",
+          mt: { xs: -2 },
+          width: "97%",
         }}
       >
         <Header />
-       
       </Box>
-      {/* <RobooksList /> */}
       <Box
         sx={{
           m: "auto",
-          //mt: 2,
           width: { xs: "99%", sm: "81%" },
         }}
       >
-        <StatusArea />
-        <CategoriesList />
+        <Box
+          sx={{
+            m: "auto",
+            width: { xs: "97%" },
+          }}
+        >
+          <StatusArea />
+          <CategoriesList />
+        </Box>
+
         {children}
       </Box>
     </Box>

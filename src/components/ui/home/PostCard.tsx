@@ -124,7 +124,7 @@ export default function PostCard({ user, timestamp, content, image, metrics, use
                                 setExpanded(!expanded)
                             }}
                             sx={{
-                                color: "#1DA1F2",
+                                color: "text.primary",
                                 textTransform: "none",
                                 p: 0,
                                 minWidth: "auto",

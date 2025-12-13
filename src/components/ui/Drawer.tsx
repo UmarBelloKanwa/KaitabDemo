@@ -92,9 +92,11 @@ export default function Sidebar({ user }: { user: any }) {
       <div className="short-nav">
         <Box
           sx={{
-            pl: { sm: 2, xs: 2.5 },
-            pr: { sm: "unset", xs: 2.5 },
-            pt: 1.5,
+            // pr: { sm: "unset", xs: 2.5 },
+            // pt: 1.5,
+            px: 2,
+            pt: 1,
+            width: "100%",
             pb: { xs: 1, sm: "unset" },
             height: "fit-content",
             display: "flex",
@@ -105,6 +107,25 @@ export default function Sidebar({ user }: { user: any }) {
             justifyContent: "space-arround",
           }}
         >
+          <Box
+            sx={{
+              flex: 1,
+            }}
+          >
+            <Box
+              component="img"
+              src={logoSrc}
+              alt="App Logo"
+              onClick={handleDrawerToggle}
+              sx={{
+                width: "125px",
+                height: "100%",
+                objectFit: "contain",
+                verticalAlign: "text-button",
+                mb: -1,
+              }}
+            />
+          </Box>
           <IconButton
             onClick={handleDrawerToggle}
             sx={{
@@ -116,26 +137,6 @@ export default function Sidebar({ user }: { user: any }) {
           >
             <MenuIcon />
           </IconButton>
-
-          <Box
-            sx={{
-              width: "38%",
-              height: "100%",
-              mb: -1,
-            }}
-          >
-            <img
-              src={logoSrc}
-              alt="App Logo"
-              onClick={handleDrawerToggle}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-              }}
-            />
-          </Box>
-
           {/* <Typography
           variant="h6"
           color="text.primary"
@@ -156,7 +157,7 @@ export default function Sidebar({ user }: { user: any }) {
             width: sidebarOpen ? drawerWidth : 0,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
-            //  border: "none",
+              //  border: "none",
               width: drawerWidth,
               boxSizing: "border-box",
               bgcolor: "background.default", // theme key; same result on both variants

@@ -18,13 +18,10 @@ export default async function AuthorsAndRobooksListLayout({
   let initialBooks = [];
 
   try {
-    const [authorsRes, booksRes] = await Promise.all([
+    const [authorsRes] = await Promise.all([
       fetchAuthors(),
-     fetchBooks(),
     ]);
-    console.log("Fetched booksRes", booksRes);
     initialAuthors = authorsRes ?? [];
-    initialBooks = booksRes ?? [];
   } catch (error) {
     console.log(error);
   }
@@ -40,16 +37,16 @@ export default async function AuthorsAndRobooksListLayout({
     });
   }
 
-  queryClient.setQueryData(["robooks"], {
-    pages: [initialBooks],
-    pageParams: [0],
-  });
+  // queryClient.setQueryData(["robooks"], {
+  //   pages: [initialBooks],
+  //   pageParams: [0],
+  // });
 
-  if (initialBooks) {
-     initialBooks.forEach((book: any) => {
-      queryClient.setQueryData(["robook", book.public_id], book);
-    });
-  }
+  // if (initialBooks) {
+  //    initialBooks.forEach((book: any) => {
+  //     queryClient.setQueryData(["robook", book.public_id], book);
+  //   });
+  // }
 
   // console.log("Initial Authors", initialAuthors);
 
