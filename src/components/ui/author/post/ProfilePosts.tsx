@@ -4,22 +4,27 @@ import Box from "@mui/material/Box";
 import PostCard from "./PostCard";
 import type { BookPostDTO } from "@/types/book";
 import {
-  fetchInitialAuthorPosts,
   getAuthorProfile
   // fetchRobook
 } from "@/actions/author";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useInfinitePosts } from "@/hooks/author/useInfiniteAuthorPost";
 
 export default function AuthorPosts({ handle }: { handle: string }) {
+  const queryClient = useQueryClient();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfinitePosts(handle);
   const loaderRef = React.useRef<HTMLDivElement | null>(null);
+  const queryAuthor = queryClient.getQueryData(["author", handle]);
 
   // Fetch robook metadata (cached from layout if prefetched)
   const { data: author } = useQuery({
     queryKey: ["author", handle],
-    queryFn: () => getAuthorProfile(handle),
+    queryFn: () => {
+      if (queryAuthor) return queryAuthor;
+
+      return getAuthorProfile(handle)
+    },
     staleTime: Infinity,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -42,7 +47,6 @@ export default function AuthorPosts({ handle }: { handle: string }) {
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  // if (!robook) return <h1> Sorry, No Robook found </h1>; // or a loading skeleton
 
   if (!posts) return <h1> Sorry, failed to load posts</h1>;
 
@@ -57,7 +61,7 @@ export default function AuthorPosts({ handle }: { handle: string }) {
       }}
     >
       {posts.map((post: BookPostDTO, index: number) => (
-        <PostCard key={index} author={author} post={post} />
+        <PostCard key={index} author={author ?? queryAuthor} post={post} />
       ))}
       <div ref={loaderRef} />
       {isFetchingNextPage && <p>Loading more...</p>}
