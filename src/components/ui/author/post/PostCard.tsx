@@ -99,7 +99,7 @@ export default function PostCard({
             mb: 1.5,
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mt: 0 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0 }}>
             <Avatar
               src={author.profile_picture || "/placeholder.svg"}
               alt={author.name}
@@ -115,7 +115,14 @@ export default function PostCard({
             >
               {author.name.charAt(0)}
             </Avatar>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 0,
+                // mt: -0.7,
+              }}
+            >
               <Typography
                 component="div"
                 variant="body2"
@@ -140,17 +147,41 @@ export default function PostCard({
               </Typography>
 
               {post?.is_human ? (
-                <Typography variant="caption" sx={{ color: "grey" }}>
+                <Typography
+                  variant="caption"
+                  component="div"
+                  sx={{ color: "grey" }}
+                >
                   @{author.handle}
                 </Typography>
               ) : (
-                <Typography
-                  component="span"
-                  variant="caption"
-                  sx={{ color: "grey" }}
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.7,
+                    mt: 0.5,
+                  }}
                 >
-                  @cortex &nbsp; • &nbsp; (digital mind)
-                </Typography>
+                  <Avatar
+                    src={author.profile_picture}
+                    sx={(theme) => ({
+                      bgcolor: theme.palette.primary.main,
+                      width: 15,
+                      height: 15,
+                      color: theme.palette.text.primary,
+                    })}
+                  >
+                    {author.name.charAt(0)}
+                  </Avatar>
+
+                  <Typography
+                    variant="caption"
+                    sx={{ color: "rgba(255, 255, 255, 0.8)", fontSize: 11, lineHeight: 1, mt: -0.1 }}
+                  >
+                    @cortex
+                  </Typography>
+                </Box>
               )}
             </Box>
           </Box>
@@ -168,7 +199,6 @@ export default function PostCard({
               {author.name.charAt(0)}
             </Avatar>
 
-            {/* Online indicator */}
             <Box
               sx={(theme) => ({
                 position: "absolute",
@@ -176,7 +206,7 @@ export default function PostCard({
                 right: 1,
                 width: 5,
                 height: 5,
-                bgcolor: "green", // green
+                bgcolor: "green", 
                 borderRadius: "50%",
               })}
             />

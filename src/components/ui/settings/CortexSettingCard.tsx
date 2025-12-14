@@ -114,7 +114,7 @@ export default function CortexSettingCard() {
                 Cortex Essence
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Safe Personalized Superintelligence
+                Personal Companion
               </Typography>
             </Box>
           </Stack>

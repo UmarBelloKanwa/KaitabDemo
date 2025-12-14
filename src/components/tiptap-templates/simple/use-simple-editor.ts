@@ -285,7 +285,6 @@ export default function useSimpleEditor() {
         images: images,
       });
       const publishedArticle: Article = res.data as Article;
-      console.log("publishedArticle", publishedArticle);
       setAlertMessage("Article published successfully!");
       setAlertType("success");
       setAlertOpen(true);

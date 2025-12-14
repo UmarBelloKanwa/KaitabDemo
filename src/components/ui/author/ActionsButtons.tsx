@@ -83,9 +83,9 @@ export default function ActionsButton({
             onClick={() => requireAuth(makeAction)}
             sx={{ flex: 1 }}
           >
-            {isFollowingAuthor ? "Subscribed" : "Subscribe"}
+            {isFollowingAuthor ? "Following" : "Follow"}
           </Button>
-          <Button
+          {/* <Button
             variant="outlined"
             startIcon={isFollowingAuthor ? <CheckCircleIcon /> : null}
             onClick={() => requireAuth(makeAction)}
@@ -104,7 +104,7 @@ export default function ActionsButton({
           >
             {isFollowingAuthor ? "Following" : "Follow"}
 
-          </Button>
+          </Button> */}
         </Box>
       ) : (
         <Button

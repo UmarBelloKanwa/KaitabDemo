@@ -16,7 +16,7 @@ import ActionsButtons from "./ActionsButtons";
 import TabsButton from "@/components/ui/author/TabsButtons";
 import Chip from "@mui/material/Chip";
 import MessageIcon from "@mui/icons-material/MessageOutlined";
-import LiveHelpOutlinedIcon from '@mui/icons-material/LiveHelpOutlined';
+import LiveHelpOutlinedIcon from "@mui/icons-material/LiveHelpOutlined";
 
 export default function ProfileCard({ author }: { author: Author }) {
   const theme = useTheme();
@@ -27,6 +27,8 @@ export default function ProfileCard({ author }: { author: Author }) {
 
     // {label: "Add"}
   ];
+
+  const name = author?.name.trim().split(" ")[0];
 
   return (
     <Card
@@ -74,7 +76,7 @@ export default function ProfileCard({ author }: { author: Author }) {
 
       <CardContent sx={{ p: 2, px: { xs: 1, md: 2 }, pt: 1 }}>
         {/* Name and Username */}
-        <Box sx={{ mb: 1.5 }}>
+        <Box sx={{ mb: 1 }}>
           <Typography
             variant="h6"
             component="h2"
@@ -89,23 +91,41 @@ export default function ProfileCard({ author }: { author: Author }) {
             @{author.handle}
           </Typography>
         </Box>
-
+        <Typography
+          variant="body2"
+          sx={{
+            color: theme.palette.text.disabled,
+            maxWidth: "85%",
+            width: "85%",
+            mb: 1,
+            lineHeight: 1.6,
+          }}
+        >
+          {author.short_bio}
+        </Typography>
         <Box
+          component="div"
           sx={{
             display: "flex",
             alignItems: "center",
             gap: 1,
-            mt: 0,
-            mb: 1,
+            mt: 2,
+            //  mb: 1,
           }}
         >
-          <Box sx={{ position: "relative", display: "inline-block" }}>
+          <Box
+            sx={{
+              position: "relative",
+              display: "inline-block",
+              height: "fit-content",
+            }}
+          >
             <Avatar
               src={author.profile_picture}
               sx={{
                 bgcolor: theme.palette.primary.main,
-                width: 45,
-                height: 45,
+                width: 48,
+                height: 48,
                 //borderRadius: 1,
                 border: `1px solid ${theme.palette.divider}`,
                 color: theme.palette.text.primary,
@@ -141,7 +161,7 @@ export default function ProfileCard({ author }: { author: Author }) {
               }}
             >
               Cortex &nbsp;
-              {!author.can_follow ? (
+              {false ? (
                 <Button
                   variant="outlined"
                   size="small"
@@ -152,9 +172,9 @@ export default function ProfileCard({ author }: { author: Author }) {
                     lineHeight: 0.9,
                     gap: -1,
                     py: 0.5,
-                    px: 1
+                    px: 1,
                   }}
-                  startIcon={(
+                  startIcon={
                     <Box
                       component="svg"
                       color="primary"
@@ -164,8 +184,11 @@ export default function ProfileCard({ author }: { author: Author }) {
                     >
                       <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47 0-.92.084-1.336.25C14.818 2.415 13.51 1.5 12 1.5s-2.816.917-3.437 2.25c-.415-.165-.866-.25-1.336-.25-2.11 0-3.818 1.79-3.818 4 0 .494.083.964.237 1.4-1.272.65-2.147 2.018-2.147 3.6 0 1.495.782 2.798 1.942 3.486-.02.17-.032.34-.032.514 0 2.21 1.708 4 3.818 4 .47 0 .92-.086 1.335-.25.62 1.334 1.926 2.25 3.437 2.25 1.512 0 2.818-.916 3.437-2.25.415.163.865.248 1.336.248 2.11 0 3.818-1.79 3.818-4 0-.174-.012-.344-.033-.513 1.158-.687 1.943-1.99 1.943-3.484zm-6.616-3.334l-4.334 6.5c-.145.217-.382.334-.625.334-.143 0-.288-.04-.416-.126l-.115-.094-2.056-2.13c-.293-.306-.288-.778.018-1.1.306-.294.778-.287 1.1.018l1.476 1.528 3.825-5.738c.251-.375.756-.47 1.131-.22.375.251.47.756.22 1.131-.004-.001-.004-.001-.004-.003z" />
                     </Box>
-                  )}
-                > Upgrade </Button>
+                  }
+                >
+                  {" "}
+                  Upgrade{" "}
+                </Button>
               ) : (
                 <Typography
                   component="span"
@@ -173,31 +196,40 @@ export default function ProfileCard({ author }: { author: Author }) {
                   textTransform="lowercase"
                   sx={{ color: "grey" }}
                 >
-                  (digital mind){" "}
+                (Personal Companion){" "} 
                 </Typography>
               )}
             </Typography>
             <Typography
               variant="caption"
               component="div"
-              sx={{ color: theme.palette.text.secondary, fontSize: "11px" }}
+              sx={{
+                color: theme.palette.text.secondary,
+                fontSize: "10px",
+              }}
             >
-              {author.can_follow ? "Active" : <span style={{ opacity: 0.5 }}> Upgrade for digital mind </span>}
+              {true ? (
+                "@cortex"
+              ) : (
+                <span style={{ opacity: 0.5 }}> Upgrade for digital mind </span>
+              )}
             </Typography>
           </Box>
         </Box>
         {/* Bio */}
         <Typography
           variant="body2"
+          component="div"
           sx={{
             color: theme.palette.text.disabled,
             maxWidth: "85%",
             width: "85%",
-            mb: 1,
+            my: 1,
             lineHeight: 1.6,
           }}
         >
-          {author.short_bio}
+          I'm {name}'s Personal Companion. I learn from and am inspired by his
+          work.
         </Typography>
         <Box
           sx={{
@@ -206,11 +238,11 @@ export default function ProfileCard({ author }: { author: Author }) {
             gap: 1,
             color: theme.palette.text.disabled,
             cursor: "pointer",
-            mb: 2,
+            mb: 1,
             "&:hover": { color: theme.palette.text.primary },
           }}
         >
-          {actions.map((action, index) => (
+          {/* {actions.map((action, index) => (
             <Box
               key={index}
               sx={{
@@ -235,7 +267,7 @@ export default function ProfileCard({ author }: { author: Author }) {
                 }}
               />
             </Box>
-          ))}
+          ))} */}
         </Box>
 
         {/* Links */}

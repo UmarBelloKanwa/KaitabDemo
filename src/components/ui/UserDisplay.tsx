@@ -65,7 +65,7 @@ export default function UserDisplay({ user, handleDrawerToggle }: { user: any, h
           borderColor: "divider",
         }}
       >
-        <Button
+        {/* <Button
           variant="outlined"
           className="elevated"
           fullWidth
@@ -77,7 +77,7 @@ export default function UserDisplay({ user, handleDrawerToggle }: { user: any, h
           }}
         >
           Upgrade
-        </Button>
+        </Button> */}
 
         <Box
           sx={{

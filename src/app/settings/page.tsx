@@ -147,7 +147,7 @@ export default function SettingsPage() {
           </Stack>
         </Paper>
 
-        <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
+        {/* <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>
           Publication
         </Typography>
 
@@ -193,7 +193,7 @@ export default function SettingsPage() {
               <ChevronRightIcon sx={{ color: "text.secondary" }} />
             </IconButton>
           </Box>
-        </Paper>
+        </Paper> */}
 
         {/* Cortex Section */}
         <Typography variant="h6" sx={{ mb: 3, fontWeight: 600 }}>

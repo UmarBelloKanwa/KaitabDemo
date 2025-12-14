@@ -5,7 +5,6 @@ import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import {
   getAuthorProfile,
-  getAuthorBooks,
   fetchInitialAuthorPosts,
   getAuthorArticles,
 } from "@/actions/author";
