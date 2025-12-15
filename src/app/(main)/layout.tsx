@@ -13,7 +13,6 @@ import { getArticlesPreviews } from "@/actions/article";
 import getQueryClient from "@/lib/get-query-client";
 
 import NavLayout from "../../components/ui/home/NavLayout";
-import { authors } from "@/data/fake";
 
 export default async function Layout({
   children,
@@ -40,8 +39,8 @@ export default async function Layout({
     pageParams: [0],
   });
 
-  if (authors) {
-    authors.forEach((author: any) => {
+  if (authorsRes) {
+    authorsRes.forEach((author: any) => {
       queryClient.setQueryData(["author", author.public_id], author);
     });
   }
