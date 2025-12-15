@@ -22,6 +22,9 @@ import UserDisplay from "./UserDisplay";
 import ArticleIcon from "@mui/icons-material/ArticleOutlined";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import { usePathname } from "next/navigation";
+import HIDE_DRAWER_ROUTES from "@data/HIDE_DRAWER_ROUTES";
+import Image from "next/image";
+
 import "./drawer.css";
 
 const drawerWidth = 280;
@@ -72,20 +75,14 @@ export default function Sidebar({ user }: { user: any }) {
     }
   }, [isMobile]);
 
-  const hideDrawer =
-    pathname.startsWith("/publish") || pathname.startsWith("/upgrade");
+ const hideDrawer = HIDE_DRAWER_ROUTES.some(
+  route =>
+    pathname === `/${route}` || pathname.startsWith(`/${route}/`)
+);
 
   if (hideDrawer) {
     return <></>;
   }
-
-  // React.useEffect(() => {
-  //   if (sidebarOpen) {
-  //     document.querySelector(".short-nav")?.classList.add("show");
-  //   } else {
-  //     document.querySelector(".short-nav")?.classList.remove("show");
-  //   }
-  // }, [sidebarOpen]);
 
   return (
     <>
@@ -114,8 +111,7 @@ export default function Sidebar({ user }: { user: any }) {
           >
             <Box
               component="img"
-              src={logoSrc}
-              alt="App Logo"
+              alt="Feedple"
               onClick={handleDrawerToggle}
               sx={{
                 width: "125px",
@@ -137,14 +133,6 @@ export default function Sidebar({ user }: { user: any }) {
           >
             <MenuIcon />
           </IconButton>
-          {/* <Typography
-          variant="h6"
-          color="text.primary"
-          sx={{ m: 0, cursor: "pointer", display: { xs: "block", sm: "none" } }}
-          onClick={() => router.push("/")}
-        >
-          {companyName}
-        </Typography> */}
         </Box>
       </div>
 
@@ -197,6 +185,7 @@ export default function Sidebar({ user }: { user: any }) {
                 >
                   <img
                     src={logoSrc}
+                    width={"100%"}
                     alt="App Logo"
                     onClick={() => router.push("/")}
                     style={{
@@ -207,32 +196,6 @@ export default function Sidebar({ user }: { user: any }) {
                   />
                 </Box>
               </Box>
-
-              {/* <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography
-              variant="h6"
-              color="text.primary"
-              sx={{ m: 0 }}
-              onClick={() => router.push("/")}
-            >
-              {companyName}
-            </Typography>
-            <IconButton
-              onClick={handleDrawerToggle}
-              sx={{
-                display: { xs: "block", md: "none" },
-                color: theme.palette.text.primary,
-              }}
-            >
-              <ChevronLeft />
-            </IconButton>
-          </Box> */}
             </Box>
 
             {/* Create Button */}
