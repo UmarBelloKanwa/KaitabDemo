@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import type { ArticlePreview } from "@/types/article";
+import ShareButton from "@ui/robook/chapter/ActionsButtons/ShareButton";
 
 interface ArticleCardProps {
   articlePreview: ArticlePreview;
@@ -31,12 +32,15 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
     <Card
       elevation={0}
       sx={{
-        bgcolor: "transparent",
+        bgcolor: "background.default",
+        boxShadow: 11,
         borderRadius: 2,
+        border: "1px solid",
+        borderColor: "rgba(255, 255, 255, 0.05)",
         width: "100%",
         maxWidth: "100%",
         color: "grey",
-        mb: 1,
+        mb: 2,
         "&:hover": {
           bgcolor: "background.paper",
         },
@@ -47,7 +51,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
         );
       }}
     >
-      <CardContent >
+      <CardContent>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -59,13 +63,41 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
               src={articlePreview.author?.profile_picture}
               alt={articlePreview.author?.name}
               sx={{
-                width: 40,
-                height: 40,
+                width: 48,
+                height: 48,
+                objectFit: "fill",
               }}
             />
-            <Typography variant="subtitle2" sx={{ fontWeight: 500 }}>
-              {articlePreview.author?.name}
-            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 0,
+                mt: -0.7,
+              }}
+            >
+              <Typography
+                component="div"
+                variant="body2"
+                onClick={() => {
+                  router.push(`/${articlePreview.author?.handle}`);
+                }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "white",
+                  gap: 1,
+                }}
+              >
+                {articlePreview.author?.name}
+              </Typography>
+              <Typography
+                variant="caption"
+                component="div"
+                sx={{ color: "grey" }}
+              >
+                @{articlePreview.author?.handle}
+              </Typography>
+            </Box>
           </Stack>
           <Typography
             variant="caption"
@@ -100,15 +132,22 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
           {articlePreview.preview_text}
         </Typography>
 
-        <Box>
+        <Box sx={{ display: "flex", alignItems: "baseline", mt: 2 }}>
           <Typography
+            component="div"
             variant="caption"
             sx={{
               fontSize: "0.8rem",
+              flex: 1,
             }}
           >
             {articlePreview.author?.name} &nbsp; • &nbsp; {"1 MIN READ"}
           </Typography>
+          <Box>
+            <ShareButton
+              id={`${articlePreview.author?.handle}c/${articlePreview.public_id}`}
+            />
+          </Box>
         </Box>
       </CardContent>
     </Card>
