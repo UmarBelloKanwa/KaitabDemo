@@ -112,6 +112,7 @@ export default function Sidebar({ user }: { user: any }) {
             <Box
               component="img"
               alt="Feedple"
+              src={logoSrc}
               onClick={handleDrawerToggle}
               sx={{
                 width: "125px",
@@ -185,7 +186,6 @@ export default function Sidebar({ user }: { user: any }) {
                 >
                   <img
                     src={logoSrc}
-                    width={"100%"}
                     alt="App Logo"
                     onClick={() => router.push("/")}
                     style={{
