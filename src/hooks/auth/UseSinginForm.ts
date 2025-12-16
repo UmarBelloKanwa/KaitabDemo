@@ -70,7 +70,8 @@ export default function useSigninForm() {
       setErrors({});
       const res = await authApi.signIn.loginTo({ email, password });
       setDisplayAuthCard(false);
-      router.refresh();
+      window.location.reload();
+     // router.refresh();
     } catch (err: any) {
       console.log(err);
       setErrors((prev: any) => ({ ...prev, ...err }));
@@ -103,7 +104,8 @@ export default function useSigninForm() {
       if (data?.user) {
         setUser(data.user);
         setDisplayAuthCard(false);
-        router.refresh();
+        window.location.reload();
+        //router.refresh();
       }
 
       return data;
