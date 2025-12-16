@@ -12,6 +12,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchAuthors } from "@/actions/author";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import { followAuthor, unfollowAuthor } from "@/lib/api/author";
+import FollowAuthorButton from "@ui/common/FollowButton";
 
 export default function AuthorsLists() {
   const { data } = useInfiniteQuery({
@@ -26,7 +27,7 @@ export default function AuthorsLists() {
   return (
     <Box
       sx={(theme) => ({
-       // border: `1px solid ${theme.palette.divider}`,
+        // border: `1px solid ${theme.palette.divider}`,
         height: "fit-content",
         m: "auto",
         boxShadow: 1,
@@ -38,7 +39,16 @@ export default function AuthorsLists() {
         overflowY: "auto",
       })}
     >
-      <Typography variant="h6" sx={{ ml: 1, mb: 1, fontSize: "13px", fontWeight: "bold", color: "text.secondary" }}>
+      <Typography
+        variant="h6"
+        sx={{
+          ml: 1,
+          mb: 1,
+          fontSize: "13px",
+          fontWeight: "bold",
+          color: "text.secondary",
+        }}
+      >
         Who to follow
       </Typography>
       <Box
@@ -51,7 +61,11 @@ export default function AuthorsLists() {
         }}
       >
         {authors.length === 0 ? (
-          <Typography variant="body2" color="text.secondary" sx={{ opacity: 0.5 }}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ opacity: 0.5 }}
+          >
             No authors to display.
           </Typography>
         ) : (
@@ -122,35 +136,7 @@ function AuthorCard({ user, index }: { user: any; index: number }) {
             </Typography>
           </Box>
         </Box>
-        <Button
-          variant="contained"
-          size="small"
-          onClick={(e) => {
-            e.stopPropagation();
-            requiresAuth(async () => {
-              setIsFollowingBook((prev) => !prev);
-              try {
-                if (isFollowingBook) {
-                  await unfollowAuthor(user.public_id);
-                } else {
-                  await followAuthor(user.public_id);
-                }
-              } catch (err) {
-                console.log("Follow/unfollow failed:", err);
-                setIsFollowingBook((prev) => !prev);
-              }
-            });
-          }}
-          sx={{
-            px: 1.5,
-            py: 0.5,
-            fontSize: "0.75rem",
-            textTransform: "none",
-            borderRadius: "20px",
-          }}
-        >
-          {isFollowingBook ? "Following" : "Follow"}
-        </Button>
+        <FollowAuthorButton author={user} />
       </Box>
     </Card>
   );
