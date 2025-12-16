@@ -32,6 +32,8 @@ const drawerWidth = 280;
 export default function Sidebar({ user }: { user: any }) {
   const requireAuth = useAuthCheck();
   const pathname = usePathname();
+  const [showMobileNav, setShowMobileNav] = React.useState(true);
+  const lastScrollY = React.useRef(0);
 
   const logoSrc = "/app/logo-name.png";
   const companyName = "Feedple";
@@ -75,10 +77,34 @@ export default function Sidebar({ user }: { user: any }) {
     }
   }, [isMobile]);
 
- const hideDrawer = HIDE_DRAWER_ROUTES.some(
-  route =>
-    pathname === `/${route}` || pathname.startsWith(`/${route}/`)
-);
+  const hideDrawer = HIDE_DRAWER_ROUTES.some(
+    (route) => pathname === `/${route}` || pathname.startsWith(`/${route}/`)
+  );
+
+  React.useEffect(() => {
+    if (!isMobile) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 10) {
+        // Always show near top
+        setShowMobileNav(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        // Scrolling DOWN
+        setShowMobileNav(false);
+      } else {
+        // Scrolling UP
+        setShowMobileNav(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMobile]);
 
   if (hideDrawer) {
     return <></>;
@@ -86,11 +112,23 @@ export default function Sidebar({ user }: { user: any }) {
 
   return (
     <>
-      <div className="short-nav">
+      <div
+        className="short-nav"
+        style={{
+          position: "sticky",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1200,
+          transform: showMobileNav ? "translateY(0)" : "translateY(-100%)",
+          transition: "transform 0.3s ease",
+        }}
+      >
         <Box
           sx={{
             // pr: { sm: "unset", xs: 2.5 },
             // pt: 1.5,
+            bgcolor: "background.default",
             px: 2,
             pt: 1,
             width: "100%",
