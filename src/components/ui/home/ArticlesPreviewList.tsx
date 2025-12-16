@@ -35,9 +35,9 @@ export default function ArticlesPreviewsList() {
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 0, width: "100%", }}>
         {articlesPreviews.map((articlePreview: ArticlePreview, index: number) => (
-          <Box sx={{ m: "auto" }} key={index} >
+          <Box sx={{ m: "auto", width: "100%", }} key={index} >
             <ArticleCard articlePreview={articlePreview} />
           </Box>
         ))}

@@ -47,9 +47,9 @@ export default function Author({ handle }: { handle: string }) {
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 0 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 0, width: "100%", }}>
         {articlesPreviews.map((articlePreview: ArticlePreview, index: number) => (
-          <Box sx={{ px: {md: 2}, m: "auto" }} key={index} >
+          <Box sx={{ px: {md: 2}, m: "auto", width: "100%", }} key={index} >
             <ArticleCard articlePreview={articlePreview} />
           </Box>
         ))}

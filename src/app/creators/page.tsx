@@ -8,16 +8,12 @@ import {
   Container,
   TextField,
   InputAdornment,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 import Divider from "@mui/material/Divider";
 import { useRouter } from "next/navigation";
 import AuthorsList from "@/components/ui/authors-robooks/AuthorsList";
-import RobookCard from "@ui/author/RobookCard";
 import { useInfiniteAuthors } from "@/hooks/author/useInfiniteAuthors";
-import { useInfiniteBooksTofollow } from "@/hooks/robook/useInfiniteRobooksToFollow";
 
 export function Page({ page }: { page: "creators" }) {
   const router = useRouter();

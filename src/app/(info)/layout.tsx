@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,17 +11,15 @@ import {
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
+import NextLink from "next/link";
+import Footer from "@ui/common/Footer";
 
 const navItems = [
-  "About",
-  "Get started",
-  "Support",
-  // "Privacy Policy",
-  // "Terms of Service",
-  // "FAQ",
-  "Contact",
+  { name: "Get Started", link: "/" },
+  { name: "About", link: "/about" },
+  { name: "Support", link: "/support" },
+  { name: "Contact", link: "/contact" },
 ];
 
 const HIDE_DRAWER_ROUTES = ["feedback", "privacy", "terms"];
@@ -42,20 +40,23 @@ export default function InfoLayout({
     setAnchorEl(null);
   };
 
-
   const hideDrawer = HIDE_DRAWER_ROUTES.some(
-    route =>
-      pathname === `/${route}` || pathname.startsWith(`/${route}/`)
+    (route) => pathname === `/${route}` || pathname.startsWith(`/${route}/`)
   );
-  
-    if (hideDrawer) {
-      return <>{children}</>;
-    }
+
+  if (hideDrawer) {
+    return <>{children}</>;
+  }
+
+  const isActive = (link: string) => {
+    if (link === "/") return pathname === "/";
+    return pathname === link || pathname.startsWith(`${link}/`);
+  };
+
   return (
     <Box sx={{ bgcolor: "background.default", minHeight: "100vh" }}>
-      {/* Header/Navigation */}
       <AppBar
-        position="static"
+        position="fixed"
         elevation={0}
         variant="outlined"
         sx={{
@@ -72,7 +73,6 @@ export default function InfoLayout({
               alt="Feedple"
               style={{
                 width: "125px",
-                height: "100%",
                 objectFit: "contain",
               }}
             />
@@ -81,33 +81,33 @@ export default function InfoLayout({
           <Box sx={{ flexGrow: 1 }} />
 
           {/* Desktop navigation */}
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              gap: 3,
-            }}
-          >
-            {navItems.map((item, index) => (
-              <Link
-                key={item}
-                href="#"
-                underline="none"
-                sx={(theme) => ({
-                  color: "text.primary",
-                  fontSize: "0.875rem",
-                  fontWeight: 500,
-                  borderBottom:
-                    index === 0
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
+            {navItems.map((item) => {
+              const active = isActive(item.link);
+
+              return (
+                <Link
+                  component={NextLink}
+                  key={item.link}
+                  href={item.link}
+                  underline="none"
+                  sx={(theme) => ({
+                    color: active ? "primary.main" : "text.primary",
+                    fontSize: "0.875rem",
+                    fontWeight: 500,
+                    borderBottom: active
                       ? `3px solid ${theme.palette.primary.main}`
                       : "3px solid transparent",
-                  "&:hover": {
-                    color: "primary.main",
-                  },
-                })}
-              >
-                {item}
-              </Link>
-            ))}
+                    transition: "all 0.2s ease",
+                    "&:hover": {
+                      color: "primary.main",
+                    },
+                  })}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </Box>
 
           {/* Mobile menu */}
@@ -115,6 +115,7 @@ export default function InfoLayout({
             <IconButton onClick={handleOpen}>
               <MenuIcon />
             </IconButton>
+
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -122,16 +123,32 @@ export default function InfoLayout({
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
               transformOrigin={{ vertical: "top", horizontal: "right" }}
             >
-              {navItems.map((item) => (
-                <MenuItem key={item} onClick={handleClose}>
-                  {item}
-                </MenuItem>
-              ))}
+              {navItems.map((item) => {
+                const active = isActive(item.link);
+
+                return (
+                  <MenuItem
+                    key={item.link}
+                    component={NextLink}
+                    href={item.link}
+                    selected={active}
+                    onClick={handleClose}
+                  >
+                    {item.name}
+                  </MenuItem>
+                );
+              })}
             </Menu>
           </Box>
         </Toolbar>
       </AppBar>
+
+      {/* Offset for fixed AppBar */}
+      <Toolbar />
+     
       {children}
+      
+       <Footer />
     </Box>
   );
 }

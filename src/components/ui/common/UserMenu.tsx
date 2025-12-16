@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Avatar,
@@ -11,11 +11,17 @@ import {
   Paper,
   Popover,
   Typography,
-} from "@mui/material"
-import { Person, Settings, Description, Logout, ExpandMore } from "@mui/icons-material"
-import { useState, type MouseEvent } from "react"
+} from "@mui/material";
+import {
+  Person,
+  Settings,
+  Description,
+  Logout,
+  ExpandMore,
+} from "@mui/icons-material";
+import { useState, type MouseEvent } from "react";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-import FeedbackIcon from '@mui/icons-material/Feedback';
+import FeedbackIcon from "@mui/icons-material/Feedback";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -23,46 +29,48 @@ interface UserMenuPopupProps {
   user: any;
 }
 
-export default function UserMenuPopup({
-  user,
-}: UserMenuPopupProps) {
-
+export default function UserMenuPopup({ user }: UserMenuPopupProps) {
   const isAuthor = !!user?.author;
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   const open = Boolean(anchorEl);
   const requireAuth = useAuthCheck();
 
   const router = useRouter();
 
-
   const menuItems = [
-    ...(isAuthor ? [
-      {
-        label: "Settings",
-        icon: Settings,
-        onClick: () => { router.push("/settings") },
-      },
-    ] : []),
+    ...(isAuthor
+      ? [
+          {
+            label: "Settings",
+            icon: Settings,
+            onClick: () => {
+              router.push("/settings");
+            },
+          },
+        ]
+      : []),
     {
       label: "Support",
       icon: FeedbackIcon,
-      onClick: () => { },
+      onClick: () => {
+        router.push("/support");
+      },
     },
     {
       label: "Logout",
       icon: Logout,
-      onClick: () => { },
+      onClick: () => {},
     },
-  ]
+  ];
 
   return (
     <Box>
@@ -82,7 +90,15 @@ export default function UserMenuPopup({
           },
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, minWidth: 0, flex: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
+            minWidth: 0,
+            flex: 1,
+          }}
+        >
           <Avatar
             src={isAuthor ? user?.author?.profile_picture : undefined}
             sx={(theme) => ({
@@ -96,7 +112,14 @@ export default function UserMenuPopup({
               ? user?.author?.name.charAt(0).toUpperCase()
               : user?.name.charAt(0).toUpperCase()}
           </Avatar>
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", minWidth: 0 }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              minWidth: 0,
+            }}
+          >
             <Typography
               variant="body2"
               fontWeight={600}
@@ -109,7 +132,6 @@ export default function UserMenuPopup({
               }}
             >
               {isAuthor ? user?.author?.name : user?.name}
-
             </Typography>
             {isAuthor && (
               <Typography
@@ -158,20 +180,17 @@ export default function UserMenuPopup({
           },
         }}
       >
-        <Paper
-          variant="outlined"
-          elevation={0}
-        >
+        <Paper variant="outlined" elevation={0}>
           <List sx={{ p: 0.5 }}>
             {menuItems.map((item, index) => {
-              const Icon = item.icon
+              const Icon = item.icon;
               return (
                 <ListItemButton
                   LinkComponent={Link}
                   key={index}
                   onClick={() => {
-                    item.onClick?.()
-                    handleClose()
+                    item.onClick?.();
+                    handleClose();
                   }}
                   sx={{
                     borderTop: item.label == "Support" ? "1px solid" : "none",
@@ -180,10 +199,9 @@ export default function UserMenuPopup({
                     py: 1,
                     "&:hover": {
                       borderRadius: 1.3,
-                    }
+                    },
                   }}
                 >
-
                   <ListItemText
                     primary={item.label}
                     primaryTypographyProps={{
@@ -194,7 +212,7 @@ export default function UserMenuPopup({
                     <Icon sx={{ fontSize: 15, color: "text.secondary" }} />
                   </ListItemIcon>
                 </ListItemButton>
-              )
+              );
             })}
           </List>
           <Box
@@ -203,17 +221,28 @@ export default function UserMenuPopup({
               justifyContent: "space-around",
               p: 1,
               borderTop: "1px solid",
-              borderColor: "divider"
+              borderColor: "divider",
             }}
           >
-            {["About", "Policies", "Privacy"].map((text, index) => (
-              <Typography variant="caption" key={index} fontSize="x-small" color="grey">
-                {text}
+            {[
+              { name: "About", link: "/about" },
+              { name: "Policies", link: "/terms" },
+              { name: "Privacy", link: "/privacy" },
+            ].map((prop, index) => (
+              <Typography
+                component={Link}
+                href={prop.link}
+                variant="caption"
+                key={index}
+                fontSize="x-small"
+                color="grey"
+              >
+                {prop.name}
               </Typography>
             ))}
           </Box>
         </Paper>
       </Popover>
     </Box>
-  )
+  );
 }

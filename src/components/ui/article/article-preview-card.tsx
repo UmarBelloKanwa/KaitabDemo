@@ -33,6 +33,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
       sx={{
         bgcolor: "transparent",
         borderRadius: 2,
+        width: "100%",
         maxWidth: "100%",
         color: "grey",
         mb: 1,

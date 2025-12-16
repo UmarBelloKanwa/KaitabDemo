@@ -1,7 +1,7 @@
 "use server";
 
-import PostLists from "@/components/ui/home/PostList";
+import ArticlesPreviewList from "@/components/ui/home/ArticlesPreviewList";
 
 export default async function HomePage() {
-  return <PostLists />;
+  return <ArticlesPreviewList />;
 }

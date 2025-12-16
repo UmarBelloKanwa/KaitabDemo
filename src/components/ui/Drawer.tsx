@@ -47,9 +47,9 @@ export default function Sidebar({ user }: { user: any }) {
       onClick: () => router.push("/creators"),
     },
     {
-      name: "Contents",
+      name: "Notes",
       icon: ArticleIcon,
-      onClick: () => router.push("/contents"),
+      onClick: () => router.push("/notes"),
     },
   ];
 
