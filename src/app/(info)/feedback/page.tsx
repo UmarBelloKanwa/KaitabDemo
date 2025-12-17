@@ -1,22 +1,84 @@
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
-import { Box, TextField, IconButton, Typography, Link } from "@mui/material";
-import Button from "@mui/material/Button";
+import React, { useState } from "react";
+import {
+  Box,
+  TextField,
+  IconButton,
+  Typography,
+  Link,
+  Button,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import PhotoIcon from "@mui/icons-material/Photo";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import BackButton from "@/components/ui/common/BackButton";
+import { submitFeedback } from "@/lib/api/feedback";
+import { FeedbackType } from "@/types/feedback";
+
 export default function FeedbackPage() {
   const [activeTab, setActiveTab] = useState<"bug" | "feature">("bug");
   const [bugText, setBugText] = useState("");
   const [featureText, setFeatureText] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState<{
+    open: boolean;
+    severity: "success" | "error";
+    message: string;
+  }>({
+    open: false,
+    severity: "success",
+    message: "",
+  });
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setSelectedImage(event.target.files[0]);
+    }
+  };
+
+  const handleCloseAlert = () => {
+    setAlert({ ...alert, open: false });
+  };
+
+  const submit = async () => {
+    try {
+      setLoading(true);
+      const message = activeTab === "bug" ? bugText : featureText;
+      const type =
+        activeTab === "bug" ? FeedbackType.FEEDBACK : FeedbackType.FEATURE;
+
+      const data: { message: string; type: FeedbackType; image?: File } = {
+        message,
+        type,
+      };
+
+      if (selectedImage) {
+        data["image"] = selectedImage;
+      }
+
+      await submitFeedback(data); // Make sure your API accepts FormData
+
+      setAlert({
+        open: true,
+        severity: "success",
+        message: "Feedback sent successfully!",
+      });
+
+      // Reset inputs
+      setBugText("");
+      setFeatureText("");
+      setSelectedImage(null);
+    } catch (err) {
+      console.log(err);
+      setAlert({
+        open: true,
+        severity: "error",
+        message: "Failed to send feedback. Please try again.",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,16 +111,14 @@ export default function FeedbackPage() {
         >
           Feedback
         </Typography>
-        <Typography
-          sx={{
-            color: "text.primary",
-            cursor: "pointer",
-            fontSize: { xs: "14px", sm: "16px" },
-            "&:hover": { color: "white" },
-          }}
+        <Button
+          onClick={submit}
+          disabled={loading}
+          variant="contained"
+          sx={{ textTransform: "none" }}
         >
-          Save
-        </Typography>
+          {loading ? "Sending..." : "Save"}
+        </Button>
       </Box>
 
       {/* Content */}
@@ -82,181 +142,56 @@ export default function FeedbackPage() {
           <Button
             onClick={() => setActiveTab("bug")}
             variant={activeTab === "bug" ? "contained" : "outlined"}
-            className={activeTab == "bug" ? "no" : "elevated"}
             sx={{
               flex: 1,
-              py: { xs: 1.5, sm: 2 },
-              px: { xs: 2, sm: 3 },
-              textAlign: "center",
+              py: 1.5,
+              px: 2,
               borderRadius: "50px",
-              cursor: "pointer",
-              // bgcolor: activeTab === "bug" ? "white" : "transparent",
-              // color: activeTab === "bug" ? "black" : "#9ca",
-              // border:
-              //   activeTab === "bug"
-              //     ? "none"
-              //     : "1px solid rgba(255, 255, 255, 0.2)",
-              transition: "all 0.3s ease",
               fontWeight: 500,
-              fontSize: { xs: "14px", sm: "15px", md: "16px" },
-              // "&:hover": {
-              //   bgcolor:
-              //     activeTab === "bug" ? "white" : "rgba(255, 255, 255, 0.05)",
-              // },
             }}
           >
             Bug report
           </Button>
           <Button
-            variant={activeTab === "feature" ? "contained" : "outlined"}
-            className={activeTab == "feature" ? "no" : "elevated"}
             onClick={() => setActiveTab("feature")}
+            variant={activeTab === "feature" ? "contained" : "outlined"}
             sx={{
               flex: 1,
-              py: { xs: 1.5, sm: 2 },
-              px: { xs: 2, sm: 3 },
-              textAlign: "center",
+              py: 1.5,
+              px: 2,
               borderRadius: "50px",
-              cursor: "pointer",
-              // bgcolor: activeTab === "feature" ? "white" : "transparent",
-              // color: activeTab === "feature" ? "black" : "#9ca3af",
-              // border:
-              //   activeTab === "feature"
-              //     ? "none"
-              //     : "1px solid rgba(255, 255, 255, 0.2)",
-              transition: "all 0.3s ease",
               fontWeight: 500,
-              fontSize: { xs: "14px", sm: "15px", md: "16px" },
-              // "&:hover": {
-              //   bgcolor:
-              //     activeTab === "feature"
-              //       ? "white"
-              //       : "rgba(255, 255, 255, 0.05)",
-              // },
             }}
           >
             Feature request
           </Button>
         </Box>
 
-        {/* Bug Report Input */}
-        {activeTab === "bug" && (
-          <Box sx={{ position: "relative" }}>
-            <TextField
-              multiline
-              rows={activeTab === "bug" ? 8 : 10}
-              fullWidth
-              placeholder="Tell us what happened - the more detail the better!"
-              value={bugText}
-              onChange={(e) => setBugText(e.target.value)}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  //color: "white",
-                  fontSize: { xs: "14px", sm: "15px", md: "16px" },
-                  borderRadius: { xs: "10px", sm: "12px" },
-                  bgcolor: "transparent",
-                  border: "1px solid",
-                  borderColor: "divider",
-                  "& fieldset": {
-                    border: "none",
-                  },
-                  // "&:hover": {
-                  //   border: "1px solid rgba(255, 255, 255, 0.3)",
-                  // },
-                  // "&.Mui-focused": {
-                  //   border: "1px solid rgba(255, 255, 255, 0.4)",
-                  // },
-                },
-                "& .MuiInputBase-input": {
-                  padding: { xs: "16px", sm: "18px", md: "20px" },
-                  paddingBottom: { xs: "50px", sm: "55px", md: "60px" },
-                },
-                "& .MuiInputBase-input::placeholder": {
-                  color: "#6b7280",
-                  opacity: 1,
-                },
-              }}
-            />
-            {/* Image Upload Button */}
-            <IconButton
-              component="label"
-              sx={{
-                position: "absolute",
-                bottom: { xs: "12px", sm: "14px", md: "16px" },
-                right: { xs: "12px", sm: "14px", md: "16px" },
-                // color: "#9ca3af",
-                // bgcolor: "rgba(255, 255, 255, 0.05)",
-                width: { xs: "36px", sm: "40px", md: "44px" },
-                height: { xs: "36px", sm: "40px", md: "44px" },
-                // "&:hover": {
-                //   bgcolor: "rgba(255, 255, 255, 0.1)",
-                // },
-              }}
-            >
-              <PhotoIcon />
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
-            </IconButton>
-            {selectedImage && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: { xs: "12px", sm: "14px", md: "16px" },
-                  right: { xs: "52px", sm: "58px", md: "64px" },
-                  width: { xs: 40, sm: 48, md: 56 },
-                  height: { xs: 40, sm: 48, md: 56 },
-                  borderRadius: "8px",
-                  overflow: "hidden",
-                  border: "1px solid",
-                  borderColor: "divider",
-                  bgcolor: "background.paper",
-                }}
-              >
-                <Box
-                  component="img"
-                  src={URL.createObjectURL(selectedImage)}
-                  alt="Uploaded preview"
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
-                />
-              </Box>
-            )}
-          </Box>
-        )}
-
-        {/* Feature Request Input */}
-        {activeTab === "feature" && (
+        {/* Input */}
+        <Box sx={{ position: "relative" }}>
           <TextField
             multiline
-            rows={10}
+            rows={activeTab === "bug" ? 8 : 10}
             fullWidth
-            placeholder="Tell us about the feature you'd like to see - the more detail the better!"
-            value={featureText}
-            onChange={(e) => setFeatureText(e.target.value)}
+            placeholder={
+              activeTab === "bug"
+                ? "Tell us what happened - the more detail the better!"
+                : "Tell us about the feature you'd like to see - the more detail the better!"
+            }
+            value={activeTab === "bug" ? bugText : featureText}
+            onChange={(e) =>
+              activeTab === "bug"
+                ? setBugText(e.target.value)
+                : setFeatureText(e.target.value)
+            }
             sx={{
               "& .MuiOutlinedInput-root": {
-                color: "white",
                 fontSize: { xs: "14px", sm: "15px", md: "16px" },
                 borderRadius: { xs: "10px", sm: "12px" },
                 bgcolor: "transparent",
                 border: "1px solid",
                 borderColor: "divider",
-                "& fieldset": {
-                  border: "none",
-                },
-                // "&:hover": {
-                //   border: "1px solid rgba(255, 255, 255, 0.3)",
-                // },
-                // "&.Mui-focused": {
-                //   border: "1px solid rgba(255, 255, 255, 0.4)",
-                // },
+                "& fieldset": { border: "none" },
               },
               "& .MuiInputBase-input": {
                 padding: { xs: "16px", sm: "18px", md: "20px" },
@@ -267,16 +202,51 @@ export default function FeedbackPage() {
               },
             }}
           />
-        )}
+
+          {/* Image Upload for bug */}
+          {activeTab === "bug" && (
+            <IconButton
+              component="label"
+              sx={{ position: "absolute", bottom: 12, right: 12 }}
+            >
+              <PhotoIcon />
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+            </IconButton>
+          )}
+
+          {selectedImage && (
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 12,
+                right: 52,
+                width: 48,
+                height: 48,
+                borderRadius: "8px",
+                overflow: "hidden",
+                border: "1px solid",
+                borderColor: "divider",
+              }}
+            >
+              <Box
+                component="img"
+                src={URL.createObjectURL(selectedImage)}
+                alt="Uploaded preview"
+                sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </Box>
+          )}
+        </Box>
 
         {/* Privacy Notice */}
         <Typography
           variant="caption"
-          sx={{
-            mt: { xs: 2, sm: 2.5, md: 3 },
-            fontSize: { xs: "12px", sm: "13px", md: "14px" },
-            lineHeight: 1.6,
-          }}
+          sx={{ mt: 2, fontSize: 14, lineHeight: 1.6 }}
         >
           To help us resolve your issue, some diagnostic information will be
           included with your report. To learn more, see our{" "}
@@ -284,9 +254,7 @@ export default function FeedbackPage() {
             href="#"
             sx={{
               textDecoration: "none",
-              "&:hover": {
-                textDecoration: "underline",
-              },
+              "&:hover": { textDecoration: "underline" },
             }}
           >
             Privacy Policy
@@ -294,6 +262,22 @@ export default function FeedbackPage() {
           .
         </Typography>
       </Box>
+
+      {/* Snackbar */}
+      <Snackbar
+        open={alert.open}
+        autoHideDuration={4000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseAlert}
+          severity={alert.severity}
+          sx={{ width: "100%" }}
+        >
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
