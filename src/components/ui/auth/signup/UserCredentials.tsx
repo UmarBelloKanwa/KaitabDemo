@@ -11,6 +11,8 @@ import PersonIcon from "@mui/icons-material/Person";
 import useUserCredentials from "@/hooks/auth/useUserCredentials";
 import Alert from "../ErrAlert";
 import PasswordField from "@/components/ui/auth/PasswordField";
+import Link from "@mui/material/Link";
+import NextLink from "next/link";
 
 export default function UserCredentials() {
   const {
@@ -95,7 +97,7 @@ export default function UserCredentials() {
               },
             }}
           />
-          
+
           {passwordRules.length > 0 && userCredentials.password && (
             <Box
               component="ul"
@@ -138,8 +140,9 @@ export default function UserCredentials() {
             </Box>
           )}
           <Typography component="p" variant="caption">
-            By clicking "Continue", you agree to our Terms and have read our
-            Privacy Policy.
+            By clicking "Continue", you agree to our{" "}
+            <Link component={NextLink} href="/terms"> Terms </Link> and acknowledge that you have read our
+            <Link component={NextLink} href="/privacy"> Privacy Policy. </Link>
           </Typography>
           <Button
             type="submit"
@@ -148,7 +151,6 @@ export default function UserCredentials() {
             loading={isSubmitting}
             loadingPosition="end"
             color="secondary"
-          
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault();
               handleSubmit();
