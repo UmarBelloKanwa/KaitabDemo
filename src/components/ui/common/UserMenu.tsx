@@ -19,21 +19,18 @@ import {
   Button,
 } from "@mui/material";
 import {
-  Person,
-  Settings,
-  Description,
-  Logout,
   ExpandMore,
 } from "@mui/icons-material";
 import { WarningAmber } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
-import useAuthCheck from "@/hooks/auth/useAuthCheck";
-import FeedbackIcon from "@mui/icons-material/Feedback";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { logout } from "@/lib/api/auth";
 import { useQueryClient } from "@tanstack/react-query";
-
+import Settings from '@mui/icons-material/SettingsOutlined';
+import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
+import Logout from '@mui/icons-material/LogoutOutlined';
 interface UserMenuPopupProps {
   user: any;
 }
@@ -90,7 +87,7 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
       : []),
     {
       label: "Support",
-      icon: FeedbackIcon,
+      icon: ContactSupportOutlinedIcon,
       onClick: () => {
         router.push("/support");
       },
@@ -99,6 +96,13 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
       label: "Logout",
       icon: Logout,
       onClick: () => setOpenDialog(true),
+    },
+    {
+      label: "Feedback",
+      icon: FeedbackOutlinedIcon,
+      onClick: () => {
+        router.push("/feedback");
+      },
     },
   ];
 
