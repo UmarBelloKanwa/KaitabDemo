@@ -56,7 +56,7 @@ export default function useSimpleEditor() {
   const toolbarRef = useRef<HTMLDivElement>(null);
   const [isPreview, setIsPreview] = useState(false);
   const [editorContent, setEditorContent] = useState<any>({
-    /*...content*/
+    //...content
   } as any);
   const [previewContent, setPreviewContent] = useState<any>({} as any);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -273,6 +273,17 @@ export default function useSimpleEditor() {
     setIsPreview(!isPreview);
   };
 
+  function removeUploadNodes(node: any): any {
+    if (!node.content) return node;
+
+    return {
+      ...node,
+      content: node.content
+        .filter((n: any) => n.type !== "imageUpload")
+        .map(removeUploadNodes),
+    };
+  }
+
   const handleSaveArticle = async () => {
     if (!editor) return;
     setIsSubmitting(true);
@@ -281,17 +292,21 @@ export default function useSimpleEditor() {
       const res = await publishArticle({
         title,
         subtitle,
-        content: editor.getJSON(),
+        content: removeUploadNodes(editor.getJSON()),
         images: images,
       });
       const publishedArticle: Article = res.data as Article;
       setAlertMessage("Article published successfully!");
       setAlertType("success");
       setAlertOpen(true);
-      router.push(`/${publishedArticle.author.handle}/c/${publishedArticle.public_id}`)
+      router.push(
+        `/${publishedArticle.author.handle}/c/${publishedArticle.public_id}`
+      );
     } catch (err: any) {
       console.log("Publish ERror", err);
-      setAlertMessage(err?.message || JSON.stringify(err) || "Failed to publish article.");
+      setAlertMessage(
+        err?.message || JSON.stringify(err) || "Failed to publish article."
+      );
       setAlertType("error");
       setAlertOpen(true);
     } finally {
