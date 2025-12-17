@@ -10,7 +10,7 @@ export const publishArticle = async (data: {
   }[];
 }) => {
   
-  console.log("Article title to published is", data.title);
+  //console.log("Article title to published is", data.title);
 
   const formData = new FormData();
   formData.append("content", JSON.stringify(data.content));

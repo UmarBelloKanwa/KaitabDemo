@@ -11,6 +11,12 @@ import {
   Paper,
   Popover,
   Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
 } from "@mui/material";
 import {
   Person,
@@ -19,11 +25,14 @@ import {
   Logout,
   ExpandMore,
 } from "@mui/icons-material";
+import { WarningAmber } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { logout } from "@/lib/api/auth";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface UserMenuPopupProps {
   user: any;
@@ -31,7 +40,10 @@ interface UserMenuPopupProps {
 
 export default function UserMenuPopup({ user }: UserMenuPopupProps) {
   const isAuthor = !!user?.author;
+  const queryClient = useQueryClient();
+
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [openDialog, setOpenDialog] = useState(false); // For logout confirmation
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -42,9 +54,27 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
   };
 
   const open = Boolean(anchorEl);
-  const requireAuth = useAuthCheck();
 
   const router = useRouter();
+
+  const confirmLogout = async () => {
+    try {
+      await logout();
+      queryClient.clear();
+      localStorage.clear();
+      sessionStorage.clear();
+      if (window.indexedDB && indexedDB.databases) {
+        const databases = await indexedDB.databases();
+        for (const db of databases) {
+          if (db.name) indexedDB.deleteDatabase(db.name);
+        }
+      }
+      router.refresh();
+    } catch (err) {
+      console.error(err);
+    }
+    setOpenDialog(false);
+  };
 
   const menuItems = [
     ...(isAuthor
@@ -68,7 +98,7 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
     {
       label: "Logout",
       icon: Logout,
-      onClick: () => {},
+      onClick: () => setOpenDialog(true),
     },
   ];
 
@@ -243,6 +273,42 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
           </Box>
         </Paper>
       </Popover>
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        maxWidth="xs"
+        fullWidth
+        slotProps={{
+          paper: {
+            sx: {
+              border: "1px solid red",
+              borderColor: "grey.800",
+              borderRadius: 2, // optional: rounded corners
+              p: { xs: 0, md: 1 },
+            },
+            elevation: 0,
+          },
+        }}
+      >
+        <DialogTitle>
+          <Box display="flex" alignItems="center" gap={1}>
+            <WarningAmber sx={{ color: "warning.main" }} />
+            <Typography color="warning.main">Warning</Typography>
+          </Box>
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to log out? This will{" "}
+            <strong>clear your session and all local data</strong>.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+          <Button color="warning" variant="contained" onClick={confirmLogout}>
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

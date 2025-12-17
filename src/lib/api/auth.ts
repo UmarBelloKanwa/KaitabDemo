@@ -55,4 +55,4 @@ export const signupByVerifyingOtp = async (data: SignupData) => {
   })).data;
 };
 
-export const logout = async () => await axios.post("/logout")
+export const logout = async () => await axios.post("auth/logout");
