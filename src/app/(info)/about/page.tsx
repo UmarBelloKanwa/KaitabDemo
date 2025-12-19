@@ -35,7 +35,7 @@ export default function AboutPage() {
                 lineHeight: { xs: 1.2, md: 1.3 },
               }}
             >
-              Share ideas, grow your Personal Companion
+              Share ideas, grow your Personal AI Companion
             </Typography>
             <Typography
               variant="body1"
@@ -46,9 +46,8 @@ export default function AboutPage() {
                 lineHeight: 1.7,
               }}
             >
-              A social platform where people share ideas while training a
-              personal companion that learns from their work, interacts, and
-              inspires others.
+          A social platform for people to share ideas while their personal AI companion learns from their work to teach and solve problems for others.
+
             </Typography>
           </Grid>
 
