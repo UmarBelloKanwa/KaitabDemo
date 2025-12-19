@@ -1,8 +1,6 @@
 "use server";
 
 import React from "react";
-import RobooksList from "@/components/ui/home/MobileRobooksList";
-import PostLists from "@/components/ui/home/PostList";
 import Header from "@/components/ui/home/Header";
 import Box from "@mui/material/Box";
 import StatusArea from "@/components/ui/editor/StatusArea";

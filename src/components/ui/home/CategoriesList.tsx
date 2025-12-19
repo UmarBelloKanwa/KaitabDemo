@@ -12,8 +12,8 @@ export default function CategoriesList() {
   const categories = [
     {
       label: "Home",
-      href: "/",
-      active: pathname === "/",
+      href: "/home",
+      active: pathname.startsWith("/home"),
     },
     {
       label: "Notes",

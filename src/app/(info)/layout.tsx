@@ -9,6 +9,7 @@ import {
   Menu,
   IconButton,
   MenuItem,
+  Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { usePathname } from "next/navigation";
@@ -16,7 +17,7 @@ import NextLink from "next/link";
 import Footer from "@ui/common/Footer";
 
 const navItems = [
-  { name: "Get Started", link: "/" },
+  // { name: "Get Started", link: "/home" },
   { name: "About", link: "/about" },
   { name: "Support", link: "/support" },
   { name: "Contact", link: "/contact" },
@@ -81,7 +82,14 @@ export default function InfoLayout({
           <Box sx={{ flexGrow: 1 }} />
 
           {/* Desktop navigation */}
-          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3 }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, gap: 3, alignItems: "center" }}>
+            <Button
+              variant="contained"
+              component={NextLink}
+              href="/home"
+            >
+              Home
+            </Button>
             {navItems.map((item) => {
               const active = isActive(item.link);
 
@@ -145,10 +153,10 @@ export default function InfoLayout({
 
       {/* Offset for fixed AppBar */}
       <Toolbar />
-     
+
       {children}
-      
-       <Footer />
+
+      <Footer />
     </Box>
   );
 }

@@ -23,7 +23,6 @@ import ArticleIcon from "@mui/icons-material/ArticleOutlined";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import { usePathname } from "next/navigation";
 import HIDE_DRAWER_ROUTES from "@data/HIDE_DRAWER_ROUTES";
-import Image from "next/image";
 
 import "./drawer.css";
 
@@ -34,15 +33,23 @@ export default function Sidebar({ user }: { user: any }) {
   const pathname = usePathname();
   const [showMobileNav, setShowMobileNav] = React.useState(true);
   const lastScrollY = React.useRef(0);
+  const theme = useTheme();
 
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const logoSrc = "/app/logo-name.png";
   const companyName = "Feedple";
 
-  const theme = useTheme();
   const router = useRouter();
+  const drawerVariant = isMobile ? "temporary" : "permanent";
+  const open = isMobile ? false : true;
+
+  const [sidebarOpen, setSidebarOpen] = React.useState(open);
+
+
+ 
 
   const navItems = [
-    { name: "Home", icon: HomeIcon, onClick: () => router.push("/") },
+    { name: "Home", icon: HomeIcon, onClick: () => router.push("/home") },
     {
       name: "Creators",
       icon: RecordVoiceOverOutlinedIcon,
@@ -55,14 +62,9 @@ export default function Sidebar({ user }: { user: any }) {
     },
   ];
 
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   //console.log("Is mobile", isMobile)
-  const drawerVariant = isMobile ? "temporary" : "permanent";
-  const open = isMobile ? false : true;
-
-  const [sidebarOpen, setSidebarOpen] = React.useState(open);
-
+  
   const handleDrawerToggle = () => {
     if (!isMobile) {
       return;
@@ -105,6 +107,10 @@ export default function Sidebar({ user }: { user: any }) {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobile]);
+
+   if (!user && pathname === "/") {
+    return <></>
+  } 
 
   if (hideDrawer) {
     return <></>;

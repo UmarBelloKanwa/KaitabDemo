@@ -14,7 +14,7 @@ import getQueryClient from "@/lib/get-query-client";
 
 import NavLayout from "../../components/ui/home/NavLayout";
 
-export default async function Layout({
+export default async function MainPagesLayout({
   children,
 }: {
   children: React.ReactNode;
