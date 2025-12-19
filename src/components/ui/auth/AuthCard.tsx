@@ -63,7 +63,7 @@ export default function AuthCard({
         </DialogTitle>
       )}
 
-      <DialogContent sx={{ bgcolor: "background.default", p: 0 }}>
+      <DialogContent sx={{ bgcolor: "background.default", }}>
         <Box
           sx={{
             textAlign: "center",
@@ -74,7 +74,7 @@ export default function AuthCard({
             alignContent: "center",
             justifyContent: "center",
             justifyItems: "center",
-
+            width: "100%",
             height: "100%",
           }}
         >
