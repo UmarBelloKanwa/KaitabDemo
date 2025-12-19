@@ -145,7 +145,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
           </Typography>
           <Box>
             <ShareButton
-              id={`${articlePreview.author?.handle}c/${articlePreview.public_id}`}
+              id={`${articlePreview.author?.handle}/c/${articlePreview.public_id}`}
             />
           </Box>
         </Box>

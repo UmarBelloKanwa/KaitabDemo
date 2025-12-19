@@ -18,11 +18,15 @@ export default function ShareButton({
   const handleShare = async () => {
     try {
       const origin = window.location.origin;
-      const current = window.location.href;
+      let current = window.location.href;
+      current = current.replace(/\/home|notes$/, "");
 
-      const url = absolute ? `${origin}/${id}` : `${current}/${id}`;
+      const raw = absolute ? `${origin}/${id}` : `${current}/${id}`;
+      let url = new URL(raw);
 
-      await navigator.clipboard.writeText(url);
+      // Normalize pathname (remove duplicate slashes)
+      url.pathname = url.pathname.replace(/\/{2,}/g, "/");
+      await navigator.clipboard.writeText(url.toString());
       setOpen(true);
     } catch (err) {
       console.log("Failed to copy link:", err);
@@ -34,7 +38,10 @@ export default function ShareButton({
       <IconButton
         size="small"
         sx={{ color: "text.secondary" }}
-        onClick={handleShare}
+        onClick={(e) => {
+          e.stopPropagation(); // <- Prevent parent click
+          handleShare();
+        }}
       >
         <IosShareRoundedIcon
           fontSize="small"

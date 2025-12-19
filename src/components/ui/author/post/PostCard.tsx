@@ -312,7 +312,7 @@ export default function PostCard({
               gap: { xs: 0, sm: 0.5 },
             }}
           >
-            <ShareButton id={`post/${post.public_id}`} />
+            <ShareButton id={!isPermanent ? `${author.handle}/post/${post.public_id}` : ""} />
           </Box>
         </Box>
       </CardContent>

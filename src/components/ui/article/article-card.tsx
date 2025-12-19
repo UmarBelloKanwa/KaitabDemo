@@ -184,7 +184,7 @@ export default function ArticleCard({ article }: { article: Article }) {
               gap: { xs: 0, sm: 0.5 },
             }}
           >
-            <ShareButton id={`c/${article.public_id}`} />
+            <ShareButton />
           </Box>
         </Box>
       </CardContent>
