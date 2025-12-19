@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 export default function AuthCard({
   displayAuthCard,
@@ -18,6 +19,9 @@ export default function AuthCard({
   displayAuthCard: boolean;
   setDisplayAuthCard: (value: boolean) => void;
 }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const handleClose = () => setDisplayAuthCard(false);
   const [tab, setTab] = React.useState<"login" | "signup">("login");
 
@@ -25,18 +29,21 @@ export default function AuthCard({
     <Dialog
       open={displayAuthCard}
       onClose={handleClose}
-      maxWidth="xs"
+      fullScreen={isMobile}
+      maxWidth={"xs"}
       fullWidth
       slotProps={{
         paper: {
           sx: {
-            border: "1px solid red",
+            border: isMobile ? "none" : "1px solid",
+            bgcolor: "background.default",
             borderColor: "grey.800",
-            borderRadius: 2, // optional: rounded corners
+            borderRadius: isMobile ? 0 : 2,
+            height: isMobile ? "100vh" : "auto",
             p: { xs: 0, md: 1 },
           },
           elevation: 0,
-        }
+        },
       }}
     >
       {tab === "login" && (
@@ -47,7 +54,7 @@ export default function AuthCard({
             sx={{
               position: "absolute",
               right: 8,
-              top: 8,
+              top: isMobile ? 25 : 8,
               color: (theme) => theme.palette.grey[500],
             }}
           >
@@ -56,8 +63,31 @@ export default function AuthCard({
         </DialogTitle>
       )}
 
-      <DialogContent>
-        <Box sx={{ textAlign: "center" }}>
+      <DialogContent sx={{ bgcolor: "background.default", p: 0 }}>
+        <Box
+          sx={{
+            textAlign: "center",
+            m: "auto",
+            display: "felx",
+            flexDirection: "column",
+            alignItems: "center",
+            alignContent: "center",
+            justifyContent: "center",
+            justifyItems: "center",
+
+            height: "100%",
+          }}
+        >
+          <Box 
+            component="img"
+            src="/app/logo-name.png"
+            sx={{
+              width: "160px",
+              mb: 1,
+              height: "50px",
+            }}
+          />
+          
           {tab == "login" ? <SigninForm /> : <SignupForm />}
           <Typography
             component="div"

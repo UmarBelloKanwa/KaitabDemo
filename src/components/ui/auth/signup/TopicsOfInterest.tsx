@@ -29,9 +29,10 @@ export default function UserTopicsPage() {
         pointerEvents: isSubmitting ? "none" : "auto",
         transition: "opacity 0.4s ease-in-out",
         mt: 0,
+        width: "100%",
       }}
     >
-      <Box>
+      <Box sx={{width: "100%",}}>
         <Typography component="h1" variant="h5" sx={{ mb: 2 }}>
           Choose your interests
         </Typography>
