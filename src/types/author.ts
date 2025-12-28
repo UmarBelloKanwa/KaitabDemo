@@ -38,6 +38,7 @@ export interface Author {
   can_follow: boolean;
   is_following: boolean;
   cortex: Cortex | null;
+  articles_count: number;
 }
 
 

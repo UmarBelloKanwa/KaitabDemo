@@ -11,7 +11,17 @@ const config: NextConfig = {
       },
     ];
   },
-  allowedDevOrigins: ['local-origin.dev', '*.local-origin.dev', '192.168.0.130', 'localhost', '127.0.0.1'],
+  allowedDevOrigins: [
+    'local-origin.dev',
+    '*.local-origin.dev',
+    '192.168.0.130',
+    'localhost',
+    '127.0.0.1',
+    'lvh.me',
+    '*.lvh.me',
+    '.lvh.me',
+   // '.feedple.com'
+  ],
   typescript: {
     ignoreBuildErrors: true,
   },

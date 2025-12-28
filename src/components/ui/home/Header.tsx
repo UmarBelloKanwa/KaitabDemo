@@ -62,7 +62,7 @@ export default function Header() {
             gap: 2,
             width: "100%",
             m: "auto",
-            mt: -2,
+            mt: -1,
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",

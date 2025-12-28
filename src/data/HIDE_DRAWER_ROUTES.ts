@@ -1,7 +1,7 @@
 const HIDE_DRAWER_ROUTES = [
   "publish", "upgrade", "feedback", "contact", 
-  "support", "about", "policies", "privacy",
-  "help", "faq", "terms"
+  "support", "about-us", "policies", "privacy",
+  "help", "faq", "terms", "problems"
 ];
 
 export default HIDE_DRAWER_ROUTES;

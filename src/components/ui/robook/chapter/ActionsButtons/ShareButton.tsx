@@ -19,7 +19,7 @@ export default function ShareButton({
     try {
       const origin = window.location.origin;
       let current = window.location.href;
-      current = current.replace(/\/home|notes$/, "");
+      current = current.replace(/\/home|feeds$/, "");
 
       const raw = absolute ? `${origin}/${id}` : `${current}/${id}`;
       let url = new URL(raw);

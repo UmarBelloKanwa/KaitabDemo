@@ -16,9 +16,9 @@ export default function CategoriesList() {
       active: pathname.startsWith("/home"),
     },
     {
-      label: "Notes",
-      href: "/notes", // or "/notes"
-      active: pathname.startsWith("/notes"),
+      label: "Feeds",
+      href: "/feeds", // or "/feeds"
+      active: pathname.startsWith("/feeds"),
     },
   ];
 

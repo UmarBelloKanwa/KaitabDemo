@@ -290,7 +290,7 @@ export default function ProfileCard({ author }: { author: Author }) {
           isFollowing={author.is_following}
           authorPublicId={author.public_id}
         />
-        <TabsButton />
+        {/* <TabsButton /> */}
         <Divider sx={{ borderColor: theme.palette.divider, mb: 0 }} />
       </CardContent>
     </Card>

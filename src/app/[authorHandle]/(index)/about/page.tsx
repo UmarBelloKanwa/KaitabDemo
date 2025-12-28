@@ -1,8 +1,8 @@
 "use server";
-import Library from "@/components/ui/author/Library";
 import Container from "@mui/material/Container";
+import AboutAuthor from "@/components/ui/author/about";
 
-export default async function AuthorProfileLibrary({
+export default async function AuthorAbout({
   params,
 }: {
   params: Promise<{
@@ -12,8 +12,8 @@ export default async function AuthorProfileLibrary({
   const p = await params;
 
   return (
-    <Container maxWidth={"sm"}>
-      <Library handle={p.authorHandle} />
+     <Container maxWidth={"sm"}>
+      <AboutAuthor handle={p.authorHandle} />
     </Container>
-  );
+  )
 }

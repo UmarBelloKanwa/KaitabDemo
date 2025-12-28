@@ -13,9 +13,9 @@ export default function StatusInput() {
 
   const user: User | null = queryClient.getQueryData(["user"]) || null;
 
-  if (!user) {
-    return <></>;
-  }
+  // if (!user) {
+  //   return <></>;
+  // }
 
   const isAuthor = !!user?.author;
   const router = useRouter();

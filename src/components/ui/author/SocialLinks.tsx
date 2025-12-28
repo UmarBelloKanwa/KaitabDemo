@@ -46,12 +46,12 @@ export default function SocialLinks({ links }: { links: SocialLink[] }) {
     setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  const visibleLinks = links.slice(0, 3);
-  const hiddenLinks = links.slice(2);
+  // const visibleLinks = links.slice(0, 3);
+  // const hiddenLinks = links.slice(2);
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 0.5 }}>
-      {visibleLinks.map((link, index) => (
+    <Box sx={{ display: "flex", flexDirection: "column",  gap: 2, mb: 0.5 }}>
+      {links.map((link, index) => (
         <Tooltip title={link.label || link.platform} key={index}>
           <Box
             sx={{
@@ -73,7 +73,7 @@ export default function SocialLinks({ links }: { links: SocialLink[] }) {
         </Tooltip>
       ))}
 
-      {hiddenLinks.length > 0 && (
+      {/* {hiddenLinks.length > 0 && (
         <>
           <Box
             sx={{
@@ -109,7 +109,7 @@ export default function SocialLinks({ links }: { links: SocialLink[] }) {
             ))}
           </Popover>
         </>
-      )}
+      )} */}
     </Box>
   );
 }

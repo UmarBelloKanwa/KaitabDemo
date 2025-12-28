@@ -18,7 +18,7 @@ import Footer from "@ui/common/Footer";
 
 const navItems = [
   // { name: "Get Started", link: "/home" },
-  { name: "About", link: "/about" },
+  { name: "About", link: "/about-us" },
   { name: "Support", link: "/support" },
   { name: "Contact", link: "/contact" },
 ];

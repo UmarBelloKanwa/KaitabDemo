@@ -28,26 +28,26 @@ export default async function AuthorLayout({
   try {
     // 🚀 Run all async backend actions IN PARALLEL
     const [
-      authorData,
+      //  authorData,
       // initialBookPosts,
-     // initialArticlesPreviews,
+      initialArticlesPreviews,
     ] = await Promise.all([
-      getAuthorProfile(handle),
+      //  getAuthorProfile(handle),
       // fetchInitialAuthorPosts(handle),
-     // getAuthorArticles(handle),
+      getAuthorArticles(handle),
     ]);
 
     // ❌ Author not found → trigger Next.js 404
-    if (!authorData) {
-      notFound();
-    }
+    // if (!authorData) {
+    //   notFound();
+    // }
 
-    // ✅ Cache author
-    queryClient.setQueryData(["author", handle], authorData);
+    // // ✅ Cache author
+    // queryClient.setQueryData(["author", handle], authorData);
 
-    if (authorData.is_owner) {
-      queryClient.setQueryData(["cortex"], authorData.cortex);
-    }
+    // if (authorData.is_owner) {
+    //   queryClient.setQueryData(["cortex"], authorData.cortex);
+    // }
 
     // ✅ Cache posts (infinite query format)
     // if (initialBookPosts?.length) {
@@ -62,33 +62,25 @@ export default async function AuthorLayout({
     // }
 
     // ✅ Cache article previews
-    // if (initialArticlesPreviews?.length) {
-    //   queryClient.setQueryData(["authorArticlesPreviews", handle], {
-    //     pages: [initialArticlesPreviews],
-    //     pageParams: [0],
-    //   });
+    if (initialArticlesPreviews?.length) {
+      queryClient.setQueryData(["authorArticlesPreviews", handle], {
+        pages: [initialArticlesPreviews],
+        pageParams: [0],
+      });
 
-    //   initialArticlesPreviews.forEach((articlePreview: any) => {
-    //     articlePreview.author = authorData;
-    //     queryClient.setQueryData(
-    //       ["authorArticlesPreviews", articlePreview.public_id],
-    //       articlePreview
-    //     );
-    //   });
-    // }
+      initialArticlesPreviews.forEach((articlePreview: any) => {
+        // articlePreview.author = authorData;
+        queryClient.setQueryData(
+          ["authorArticlesPreviews", articlePreview.public_id],
+          articlePreview
+        );
+      });
+    }
 
     const dehydratedState = dehydrate(queryClient);
 
     return (
-      <HydrationBoundary state={dehydratedState}>
-        <StoreItem type="author" data={authorData} />
-        <Container maxWidth={false} sx={{ maxWidth: 800 }}>
-          <ProfileCard
-            author={authorData}
-          />
-          {children}
-        </Container>
-      </HydrationBoundary>
+      <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
     );
   } catch (error) {
     notFound();

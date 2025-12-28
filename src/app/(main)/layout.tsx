@@ -1,94 +1,39 @@
 "use server";
 
 import React from "react";
-import {
-  dehydrate,
-  HydrationBoundary,
-} from "@tanstack/react-query";
-import { fetchAuthors } from "@/actions/author";
-import { fetchBooks } from "@/actions/robook";
-import { fetchAuthorsPosts } from "@/actions/author";
-import { getArticlesPreviews } from "@/actions/article";
+import Header from "@/components/ui/home/Header";
+import Box from "@mui/material/Box";
 
-import getQueryClient from "@/lib/get-query-client";
-
-import NavLayout from "../../components/ui/home/NavLayout";
-
-export default async function MainPagesLayout({
+export default async function HomeLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = getQueryClient();
-
-  const results = await Promise.allSettled([
-    fetchAuthors(),
-    fetchAuthorsPosts(),
-   // fetchBooks(),
-    getArticlesPreviews(),
-  ]);
-
-  const authorsRes = results[0].status === "fulfilled" ? results[0].value : [];
-  const postsRes = results[1].status === "fulfilled" ? results[1].value : [];
-  //const booksRes = results[2].status === "fulfilled" ? results[2].value : [];
-  const initialArticlesPreviews = results[2].status === "fulfilled" ? results[2].value : [];
-
-
-  queryClient.setQueryData(["authors"], {
-    pages: [authorsRes],
-    pageParams: [0],
-  });
-
-  if (authorsRes) {
-    authorsRes.forEach((author: any) => {
-      queryClient.setQueryData(["author", author.public_id], author);
-    });
-  }
-
-  queryClient.setQueryData(["posts"], {
-    pages: [postsRes],
-    pageParams: [0],
-  });
-
-  if (postsRes) {
-    postsRes.forEach((post: any) => {
-      queryClient.setQueryData(["post", post.public_id], post);
-    });
-  }
-
-  // queryClient.setQueryData(["robooks"], {
-  //   pages: [booksRes],
-  //   pageParams: [0],
-  // });
-  // if (booksRes) {
-  //   booksRes.forEach((robook: any) => {
-  //     queryClient.setQueryData(["robook", robook.public_id], robook);
-  //   });
-  // }
-
-  if (initialArticlesPreviews) {
-    // ArticlesPreviews
-    queryClient.setQueryData(["articlesPreviews"], {
-      pages: [initialArticlesPreviews],
-      pageParams: [0],
-    });
-
-    initialArticlesPreviews.forEach((articlePreview: any) => {
-      queryClient.setQueryData(
-        ["articlesPreviews", articlePreview.public_id],
-        articlePreview
-      );
-    });
-  }
-  
-  const dehydratedState = dehydrate(queryClient);
-  // console.log("Posts", postsRes);
-  // console.log("Authors", authorsRes);
-  // console.log("Books", booksRes);
-
   return (
-    <HydrationBoundary state={dehydratedState}>
-      <NavLayout>{children}</NavLayout>
-    </HydrationBoundary>
+    <Box
+      sx={{
+        mt: 2,
+        px: { xs: 1 },
+      }}
+    >
+      <Box
+        sx={{
+          m: "auto",
+         // mt: { xs: -2 },
+          width: "97%",
+        }}
+      >
+        <Header />
+      </Box>
+      <Box
+        sx={{
+          m: "auto",
+          mt: 3,
+        //  width: { xs: "99%", sm: "93%" },
+        }}
+      >
+        {children}
+      </Box>
+    </Box>
   );
 }

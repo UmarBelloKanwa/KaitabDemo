@@ -3,25 +3,19 @@
 import React from "react";
 import { getAuthorProfile } from "@/actions/author";
 import type { Author } from "@/types/author";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 import Box from "@mui/material/Box";
 import type { ArticlePreview } from "@/types/article";
 import ArticleCard from "@/components/ui/article/article-preview-card";
 import { useInfiniteAuthorArticlesPreviews } from "@/hooks/author/useInfiniteAuthorArticles";
 
 export default function Author({ handle }: { handle: string }) {
+  const queryClient = useQueryClient();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteAuthorArticlesPreviews(handle);
   const loaderRef = React.useRef<HTMLDivElement | null>(null);
 
-  const { data: author } = useQuery({
-    queryKey: ["authorArticlesPreviews", handle],
-    queryFn: () => getAuthorProfile(handle),
-    staleTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-  });
+  const author: Author | null = queryClient.getQueryData(["author", handle]) || null;
 
   const articlesPreviews = data?.pages.flat() || [];
   React.useEffect(() => {
@@ -48,11 +42,14 @@ export default function Author({ handle }: { handle: string }) {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 0, width: "100%", }}>
-        {articlesPreviews.map((articlePreview: ArticlePreview, index: number) => (
-          <Box sx={{ px: {md: 2}, m: "auto", width: "100%", }} key={index} >
-            <ArticleCard articlePreview={articlePreview} />
-          </Box>
-        ))}
+        {articlesPreviews.map((articlePreview: ArticlePreview, index: number) => {
+          articlePreview.author = author;
+          return (
+            <Box sx={{ px: { md: 2 }, m: "auto", width: "100%", }} key={index} >
+              <ArticleCard articlePreview={articlePreview} />
+            </Box>
+          )
+        })}
         <div ref={loaderRef} />
         {isFetchingNextPage && <p>Loading more...</p>}
       </Box>

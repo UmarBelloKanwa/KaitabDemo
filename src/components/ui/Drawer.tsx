@@ -20,9 +20,9 @@ import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import RecentItems from "./RecentItems";
 import UserDisplay from "./UserDisplay";
 import ArticleIcon from "@mui/icons-material/ArticleOutlined";
-import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import { usePathname } from "next/navigation";
 import HIDE_DRAWER_ROUTES from "@data/HIDE_DRAWER_ROUTES";
+import { navigateToRoot, navigateToRootRouter } from "@/lib/utils/navigate";
 
 import "./drawer.css";
 
@@ -37,6 +37,7 @@ export default function Sidebar({ user }: { user: any }) {
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const logoSrc = "/app/logo-name.png";
+  
   const companyName = "Feedple";
 
   const router = useRouter();
@@ -45,20 +46,13 @@ export default function Sidebar({ user }: { user: any }) {
 
   const [sidebarOpen, setSidebarOpen] = React.useState(open);
 
-
- 
-
   const navItems = [
-    { name: "Home", icon: HomeIcon, onClick: () => router.push("/home") },
+    { name: "Home", icon: HomeIcon, onClick: () => navigateToRoot("/home") },
+                                                                                                                                               
     {
-      name: "Creators",
-      icon: RecordVoiceOverOutlinedIcon,
-      onClick: () => router.push("/creators"),
-    },
-    {
-      name: "Notes",
+      name: "Feeds",
       icon: ArticleIcon,
-      onClick: () => router.push("/notes"),
+      onClick: () => navigateToRoot("/feeds"),
     },
   ];
 
@@ -108,9 +102,9 @@ export default function Sidebar({ user }: { user: any }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isMobile]);
 
-   if (!user && pathname === "/") {
-    return <></>
-  } 
+  //  if (!user && pathname === "/") {
+  //   return <></>
+  // } 
 
   if (hideDrawer) {
     return <></>;
@@ -306,7 +300,7 @@ export default function Sidebar({ user }: { user: any }) {
                   );
                 })}
               </List>
-              <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+              <Box sx={{ display: { xs: "block", sm: "block", md: "noe" } }}>
                 <RecentItems
                   handleDrawerToggle={handleDrawerToggle}
                   isMobile={isMobile}
