@@ -9,6 +9,7 @@ import {
   fetchInitialAuthorPosts,
   getAuthorArticles,
 } from "@/actions/author";
+import ChatSidebar from "@/components/ui/author/chat/Drawer";
 
 import Container from "@mui/material/Container";
 import StoreItem from "@/components/ui/StoreItem";
@@ -30,11 +31,11 @@ export default async function AuthorLayout({
     const [
       authorData,
       // initialBookPosts,
-     // initialArticlesPreviews,
+      // initialArticlesPreviews,
     ] = await Promise.all([
       getAuthorProfile(handle),
       // fetchInitialAuthorPosts(handle),
-     // getAuthorArticles(handle),
+      // getAuthorArticles(handle),
     ]);
 
     // ❌ Author not found → trigger Next.js 404
@@ -83,9 +84,8 @@ export default async function AuthorLayout({
       <HydrationBoundary state={dehydratedState}>
         <StoreItem type="author" data={authorData} />
         <Container maxWidth={false} sx={{ maxWidth: 800 }}>
-          <ProfileCard
-            author={authorData}
-          />
+          <ProfileCard author={authorData} />
+          <ChatSidebar author={authorData} />
           {children}
         </Container>
       </HydrationBoundary>

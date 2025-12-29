@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import AskInput from "@/components/ui/robook/chat/AskInput";
 import ChatInterface from "@/components/ui/robook/chat/ChatInterface";
 
+
 export default function RobookChat() {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const [containerStyle, setContainerStyle] = React.useState<{ left: number; width: string } | null>(null);
@@ -40,7 +41,7 @@ export default function RobookChat() {
     // console.log(containerStyle);
 
     return (
-        <>
+        <Box>
             <Box ref={containerRef} sx={{ width: "100%", pb: { xs: 7 } }}>
                 <ChatInterface />
             </Box>
@@ -60,6 +61,6 @@ export default function RobookChat() {
                     <AskInput borderRadius={2} />
                 </Box>
             )}
-        </>
+        </Box>
     );
 }
