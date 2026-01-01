@@ -11,6 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import { navigateToSubdomain } from "@/lib/utils/navigate";
 
 export default function UserDisplay({ user, handleDrawerToggle }: { user: any, handleDrawerToggle: () => void }) {
   const requireAuth = useAuthCheck();
@@ -29,7 +30,7 @@ export default function UserDisplay({ user, handleDrawerToggle }: { user: any, h
                 requireAuth(() => {
                   if (isAuthor) {
                     handleDrawerToggle();
-                    router.push(`/${user?.author?.handle}`);
+                    navigateToSubdomain(user?.author?.handle, "/");
                   }
                 });
               }}

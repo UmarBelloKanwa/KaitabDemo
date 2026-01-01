@@ -1,7 +1,7 @@
 "use server";
 
-import RobookChat from "@/components/ui/robook/chat/RobookChat";
-import AuthorChatLayout from "../chat/layout";
+import RobookChat from "@/components/ui/robook/chat/ChatPage";
+//import AuthorChatLayout from "../chat/layout";
 import AuthorChatPage from "../chat/page";
 
 export default async function AuthorProfile({
@@ -14,8 +14,6 @@ export default async function AuthorProfile({
   const p = await params;
 
   return (
-    <AuthorChatLayout params={params}>
       <AuthorChatPage params={params} />
-    </AuthorChatLayout>
   );
 }

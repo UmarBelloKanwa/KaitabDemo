@@ -237,6 +237,7 @@ export default function ChatSidebar({ author }: { author: Author }) {
             </List>
             <Box>
               <ChatHistory
+                authorHandle={author.handle}
                 handleDrawerToggle={handleDrawerToggle}
                 isMobile={isMobile}
               />

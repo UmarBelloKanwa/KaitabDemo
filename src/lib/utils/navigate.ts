@@ -42,7 +42,10 @@ export function navigateToRootRouter(router: Router, path: string = "/") {
   const { protocol, hostname, port } = window.location;
   const rootDomain = getRootDomain();
 
-  const portPart = port && !rootDomain.includes("localhost") ? `:${port}` : "";
+  const portPart =
+    (hostname.includes("lvh.me") || hostname.includes("localhost")) && port
+      ? `:${port}`
+      : "";
   const url = `${protocol}//${rootDomain}${portPart}${path}`;
 
   // If already on root domain, use SPA router; else full redirect
@@ -51,4 +54,28 @@ export function navigateToRootRouter(router: Router, path: string = "/") {
   } else {
     window.location.href = url; // full page reload
   }
+}
+
+export function navigateToSubdomain(
+  subdomain: string,
+  path: string = "/"
+) {
+  const { protocol, port, hostname } = window.location;
+
+  const isLocalhost =
+    hostname.includes("localhost") || hostname.includes("127.0.0.1");
+
+  const portPart = port ? `:${port}` : "";
+
+  // lvh.me supports subdomains → treat like prod
+  if (!isLocalhost) {
+    const parts = hostname.split(".");
+    const rootDomain = parts.slice(-2).join("."); // lvh.me or feedple.com
+
+    window.location.href = `${protocol}//${subdomain}.${rootDomain}${portPart}${path}`;
+    return;
+  }
+
+  // localhost fallback (no subdomains)
+  window.location.href = `${protocol}//localhost${portPart}${path}`;
 }

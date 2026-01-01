@@ -114,7 +114,7 @@ export default function CortexSettingCard() {
                 Cortex Essence
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Personal Companion
+                My Personal AI Companion
               </Typography>
             </Box>
           </Stack>
@@ -151,7 +151,7 @@ export default function CortexSettingCard() {
           />
         </Stack>
 
-        <Stack
+        {/* <Stack
           direction="row"
           alignItems="center"
           justifyContent="space-between"
@@ -176,9 +176,9 @@ export default function CortexSettingCard() {
               }
             }}
           />
-        </Stack>
+        </Stack> */}
 
-        {!isAwakened && (
+        {/* {!isAwakened && (
           <Typography
             variant="caption"
             color="warning"
@@ -186,7 +186,7 @@ export default function CortexSettingCard() {
           >
             Awaken your Cortex first to enable auto posting.
           </Typography>
-        )}
+        )} */}
 
         {/* Save button */}
         <Button

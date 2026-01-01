@@ -1,51 +1,190 @@
+"use client";
+
+import React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
+import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
+import Tooltip from "@mui/material/Tooltip";
+import CheckIcon from "@mui/icons-material/Check";
+import type { Author } from "@/types/author";
+import { useQueryClient } from "@tanstack/react-query";
 
-const messages = [
-  {
-    id: 0,
-    sender: "book",
-    name: "Umar Bello Kanwa",
-    avatar: "/umar.png",
-    text: "Hello! I’m Umar Bello Kanwa, a book brought to life with the author’s insights and reasoning. I understand your goals, challenges, and habits just like James Clear would. I’m here to guide you in building better habits, breaking bad ones, and creating systems that work for your life. What would you like to start with?",
-  },
-  {
-    id: 1,
-    sender: "user",
-    name: "Umar Bello Kanwa",
-    avatar: "U",
-    text: "Who is you in short?",
-  },
-  {
-    id: 2,
-    sender: "book",
-    name: "Umar Bello Kanwa",
-    avatar: "/umar.png",
-    text: "I’m Umar Bello Kanwa, a book that understands you like its author. I’ll help you build good habits and break bad ones.",
-  },
-  {
-    id: 3,
-    sender: "user",
-    name: "Umar Bello Kanwa",
-    avatar: "U",
-    text: "How can you understand me like the author?",
-  },
-  {
-    id: 4,
-    sender: "book",
-    name: "Umar Bello Kanwa",
-    avatar: "/umar.png",
-    text: "Because I carry the author’s brain and principles in digital form. I adapt advice based on your questions and goals.",
-  },
-];
+const MessageSection = ({ msg, author }: { msg: any, author: Author }) => {
+  const [copied, setCopied] = React.useState(false);
+  const resetTimerRef = React.useRef<number | null>(null);
 
-const ChatInterface = () => {
+  const handleCopy = async () => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(msg.content);
+      } else {
+        // Fallback for older browsers / restricted environments
+        const textarea = document.createElement("textarea");
+        textarea.value = msg.content;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+      setCopied(true);
+
+      // Clear any existing timer
+      if (resetTimerRef.current) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+
+      // Set new reset timer
+      resetTimerRef.current = window.setTimeout(() => {
+        setCopied(false);
+        resetTimerRef.current = null;
+      }, 1500);
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
+  };
+
+  // Cleanup on unmount
+  React.useEffect(() => {
+    return () => {
+      if (resetTimerRef.current) {
+        window.clearTimeout(resetTimerRef.current);
+      }
+    };
+  }, []);
+  return (
+    <Box
+      key={msg.id}
+      sx={{
+        display: "flex",
+        justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
+        alignItems: "flex-start",
+        mb: msg.role === "user" ? 3 : 1.5,
+      }}
+    >
+      {/* Message Wrapper */}
+      <Box
+        sx={{
+          textAlign: msg.role === "user" ? "right" : "left",
+          mr: msg.role === "user" ? 0 : 1,
+        }}
+      >
+        {/* Header (name + avatar) */}
+        {msg.role === "cortex" && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              flexDirection: msg.role === "user" ? "row-reverse" : "row",
+            }}
+          >
+            <Avatar
+              src={msg.role === "cortex" ? author.profile_picture : undefined}
+              sx={(theme) => ({
+                bgcolor:
+                  msg.role === "user"
+                    ? theme.palette.primary.main
+                    : theme.palette.secondary.main,
+                width: 30,
+                height: 30,
+                fontSize: "0.6rem",
+                fontWeight: 600,
+                borderRadius: "50%",
+              })}
+            >
+              {msg.role === "user" ? author.name.charAt(0).toUpperCase() : ""}
+            </Avatar>
+            <Typography
+              variant="caption"
+              sx={{ color: "text.primary", fontWeight: 500 }}
+            >
+              {author.name}
+            </Typography>
+          </Box>
+        )}
+        {/* Message bubble */}
+        <Box
+          sx={{
+            mt: 0.5,
+            display: "flex",
+            justifyContent: msg.role === "user" ? "flex-end" : "flex-start", // position bubble
+            px: 0, // padding for spacing from edges
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: msg.role === "user" ? "flex-end" : "flex-start",
+              width: "fit-content",
+              maxWidth:
+                msg.role === "user" ? "auto" : { xs: "100%", sm: "70%" }, // prevents too wide bubbles
+            }}
+          >
+            <Paper
+              elevation={1}
+              sx={{
+                bgcolor: "background.default",
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 2,
+                boxShadow: 30,
+                fontSize: "13px",
+                p: 1.5,
+                textAlign: "left",
+                maxWidth: msg.role === "user" ? "100%" : "auto",
+                wordBreak: "break-word", // ensure long words break nicely
+              }}
+            >
+              <Typography
+                variant="subtitle1"
+                color="text.secondary"
+                sx={{ fontSize: "14px" }}
+              >
+                {msg.content}
+              </Typography>
+            </Paper>
+
+            <Box sx={{ display: "flex", gap: 0, mt: 0.5 }}>
+              <Tooltip title="Copy">
+                <IconButton size="small" onClick={handleCopy}>
+                  {copied ? (
+                    <CheckIcon
+                      sx={{ fontSize: "small", color: "success.main" }}
+                    />
+                  ) : (
+                    <ContentCopyOutlinedIcon sx={{ fontSize: "small" }} />
+                  )}
+                </IconButton>
+              </Tooltip>
+              {msg.role === "cortex" && (
+                <Tooltip title="Share">
+                  <IconButton size="small">
+                    <IosShareOutlinedIcon sx={{ fontSize: "small" }} />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {/* <IconButton size="small">
+                      <ThumbDownIcon fontSize="small" />
+                    </IconButton> */}
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+const ChatInterface = ({ messages, authorHandle }: { messages: any[], authorHandle: string }) => {
+  const queryClient = useQueryClient();
+  const author = queryClient.getQueryData<Author>(["author", authorHandle])!;
   return (
     <Paper
       sx={(theme) => ({
@@ -56,112 +195,12 @@ const ChatInterface = () => {
         margin: "auto",
         mt: 0,
         width: "100%",
+        mb: 3,
       })}
       elevation={0}
     >
-      {messages.map((msg) => (
-        <Box
-          key={msg.id}
-          sx={{
-            display: "flex",
-            justifyContent: msg.sender === "user" ? "flex-end" : "flex-start",
-            alignItems: "flex-start",
-            mb: msg.sender === "user" ? 3 : 1.5,
-          }}
-        >
-          {/* Message Wrapper */}
-          <Box
-            sx={{
-              textAlign: msg.sender === "user" ? "right" : "left",
-              mr: msg.sender === "user" ? 0 : 1,
-            }}
-          >
-            {/* Header (name + avatar) */}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                flexDirection: msg.sender === "user" ? "row-reverse" : "row",
-              }}
-            >
-              <Avatar
-                src={msg.sender === "book" ? msg.avatar : undefined}
-                sx={(theme) => ({
-                  bgcolor:
-                    msg.sender === "user"
-                      ? theme.palette.primary.main
-                      : theme.palette.secondary.main,
-                  width: 30,
-                  height: 30,
-                  fontSize: "0.6rem",
-                  fontWeight: 600,
-                  borderRadius: "50%",
-                })}
-              >
-                {msg.sender === "user" ? msg.avatar : ""}
-              </Avatar>
-              <Typography
-                variant="caption"
-                sx={{ color: "text.primary", fontWeight: 500 }}
-              >
-                {msg.name}
-              </Typography>
-            </Box>
-
-            {/* Message bubble */}
-            <Box
-              sx={{
-                mt: 0.5,
-                display: "flex",
-                justifyContent:
-                  msg.sender === "user" ? "flex-end" : "flex-start", // position bubble
-                px: 1, // padding for spacing from edges
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: msg.sender === "user" ? "flex-end" : "flex-start",
-                  width: "fit-content",
-                  maxWidth:
-                    msg.sender === "user" ? "auto" : { xs: "100%", sm: "70%" }, // prevents too wide bubbles
-                }}
-              >
-                <Paper
-                  elevation={1}
-                  sx={{
-                    bgcolor: "background.default",
-                    p: 1.5,
-                    textAlign: "left",
-                    borderRadius: 1.5,
-                    maxWidth: msg.sender === "user" ? "100%" : "auto",
-                    wordBreak: "break-word", // ensure long words break nicely
-                  }}
-                >
-                  <Typography variant="subtitle1" color="text.secondary">
-                    {msg.text}
-                  </Typography>
-                </Paper>
-
-                {msg.sender === "book" && (
-                  <Box sx={{ display: "flex", gap: 1, mt: 0.5 }}>
-                    <IconButton size="small">
-                      <RefreshIcon fontSize="small" />
-                    </IconButton>
-                    <IconButton size="small">
-                      <ThumbUpIcon fontSize="small" />
-                    </IconButton>
-                    <IconButton size="small">
-                      <ThumbDownIcon fontSize="small" />
-                    </IconButton>
-                  </Box>
-                )}
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+      {messages.map((msg, index) => (
+        <MessageSection key={index} msg={msg} author={author} />
       ))}
     </Paper>
   );

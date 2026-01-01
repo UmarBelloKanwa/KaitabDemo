@@ -11,17 +11,34 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useRecent } from "@/lib/utils/storeRecent";
+import type { ChatSessionSummary } from "@/types/cortex";
+import { getAllChatsSession } from "@/lib/api/cortex";
 
 export default function RecentsItems({
+  authorHandle,
   handleDrawerToggle,
   isMobile,
 }: {
+  authorHandle: string;
   handleDrawerToggle: () => void;
   isMobile: boolean;
 }) {
+  const [chats, setChats] = React.useState([]);
   const theme = useTheme();
   const router = useRouter();
   const recentItems = useRecent();
+
+  React.useEffect(() => {
+    async function getChats() {
+      try {
+        const data = await getAllChatsSession(authorHandle);
+        setChats(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getChats();
+  }, []);
   return (
     <>
       <Typography
@@ -37,14 +54,12 @@ export default function RecentsItems({
         </Typography>
       ) : (
         <List>
-          {recentItems.map((item, index) => (
+          {chats.map((item: ChatSessionSummary, index) => (
             <ListItem
               key={index}
               disablePadding
               onClick={() => {
-                router.push(
-                  item.type === "book" ? `/r/${item.slug}` : `/${item.handle}`
-                );
+                router.push(`/chat/${item.session_id}`);
                 if (isMobile) {
                   handleDrawerToggle();
                 }
@@ -57,9 +72,7 @@ export default function RecentsItems({
                 }}
               >
                 <ListItemText
-                  primary={
-                    item.name + "Title of text that can be used for one line"
-                  }
+                  primary={item.last_message}
                   sx={{
                     color: theme.palette.text.primary,
                     whiteSpace: "nowrap", // prevent wrapping
@@ -69,7 +82,7 @@ export default function RecentsItems({
                   primaryTypographyProps={{
                     fontSize: 14,
                     noWrap: true,
-                   }}
+                  }}
                 />
               </ListItemButton>
             </ListItem>

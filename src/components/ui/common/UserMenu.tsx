@@ -31,6 +31,7 @@ import Settings from '@mui/icons-material/SettingsOutlined';
 import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import Logout from '@mui/icons-material/LogoutOutlined';
+import {navigateToSubdomain} from "@/lib/utils/navigate";
 interface UserMenuPopupProps {
   user: any;
 }
@@ -38,6 +39,7 @@ interface UserMenuPopupProps {
 export default function UserMenuPopup({ user }: UserMenuPopupProps) {
   const isAuthor = !!user?.author;
   const queryClient = useQueryClient();
+  const author = user?.author;
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [openDialog, setOpenDialog] = useState(false); // For logout confirmation
@@ -80,7 +82,7 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
             label: "Settings",
             icon: Settings,
             onClick: () => {
-              router.push("/settings");
+              navigateToSubdomain(author.handle, "/settings");
             },
           },
         ]

@@ -37,7 +37,7 @@ export function middleware(request: NextRequest) {
 
   // If user is logged in and on root path, redirect to /home
   const refreshToken = request.cookies.get("refresh_token")?.value;
-  if (refreshToken && pathname === "/") {
+  if (!subdomain && refreshToken && pathname === "/") {
     return NextResponse.redirect(new URL("/home", request.url));
   }
 
@@ -54,10 +54,8 @@ export function middleware(request: NextRequest) {
     }
 
     // Rewrite all other paths to include subdomain prefix
-    if (!pathname.startsWith(`/${subdomain}`)) {
-      return NextResponse.rewrite(
-        new URL(`/${subdomain}${pathname}`, request.url)
-      );
+    if (pathname !== "/") {
+      return NextResponse.rewrite(new URL(`/${subdomain}`, request.url));
     }
   }
 

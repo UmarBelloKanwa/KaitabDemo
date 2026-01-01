@@ -1,21 +1,19 @@
 "use client";
 
-import {
-  Box,
-  Paper,
-  Avatar,
-  Typography,
-  Button,
-  Stack,
-} from "@mui/material";
+import { Box, Paper, Avatar, Typography, Button, Stack } from "@mui/material";
 import type { Author } from "@/types/author";
 import { useRouter } from "next/navigation";
+import { navigateToSubdomain } from "@/lib/utils/navigate";
+
 
 export default function AuthorPreviewCard({ author }: { author: Author }) {
   const router = useRouter();
   return (
     <Paper
       elevation={0}
+      onClick={() => {
+        navigateToSubdomain(author.handle, "/");
+      }}
       sx={{
         gap: 2,
         width: 328,
@@ -23,10 +21,17 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
         bgcolor: "background.default",
         borderRadius: 2,
         p: 1,
+        display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+
         border: "2px solid",
         borderColor: "divider",
+        "&:hover": {
+          cursor: "pointer",
+          bgcolor: "action.hover",
+        },
         //boxShadow: 20,
       }}
     >
@@ -34,8 +39,11 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
         sx={{
           display: "flex",
           flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
           gap: 2,
-          m: "auto"
+          m: "auto",
+          width: "100%",
         }}
       >
         {/* Profile Picture */}
@@ -74,7 +82,7 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
               textOverflow: "ellipsis",
             }}
           >
-           {author.short_bio}
+            {author.short_bio}
           </Typography>
           {/* Stats */}
           <Box sx={{ display: "flex", gap: 2 }}>
@@ -103,14 +111,15 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
       </Box>
 
       {/* Action Buttons */}
-      <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
+      <Stack direction="row" spacing={1} sx={{ mt: 0, width: "100%" }}>
         <Button
           fullWidth
           // variant="outlined"
           className="elevated"
           size="small"
-          onClick={() => {
-            router.push(`/${author.handle}`);
+          onClick={(e) => {
+            e.stopPropagation();
+            navigateToSubdomain(author.handle, "/library");
           }}
           sx={{
             color: "#ffffff",
@@ -125,6 +134,10 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
           size="small"
           //variant="contained"
           className="elevated"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigateToSubdomain(author.handle, "/chat");
+          }}
           sx={{
             borderRadius: 2,
             color: "#ffffff",

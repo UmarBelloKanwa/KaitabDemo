@@ -1,6 +1,6 @@
 "use server";
 
-import RobookChat from "@/components/ui/robook/chat/RobookChat";
+import ChatPage from "@/components/ui/robook/chat/ChatPage";
 
 export default async function AuthorChats({ 
   params
@@ -13,7 +13,7 @@ export default async function AuthorChats({
   
   return (
     <>
-      <RobookChat/>
+      <ChatPage authorHandle={p.authorHandle} where="home"/>
     </>
   );
 }
