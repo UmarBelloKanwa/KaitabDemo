@@ -24,7 +24,8 @@ export default async function AuthorLayout({
 }) {
   const { authorHandle: handle } = await params;
   const queryClient = getQueryClient();
-
+  console.log("Library");
+  
   try {
     // 🚀 Run all async backend actions IN PARALLEL
     const [

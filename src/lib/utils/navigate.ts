@@ -1,5 +1,7 @@
+"use client";
+
 // utils/navigate.ts
-import { Router } from "next/router";
+import type { Router } from "next/router";
 
 /**
  * Get the root domain based on the current hostname.

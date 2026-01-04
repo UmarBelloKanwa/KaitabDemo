@@ -1,20 +1,23 @@
 import { api } from "@/lib/axios";
 
-export const publishArticle = async (data: {
-  title: string | null;
-  subtitle: string | null;
-  content: any;
-  images: {
-    file: File;
-    tempUrl: string;
-  }[];
-}) => {
-  
+export const publishArticle = async (
+  isFree: boolean,
+  data: {
+    title: string | null;
+    subtitle: string | null;
+    content: any;
+    images: {
+      file: File;
+      tempUrl: string;
+    }[];
+  }
+) => {
   //console.log("Article title to published is", data.title);
 
   const formData = new FormData();
+  formData.append("isFree", isFree ? "true" : "false");
   formData.append("content", JSON.stringify(data.content));
-  
+
   if (data.title) {
     formData.append("title", data.title);
   }
@@ -27,7 +30,7 @@ export const publishArticle = async (data: {
     formData.append("tempUrls", img.tempUrl); // temporary blob URL
   });
 
-  const res =  await api.post("article/publish", formData, {
+  const res = await api.post("article/publish", formData, {
     // responseType: "stream",
     // adapter: 'fetch',
     headers: {
@@ -35,22 +38,25 @@ export const publishArticle = async (data: {
     },
     timeout: 0, // disable timeout
   });
-  return res
+  return res;
 };
 
-
-export const getArticleComments = async (author_handle: string, article_public_id: string) => { 
+export const getArticleComments = async (
+  author_handle: string,
+  article_public_id: string
+) => {
   const res = await api.get(`article/${article_public_id}/comments`);
   return res.data;
-}
+};
 
 export const createCommentToArticle = async (
   article_public_id: string,
   content: string
 ) => {
-  return api.post(`article/${article_public_id}/comment`, { comment_text: content });
+  return api.post(`article/${article_public_id}/comment`, {
+    comment_text: content,
+  });
 };
-
 
 export const likeArticle = async (public_id: string) => {
   return api.post(`article/${public_id}/like`);
@@ -62,6 +68,5 @@ export const unLikeArticle = async (public_id: string) => {
 
 export const getArticlesPreviews = async (pageParam?: string) => {
   const res = await api.get(`feed/articles?limit=10&offset=${pageParam ?? 0}`);
-  return res//.data;
-}
-
+  return res; //.data;
+};

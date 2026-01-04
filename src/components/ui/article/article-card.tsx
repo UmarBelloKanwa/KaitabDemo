@@ -62,13 +62,13 @@ export default function ArticleCard({ article }: { article: Article }) {
         mx: "auto",
         boxShadow: "none",
         borderRadius: 2,
-        border: "1px solid",
-        borderColor: "divider",
+        // border: "1px solid",
+        // borderColor: "divider",
         width: "100%",
         p: 0,
       }}
     >
-      <CardContent sx={{ p: { xs: 2, sm: 2 }, pt: 0 }}>
+      <CardContent sx={{ p: { xs: 1, sm: 0 }, pt: 0 }}>
         {/* Header */}
         <Box
           sx={{

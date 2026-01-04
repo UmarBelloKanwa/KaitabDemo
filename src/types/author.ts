@@ -34,9 +34,16 @@ export interface Author {
   short_bio: string | null;
   location: string | null;
   expertise_area: string | null;
+
   followers_count: number;
   can_follow: boolean;
   is_following: boolean;
+
+  can_subscribe: boolean;
+  is_subscribed: boolean;
+
+  is_owner: boolean;
+
   cortex: Cortex | null;
   articles_count: number;
 }

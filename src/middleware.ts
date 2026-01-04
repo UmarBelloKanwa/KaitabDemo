@@ -55,7 +55,9 @@ export function middleware(request: NextRequest) {
 
     // Rewrite all other paths to include subdomain prefix
     if (pathname !== "/") {
-      return NextResponse.rewrite(new URL(`/${subdomain}`, request.url));
+      return NextResponse.rewrite(
+        new URL(`/${subdomain}${pathname}`, request.url)
+      );
     }
   }
 

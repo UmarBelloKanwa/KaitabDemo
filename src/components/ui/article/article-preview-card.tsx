@@ -36,7 +36,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
         boxShadow: 11,
         borderRadius: 2,
         border: "1px solid",
-        borderColor: "rgba(255, 255, 255, 0.05)",
+        borderColor: "divider",
         width: "100%",
         maxWidth: "100%",
         color: "grey",
@@ -46,9 +46,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
         },
       }}
       onClick={() => {
-        router.push(
-          `/${articlePreview.author?.handle}/c/${articlePreview.public_id}`
-        );
+        router.push(`/c/${articlePreview.public_id}`);
       }}
     >
       <CardContent>
@@ -145,7 +143,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
           </Typography>
           <Box>
             <ShareButton
-              id={`${articlePreview.author?.handle}/c/${articlePreview.public_id}`}
+              id={`/c/${articlePreview.public_id}`}
             />
           </Box>
         </Box>

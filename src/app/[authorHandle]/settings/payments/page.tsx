@@ -14,49 +14,8 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import Stack from "@mui/material/Stack";
-
-// Separate data object for all payment settings
-const paymentsData = {
-  stripe: {
-    title: "Connect Stripe",
-    description:
-      "Takes about 5 minutes. This is how money from subscribers gets to your bank account. Stripe may display your business phone number and address on subscriber invoices unless hidden.",
-    learnMoreUrl: "#",
-    buttonText: "Connect with stripe",
-  },
-  pledges: {
-    title: "Allow readers to pledge subscriptions",
-    description:
-      "When turned on, readers of Feedple will be able to pledge to pay for a future paid subscription to you.",
-    enabled: true,
-    amounts: [
-      {
-        id: "monthly",
-        label: "Monthly pledge amount",
-        description:
-          "The amount pledged subscribers are asked to pay per month.",
-        value: "8.00",
-        currency: "USD",
-      },
-      {
-        id: "annual",
-        label: "Annual pledge amount",
-        description:
-          "The amount pledged subscribers are asked to pay per year.",
-        value: "80.00",
-        currency: "USD",
-      },
-      {
-        id: "founding",
-        label: "Founding pledge amount",
-        description:
-          "The amount pledged founding members are asked to pay per year.",
-        value: "150.00",
-        currency: "USD",
-      },
-    ],
-  },
-};
+import { paymentsData } from "@/data/paymentsData";
+import { connectAccountToStripe } from "@/lib/api/subscription";
 
 export default function PaymentsPage() {
   const [pledgesEnabled, setPledgesEnabled] = useState(
@@ -128,30 +87,19 @@ export default function PaymentsPage() {
               <Box>
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
                   {paymentsData.stripe.description}{" "}
-                  <Link
+                  {/* <Link
                     href={paymentsData.stripe.learnMoreUrl}
                     underline="always"
                     color="text.primary"
                     sx={{ fontWeight: 500 }}
                   >
                     Learn more
-                  </Link>
+                  </Link> */}
                 </Typography>
               </Box>
             </Stack>
 
-            <Button
-              variant="contained"
-              size="large"
-              fullWidth
-              sx={{
-                borderRadius: 2,
-                alignSelf: { sm: "flex-start" },
-                width: { xs: "100%", sm: "auto" },
-              }}
-            >
-              {paymentsData.stripe.buttonText}
-            </Button>
+           <ConnectStripeButton />
           </Stack>
         </Paper>
 
@@ -243,5 +191,40 @@ export default function PaymentsPage() {
         </Paper>
       </Box>
     </Box>
+  );
+}
+
+
+function ConnectStripeButton() {
+  const [loading, setLoading] = useState(false);
+
+  async function connectToStripe() {
+    try {
+      setLoading(true);
+
+      const data = await connectAccountToStripe();
+
+      // Important: redirect immediately after response
+      window.location.href = data.url;
+    } catch (err) {
+      console.error(err);
+      setLoading(false); // only reset if error
+    }
+  }
+
+  return (
+    <Button
+      variant="contained"
+      size="large"
+      fullWidth
+      onClick={connectToStripe}
+      disabled={loading}
+      sx={{
+        alignSelf: { sm: "flex-start" },
+        width: { xs: "100%", sm: "auto" },
+      }}
+    >
+      {loading ? "Redirecting to Stripe…" : paymentsData.stripe.buttonText}
+    </Button>
   );
 }

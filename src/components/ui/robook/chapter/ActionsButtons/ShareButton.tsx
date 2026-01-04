@@ -29,7 +29,7 @@ export default function ShareButton({
       await navigator.clipboard.writeText(url.toString());
       setOpen(true);
     } catch (err) {
-      console.log("Failed to copy link:", err);
+      console.error("Failed to copy link:", err);
     }
   };
 

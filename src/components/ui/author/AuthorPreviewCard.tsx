@@ -23,8 +23,8 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
         p: 1,
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: "start",
+        justifyContent: "start",
 
         border: "2px solid",
         borderColor: "divider",

@@ -24,8 +24,10 @@ export default function ProfileCard({ author }: { author: Author }) {
     py: 0.2,
     px: 0.8,
     fontSize: "0.73em",
+    border: "2px solid",
     borderColor: "divider",
     borderRadius: 2,
+
     height: "fit-content",
     color: "white",
     ...(active && {
@@ -126,7 +128,7 @@ export default function ProfileCard({ author }: { author: Author }) {
           onClick={() => requireAuth(buttonAction)}
           sx={{
             p: 0,
-            ml: -1.5,
+            ml: -1,
             fontSize: "0.7em",
             "&:hover": {
               bgcolor: "transparent",
@@ -137,11 +139,13 @@ export default function ProfileCard({ author }: { author: Author }) {
           {!author.can_follow
             ? "Edit"
             : author.is_following
-            ? "Following"
-            : "Follow"}
+            ? "Subscribed"
+            : "Subscribe"}
         </Button>
       </Box>
-
+      <Button variant="text" size="small">
+        Enable paid subscription
+      </Button>
       <Typography variant="caption" color="grey" fontSize="small">
         {author.short_bio}
       </Typography>

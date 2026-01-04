@@ -284,12 +284,12 @@ export default function useSimpleEditor() {
     };
   }
 
-  const handleSaveArticle = async () => {
+  const handleSaveArticle = async (isFree: boolean) => {
     if (!editor) return;
     setIsSubmitting(true);
 
     try {
-      const res = await publishArticle({
+      const res = await publishArticle(isFree, {
         title,
         subtitle,
         content: removeUploadNodes(editor.getJSON()),
