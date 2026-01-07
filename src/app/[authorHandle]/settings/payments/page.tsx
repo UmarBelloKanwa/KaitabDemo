@@ -5,46 +5,42 @@ import {
   Typography,
   Button,
   Paper,
-  Switch,
   TextField,
   Select,
+  Switch,
   MenuItem,
-  FormControl,
-  Link,
 } from "@mui/material";
-import { useState } from "react";
 import Stack from "@mui/material/Stack";
-import { paymentsData } from "@/data/paymentsData";
-import { connectAccountToStripe } from "@/lib/api/subscription";
+import { paymentsData, currencies } from "@/data/paymentsData";
+import type { AccountStatus } from "@/types/subscription";
+import PaymentSection from "@/components/ui/settings/PaymentSection";
+import FormControl from "@mui/material/FormControl";
+import type { CreatorPlans } from "@/types/subscription";
+import Alert from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+import useSubscription from "@/hooks/settings/useSubscription";
 
 export default function PaymentsPage() {
-  const [pledgesEnabled, setPledgesEnabled] = useState(
-    paymentsData.pledges.enabled
-  );
-  const [pledgeAmounts, setPledgeAmounts] = useState(
-    paymentsData.pledges.amounts
-  );
-
-  const handleAmountChange = (id: string, value: string) => {
-    setPledgeAmounts((prev) =>
-      prev.map((amount) => (amount.id === id ? { ...amount, value } : amount))
-    );
-  };
-
-  const handleCurrencyChange = (id: string, currency: string) => {
-    setPledgeAmounts((prev) =>
-      prev.map((amount) =>
-        amount.id === id ? { ...amount, currency } : amount
-      )
-    );
-  };
-
+  const {
+    response,
+    setResponse,
+    accountStatus,
+    pledgeAmounts,
+    handleAmountChange,
+    handleCurrencyChange,
+    freePlanBenefits,
+    handleFreeBenefitChange,
+    paidPlanBenefits,
+    loading,
+    handleEnablePayment,
+    router,
+    handlePaidBenefitChange,
+  } = useSubscription();
   return (
     <Box
       sx={{
-        minHeight: "100vh",
         bgcolor: "background.default",
-        py: 4,
+        pt: 2.5,
         px: 2,
       }}
     >
@@ -53,178 +49,241 @@ export default function PaymentsPage() {
           maxWidth: {
             xs: "100%",
             sm: 600,
-            md: "md",
-            lg: 1000,
+            md: "sm",
           },
+          width: "100%",
           mx: "auto",
         }}
       >
-        <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-          Payments
-        </Typography>
-
-        {/* ✅ STRIPE SECTION */}
-        <Paper
-          elevation={0}
-          sx={{
-            p: 2,
-            mb: 4,
-            border: `1px solid`,
-            borderColor: "divider",
-          }}
-        >
-          <Typography variant="body1" sx={{ fontWeight: 600, mb: 1 }}>
-            {paymentsData.stripe.title}
-          </Typography>
-
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            alignItems={{ xs: "stretch", sm: "flex-start" }}
-            justifyContent="space-between"
-            spacing={2}
+        {response.message && (
+          <Snackbar
+            open={!!response.message}
+            autoHideDuration={null}
+            onClose={() => setResponse((prev) => ({ ...prev, message: "" }))}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
           >
-            <Stack direction="row" alignItems="center" spacing={2} flex={1}>
-              <Box>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {paymentsData.stripe.description}{" "}
-                  {/* <Link
-                    href={paymentsData.stripe.learnMoreUrl}
-                    underline="always"
-                    color="text.primary"
-                    sx={{ fontWeight: 500 }}
-                  >
-                    Learn more
-                  </Link> */}
-                </Typography>
-              </Box>
-            </Stack>
+            <Alert severity={response.severity}> {response.message} </Alert>
+          </Snackbar>
+        )}
 
-           <ConnectStripeButton />
-          </Stack>
-        </Paper>
+        {/* STRIPE SECTION */}
+        <PaymentSection accountStatus={accountStatus} />
 
-        {/* ✅ PLEDGES HEADER */}
-        <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
-          Pledges
-        </Typography>
+        {accountStatus?.isActive && (
+          <Box sx={{ position: "relative", left: 0, pb: 3 }}>
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+              {accountStatus.premium
+                ? "Paid subscriptions"
+                : "Set up paid subscriptions"}
+            </Typography>
 
-        <Paper
-          elevation={0}
-          sx={{
-            p: 2,
-            pb: 3,
-            border: `1px solid`,
-            borderColor: "divider",
-          }}
-        >
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            alignItems={{ xs: "flex-start", sm: "center" }}
-            justifyContent="space-between"
-            spacing={1}
-          >
-            <Box>
-              <Typography variant="body1" sx={{ fontWeight: 600, mb: 1 }}>
-                {paymentsData.pledges.title}
-              </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                {paymentsData.pledges.description}
-              </Typography>
-            </Box>
-
-            <Switch
-              checked={pledgesEnabled}
-              onChange={(e) => setPledgesEnabled(e.target.checked)}
-            />
-          </Stack>
-
-          {/* ✅ PLEDGE AMOUNTS */}
-          {pledgeAmounts.map((amount) => (
-            <Stack
-              key={amount.id}
-              direction={{ xs: "column", sm: "row" }}
-              alignItems={{ xs: "stretch", sm: "center" }}
-              justifyContent="space-between"
-              spacing={1.5}
-              sx={{ mt: 2 }}
+            <Paper
+              elevation={0}
+              sx={{
+                p: 2,
+                pb: 3,
+                bgcolor: "background.default",
+                border: `1px solid`,
+                borderColor: "divider",
+              }}
             >
-              <Box>
-                <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                  {amount.label}
+              <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600 }}>
+                Plans
+              </Typography>
+
+              {pledgeAmounts.map((plan) => {
+                const min = plan.name.toLowerCase() == "monthly" ? 29 : 290;
+                return (
+                  <Stack
+                    key={plan.id}
+                    direction={{ xs: "column", sm: "row" }}
+                    alignItems={{ xs: "stretch", sm: "center" }}
+                    justifyContent="space-between"
+                    spacing={1.5}
+                    sx={{ mt: 2 }}
+                  >
+                    <Box>
+                      <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                        {plan.name.toLowerCase() == "monthly"
+                          ? "Monthly plan price"
+                          : "Annual plan price"}
+                      </Typography>
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {plan.name.toLowerCase() == "monthly"
+                          ? "The amount monthly paid subscribers pay per month."
+                          : "The amount annual paid subscribers pay per year."}
+                      </Typography>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 1,
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                    >
+                      <TextField
+                        value={plan.price}
+                        onChange={(e) =>
+                          handleAmountChange(plan.name, e.target.value)
+                        }
+                        type="number"
+                        inputProps={{
+                          min,
+                        }}
+                        size="small"
+                        sx={{ width: { xs: "100%", sm: 120 } }}
+                        helperText={`Minimum $${min}`}
+                      />
+
+                      <FormControl
+                        size="small"
+                        sx={{ width: { xs: "100%", sm: 100 } }}
+                      >
+                        <Select
+                          value={plan.currency}
+                          onChange={(e) =>
+                            handleCurrencyChange(plan.id, e.target.value)
+                          }
+                        >
+                          {currencies.map((v, i) => (
+                            <MenuItem value={v} key={i}>
+                              {v}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </Stack>
+                );
+              })}
+            </Paper>
+            <Typography variant="h6" sx={{ my: 2, fontWeight: 600 }}>
+              Benefits
+            </Typography>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 2,
+                pb: 3,
+                bgcolor: "background.default",
+                border: `1px solid`,
+                borderColor: "divider",
+              }}
+            >
+              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                Free subscriber benefits
+              </Typography>
+
+              <Box sx={{ display: "grid", gap: 1, mb: 1 }}>
+                <Typography
+                  variant="caption"
+                  component="div"
+                  sx={{ color: "text.secondary" }}
+                >
+                  Let free subscribers know what they'll get out of their
+                  subscription
                 </Typography>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                  {amount.description}
-                </Typography>
+
+                {freePlanBenefits.map((benefit, index) => (
+                  <TextField
+                    key={index}
+                    size="small"
+                    value={benefit}
+                    onChange={(e) =>
+                      handleFreeBenefitChange(index, e.target.value)
+                    }
+                  />
+                ))}
               </Box>
 
+              <Typography variant="subtitle1" sx={{ mt: 1, fontWeight: 600 }}>
+                Paid subscriber benefits
+              </Typography>
+
+              <Box sx={{ display: "grid", gap: 1 }}>
+                <Typography
+                  variant="caption"
+                  component="div"
+                  sx={{ color: "text.secondary" }}
+                >
+                  Let paid subscribers know what they'll get out of their
+                  subscription
+                </Typography>
+                {paidPlanBenefits.map((benefit, index) => (
+                  <TextField
+                    key={index}
+                    size="small"
+                    value={benefit}
+                    placeholder={
+                      index === 2 ? "Add a third paid benefit..." : undefined
+                    }
+                    onChange={(e) =>
+                      handlePaidBenefitChange(index, e.target.value)
+                    }
+                  />
+                ))}
+              </Box>
+            </Paper>
+
+            {!accountStatus.premium && (
               <Box
                 sx={{
-                  display: "flex",
-                  gap: 1,
-                  width: { xs: "100%", sm: "auto" },
+                  position: "sticky",
+                  bottom: 0,
+                  left: 0,
+                  width: "100%",
+                  bgcolor: "background.default",
+                  pt: 2,
+                  pb: 1,
+                  m: "auto",
                 }}
               >
-                <TextField
-                  value={amount.value}
-                  onChange={(e) =>
-                    handleAmountChange(amount.id, e.target.value)
-                  }
-                  size="small"
-                  sx={{ width: { xs: "100%", sm: 120 } }}
-                />
+                <Button
+                  fullWidth
+                  variant="contained"
+                  disabled={loading}
+                  onClick={handleEnablePayment}
+                  sx={{
+                    color: "text.primary",
+                    "&:hover": {
+                      bgcolor: "action.hover",
+                    },
+                    py: 1,
+                    textTransform: "none",
+                    fontWeight: 500,
+                  }}
+                >
+                  Enable payments
+                </Button>
 
-                <FormControl size="small" sx={{ width: { xs: "100%", sm: 100 } }}>
-                  <Select
-                    value={amount.currency}
-                    onChange={(e) =>
-                      handleCurrencyChange(amount.id, e.target.value)
-                    }
-                  >
-                    <MenuItem value="USD">USD</MenuItem>
-                    <MenuItem value="EUR">EUR</MenuItem>
-                    <MenuItem value="GBP">GBP</MenuItem>
-                  </Select>
-                </FormControl>
+                <Button
+                  fullWidth
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                  sx={{
+                    mt: 1,
+                    bgcolor: "action.hover",
+                    color: "text.primary",
+                    "&:hover": {
+                      bgcolor: "divider",
+                    },
+                    py: 1,
+                    textTransform: "none",
+                    fontWeight: 500,
+                  }}
+                >
+                  Enable payments later
+                </Button>
               </Box>
-            </Stack>
-          ))}
-        </Paper>
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
-  );
-}
-
-
-function ConnectStripeButton() {
-  const [loading, setLoading] = useState(false);
-
-  async function connectToStripe() {
-    try {
-      setLoading(true);
-
-      const data = await connectAccountToStripe();
-
-      // Important: redirect immediately after response
-      window.location.href = data.url;
-    } catch (err) {
-      console.error(err);
-      setLoading(false); // only reset if error
-    }
-  }
-
-  return (
-    <Button
-      variant="contained"
-      size="large"
-      fullWidth
-      onClick={connectToStripe}
-      disabled={loading}
-      sx={{
-        alignSelf: { sm: "flex-start" },
-        width: { xs: "100%", sm: "auto" },
-      }}
-    >
-      {loading ? "Redirecting to Stripe…" : paymentsData.stripe.buttonText}
-    </Button>
   );
 }

@@ -140,11 +140,11 @@ export default function PricingPage() {
   const [planType, setPlanType] = useState("individual");
   const router = useRouter();
 
-  const stars = Array.from({ length: 50 }, () => ({
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    opacity: Math.random() * 0.7 + 0.3,
-  }));
+  // const stars = Array.from({ length: 50 }, () => ({
+  //   left: Math.random() * 100,
+  //   top: Math.random() * 100,
+  //   opacity: Math.random() * 0.7 + 0.3,
+  // }));
 
   return (
     <Box
@@ -158,7 +158,7 @@ export default function PricingPage() {
       }}
     >
       {/* Starry background */}
-      <StarField>
+      {/* <StarField>
         {stars.map((star, i) => (
           <Star
             key={i}
@@ -167,7 +167,7 @@ export default function PricingPage() {
             opacity={star.opacity}
           />
         ))}
-      </StarField>
+      </StarField> */}
 
       {/* Close button */}
       <IconButton
@@ -186,21 +186,21 @@ export default function PricingPage() {
       </IconButton>
 
       {/* Content */}
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1, }}>
         {/* Header */}
-        <Box sx={{ textAlign: "center", mb: 6 }}>
-          <Typography
+        <Box sx={{ textAlign: "center", mb: 2 }}>
+          {/* <Typography
             variant="h1"
             sx={{ fontSize: { xs: "2.5rem", md: "3rem" }, mb: 2 }}
           >
             Cortex
+          </Typography> */}
+          <Typography  variant="h5" sx={{ color: "text.secondary", }}>
+            Choose a subscription plan
           </Typography>
-          <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>
-            Introducing Cortex
-          </Typography>
-          <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>
+          {/* <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>
             Safe Personalized SuperIntelligence
-          </Typography>
+          </Typography> */}
         </Box>
 
         {/* Tabs */}
@@ -216,16 +216,14 @@ export default function PricingPage() {
                 borderRadius: 50,
                 border: "none",
               },
-              p: 0.2,
-              bgcolor: "black",
             }}
           >
-            <ToggleButton size="small" value="individual">
+            <ToggleButton  value="individual">
               Individual
             </ToggleButton>
-            <ToggleButton size="small" value="business">
+            {/* <ToggleButton size="small" value="business">
               Business
-            </ToggleButton>
+            </ToggleButton> */}
           </ToggleButtonGroup>
         </Box>
 

@@ -4,7 +4,8 @@ import { Box, Paper, Avatar, Typography, Button, Stack } from "@mui/material";
 import type { Author } from "@/types/author";
 import { useRouter } from "next/navigation";
 import { navigateToSubdomain } from "@/lib/utils/navigate";
-
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import ArrowCircleUpOutlinedIcon from "@mui/icons-material/ArrowCircleUpOutlined";
 
 export default function AuthorPreviewCard({ author }: { author: Author }) {
   const router = useRouter();
@@ -30,7 +31,7 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
         borderColor: "divider",
         "&:hover": {
           cursor: "pointer",
-          bgcolor: "action.hover",
+         // bgcolor: "action.hover",
         },
         //boxShadow: 20,
       }}
@@ -54,7 +55,6 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
             width: 100,
             height: 100,
             objectFit: "contain",
-            // border: "3px solid #2a2a2a",
           }}
         />
         <Box
@@ -86,14 +86,14 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
           </Typography>
           {/* Stats */}
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Typography
-              component="span"
+            {/* <Typography
+              component="div"
               variant="caption"
               color="grey"
               fontSize="x-small"
             >
-              {author.articles_count} articles
-            </Typography>
+              {author.articles_count || "0"} <ArticleOutlinedIcon sx={{fontSize: 10, color: "white"}}  />
+            </Typography> */}
             {/* <Typography
               component="span"
               variant="caption"
@@ -103,32 +103,29 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
               29 chats
             </Typography> */}
 
-            <Typography variant="caption" color="grey" fontSize="x-small">
-              {author.followers_count} followers
-            </Typography>
+            {/* <Typography variant="caption" color="grey" component="div" fontSize="x-small">
+              {author.followers_count} <PlaylistPlayOutlinedIcon sx={{fontSize: 15, color: "white"}} />
+            </Typography> */}
+            <Button
+              size="small"
+              variant="outlined"
+              sx={{
+                fontSize: "x-small",
+                // p: 0.3,
+                py: 0.2,
+                borderRadius: 1,
+                color: "white",
+                borderColor: "divider"
+              }}
+            >
+              Subscribe
+            </Button>
           </Box>
         </Box>
       </Box>
 
       {/* Action Buttons */}
       <Stack direction="row" spacing={1} sx={{ mt: 0, width: "100%" }}>
-        <Button
-          fullWidth
-          // variant="outlined"
-          className="elevated"
-          size="small"
-          onClick={(e) => {
-            e.stopPropagation();
-            navigateToSubdomain(author.handle, "/library");
-          }}
-          sx={{
-            color: "#ffffff",
-            borderRadius: 2,
-            borderWidth: 0,
-          }}
-        >
-          Library
-        </Button>
         <Button
           fullWidth
           size="small"
@@ -144,6 +141,22 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
           }}
         >
           Chat
+        </Button>
+        <Button
+          fullWidth
+          // variant="outlined"
+          className="elevated"
+          size="small"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigateToSubdomain(author.handle, "/library");
+          }}
+          sx={{
+            color: "#ffffff",
+            borderRadius: 2,
+          }}
+        >
+          Library
         </Button>
       </Stack>
     </Paper>

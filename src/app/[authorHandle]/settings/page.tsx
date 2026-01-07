@@ -42,6 +42,7 @@ export default function SettingsPage() {
           sx={{
             p: 2,
             mb: 4,
+             bgcolor: "background.default",
             border: `1px solid`,
             borderColor: "divider",
           }}
@@ -203,6 +204,7 @@ export default function SettingsPage() {
           elevation={0}
           sx={{
             p: 2,
+            bgcolor: "background.default",
             border: (theme) => `1px solid ${theme.palette.divider}`,
           }}
         >

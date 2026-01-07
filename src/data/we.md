@@ -22,6 +22,7 @@ What it Does:
 
 
 
+
 I understand:
 My Companion learns only from my published content
 It is an AI aide, not me
@@ -97,3 +98,60 @@ They protect you more than complex legalese — and make users feel respected.
 
 Do this right now — before launch.  
 It’s one of the smartest things you can do for Feedple’s future.
+
+
+
+Your ideas shouldn’t
+stop with you.
+
+Business ideas live in static content. Without you present, they can’t guide decisions or scale beyond your time.
+Why business ideas don’t scale
+
+Your frameworks live in static content. Without you present, they can’t adapt to real situations, guide decisions, or scale beyond your time.
+Repeating yourself
+
+You spend hours explaining the same frameworks, strategies, and decisions to different people.
+Trapped business knowledge
+
+Your insights live in static documents, slides, or books. They can’t answer questions or guide real-world decisions.
+Ideas don’t scale
+
+When you’re not present, your thinking is frozen in content that can’t adapt or apply itself.
+Impact tied to you
+
+Your expertise only works when you personally show up, limiting how far your ideas and influence can grow.
+Our Solution
+A platform built to scale your ideas
+
+We’ve removed the barriers and built a platform where business creators share ideas, while their AI companions learn from their thinking to teach frameworks, guide decisions, and remain accessible for learning, collaboration, and impact beyond their presence.
+What We Do
+
+Feedple let business thinkers share ideas while their personal AI companions learn their thinking, teach their frameworks, and scale their impact—beyond their presence.
+Publish and Train
+
+Share your business frameworks, strategies, and ideas while training your AI Companion to understand, evolve with, and preserve your knowledge.
+Business Interaction
+
+Users follow you and interact with your AI Companion for insights, advice, and decision guidance inspired by your thinking.
+Preserve Your Impact
+
+Your AI Companion continues sharing your business knowledge and frameworks as a helpful guide, even when you’re not present, with explicit consent and no impersonation.
+Cortex
+
+Cortex is a safe, personalized AI companion that learns from your business thinking and helps you scale your impact.
+It learns your business thinking
+
+Every framework, strategy, and insight you share on Feedple continuously trains your Cortex.
+Guides decisions and spreads knowledge
+
+Your Cortex helps others learn, collaborate, and apply your strategies.
+Full control in your hands
+
+You decide when it activates, when it works, what it does, and how it operates.
+Ready to scale your business thinking?
+
+Join other business authors who have turned their frameworks into AI companions that teach, guide, and grow their impact.
+
+
+
+What are you building? 
