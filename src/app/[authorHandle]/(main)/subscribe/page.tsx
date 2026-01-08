@@ -10,108 +10,26 @@ import {
   Card,
   CardContent,
   Grid,
-  IconButton,
-  Chip,
   Stack,
   ToggleButtonGroup,
   ToggleButton,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import PaletteOutlinedIcon from "@mui/icons-material/PaletteOutlined";
-import MicNoneIcon from "@mui/icons-material/MicNone";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import CheckBoxOutlinedIcon from "@mui/icons-material/CheckBoxOutlined";
-import ImageOutlinedIcon from "@mui/icons-material/ImageOutlined";
-import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import AddIcon from "@mui/icons-material/Add";
-import BoltIcon from "@mui/icons-material/Bolt";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-interface PlanFeature {
-  icon: React.ElementType;
-  text: string;
-  subtext?: string;
-}
-
-interface PricingPlan {
-  id: string;
-  name: string;
-  price: number | "Free";
-  currency?: string;
-  period?: string;
-  buttonText: string;
-  buttonVariant: "outlined" | "contained";
-  isPopular?: boolean;
-  features: PlanFeature[];
-}
-
-const pricingPlans: PricingPlan[] = [
-  {
-    id: "basic",
-    name: "Basic",
-    price: "Free",
-    buttonText: "Current Plan",
-    buttonVariant: "outlined",
-    features: [
-      { icon: CheckIcon, text: "Limited access to chat models" },
-      { icon: InfoOutlinedIcon, text: "Limited context memory" },
-      { icon: PaletteOutlinedIcon, text: "Aurora image model" },
-      { icon: MicNoneIcon, text: "Voice access" },
-      { icon: WorkOutlineIcon, text: "Projects" },
-      { icon: CheckBoxOutlinedIcon, text: "Tasks" },
-    ],
-  },
-  {
-    id: "supergrok",
-    name: "Cortex",
-    price: 30.0,
-    currency: "USD",
-    period: "month",
-    buttonText: "Upgrade to Cortex",
-    buttonVariant: "contained",
-    isPopular: true,
-    features: [
-      {
-        icon: CheckIcon,
-        text: "Increased access to Cortex 4.1",
-        subtext: "Improved reasoning and search capabilities",
-      },
-      { icon: CheckIcon, text: "Increased access to Cortex 3" },
-      { icon: InfoOutlinedIcon, text: "Extended memory 128,000 tokens" },
-      { icon: MicNoneIcon, text: "Priority voice access" },
-      { icon: ImageOutlinedIcon, text: "Imagine image model" },
-      { icon: AutoAwesomeOutlinedIcon, text: "Companions Ani and Valentine" },
-      { icon: AddIcon, text: "Everything in Basic" },
-    ],
-  },
-  {
-    id: "supergrok-heavy",
-    name: "Cortex Heavy",
-    price: 300.0,
-    currency: "USD",
-    period: "month",
-    buttonText: "Upgrade to Heavy",
-    buttonVariant: "contained",
-    features: [
-      { icon: BoltIcon, text: "Exclusive preview of Cortex 4 Heavy" },
-      { icon: CheckIcon, text: "Extended access to Cortex 4.1" },
-      { icon: CheckIcon, text: "Unlimited access to Cortex 3" },
-      { icon: InfoOutlinedIcon, text: "Longest memory 256,000 tokens" },
-      { icon: BoltIcon, text: "Early access to new features" },
-      { icon: AddIcon, text: "Everything in Cortex" },
-    ],
-  },
-];
+import { pricingPlans } from "@/data/subsData";
+import type { PlanFeature, PricingPlan } from "@/data/subsData";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import { useQueryClient } from "@tanstack/react-query";
+import type { AccountStatus } from "@/types/subscription";
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  background: theme.palette.background.paper,
+  background: theme.palette.background.default,
   borderRadius: 30,
   padding: theme.spacing(3),
-  // border: `1px solid ${theme.palette.divider}`,
+  pb: 0,
+  border: `1px solid ${theme.palette.divider}`,
   position: "relative",
 }));
 
@@ -139,6 +57,13 @@ const Star = styled("div")<{ left: number; top: number; opacity: number }>(
 export default function PricingPage() {
   const [planType, setPlanType] = useState("individual");
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const accountData: AccountStatus = queryClient.getQueryData(["accountSubscriptionData"])!;
+  if (!accountData) {
+    return <></>
+  }
+  const plans = mapAccountStatusToPricingPlans(accountData);
 
   // const stars = Array.from({ length: 50 }, () => ({
   //   left: Math.random() * 100,
@@ -154,7 +79,7 @@ export default function PricingPage() {
         color: "text.primary",
         position: "relative",
         overflow: "hidden",
-        py: 8,
+        py: 2,
       }}
     >
       {/* Starry background */}
@@ -170,7 +95,7 @@ export default function PricingPage() {
       </StarField> */}
 
       {/* Close button */}
-      <IconButton
+      {/* <IconButton
         onClick={() => {
           router.back();
         }}
@@ -183,19 +108,29 @@ export default function PricingPage() {
         }}
       >
         <CloseIcon />
-      </IconButton>
+      </IconButton> */}
 
       {/* Content */}
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1, }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <Box sx={{ textAlign: "center", mb: 2 }}>
+        <Box sx={{ textAlign: "center", mb: 1 }}>
+          {/* <Box
+            component="img"
+            src="umar.png"
+            sx={{
+              width: 51,
+              height: 51,
+              m: "auto",
+              borderRadius: 1,
+            }}
+          /> */}
           {/* <Typography
             variant="h1"
             sx={{ fontSize: { xs: "2.5rem", md: "3rem" }, mb: 2 }}
           >
             Cortex
           </Typography> */}
-          <Typography  variant="h5" sx={{ color: "text.secondary", }}>
+          <Typography variant="h5" sx={{ color: "text.secondary" }}>
             Choose a subscription plan
           </Typography>
           {/* <Typography sx={{ color: "text.secondary", fontSize: "1.125rem" }}>
@@ -204,7 +139,7 @@ export default function PricingPage() {
         </Box>
 
         {/* Tabs */}
-        <Box sx={{ display: "flex", justifyContent: "center", mb: 6 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
           <ToggleButtonGroup
             value={planType}
             exclusive
@@ -218,9 +153,7 @@ export default function PricingPage() {
               },
             }}
           >
-            <ToggleButton  value="individual">
-              Individual
-            </ToggleButton>
+            <ToggleButton value="individual">Individual</ToggleButton>
             {/* <ToggleButton size="small" value="business">
               Business
             </ToggleButton> */}
@@ -228,20 +161,10 @@ export default function PricingPage() {
         </Box>
 
         <Grid container spacing={3} sx={{ maxWidth: 1200, mx: "auto" }}>
-          {pricingPlans.map((plan) => (
+          {plans.map((plan) => (
             <Grid size={{ xs: 12, md: 4 }} key={plan.id}>
               <StyledCard>
-                {plan.isPopular && (
-                  <Chip
-                    label="Popular"
-                    size="small"
-                    sx={{
-                      position: "absolute",
-                      right: 24,
-                    }}
-                  />
-                )}
-                <CardContent sx={{ p: 0 }}>
+                <CardContent sx={{ p: 0, pb: 0,  }}>
                   <Typography
                     sx={{
                       color: "text.secondary",
@@ -278,26 +201,9 @@ export default function PricingPage() {
                     </Box>
                   )}
 
-                  {/* Button */}
-                  <Button
-                    fullWidth
-                    variant={plan.buttonVariant}
-                    sx={{
-                      mb: 4,
-                      borderRadius: 50,
-                      ...(plan.buttonVariant === "outlined" && {
-                        bgcolor: "background.default",
-                        color: "text.primary",
-                      }),
-                    }}
-                  >
-                    {plan.buttonText}
-                  </Button>
-
                   {/* Features List */}
                   <Stack spacing={2}>
                     {plan.features.map((feature, index) => {
-                      const IconComponent = feature.icon;
                       return (
                         <Stack
                           key={index}
@@ -305,7 +211,7 @@ export default function PricingPage() {
                           spacing={1.5}
                           alignItems="flex-start"
                         >
-                          <IconComponent
+                          <TaskAltIcon
                             sx={{
                               fontSize: 20,
                               color: "text.secondary",
@@ -344,6 +250,23 @@ export default function PricingPage() {
                       );
                     })}
                   </Stack>
+
+                  {/* Button */}
+                  <Button
+                    fullWidth
+                    variant={plan.buttonVariant}
+                    sx={{
+                      mt: 4,
+                      mb: 0,
+                      borderRadius: 50,
+                      ...(plan.buttonVariant === "outlined" && {
+                        bgcolor: "background.default",
+                        color: "text.primary",
+                      }),
+                    }}
+                  >
+                    Select
+                  </Button>
                 </CardContent>
               </StyledCard>
             </Grid>
@@ -352,4 +275,45 @@ export default function PricingPage() {
       </Container>
     </Box>
   );
+}
+
+export function mapAccountStatusToPricingPlans(
+  accountStatus: AccountStatus
+): PricingPlan[] {
+  const plans: PricingPlan[] = [];
+
+  /** ---------- FREE PLAN ---------- */
+  plans.push({
+    id: "free",
+    name: "Free",
+    price: "Free",
+    buttonVariant: "outlined",
+    features: accountStatus.plans.free.benefits.map((benefit) => ({
+      text: benefit,
+    })),
+  });
+
+  /** ---------- PAID PLANS ---------- */
+  if (
+    accountStatus.premium &&
+    accountStatus.monetization_enabled &&
+    accountStatus.plans.paid?.plans?.length
+  ) {
+    for (const plan of accountStatus.plans.paid.plans) {
+      plans.push({
+        id: plan.id,
+        name: plan.name,
+        price: plan.price,
+        currency: plan.currency,
+        period: plan.interval,
+        buttonVariant: "contained",
+        isPopular: plan.name.toLowerCase() === "monthly",
+        features: accountStatus.plans.paid.benefits.map((benefit) => ({
+          text: benefit,
+        })),
+      });
+    }
+  }
+
+  return plans;
 }

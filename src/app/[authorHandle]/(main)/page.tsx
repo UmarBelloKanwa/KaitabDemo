@@ -2,7 +2,7 @@
 
 import RobookChat from "@/components/ui/robook/chat/ChatPage";
 //import AuthorChatLayout from "../chat/layout";
-import AuthorChatPage from "../chat/page";
+import AuthorChatPage from "./chat/page";
 
 export default async function AuthorProfile({
   params,

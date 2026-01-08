@@ -17,19 +17,18 @@ export default function useSubscription() {
     "accountStatus",
   ])!;
 
-
   const [pledgeAmounts, setPledgeAmounts] = useState(
     accountStatus.plans.paid.plans ||
     paymentsData.pledges.plans
   );
 
-  const [freePlanBenefits, setFreePlanBenefits] = useState(
-    accountStatus.plans.free.benefits ||
-    [
-      "Access to public strategies, market insights, and community discussions.",
-      "Limited accees to my safe personalized AI"
-    ]
-  );
+  let creatorFreePlanBenefits = accountStatus.plans.free.benefits;
+  creatorFreePlanBenefits = creatorFreePlanBenefits.length ? creatorFreePlanBenefits : [
+    "Access to public strategies, market insights, and community discussions.",
+    "Limited accees to my safe personalized AI"
+  ]
+  const [freePlanBenefits, setFreePlanBenefits] = useState(creatorFreePlanBenefits);
+
   const [paidPlanBenefits, setPaidPlanBenefits] = useState(
     accountStatus.plans.paid.benefits ||
     [

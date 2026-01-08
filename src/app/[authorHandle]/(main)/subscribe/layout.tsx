@@ -3,7 +3,7 @@
 import React from "react";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import getQueryClient from "@/lib/get-query-client";
-import { checkStripeAccountStatus } from "@/actions/subs";
+import { getAccountSubscriptionData } from "@/actions/subs";
 
 export default async function SubscriptionSettings({
   children,
@@ -19,10 +19,10 @@ export default async function SubscriptionSettings({
   // But since this is a fresh QueryClient per request → it's never cached
   // So we prefetch the post data here → enables SSR + hydration
   await queryClient.prefetchQuery({
-    queryKey: ["accountStatus"],
+    queryKey: ["accountSubscriptionData"],
     queryFn: async () => {
       try {
-        return await checkStripeAccountStatus()
+        return await getAccountSubscriptionData(p.authorHandle);
       } catch (err) {
        // console.error(err);
         return null;

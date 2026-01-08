@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { paymentsData, currencies } from "@/data/paymentsData";
-import type { AccountStatus } from "@/types/subscription";
 import PaymentSection from "@/components/ui/settings/PaymentSection";
 import FormControl from "@mui/material/FormControl";
 import type { CreatorPlans } from "@/types/subscription";

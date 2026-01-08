@@ -13,7 +13,6 @@ import ListItemText from "@mui/material/ListItemText";
 import { styled, useTheme, useMediaQuery } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useRouter } from "next/navigation";
-import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import ArticleIcon from "@mui/icons-material/ArticleOutlined";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import MoreVertIcon from "@mui/icons-material/ExpandCircleDownOutlined";
@@ -26,6 +25,7 @@ import type { Author } from "@/types/author";
 import Avatar from "@mui/material/Avatar";
 import UserDisplay from "@/components/ui/UserDisplay";
 import { useQueryClient } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
 
 const drawerWidth = 280;
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -58,22 +58,32 @@ const navItems = [
   },
 ];
 
+const HIDE_DRAWER_ROUTES = ["subscribe"];
+
 export default function ChatSidebar({ author }: { author: Author }) {
-  const requireAuth = useAuthCheck();
+  const pathname = usePathname();
   const theme = useTheme();
   const queryClient = useQueryClient();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const router = useRouter();
-  const drawerVariant = isMobile ? "temporary" : "permanent";
-  const open = isMobile ? false : true;
 
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
+
+  const user = queryClient.getQueryData(["user"]);
 
   const handleDrawerToggle = () => {
     setSidebarOpen((prev) => !prev);
   };
+
+  const hideDrawer = HIDE_DRAWER_ROUTES.some(
+    (route) => pathname === `/${route}` || pathname.startsWith(`/${route}/`)
+  );
+
+  if (hideDrawer) {
+    return <></>;
+  }
 
   if (!sidebarOpen) {
     return (
@@ -111,7 +121,6 @@ export default function ChatSidebar({ author }: { author: Author }) {
     );
   }
 
-  const user = queryClient.getQueryData(["user"]);
 
   return (
     <Drawer

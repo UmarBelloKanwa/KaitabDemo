@@ -34,3 +34,21 @@ export interface CreatorPlans {
   free: PlanSummary;
   paid: PlanSummary;
 }
+
+
+
+
+export interface PlanFeature {
+  text: string;
+}
+
+export interface PricingPlan {
+  id: string;
+  name: string;
+  price: number | "Free";
+  currency?: string;
+  period?: string;
+  buttonVariant: "outlined" | "contained";
+  isPopular?: boolean;
+  features: PlanFeature[];
+}
