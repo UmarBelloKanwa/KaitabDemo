@@ -143,9 +143,9 @@ export default function ProfileCard({ author }: { author: Author }) {
             : "Subscribe"}
         </Button>
       </Box>
-      <Button variant="text" size="small">
+      {/* <Button variant="text" size="small">
         Enable paid subscription
-      </Button>
+      </Button> */}
       <Typography variant="caption" color="grey" fontSize="small">
         {author.short_bio}
       </Typography>

@@ -1,3 +1,4 @@
+import type { Appearance } from "@stripe/stripe-js";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -237,3 +238,64 @@ const theme = createTheme({
 // });
 
 export default theme;
+
+
+export const appearance: Appearance = {
+    theme: "night",
+    variables: {
+      colorPrimary: "#ff00aa",
+      colorBackground: "#000000",
+      colorText: "#ffffff",
+      colorTextSecondary: "#9ca3af",
+      colorDanger: "#ef4444",
+
+      fontFamily:
+        '"Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif',
+      borderRadius: "12px",
+      spacingUnit: "6px",
+    },
+
+    rules: {
+      ".Input": {
+        backgroundColor: "#000000",
+        border: "1px solid #27272a",
+        boxShadow: "none",
+        color: "#ffffff",
+      },
+
+      ".Input:focus": {
+        border: "1px solid #ff00aa",
+        boxShadow: "0 0 0 1px rgba(255,0,170,0.4)",
+      },
+
+      ".Label": {
+        color: "#9ca3af",
+        fontSize: "13px",
+        fontWeight: "500",
+      },
+
+      ".Tab": {
+        borderRadius: "12px",
+        border: "1px solid #27272a",
+        backgroundColor: "#000000",
+        color: "#9ca3af",
+      },
+
+      ".Tab--selected": {
+        backgroundColor: "#161618",
+        color: "#ffffff",
+        border: "1px solid #ff00aa",
+      },
+
+      ".Block": {
+        backgroundColor: "#000000",
+        borderRadius: "12px",
+        padding: "16px",
+      },
+
+      ".Error": {
+        color: "#ef4444",
+        fontSize: "13px",
+      },
+    },
+  };

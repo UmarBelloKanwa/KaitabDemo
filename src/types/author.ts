@@ -35,6 +35,8 @@ export interface Author {
   location: string | null;
   expertise_area: string | null;
 
+  monetization_enabled: boolean;
+
   followers_count: number;
   can_follow: boolean;
   is_following: boolean;

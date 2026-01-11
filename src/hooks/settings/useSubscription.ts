@@ -17,10 +17,8 @@ export default function useSubscription() {
     "accountStatus",
   ])!;
 
-  const [pledgeAmounts, setPledgeAmounts] = useState(
-    accountStatus.plans.paid.plans ||
-    paymentsData.pledges.plans
-  );
+  const amounts = accountStatus.plans.paid.plans?.length ? accountStatus.plans.paid.plans : paymentsData.pledges.plans;
+  const [pledgeAmounts, setPledgeAmounts] = useState(amounts);
 
   let creatorFreePlanBenefits = accountStatus.plans.free.benefits;
   creatorFreePlanBenefits = creatorFreePlanBenefits.length ? creatorFreePlanBenefits : [
@@ -28,15 +26,13 @@ export default function useSubscription() {
     "Limited accees to my safe personalized AI"
   ]
   const [freePlanBenefits, setFreePlanBenefits] = useState(creatorFreePlanBenefits);
+  const creatorPaidPlansBenefits = accountStatus.plans.paid.benefits.length ? accountStatus.plans.paid.benefits : [
+    "Exclusive frameworks, deep-dives, and private playbooks.",
+    "Unlimited 24/7 strategic guidance via my Cortex AI—trained on my specific business logic.",
+    "Use my AI to audit your decisions and adapt my frameworks to your data.",
+  ];
 
-  const [paidPlanBenefits, setPaidPlanBenefits] = useState(
-    accountStatus.plans.paid.benefits ||
-    [
-      "Exclusive frameworks, deep-dives, and private playbooks.",
-      "Unlimited 24/7 strategic guidance via my Cortex AI—trained on my specific business logic.",
-      "Use my AI to audit your decisions and adapt my frameworks to your data.",
-  ],
-  );
+  const [paidPlanBenefits, setPaidPlanBenefits] = useState(creatorPaidPlansBenefits);
 
   const handleFreeBenefitChange = (index: number, value: string) => {
     setFreePlanBenefits((prev) => ({

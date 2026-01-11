@@ -9,10 +9,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Radio from "@mui/material/Radio";
+import Box from "@mui/material/Box";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { useQueryClient } from "@tanstack/react-query";
+import NextLink from "next/link";
+import type { Author } from "@/types/author";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -27,14 +31,18 @@ export default function CustomizedDialogs({
   open,
   publish,
   handleClose,
-   isSubmitting,
+  isSubmitting,
 }: {
   open: boolean;
   publish: (v: boolean) => Promise<void>;
-  handleClose: () => void;   
+  handleClose: () => void;
   isSubmitting: boolean;
 }) {
+  const queryClient = useQueryClient();
+  const author: Author = queryClient.getQueryData(["currentAuthor"])!;
+  console.log("author", author);
   const [value, setValue] = React.useState("everyone");
+  const monetizationEnabled = author?.monetization_enabled;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value);
@@ -77,11 +85,11 @@ export default function CustomizedDialogs({
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent >
+        <DialogContent>
           <FormControl
             sx={{
               fontSize: "small",
-              border: "3px solid",
+              border: "1px solid",
               borderColor: "divider",
               borderRadius: 2,
               width: "100%",
@@ -108,12 +116,37 @@ export default function CustomizedDialogs({
               <FormControlLabel
                 value="everyone"
                 control={<Radio />}
-                label="Everyone"
+                label={
+                  <Typography fontSize="small">
+                    Everyone
+                  </Typography>
+                }
               />
               <FormControlLabel
                 value="paid-subscribers-only"
                 control={<Radio />}
-                label="Paid subscribers only"
+                disabled={!(author && monetizationEnabled)}
+                label={
+                  <Box display="flex" alignItems="center" gap={1}>
+                    <Typography
+                      fontSize={14}
+                      component={author && monetizationEnabled ? "span" : "del"}
+                    >
+                      Paid subscribers only
+                    </Typography>
+                    <Typography
+                      fontSize="small"
+                      component={NextLink}
+                      href="settings/payments"
+                    >
+                      {author
+                        ? monetizationEnabled
+                          ? null
+                          : "(Turn on paid subscriptions)"
+                        : "(Your first publishing)"}
+                    </Typography>
+                  </Box>
+                }
               />
             </RadioGroup>
           </FormControl>
@@ -124,7 +157,7 @@ export default function CustomizedDialogs({
             onClick={handleClose}
             sx={{
               textTransform: "none",
-             // borderRadius: 1,
+              // borderRadius: 1,
             }}
           >
             Cancel
@@ -134,10 +167,12 @@ export default function CustomizedDialogs({
             variant="contained"
             loading={isSubmitting}
             loadingPosition="end"
-            onClick={async () => { publish(value === "everyone")} }
+            onClick={async () => {
+              publish(value === "everyone");
+            }}
             sx={{
               textTransform: "none",
-            //  borderRadius: 2,
+              //  borderRadius: 2,
             }}
           >
             Publish to {isFree ? value : "paid subscribers only"}

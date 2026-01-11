@@ -20,3 +20,16 @@ export const disabledMonetization = async () => {
   const res = await api.post("subs/monetization/disable");
   return res.data;
 }
+
+export const createCheckoutSession = async (data: {
+  author_handle: string;
+  interval: string
+}) => {
+  const res = await api.post("subs/create-checkout-session", data);
+  return res.data;
+}
+
+export const subscribeFree = async (handle: string) => {
+  const res = await api.post(`subs/${handle}/free`);
+  return res.data;
+}
