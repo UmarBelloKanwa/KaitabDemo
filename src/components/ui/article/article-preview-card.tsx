@@ -11,6 +11,8 @@ import {
 import { useRouter } from "next/navigation";
 import type { ArticlePreview } from "@/types/article";
 import ShareButton from "@ui/robook/chapter/ActionsButtons/ShareButton";
+import getDomain from "@/lib/utils/getDomain";
+import { navigateToSubdomain } from "@/lib/utils/navigate";
 
 interface ArticleCardProps {
   articlePreview: ArticlePreview;
@@ -28,6 +30,9 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
       })
       .toUpperCase(); // "DEC 10"
   }
+  const { http, domain } = getDomain();
+  const url = `${http}://${articlePreview.author?.handle}.${domain}/c/${articlePreview.public_id}`;
+
   return (
     <Card
       elevation={0}
@@ -46,7 +51,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
         },
       }}
       onClick={() => {
-        router.push(`/c/${articlePreview.public_id}`);
+        navigateToSubdomain(articlePreview.author?.handle!, `/c/${articlePreview.public_id}`);
       }}
     >
       <CardContent>
@@ -78,7 +83,7 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
                 component="div"
                 variant="body2"
                 onClick={() => {
-                  router.push(`/${articlePreview.author?.handle}`);
+                  router.push(url);
                 }}
                 sx={{
                   fontWeight: "bold",
@@ -130,15 +135,24 @@ export default function ArticleCard({ articlePreview }: ArticleCardProps) {
           {articlePreview.preview_text}
         </Typography>
 
-        <Box sx={{ display: "flex", alignItems: "baseline", mt: 2 }}>
+        <Box sx={{ display: "flex", gap: 2, alignItems: "baseline", mt: 2 }}>
           <Typography
             component="div"
             variant="caption"
             sx={{
-              fontSize: "0.8rem",
+              fontSize: "0.75rem",
               flex: 1,
+              textTransform: "uppercase",
             }}
           >
+            {!articlePreview.is_free && (
+              <>
+                <Typography color="primary" component="span" sx={{fontSize: "0.75rem"}}>
+                  PAID
+                </Typography>
+                &nbsp; &nbsp; •  &nbsp; &nbsp;
+              </>
+            )}
             {articlePreview.author?.name} &nbsp; • &nbsp; {"1 MIN READ"}
           </Typography>
           <Box>

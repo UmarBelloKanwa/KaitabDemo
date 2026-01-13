@@ -17,12 +17,14 @@ import {
   enableMonetization,
   disabledMonetization,
 } from "@/lib/api/subscription";
+import { useRouter } from "next/navigation";
 
 export default function PaymentSection({
   accountStatus,
 }: {
   accountStatus: AccountStatus;
-}) {
+  }) {
+  const router = useRouter();
   const [pledgesEnabled, setPledgesEnabled] = useState(
     accountStatus?.monetization_enabled
   );
@@ -68,11 +70,13 @@ export default function PaymentSection({
 
         await disabledMonetization();
         setPledgesEnabled(false);
+        router.refresh();
         return;
       }
       // Turning ON monetization
       await enableMonetization();
       setPledgesEnabled(true);
+       router.refresh();
     } catch (err) {
       console.error(err);
       alert("Failed to update monetization status.");

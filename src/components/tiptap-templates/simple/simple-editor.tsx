@@ -34,7 +34,7 @@ import {
 import ConfirmPublishDialog from "@/components/ui/editor/ConfirmPublish";
 
 export function SimpleEditor() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const theme = useTheme();
   const {

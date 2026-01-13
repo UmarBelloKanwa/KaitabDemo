@@ -20,6 +20,8 @@ export interface ArticlePreview {
   collection?: Collection | null;
 
   comment_count?: number;      // Usually omitted in previews
+  is_free: boolean;
+  is_locked: boolean;
 }
 
 
@@ -49,6 +51,9 @@ export interface Article {
 
   // comments?: ArticleComment[];      // Usually omitted in previews
   // reactions?: ArticleReaction[];    // Usually omitted
+  
+  is_free: boolean;
+  is_locked: boolean;
 }
 
 

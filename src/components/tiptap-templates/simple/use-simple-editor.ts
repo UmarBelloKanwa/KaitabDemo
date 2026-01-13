@@ -30,6 +30,7 @@ import { editorStorage } from "@/lib/indexdb-storage";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import { useRouter } from "next/navigation";
 import type { Article } from "@/types/article";
+import getDomain from "@/lib/utils/getDomain";
 // import content from "./data/content.json";
 
 export default function useSimpleEditor() {
@@ -299,9 +300,11 @@ export default function useSimpleEditor() {
       setAlertMessage("Article published successfully!");
       setAlertType("success");
       setAlertOpen(true);
-      router.push(
-        `/${publishedArticle.author.handle}/c/${publishedArticle.public_id}`
-      );
+      
+      const url = `${http}://${publishedArticle.author.handle}.${domain}/c/${publishedArticle.public_id}`
+
+      router.push(url);
+      
     } catch (err: any) {
       console.log("Publish ERror", err);
       setAlertMessage(
@@ -313,6 +316,9 @@ export default function useSimpleEditor() {
       setIsSubmitting(false);
     }
   };
+
+  const { http, domain } = getDomain();
+
 
   return {
     editor,
