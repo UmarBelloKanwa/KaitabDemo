@@ -87,7 +87,8 @@ export default function useSubscription() {
         severity: "success",
         message: "You successfully enabled paid subscription.",
       });
-      router.refresh()
+
+      window.location.reload();
     } catch (err) {
       setResponse({
         severity: "error",

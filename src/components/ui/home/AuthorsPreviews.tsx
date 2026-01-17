@@ -8,11 +8,6 @@ import { fetchAuthors } from "@/actions/author";
 import { Author } from "@/types/author";
 import { useInfiniteAuthors } from "@/hooks/author/useInfiniteAuthors";
 
-// const characters = [
-//  1, 2, 3, 4, 5, 1, 2, 3, 4, 5,
-
-// ];
-
 export default function AuthorsPreviews() {
   const theme = useTheme();
 

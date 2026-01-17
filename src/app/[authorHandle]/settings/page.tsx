@@ -42,7 +42,7 @@ export default function SettingsPage() {
           sx={{
             p: 2,
             mb: 4,
-             bgcolor: "background.default",
+            bgcolor: "background.default",
             border: `1px solid`,
             borderColor: "divider",
           }}
@@ -124,6 +124,11 @@ export default function SettingsPage() {
             direction="row"
             alignItems="center"
             justifyContent="space-between"
+            sx={{
+              mb: 3,
+              pb: 3,
+              borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+            }}
           >
             <Box>
               <Typography variant="body1" sx={{ fontWeight: 600 }}>
@@ -137,6 +142,34 @@ export default function SettingsPage() {
               className="elevated"
               onClick={() => {
                 goToEditProfile();
+              }}
+              sx={{
+                px: 3,
+                fontWeight: 600,
+              }}
+            >
+              Edit
+            </Button>
+          </Stack>
+
+          {/* Payments */}
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <Box>
+              <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                Monetization
+              </Typography>
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                Manage your subscription plans and payments
+              </Typography>
+            </Box>
+            <Button
+              className="elevated"
+              onClick={() => {
+                router.push("/settings/payments");
               }}
               sx={{
                 px: 3,

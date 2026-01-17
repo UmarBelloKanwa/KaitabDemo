@@ -12,8 +12,6 @@ const getDomain = () => {
     http += "s";
   }
 
-  console.log(process.env.APP_ENV, domain, IS_DEVELOPMENT);
-
   return { http, domain };
 };
 

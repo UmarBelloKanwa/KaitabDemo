@@ -18,6 +18,7 @@ import ShareButton from "@ui/robook/chapter/ActionsButtons/ShareButton";
 import { likeArticle, unLikeArticle } from "@/lib/api/article";
 import type { Article } from "@/types/article";
 import { MainArticleView } from "@/components/ui/article/article-main";
+import SubscribeCard from "@/components/ui/author/SubscribeCard";
 
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocale); // Extend with updateLocale first
@@ -127,6 +128,24 @@ export default function ArticleCard({ article }: { article: Article }) {
 
         <Box>
           <MainArticleView article={article} />
+          {article.is_locked && (
+            <>
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  fontSize: "0.9rem",
+                  mb: 1,
+                  // lineHeight: 1.6,
+                }}
+              >
+                {article.preview_text}
+              </Typography>
+
+              <SubscribeCard
+                article={article}
+              />
+            </>
+          )}
         </Box>
 
         <Box

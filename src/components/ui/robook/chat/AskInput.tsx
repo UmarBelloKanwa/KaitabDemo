@@ -7,6 +7,8 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import MicIcon from "@mui/icons-material/Mic";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
+import { useQueryClient } from "@tanstack/react-query";
+import { Author } from "@/types/author";
 
 declare global {
   interface Window {
@@ -280,14 +282,19 @@ function AskInputBase({
 export default function AskInput({
   submitUserMessage,
   containerRef,
+  authorHandle,
 }: {
   submitUserMessage: (txt: string) => Promise<void>;
-  containerRef: React.RefObject<HTMLDivElement> | null;
+  containerRef: React.RefObject<HTMLDivElement | null>;
+  authorHandle: string;
 }) {
   const [containerStyle, setContainerStyle] = React.useState<{
     left: number;
     width: string;
   } | null>(null);
+
+  const queryClient = useQueryClient();
+  const author: Author = queryClient.getQueryData(["author", authorHandle])!;
 
   React.useLayoutEffect(() => {
     function updatePosition() {
@@ -330,12 +337,18 @@ export default function AskInput({
             // width control
             width: containerStyle.width,
             bgcolor: "background.default",
-            py: 1,
+            pb: 1,
             px: 1,
             borderTopLeftRadius: 3,
             borderTopRightRadius: 3,
+            textAlign: "center",
           }}
         >
+          {author.requires_upgrade || !author.monetization_enabled && (
+            <Typography variant="caption" fontSize="x-small" sx={{ pb: 1 }}>
+              Maximum 5 messages
+            </Typography>
+          )}
           <AskInputBase submitUserMessage={submitUserMessage} />
         </Box>
       )}

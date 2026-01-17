@@ -7,11 +7,30 @@ export function updateCortexSettings(
 }
 
 export async function sendCortexMessage(
- author_handle: string, query: string, session_id: string = ""
+  author_handle: string,
+  query: string,
+  session_id: string = ""
 ) {
-  const res = await api.post(`cortex/chat/${author_handle}`, { "question": query, session_id });
-  return res.data;
+  try {
+    const res = await api.post(`cortex/chat/${author_handle}`, {
+      question: query,
+      session_id,
+    });
+    return res.data;
+  } catch (error: any) {
+    if (error.response) {
+      throw {
+        status: error.response.status,
+        message: error.response.data?.detail || "Something went wrong",
+      };
+    }
+    throw {
+      status: 500,
+      message: "Network error. Please try again.",
+    };
+  }
 }
+
 
 export async function getSingleChatSession(session_id: string) { 
   const res = await api.get(`cortex/chat/session/${session_id}`);

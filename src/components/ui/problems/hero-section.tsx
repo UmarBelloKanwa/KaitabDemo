@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import NextLink from "next/link";
 
 export function HeroSection() {
   return (
@@ -51,7 +52,8 @@ export function HeroSection() {
               mx: "auto",
             }}
           >
-          Business ideas live in static content. Without you present, they can’t guide decisions or scale beyond your time.
+            Business ideas live in static content. Without you present, they
+            can’t guide decisions or scale beyond your time.
           </Typography>
 
           <Box
@@ -64,6 +66,8 @@ export function HeroSection() {
             }}
           >
             <Button
+              LinkComponent={NextLink}
+              href="/home"
               variant="contained"
               size="large"
               endIcon={<ArrowForwardIcon />}
@@ -73,13 +77,17 @@ export function HeroSection() {
             </Button>
             <Button
               variant="outlined"
+              LinkComponent={"a"}
+              href="https://cal.com/umar-bello-kanwa-jwhzin/30min"
               size="large"
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
                 minWidth: 160,
                 borderColor: "divider",
               }}
             >
-              Watch Demo
+              Talk to founders
             </Button>
           </Box>
         </Box>

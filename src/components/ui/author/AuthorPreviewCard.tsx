@@ -31,7 +31,7 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
         borderColor: "divider",
         "&:hover": {
           cursor: "pointer",
-         // bgcolor: "action.hover",
+          // bgcolor: "action.hover",
         },
         //boxShadow: 20,
       }}
@@ -106,20 +106,26 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
             {/* <Typography variant="caption" color="grey" component="div" fontSize="x-small">
               {author.followers_count} <PlaylistPlayOutlinedIcon sx={{fontSize: 15, color: "white"}} />
             </Typography> */}
-            <Button
-              size="small"
-              variant="outlined"
-              sx={{
-                fontSize: "x-small",
-                // p: 0.3,
-                py: 0.2,
-                borderRadius: 1,
-                color: "white",
-                borderColor: "divider"
-              }}
-            >
-              Subscribe
-            </Button>
+            {author.monetization_enabled && (
+              <Button
+                size="small"
+                variant="outlined"
+                sx={{
+                  fontSize: "x-small",
+                  // p: 0.3,
+                  py: 0.2,
+                  borderRadius: 1,
+                  color: "white",
+                  borderColor: "divider",
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateToSubdomain(author.handle, "/subscribe");
+                }}
+              >
+                Subscribe
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>

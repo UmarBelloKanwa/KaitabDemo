@@ -6,16 +6,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { usePathname, useRouter } from "next/navigation";
 import type { Author } from "@/types/author";
-import { followAuthor, unfollowAuthor } from "@/lib/api/author";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
 
 export default function ProfileCard({ author }: { author: Author }) {
   const pathname = usePathname();
   const router = useRouter();
   const requireAuth = useAuthCheck();
-  const [isFollowingAuthor, setIsFollowingAuthor] = React.useState(
-    author.is_following
-  );
 
   const isActive = (path: string) =>
     pathname === path || pathname.endsWith(path);
@@ -40,25 +36,12 @@ export default function ProfileCard({ author }: { author: Author }) {
     }),
   });
 
-  const buttonAction = async () => {
-    if (!author.can_follow) {
-      router.push("/profile/edit");
+  const navigateToSubscribePage = async () => {
+    // Optimistic UI update
+    if (author.is_subscribed) {
       return;
     }
-
-    // Optimistic UI update
-    setIsFollowingAuthor((prev) => !prev);
-
-    try {
-      if (isFollowingAuthor) {
-        await unfollowAuthor(author.public_id);
-      } else {
-        await followAuthor(author.public_id);
-      }
-    } catch (err) {
-      // console.log("Follow/unfollow failed:", err);
-      setIsFollowingAuthor((prev) => !prev);
-    }
+    router.push("/subscribe");
   };
 
   return (
@@ -66,7 +49,7 @@ export default function ProfileCard({ author }: { author: Author }) {
       sx={{
         mx: "auto",
         my: 1,
-        width: { xs: "80%", sm: "70%", md: "50%" },
+        width: { xs: "80%", sm: "70%", md: "40%" },
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -108,7 +91,6 @@ export default function ProfileCard({ author }: { author: Author }) {
           })}
         />
       </Box>
-
       <Typography variant="h6">{author.name}</Typography>
       <Box
         sx={{
@@ -118,35 +100,53 @@ export default function ProfileCard({ author }: { author: Author }) {
           gap: 1,
         }}
       >
-        <Typography component={"div"} variant="caption" color="grey">
-          @{author.handle}
-        </Typography>
-        <Box sx={{ fontSize: "xx-small" }}>•</Box>
-        <Button
-          variant="text"
-          size="small"
-          onClick={() => requireAuth(buttonAction)}
-          sx={{
-            p: 0,
-            ml: -1,
-            fontSize: "0.7em",
-            "&:hover": {
-              bgcolor: "transparent",
-              color: "blue",
-            },
-          }}
-        >
-          {!author.can_follow
-            ? "Edit"
-            : author.is_following
-            ? "Subscribed"
-            : "Subscribe"}
-        </Button>
+        {author.is_owner ? (
+          <>
+            {!author.monetization_enabled ? (
+              <Button
+                variant="text"
+                size="small"
+                onClick={() => {
+                  router.push("/settings/payments");
+                }}
+              >
+                Enable subscriptions
+              </Button>
+            ) : (
+              <Typography component={"div"} variant="caption" color="primary">
+                @{author.handle}
+              </Typography>
+            )}
+          </>
+        ) : (
+          <>
+            {author.monetization_enabled ? (
+              <Button
+                variant="text"
+                size="small"
+                onClick={() => requireAuth(navigateToSubscribePage)}
+                sx={{
+                  p: 0,
+                  ml: -1,
+                  fontSize: "0.7em",
+                }}
+              >
+                {author.is_subscribed
+                  ? "Subscribed"
+                  : author.requires_upgrade
+                    ? "Upgrade"
+                    : "Subscribed"}
+              </Button>
+            ) : (
+              <Typography component={"div"} variant="caption" color="secondary">
+                @{author.handle}
+              </Typography>
+            )}
+          </>
+        )}
       </Box>
-      {/* <Button variant="text" size="small">
-        Enable paid subscription
-      </Button> */}
-      <Typography variant="caption" color="grey" fontSize="small">
+
+      <Typography variant="caption" color="grey" fontSize="x-small">
         {author.short_bio}
       </Typography>
 

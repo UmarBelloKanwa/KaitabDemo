@@ -18,20 +18,20 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import {
-  ExpandMore,
-} from "@mui/icons-material";
+import { ExpandMore } from "@mui/icons-material";
 import { WarningAmber } from "@mui/icons-material";
 import { useState, type MouseEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { logout } from "@/lib/api/auth";
 import { useQueryClient } from "@tanstack/react-query";
-import Settings from '@mui/icons-material/SettingsOutlined';
-import ContactSupportOutlinedIcon from '@mui/icons-material/ContactSupportOutlined';
-import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
-import Logout from '@mui/icons-material/LogoutOutlined';
-import {navigateToSubdomain} from "@/lib/utils/navigate";
+import Settings from "@mui/icons-material/SettingsOutlined";
+import ContactSupportOutlinedIcon from "@mui/icons-material/ContactSupportOutlined";
+import FeedbackOutlinedIcon from "@mui/icons-material/FeedbackOutlined";
+import Logout from "@mui/icons-material/LogoutOutlined";
+import { navigateToSubdomain } from "@/lib/utils/navigate";
+import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
+
 interface UserMenuPopupProps {
   user: any;
 }
@@ -83,6 +83,13 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
             icon: Settings,
             onClick: () => {
               navigateToSubdomain(author.handle, "/settings");
+            },
+          },
+          {
+            label: "Monetization",
+            icon: PaymentsOutlinedIcon,
+            onClick: () => {
+              navigateToSubdomain(author.handle, "/settings/payments");
             },
           },
         ]

@@ -32,6 +32,7 @@ import { useProfileSave } from "@/hooks/profile/useProfileSave";
 import type { ProfileData } from "@/hooks/profile/useProfileValidation";
 import type { AuthorProfileResponse, SocialLink } from "@/types/profile-edit";
 import { useRouter } from "next/navigation";
+
 const SOCIAL_PLATFORMS = [
   "twitter",
   "x",
@@ -293,7 +294,7 @@ export default function EditProfile({
         )}
 
         {/* Banner Section */}
-        <Box
+        {/* <Box
           sx={{
             position: "relative",
             height: "200px",
@@ -343,11 +344,11 @@ export default function EditProfile({
               <CloseIcon />
             </IconButton>
           )}
-        </Box>
+        </Box> */}
 
         {/* Profile Picture Section */}
         <Box sx={{ position: "relative", px: 2, pb: 3 }}>
-          <Box sx={{ position: "relative", display: "inline-block", mt: -4 }}>
+          <Box sx={{ position: "relative", display: "inline-block", mt: 0 }}>
             <Avatar
               sx={{
                 width: 120,

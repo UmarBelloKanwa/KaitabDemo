@@ -54,6 +54,9 @@ export interface Article {
   
   is_free: boolean;
   is_locked: boolean;
+
+  subscription_plan: "free" | "paid";
+  requires_upgrade: boolean;
 }
 
 

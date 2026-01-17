@@ -37,12 +37,13 @@ export interface Author {
 
   monetization_enabled: boolean;
 
-  followers_count: number;
-  can_follow: boolean;
-  is_following: boolean;
+  // followers_count: number;
+  // can_follow: boolean;
+  // is_following: boolean;
 
   can_subscribe: boolean;
   is_subscribed: boolean;
+  requires_upgrade: boolean;
 
   is_owner: boolean;
 

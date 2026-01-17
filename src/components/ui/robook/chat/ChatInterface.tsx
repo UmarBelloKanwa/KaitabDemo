@@ -13,7 +13,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import type { Author } from "@/types/author";
 import { useQueryClient } from "@tanstack/react-query";
 
-const MessageSection = ({ msg, author }: { msg: any, author: Author }) => {
+const MessageSection = ({ msg, author }: { msg: any; author: Author }) => {
   const [copied, setCopied] = React.useState(false);
   const resetTimerRef = React.useRef<number | null>(null);
 
@@ -153,23 +153,26 @@ const MessageSection = ({ msg, author }: { msg: any, author: Author }) => {
             </Paper>
 
             <Box sx={{ display: "flex", gap: 0, mt: 0.5 }}>
-              <Tooltip title="Copy">
-                <IconButton size="small" onClick={handleCopy}>
-                  {copied ? (
-                    <CheckIcon
-                      sx={{ fontSize: "small", color: "success.main" }}
-                    />
-                  ) : (
-                    <ContentCopyOutlinedIcon sx={{ fontSize: "small" }} />
-                  )}
-                </IconButton>
-              </Tooltip>
               {msg.role === "cortex" && (
-                <Tooltip title="Share">
-                  <IconButton size="small">
-                    <IosShareOutlinedIcon sx={{ fontSize: "small" }} />
-                  </IconButton>
-                </Tooltip>
+                <>
+                  <Tooltip title="Share">
+                    <IconButton size="small">
+                      <IosShareOutlinedIcon sx={{ fontSize: "small" }} />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title="Copy">
+                    <IconButton size="small" onClick={handleCopy}>
+                      {copied ? (
+                        <CheckIcon
+                          sx={{ fontSize: "small", color: "success.main" }}
+                        />
+                      ) : (
+                        <ContentCopyOutlinedIcon sx={{ fontSize: "small" }} />
+                      )}
+                    </IconButton>
+                  </Tooltip>
+                </>
               )}
               {/* <IconButton size="small">
                       <ThumbDownIcon fontSize="small" />
@@ -182,7 +185,13 @@ const MessageSection = ({ msg, author }: { msg: any, author: Author }) => {
   );
 };
 
-const ChatInterface = ({ messages, authorHandle }: { messages: any[], authorHandle: string }) => {
+const ChatInterface = ({
+  messages,
+  authorHandle,
+}: {
+  messages: any[];
+  authorHandle: string;
+}) => {
   const queryClient = useQueryClient();
   const author = queryClient.getQueryData<Author>(["author", authorHandle])!;
   return (
