@@ -20,7 +20,7 @@ export default function ChatPage({
   where?: "home" | "chat";
   }) {
   const containerRef = React.useRef<HTMLDivElement | null>(null);
-  const [chats, setChats] = React.useState<any[]>([...fakeMessages]);
+  const [chats, setChats] = React.useState<any[]>([]);
   const router = useRouter();
 
   React.useEffect(() => {

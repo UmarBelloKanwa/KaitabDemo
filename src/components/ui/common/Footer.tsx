@@ -81,7 +81,7 @@ export default function Footer() {
               Follow us
             </Typography>
             <IconButton
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/company/feedple/"
               target="_blank"
               sx={{
                 // color: "#202124",
@@ -92,7 +92,7 @@ export default function Footer() {
               <LinkedIn />
             </IconButton>
             <IconButton
-              href="https://facebook.com"
+              href="https://www.facebook.com/profile.php?id=100075477952362"
               target="_blank"
               sx={{
                 //  color: "#202124",
@@ -102,7 +102,7 @@ export default function Footer() {
             >
               <Facebook />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               href="https://instagram.com"
               target="_blank"
               sx={{
@@ -112,9 +112,9 @@ export default function Footer() {
               }}
             >
               <Instagram />
-            </IconButton>
+            </IconButton> */}
             <IconButton
-              href="https://twitter.com"
+              href="https://x.com/feedple"
               target="_blank"
               sx={{
                 // color: "#202124",
@@ -124,7 +124,7 @@ export default function Footer() {
             >
               <XIcon />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               href="https://youtube.com"
               target="_blank"
               sx={{
@@ -134,7 +134,7 @@ export default function Footer() {
               }}
             >
               <YouTube />
-            </IconButton>
+            </IconButton> */}
           </Stack>
         </Box>
 

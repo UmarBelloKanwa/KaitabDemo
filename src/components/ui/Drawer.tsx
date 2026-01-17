@@ -28,7 +28,7 @@ import "./drawer.css";
 
 const drawerWidth = 280;
 
-export default function Sidebar({ user }: { user: any }) {
+export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomain: boolean; }) {
   const requireAuth = useAuthCheck();
   const pathname = usePathname();
   const [showMobileNav, setShowMobileNav] = React.useState(true);
@@ -72,10 +72,13 @@ export default function Sidebar({ user }: { user: any }) {
       document.querySelector(".nav-box")?.classList.add("show");
     }
   }, [isMobile]);
-
-  const hideDrawer = HIDE_DRAWER_ROUTES.some(
+  
+  const hideByRoute = HIDE_DRAWER_ROUTES.some(
     (route) => pathname === `/${route}` || pathname.startsWith(`/${route}/`)
   );
+
+  const hideDrawer = isRootDomain && hideByRoute;
+
 
   React.useEffect(() => {
     if (!isMobile) return;

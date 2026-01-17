@@ -37,7 +37,8 @@ export function middleware(request: NextRequest) {
 
   // If user is logged in and on root path, redirect to /home
   const refreshToken = request.cookies.get("refresh_token")?.value;
-  if (!subdomain && refreshToken && pathname === "/") {
+  const authPages = ["/", "/login", "/signup"];
+  if (!subdomain && refreshToken && authPages.includes(pathname)) {
     return NextResponse.redirect(new URL("/home", request.url));
   }
 

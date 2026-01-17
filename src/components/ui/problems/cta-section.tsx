@@ -8,7 +8,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 
 export function CTASection() {
   return (
-    <Box component="section" sx={{ position: "relative", overflow: "hidden" }}>
+    <Box component="section" id="cta" sx={{ position: "relative", overflow: "hidden" }}>
       <Container maxWidth="lg" sx={{ py: { xs: 10, md: 16 } }}>
         <Box sx={{ maxWidth: 800, mx: "auto", textAlign: "center" }}>
           <Typography
@@ -43,11 +43,15 @@ export function CTASection() {
             }}
           >
             <Button variant="contained" size="large" endIcon={<ArrowForwardIcon />} sx={{ minWidth: 180 }}>
-              Start Free Trial
+              Start Free
             </Button>
             <Button
               variant="outlined"
               size="large"
+              LinkComponent={"a"}
+              href="https://cal.com/umar-bello-kanwa-jwhzin/30min"
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
                 minWidth: 180,
                 borderColor: "divider",
@@ -58,7 +62,7 @@ export function CTASection() {
           </Box>
 
           <Typography variant="body2" color="text.secondary">
-            No credit card required • 14-day free trial • Cancel anytime
+            No credit card required 
           </Typography>
         </Box>
       </Container>

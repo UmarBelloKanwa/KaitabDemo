@@ -1,15 +1,17 @@
-"use client"
+"use client";
 
-import AppBar from "@mui/material/AppBar"
-import Toolbar from "@mui/material/Toolbar"
-import Container from "@mui/material/Container"
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Link from "@mui/material/Link"
-import { useTheme } from "@mui/material/styles"
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import { useTheme } from "@mui/material/styles";
+import { useRouter } from "next/navigation";
 
 export function SiteHeader() {
-  const theme = useTheme()
+  const theme = useTheme();
+  const router = useRouter();
 
   return (
     <AppBar
@@ -26,19 +28,25 @@ export function SiteHeader() {
       <Container maxWidth="lg">
         <Toolbar sx={{ justifyContent: "space-between", py: 1 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img
-              src="/app/logo-name.png"
-              alt="Feedple"
-              style={{
-                width: "125px",
-                objectFit: "contain",
-              }}
-            />
-          </Box>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <img
+                src="/app/logo-name.png"
+                alt="Feedple"
+                style={{
+                  width: "125px",
+                  objectFit: "contain",
+                }}
+              />
+            </Box>
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 3 }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+              gap: 3,
+            }}
+          >
             <Link
               href="#problems"
               underline="none"
@@ -65,7 +73,7 @@ export function SiteHeader() {
             >
               Solution
             </Link>
-            <Link
+            {/* <Link
               href="#pricing"
               underline="none"
               color="text.secondary"
@@ -77,9 +85,9 @@ export function SiteHeader() {
               }}
             >
               Pricing
-            </Link>
+            </Link> */}
             <Link
-              href="#about"
+              href="#cta"
               underline="none"
               color="text.secondary"
               sx={{
@@ -89,13 +97,23 @@ export function SiteHeader() {
                 transition: "color 0.2s",
               }}
             >
-              About
+              Get in touch
             </Link>
           </Box>
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Button variant="text" size="small" sx={{ display: { xs: "none", md: "inline-flex" } }}>
-              Log in
+            <Button
+              variant="outlined"
+              className="elevated"
+              size="small"
+              sx={{ display: { xs: "none", md: "inline-flex" } }}
+              onClick={() => {
+               // authCheck(() => {
+                  router.push("/login");
+              //  })
+              }}
+            >
+              Sign in
             </Button>
             <Button variant="contained" size="small">
               Get Started
@@ -104,5 +122,5 @@ export function SiteHeader() {
         </Toolbar>
       </Container>
     </AppBar>
-  )
+  );
 }

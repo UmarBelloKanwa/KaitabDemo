@@ -63,7 +63,7 @@ export default function AuthCard({
         </DialogTitle>
       )}
 
-      <DialogContent sx={{ bgcolor: "background.default", }}>
+      <DialogContent sx={{ bgcolor: "background.default" }}>
         <Box
           sx={{
             textAlign: "center",
@@ -78,16 +78,18 @@ export default function AuthCard({
             height: "100%",
           }}
         >
-          <Box 
-            component="img"
-            src="/app/logo-name.png"
-            sx={{
-              width: "160px",
-              mb: 1,
-              height: "50px",
-            }}
-          />
-          
+          {tab == "login" && (
+            <Box
+              component="img"
+              src="/app/logo-name.png"
+              sx={{
+                width: "160px",
+                mb: 1,
+                height: "50px",
+              }}
+            />
+          )}
+
           {tab == "login" ? <SigninForm /> : <SignupForm />}
           <Typography
             component="div"
