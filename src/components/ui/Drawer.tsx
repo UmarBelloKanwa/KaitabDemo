@@ -77,7 +77,7 @@ export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomai
     (route) => pathname === `/${route}` || pathname.startsWith(`/${route}/`)
   );
 
-  const hideDrawer = isRootDomain && hideByRoute;
+  const hideDrawer = isRootDomain || hideByRoute;
 
 
   React.useEffect(() => {
