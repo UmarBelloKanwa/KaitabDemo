@@ -1,28 +1,14 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { parse } from "tldts";
 
 // Helper to extract subdomain
 function extractSubdomain(request: NextRequest): string | null {
   const host = request.headers.get("host") || "";
   const hostname = host.split(":")[0];
 
-  // Local dev: handle localhost subdomains
-  if (hostname.includes(".localhost") || hostname.includes("127.0.0.1")) {
-    return hostname.includes(".localhost") ? hostname.split(".")[0] : null;
-  }
-
-  // Reserved root domain
-  const rootDomain = "lvh.me"; // replace with your root domain
-  const rootDomainFormatted = rootDomain.split(":")[0];
-
-  const reserved = ["www", rootDomainFormatted, `www.${rootDomainFormatted}`];
-
-  const isSubdomain =
-    hostname !== rootDomainFormatted &&
-    !reserved.includes(hostname) &&
-    hostname.endsWith(`.${rootDomainFormatted}`);
-
-  return isSubdomain ? hostname.replace(`.${rootDomainFormatted}`, "") : null;
+  const parsed = parse(hostname);
+  return parsed.subdomain || null;
 }
 
 export function middleware(request: NextRequest) {

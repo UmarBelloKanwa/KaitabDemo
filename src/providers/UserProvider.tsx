@@ -37,17 +37,13 @@ export default async function UserProvider({
   const headersList = await headers();
   const host = headersList.get("host") ?? "";
 
-  const ROOT_DOMAIN_REGEX = /^(?:www\.)?(feedple\.com|lvh\.me)(?::\d+)?$/;
-
-  const isRootDomain = ROOT_DOMAIN_REGEX.test(host);
-
   return (
     <HydrationBoundary state={dehydratedState}>
       <ThemeProvider>
         <Box
           sx={{ display: { xs: "block", sm: "fex" }, height: "fit-content" }}
         >
-          <Sidebar user={user} isRootDomain={isRootDomain} />
+          <Sidebar user={user} host={host} />
           <ClientProvider>{children}</ClientProvider>
         </Box>
       </ThemeProvider>

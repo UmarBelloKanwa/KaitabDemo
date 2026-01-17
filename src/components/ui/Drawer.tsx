@@ -23,12 +23,13 @@ import ArticleIcon from "@mui/icons-material/ArticleOutlined";
 import { usePathname } from "next/navigation";
 import HIDE_DRAWER_ROUTES from "@data/HIDE_DRAWER_ROUTES";
 import { navigateToRoot, navigateToRootRouter } from "@/lib/utils/navigate";
+import { parse } from "tldts";
 
 import "./drawer.css";
 
 const drawerWidth = 280;
 
-export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomain: boolean; }) {
+export default function Sidebar({ user, host }: { user: any; host: string }) {
   const requireAuth = useAuthCheck();
   const pathname = usePathname();
   const [showMobileNav, setShowMobileNav] = React.useState(true);
@@ -37,7 +38,7 @@ export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomai
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const logoSrc = "/app/logo-name.png";
-  
+
   const companyName = "Feedple";
 
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomai
 
   const navItems = [
     { name: "Home", icon: HomeIcon, onClick: () => navigateToRoot("/home") },
-                                                                                                                                               
+
     {
       name: "Feeds",
       icon: ArticleIcon,
@@ -56,9 +57,8 @@ export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomai
     },
   ];
 
-
   //console.log("Is mobile", isMobile)
-  
+
   const handleDrawerToggle = () => {
     if (!isMobile) {
       return;
@@ -72,13 +72,20 @@ export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomai
       document.querySelector(".nav-box")?.classList.add("show");
     }
   }, [isMobile]);
-  
-  const hideByRoute = HIDE_DRAWER_ROUTES.some(
-    (route) => pathname === `/${route}` || pathname.startsWith(`/${route}/`)
-  );
 
-  const hideDrawer = isRootDomain || hideByRoute;
+  const hostname = host.split(":")[0]; // remove port
+  const parsed = parse(hostname);
+  const isSubdomain = Boolean(parsed.subdomain);
+  const isRootDomain = !parsed.subdomain && hostname !== `www.${parsed.domain}`;
 
+  const hideByRoute =
+    HIDE_DRAWER_ROUTES.some(
+      (route) => pathname === `/${route}` || pathname.startsWith(`/${route}/`),
+    ) && isRootDomain; // this is for non subdomain routes
+
+  //console.log("isRootDomain", isRootDomain);
+
+  const hideDrawer = (isRootDomain && !pathname) || hideByRoute;
 
   React.useEffect(() => {
     if (!isMobile) return;
@@ -107,7 +114,7 @@ export default function Sidebar({ user, isRootDomain }: { user: any; isRootDomai
 
   //  if (!user && pathname === "/") {
   //   return <></>
-  // } 
+  // }
 
   if (hideDrawer) {
     return <></>;
