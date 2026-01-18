@@ -352,7 +352,7 @@ export default function AskInput({
           {author.requires_upgrade ||
             (!author.monetization_enabled && (
               <Typography variant="caption" fontSize="x-small" sx={{ pb: 1 }}>
-                Maximum 5 messages
+                Maximum of 5 messages per day
               </Typography>
             ))}
           <AskInputBase submitUserMessage={submitUserMessage} />
