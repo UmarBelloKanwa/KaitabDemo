@@ -38,7 +38,7 @@ export default function SubscribeCard({ article }: { article: Article }) {
     >
       {isLogin && <Typography> Hi {email} </Typography>}
 
-      <Typography variant="h6">This article is for paid subcribers</Typography>
+      <Typography variant="h6" fontSize={"17px"} fontWeight={800}>This article is for paid subcribers</Typography>
 
       <Button
         variant="contained"

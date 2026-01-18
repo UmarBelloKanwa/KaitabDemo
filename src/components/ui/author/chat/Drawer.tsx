@@ -23,7 +23,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import type { Author } from "@/types/author";
 import Avatar from "@mui/material/Avatar";
-import UserDisplay from "@/components/ui/UserDisplay";
+import UserDisplay from "./UserDisplay";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 
@@ -60,7 +60,7 @@ const navItems = [
 
 const HIDE_DRAWER_ROUTES = ["subscribe"];
 
-export default function ChatSidebar({ author }: { author: Author }) {
+export default function ChatSidebar({ author, handle }: { author: Author, handle: string }) {
   const pathname = usePathname();
   const theme = useTheme();
   const queryClient = useQueryClient();
@@ -252,10 +252,11 @@ export default function ChatSidebar({ author }: { author: Author }) {
               />
             </Box>
           </Box>
-          <Box sx={{ display: { xs: "block", sm: "block", md: "none" } }}>
+          <Box>
             {/* User Profile */}
             <UserDisplay
               user={user}
+              handle={handle}
               handleDrawerToggle={() => {
                 // only auto-close on mobile
                 handleDrawerToggle();

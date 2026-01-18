@@ -38,7 +38,7 @@ export default function ProfileCard({ author }: { author: Author }) {
 
   const navigateToSubscribePage = async () => {
     // Optimistic UI update
-    if (author.is_subscribed) {
+    if (author.is_subscribed && !author.requires_upgrade) {
       return;
     }
     router.push("/subscribe");

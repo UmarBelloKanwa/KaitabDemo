@@ -75,6 +75,7 @@ export default function ResponsiveAppBar({ title }: { title?: string }) {
         > */}
         <Typography
           variant="body2"
+          fontWeight={800}
           sx={{
             display: { xs: "block", sm: "none" },
             color: "text.primary",

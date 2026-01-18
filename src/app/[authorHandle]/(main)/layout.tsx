@@ -15,7 +15,8 @@ export default function AuthorLayout({
 }: {
   children: React.ReactNode;
   params: Promise<{ authorHandle: string }>;
-}) {
+  }) {
+  const p = React.use(params);
   const queryClient = useQueryClient();
   const authorData: Author = queryClient.getQueryData(["author"])!;
   
@@ -28,7 +29,7 @@ export default function AuthorLayout({
       <StoreItem data={authorData} />
       <Container maxWidth={false}>
         <ProfileCard author={authorData} />
-        <ChatSidebar author={authorData} />
+        <ChatSidebar author={authorData} handle={p.authorHandle} />
         {children}
       </Container>
     </>
