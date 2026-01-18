@@ -31,7 +31,7 @@ export default function UserDisplay({
   return (
     <Box>
       <Box
-        sx={{
+        sx={(theme) => ({
           py: 1,
           display: "flex",
           flexDirection: "column",
@@ -39,9 +39,8 @@ export default function UserDisplay({
           alignContent: "center",
           justifyContent: "center",
           gap: 1,
-          // borderTop: "1px solid",
-          // borderColor: "divider",
-        }}
+          borderTop: { xs: `1px solid ${theme.palette.divider}`, md: "none" },
+        })}
       >
         {author.is_owner ? (
           <>
