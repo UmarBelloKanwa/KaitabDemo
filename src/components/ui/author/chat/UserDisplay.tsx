@@ -39,8 +39,8 @@ export default function UserDisplay({
           alignContent: "center",
           justifyContent: "center",
           gap: 1,
-          borderTop: "1px solid",
-          borderColor: "divider",
+          // borderTop: "1px solid",
+          // borderColor: "divider",
         }}
       >
         {author.is_owner ? (
