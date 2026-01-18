@@ -4,11 +4,12 @@ import { Box, Paper, Avatar, Typography, Button, Stack } from "@mui/material";
 import type { Author } from "@/types/author";
 import { useRouter } from "next/navigation";
 import { navigateToSubdomain } from "@/lib/utils/navigate";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import ArrowCircleUpOutlinedIcon from "@mui/icons-material/ArrowCircleUpOutlined";
+import useAuthCheck from "@/hooks/auth/useAuthCheck";
 
 export default function AuthorPreviewCard({ author }: { author: Author }) {
   const router = useRouter();
+  const authCheck = useAuthCheck();
+
   return (
     <Paper
       elevation={0}
@@ -129,7 +130,9 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
-                  navigateToSubdomain(author.handle, "/subscribe");
+                  authCheck(() => {
+                    navigateToSubdomain(author.handle, "/subscribe");
+                  });
                 }}
               >
                 Subscribe

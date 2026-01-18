@@ -16,6 +16,7 @@ import {
   YouTube,
   HelpOutline,
 } from "@mui/icons-material";
+import NextLink from "next/link";
 
 // X (Twitter) icon - Material-UI doesn't have it by default
 function XIcon() {
@@ -138,11 +139,8 @@ export default function Footer() {
           </Stack>
         </Box>
 
-        
-
         <Divider sx={{ mb: 3 }} />
 
-       
         {/* Bottom Section with Feedple Logo and Links */}
         <Stack
           direction={{ xs: "column", md: "row" }}
@@ -163,6 +161,7 @@ export default function Footer() {
             <Link
               href="/about"
               underline="none"
+              component={NextLink}
               sx={{
                 color: "text.secondary",
                 fontSize: { xs: "13px", sm: "14px" },
@@ -171,10 +170,11 @@ export default function Footer() {
             >
               About Feedple
             </Link>
-            
+
             <Link
               href="/privacy"
               underline="none"
+              component={NextLink}
               sx={{
                 color: "text.secondary",
                 fontSize: { xs: "13px", sm: "14px" },
@@ -186,6 +186,7 @@ export default function Footer() {
             <Link
               href="/terms"
               underline="none"
+              component={NextLink}
               sx={{
                 color: "text.secondary",
                 fontSize: { xs: "13px", sm: "14px" },
@@ -195,9 +196,10 @@ export default function Footer() {
               Terms
             </Link>
 
-             <Link
+            <Link
               href="/feedback"
               underline="none"
+              component={NextLink}
               sx={{
                 color: "text.secondary",
                 fontSize: { xs: "13px", sm: "14px" },
@@ -205,6 +207,19 @@ export default function Footer() {
               }}
             >
               Feedback
+            </Link>
+
+            <Link
+              href="/contact"
+              underline="none"
+              component={NextLink}
+              sx={{
+                color: "text.secondary",
+                fontSize: { xs: "13px", sm: "14px" },
+                // "&:hover": { color: "#202124" },
+              }}
+            >
+              Contact
             </Link>
           </Stack>
 
@@ -221,6 +236,7 @@ export default function Footer() {
             <Link
               href="/support"
               underline="none"
+              component={NextLink}
               sx={{
                 color: "text.secondary",
                 fontSize: { xs: "13px", sm: "14px" },

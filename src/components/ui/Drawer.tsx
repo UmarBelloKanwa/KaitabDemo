@@ -84,8 +84,10 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
     ) && isRootDomain; // this is for non subdomain routes
 
   //console.log("isRootDomain", isRootDomain);
+  
+  const isRootHome = isRootDomain && pathname === "/";
 
-  const hideDrawer = (isRootDomain && !pathname) || hideByRoute;
+  const hideDrawer = isRootHome || hideByRoute;
 
   React.useEffect(() => {
     if (!isMobile) return;

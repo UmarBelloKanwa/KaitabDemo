@@ -77,6 +77,7 @@ export function HeroSection() {
             </Button>
             <Button
               variant="outlined"
+              className="elevated"
               LinkComponent={"a"}
               href="https://cal.com/umar-bello-kanwa-jwhzin/30min"
               size="large"

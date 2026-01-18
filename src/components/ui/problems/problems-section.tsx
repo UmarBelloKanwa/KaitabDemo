@@ -60,15 +60,14 @@ export function ProblemsSection() {
             return (
               <Grid size={{xs: 12, md: 6,}}  key={index}>
                 <Card
-                  variant="outlined"
+                  elevation={1}
+                  //variant="outlined"
                   sx={{
                     height: "100%",
+                    bgcolor: "background.default",
                     transition: "all 0.3s",
                     border: 2,
                     borderColor: "divider",
-                    "&:hover": {
-                      borderColor: "text.secondary",
-                    },
                   }}
                 >
                   <CardContent sx={{ p: 4 }}>
