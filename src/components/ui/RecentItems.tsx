@@ -11,6 +11,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useRecent } from "@/lib/utils/storeRecent";
+import { navigateToSubdomain } from "@/lib/utils/navigate";
 
 export default function RecentsItems({
   handleDrawerToggle,
@@ -42,9 +43,12 @@ export default function RecentsItems({
               key={index}
               disablePadding
               onClick={() => {
-                router.push(
-                  item.type === "book" ? `/r/${item.slug}` : `/${item.handle}`
-                );
+                if (item.type !== "book" ) {
+                  navigateToSubdomain(`/${item.handle}`);
+                }
+                // router.push(
+                //   item.type === "book" ? `/r/${item.slug}` : `/${item.handle}`
+                // );
                 if (isMobile) {
                   handleDrawerToggle();
                 }

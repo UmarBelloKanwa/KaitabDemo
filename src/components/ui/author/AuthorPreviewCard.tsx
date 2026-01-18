@@ -125,7 +125,7 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
                   mt: 0.5,
                   borderRadius: 1,
                   color: "white",
-                  borderColor: "divider",
+                  borderColor: "grey",
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
