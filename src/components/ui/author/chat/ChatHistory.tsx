@@ -42,58 +42,47 @@ export default function RecentsItems({
       >
         Your chats
       </Typography>
-
-      {recentItems.length === 0 ? (
+      {isLoading ? (
+        <Typography variant="body2" sx={{ opacity: 0.6, pl: 2, py: 1 }}>
+          Loading...
+        </Typography>
+      ) : chats.length === 0 ? (
         <Typography variant="body2" sx={{ opacity: 0.6, pl: 2, py: 1 }}>
           Nothing here yet.
         </Typography>
       ) : (
         <List
           sx={{
-            maxHeight: 320, // Set max height
-            overflowY: "auto", // Make it scrollable
+            maxHeight: 320,
+            overflowY: "auto",
             padding: 0,
           }}
         >
-          {isLoading ? (
-            <Typography variant="body2" sx={{ pl: 2, py: 1 }}>
-              Loading...
-            </Typography>
-          ) : (
-            chats.map((item: ChatSessionSummary, index: number) => (
-              <ListItem
-                key={index}
-                disablePadding
-                onClick={() => {
-                  router.push(`/chat/${item.session_id}`);
-                  if (isMobile) {
-                    handleDrawerToggle();
-                  }
+          {chats.map((item: ChatSessionSummary, index: number) => (
+            <ListItem
+              key={item.session_id} // ✅ use stable key
+              disablePadding
+              onClick={() => {
+                router.push(`/chat/${item.session_id}`);
+                if (isMobile) handleDrawerToggle();
+              }}
+            >
+              <ListItemButton
+                sx={{
+                  borderRadius: 1,
+                  "&:hover": { bgcolor: theme.palette.action.hover },
                 }}
               >
-                <ListItemButton
-                  sx={{
-                    borderRadius: 1,
-                    "&:hover": { bgcolor: theme.palette.action.hover },
+                <ListItemText
+                  primary={item.last_message}
+                  primaryTypographyProps={{
+                    fontSize: 14,
+                    noWrap: true,
                   }}
-                >
-                  <ListItemText
-                    primary={item.last_message}
-                    sx={{
-                      color: theme.palette.text.primary,
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                    primaryTypographyProps={{
-                      fontSize: 14,
-                      noWrap: true,
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))
-          )}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
         </List>
       )}
     </>

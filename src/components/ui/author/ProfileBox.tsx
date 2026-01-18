@@ -135,7 +135,7 @@ export default function ProfileCard({ author }: { author: Author }) {
                   ? "Subscribed"
                   : author.requires_upgrade
                     ? "Upgrade"
-                    : "Subscribed"}
+                    : "Subscribe"}
               </Button>
             ) : (
               <Typography component={"div"} variant="caption" color="secondary">

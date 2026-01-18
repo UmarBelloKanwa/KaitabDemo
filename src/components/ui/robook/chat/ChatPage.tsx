@@ -18,7 +18,7 @@ export default function ChatPage({
   authorHandle: string;
   chatId?: string;
   where?: "home" | "chat";
-  }) {
+}) {
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const [chats, setChats] = React.useState<any[]>([]);
   const router = useRouter();
@@ -66,7 +66,14 @@ export default function ChatPage({
   };
 
   return (
-    <Container maxWidth={false} sx={{ maxWidth: 750 }}>
+    <Container
+      maxWidth={false}
+      sx={{
+        width: "100%",
+        m: "auto",
+        maxWidth: { xs: "97%", sm: 750, md: 750 },
+      }}
+    >
       <Box ref={containerRef} sx={{ width: "100%", pb: { xs: 7 } }}>
         <ChatInterface messages={chats} authorHandle={authorHandle} />
       </Box>
