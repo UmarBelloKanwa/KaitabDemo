@@ -58,11 +58,18 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
           }}
         />
         <Box
-          sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 0.5 }}
+          sx={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: 0,
+            justifyContent: "flex-start", // 👈 add this
+            alignItems: "flex-start", // optional
+          }}
         >
           {/* Username with Verification Badge */}
 
-          <Typography component="span" fontSize="0.79em" fontWeight={800}>
+          <Typography component="span" fontSize="0.9em" fontWeight={500}>
             {author.name}
           </Typography>
 
@@ -80,6 +87,7 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
               WebkitBoxOrient: "vertical",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              mt: 0.5,
             }}
           >
             {author.short_bio}
@@ -114,6 +122,7 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
                   fontSize: "x-small",
                   // p: 0.3,
                   py: 0.2,
+                  mt: 0.5,
                   borderRadius: 1,
                   color: "white",
                   borderColor: "divider",
