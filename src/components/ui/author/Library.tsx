@@ -41,11 +41,11 @@ export default function Author({ handle }: { handle: string }) {
 
   return (
     <>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 0, width: "100%", }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 0, width: "100%",  }}>
         {articlesPreviews.map((articlePreview: ArticlePreview, index: number) => {
           articlePreview.author = author;
           return (
-            <Box sx={{ px: { md: 2 }, m: "auto", width: "100%", }} key={index} >
+            <Box sx={{ px: { md: 2, sm: 0, xs: 0 }, m: "auto", width: "100%", }} key={index} >
               <ArticleCard articlePreview={articlePreview} />
             </Box>
           )

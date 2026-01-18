@@ -12,7 +12,17 @@ export default async function AuthorProfileLibrary({
   const p = await params;
 
   return (
-    <Container maxWidth={"sm"}>
+    <Container
+      sx={{
+        p: 0,
+        width: "100%",
+        maxWidth: {
+          xs: "100%",
+          sm: "sm",
+          md: "sm",
+        },
+      }}
+    >
       <Library handle={p.authorHandle} />
     </Container>
   );

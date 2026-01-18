@@ -29,12 +29,17 @@ export default function StatusInput() {
       elevation={0}
       sx={(theme) => ({
         bgcolor: "background.default",
+        mt: 0,
         mx: "auto",
         p: { md: 1.5, xs: 0 },
         px: 2,
         boxShadow: { xs: 0, sm: 0, md: 11 },
         borderRadius: 1.3,
-        border: { sm: `1px solid ${theme.palette.divider}`, md: `1px solid ${theme.palette.divider}`, xs: "none" },
+        border: {
+          sm: `1px solid ${theme.palette.divider}`,
+          md: `1px solid ${theme.palette.divider}`,
+          xs: "none",
+        },
         borderColor: "divider",
         mb: 2,
       })}
@@ -67,36 +72,35 @@ export default function StatusInput() {
           placeholder={`What's on your mind${name}?`}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          variant="standard"
           size="small"
           slotProps={{
-            input: { disableUnderline: true, readOnly: true }, // Also removes underline for standard variant
+            input: {
+              readOnly: true,
+              sx: {
+                border: "none", // removes border
+                outline: "none", // removes focus outline
+              },
+            }, // Also removes underline for standard variant
           }}
           onClick={() => {
             router.push("/publish");
           }}
           sx={{
             bgcolor: { xs: "background.paper", md: "background.default" },
-          //  boxShadow: { xs: 11 },
-            border: { xs: "1px solid rgba(255, 255, 255, 0.1)", md: "none" },
-            borderColor: "divider",
-            py: { xs: 0.8 },
-            px: { xs: 2, sm: 1, md: 1 },
-            borderRadius: 2,
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: "none", // just in case variant changes
+            },
+            "& .MuiInputBase-input": {
+              "&::placeholder": {
+                fontSize: { xs: "small", sm: "14px", md: "medium" },
+              },
+            },
+            px: { xs: 0, sm: 1, md: 1 },
+            borderRadius: 1.5,
             cursor: "pointer",
-            fontSize: "x-small",
           }}
         />
 
-        {/* Action Buttons */}
-        {/* <Stack direction="row" sx={{ flexShrink: 0 }}>
-          <IconButton
-            size="small"
-            aria-label="Image"
-          >
-            <FileUploadOutlinedIcon fontSize="medium" />
-          </IconButton>
-        </Stack> */}
       </Stack>
     </Paper>
   );

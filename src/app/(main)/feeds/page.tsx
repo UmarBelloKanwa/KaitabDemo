@@ -14,7 +14,7 @@ export default async function FeedPage() {
       sx={{
         color: "text.primary",
         bgcolor: "background.default",
-        pt: { xs: 1, sm: 0 },
+        pt: { xs: 0, sm: 0 },
         width: "100%",
         py: 0,
         px: { xs: 0, md: 0 },
@@ -23,8 +23,9 @@ export default async function FeedPage() {
       <Box
         sx={{
           m: "auto",
-          mt: 3,
+        //  mt: 3,
           width: { xs: "97%" },
+          gap: 0,
         }}
       >
         <StatusArea />

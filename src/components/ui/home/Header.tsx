@@ -19,7 +19,6 @@ import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 
-
 export default function Header() {
   const theme = useTheme();
   const requireAuth = useAuthCheck();
@@ -49,20 +48,27 @@ export default function Header() {
       sx={{
         borderRight: "none",
         backgroundColor: "background.default",
+        my: 0,
+        gap: 0,
         display: { xs: "flex", md: "none" },
+        mb: { xs: 1 },
       }}
     >
-      <Toolbar sx={{
-        justifyContent: "space-between", gap: 2, p: 0,
-      }}>
+      <Toolbar
+        sx={{
+          justifyContent: "space-between",
+          gap: 2,
+          p: 0,
+        }}
+      >
         <Box
           ref={boxRef}
           sx={{
             display: { xs: "flex", md: "none" },
             gap: 2,
             width: "100%",
-            m: "auto",
-            mt: -1,
+            mx: "auto",
+            //  mt: -1,
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",
@@ -71,22 +77,34 @@ export default function Header() {
           <TextField
             placeholder="Search"
             size="small"
-            variant="standard"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon color="action" />
-                </InputAdornment>
-              ),
-              disableUnderline: true, // Also removes underline for standard variant
+            fullWidth
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon color="action" fontSize="small"/>
+                  </InputAdornment>
+                ),
+                readOnly: true,
+                sx: {
+                  border: "none", // removes border
+                  outline: "none", // removes focus outline
+                },
+              }, // Also removes underline for standard variant
             }}
             sx={(theme) => ({
-              width: { xs: "100%", sm: "40%", md: "100%" }, // full width on xs
-              boxSizing: "border-box", // ensure padding + border don't exceed width
               bgcolor: "background.paper",
               borderRadius: 2,
-              p: 1,
-              px: 2,
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: "none", // just in case variant changes
+              },
+              "& .MuiInputBase-input": {
+                border: "none",
+                "&::placeholder": {
+                  fontSize: { xs: "small", sm: "14px", md: "medium" },
+                },
+              },
+              px: { xs: 0, sm: 1, md: 1 },
               m: { xs: "auto" },
               mt: 0,
             })}

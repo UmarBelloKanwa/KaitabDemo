@@ -3,7 +3,7 @@
 import React from "react";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
-
+import StoreItem from "@/components/ui/StoreItem";
 import { getAuthorProfile } from "@/actions/author";
 
 import getQueryClient from "@/lib/get-query-client";
@@ -38,7 +38,10 @@ export default async function AuthorLayout({
     const dehydratedState = dehydrate(queryClient);
 
     return (
-      <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
+      <HydrationBoundary state={dehydratedState}>
+        <StoreItem type="author" data={authorData} />
+        {children}
+      </HydrationBoundary>
     );
   } catch (error) {
     notFound();

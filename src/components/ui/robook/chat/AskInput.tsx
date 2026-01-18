@@ -333,9 +333,14 @@ export default function AskInput({
           sx={{
             position: "fixed",
             bottom: 0,
-            left: containerStyle.left,
+            left: { xs: 0, sm: containerStyle.left, md: containerStyle.left },
             // width control
-            width: containerStyle.width,
+            width: {
+              xs: "100%",
+              sm: containerStyle.width,
+              md: containerStyle.width,
+            },
+            m: "auto",
             bgcolor: "background.default",
             pb: 1,
             px: 1,
@@ -344,11 +349,12 @@ export default function AskInput({
             textAlign: "center",
           }}
         >
-          {author.requires_upgrade || !author.monetization_enabled && (
-            <Typography variant="caption" fontSize="x-small" sx={{ pb: 1 }}>
-              Maximum 5 messages
-            </Typography>
-          )}
+          {author.requires_upgrade ||
+            (!author.monetization_enabled && (
+              <Typography variant="caption" fontSize="x-small" sx={{ pb: 1 }}>
+                Maximum 5 messages
+              </Typography>
+            ))}
           <AskInputBase submitUserMessage={submitUserMessage} />
         </Box>
       )}

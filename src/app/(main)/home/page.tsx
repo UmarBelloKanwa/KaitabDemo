@@ -11,10 +11,10 @@ export default async function HomePage() {
     <>
       <Box
         sx={{
-          mt: {md: 0, xs: -3,},
+          mt: { md: 0, xs: 0 },
           m: "auto",
-          width: { xs: "97%" },
-          maxWidth: "sm"
+          width: { xs: "95%" },
+          maxWidth: "sm",
         }}
       >
         <StatusArea />

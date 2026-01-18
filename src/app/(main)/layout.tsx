@@ -12,15 +12,14 @@ export default async function HomeLayout({
   return (
     <Box
       sx={{
-        mt: 2,
         px: { xs: 1 },
       }}
     >
       <Box
         sx={{
           m: "auto",
-         // mt: { xs: -2 },
-          width: "97%",
+          mt: { md: 2},
+          width: { sm: "97%", xs: "95%", md: "97%" },
         }}
       >
         <Header />
@@ -28,8 +27,6 @@ export default async function HomeLayout({
       <Box
         sx={{
           m: "auto",
-          mt: 3,
-        //  width: { xs: "99%", sm: "93%" },
         }}
       >
         {children}
