@@ -9,13 +9,9 @@ export default function StoreItem({ data }: { data: Author }) {
   const user = useUserStore((state) => state.user);
 
   React.useEffect(() => {
-    // Don't store self
-    if (data.public_id === user?.author?.public_id) {
-      return;
-    }
-
+    if (data.public_id === user?.author?.public_id) return;
     storeRecent(data);
-  }, [data, user]);
+  }, [data.public_id, user?.author?.public_id]);
 
   return null;
 }
