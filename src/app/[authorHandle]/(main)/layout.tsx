@@ -25,7 +25,7 @@ export default function AuthorLayout({
 
   return (
     <>
-      <StoreItem type="author" data={authorData} />
+      <StoreItem data={authorData} />
       <Container maxWidth={false}>
         <ProfileCard author={authorData} />
         <ChatSidebar author={authorData} />

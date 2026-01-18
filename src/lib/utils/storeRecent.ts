@@ -1,70 +1,84 @@
 "use client";
 
-import React from "react";
 import { Author } from "@/types/author";
-import { BookResponse as Book } from "@/types/book";
+import React from "react";
 
-export const storeRecent = (type: "book" | "author", data: Author | Book) => {
-  const storageKey = "recent";
+const COOKIE_KEY = "recent";
 
-  let recents: Array<
-    | {
-        type: "book";
-        name: string;
-        slug: string;
-        cover_photo_url?: string | null;
-      }
-    | {
-        type: "author";
-        name: string;
-        handle: string;
-        profile_picture?: string | null;
-      }
-  > = JSON.parse(localStorage.getItem(storageKey) || "[]");
+function setCookie(name: string, value: string, days = 30) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
 
-  // Normalize structure
-  const record =
-    type === "book"
-      ? {
-          type: "book" as const,
-          name: (data as Book).name,
-          slug: (data as Book).slug,
-          cover_photo_url: (data as Book).cover_photo_url,
-        }
-      : {
-          type: "author" as const,
-          name: (data as Author).name,
-          handle: (data as Author).handle,
-          profile_picture: (data as Author).profile_picture,
-        };
+  const isLocalhost =
+    location.hostname === "localhost" ||
+    location.hostname === "127.0.0.1";
 
-  // Unique key (slug or handle)
-  const key = type === "book" ? record.slug : record.handle;
+  const domain = isLocalhost
+    ? ""
+    : location.hostname.endsWith("lvh.me")
+    ? "domain=.lvh.me;"
+    : "domain=.feedple.com;";
 
-  // Remove if it already exists
-  recents = recents.filter((item) =>
-    item.type === "book"
-      ? (item as any).slug !== key
-      : (item as any).handle !== key
+  document.cookie = `
+    ${name}=${encodeURIComponent(value)};
+    expires=${expires};
+    path=/;
+    ${domain}
+    SameSite=Lax
+  `;
+}
+
+
+function getCookie(name: string) {
+  return document.cookie
+    .split("; ")
+    .find(row => row.startsWith(name + "="))
+    ?.split("=")[1];
+}
+
+
+export type RecentAuthor = {
+  type: "author";
+  name: string;
+  handle: string;
+  profile_picture?: string | null;
+};
+
+export const storeRecent = (data: Author) => {
+  let recents: RecentAuthor[] = JSON.parse(
+    decodeURIComponent(getCookie("recent") || "[]")
   );
 
-  // Add newest at the front, keep only **3**
+  const record: RecentAuthor = {
+    type: "author",
+    name: data.name,
+    handle: data.handle,
+    profile_picture: data.profile_picture,
+  };
+
+  // Remove existing entry with same handle
+  recents = recents.filter(
+    (item) => item.handle !== record.handle
+  );
+
+  // Add newest at the front, keep only 3
   recents = [record, ...recents].slice(0, 3);
 
-  // Save
-  localStorage.setItem(storageKey, JSON.stringify(recents));
+  setCookie("recent", JSON.stringify(recents));
 
-  // Notify listeners
+  // Notify listeners (same-tab + cross-components)
   window.dispatchEvent(new Event("recent-updated"));
 };
 
 export const useRecent = () => {
-  const [recent, setRecent] = React.useState<any[]>([]);
+  const [recent, setRecent] = React.useState<RecentAuthor[]>([]);
 
   React.useEffect(() => {
     const load = () => {
-      const stored = JSON.parse(localStorage.getItem("recent") || "[]");
-      setRecent(stored); // no slice needed anymore
+      const stored = JSON.parse(
+        decodeURIComponent(getCookie("recent") || "[]")
+      );
+      console.log(getCookie("recent"));
+      setRecent(stored);
     };
 
     load();

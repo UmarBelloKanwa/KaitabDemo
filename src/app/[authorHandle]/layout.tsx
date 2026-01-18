@@ -39,7 +39,7 @@ export default async function AuthorLayout({
 
     return (
       <HydrationBoundary state={dehydratedState}>
-        <StoreItem type="author" data={authorData} />
+        <StoreItem data={authorData} />
         {children}
       </HydrationBoundary>
     );
