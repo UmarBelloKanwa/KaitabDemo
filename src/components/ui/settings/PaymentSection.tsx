@@ -37,23 +37,23 @@ export default function PaymentSection({
   // Build detailed status messages
   const messages: string[] = [];
 
-  if (!accountStatus.detailsSubmitted) {
-    messages.push("Some required account details have not been submitted.");
-  }
+  // if (!accountStatus.detailsSubmitted) {
+  //   messages.push("Some required account details have not been submitted.");
+  // }
 
-  if (!accountStatus.payoutsEnabled) {
-    messages.push("Payouts are not enabled for your account.");
-  }
+  // if (!accountStatus.payoutsEnabled) {
+  //   messages.push("Payouts are not enabled for your account.");
+  // }
 
-  if (!accountStatus.chargesEnabled) {
-    messages.push("Your account cannot accept charges yet.");
-  }
+  // if (!accountStatus.chargesEnabled) {
+  //   messages.push("Your account cannot accept charges yet.");
+  // }
 
-  if (accountStatus.requirements && accountStatus.requirements.length > 0) {
-    messages.push(
-      `There are ${accountStatus.requirements.length} pending requirement(s) to complete.`
-    );
-  }
+  // if (accountStatus.requirements && accountStatus.requirements.length > 0) {
+  //   messages.push(
+  //     `There are ${accountStatus.requirements.length} pending requirement(s) to complete.`
+  //   );
+  // }
 
   const handleChangeMonetization = async (
     e: React.ChangeEvent<HTMLInputElement>
