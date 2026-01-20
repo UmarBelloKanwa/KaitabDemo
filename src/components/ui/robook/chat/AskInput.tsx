@@ -91,13 +91,17 @@ function AskInputBase({
 
   const submit = async () => {
     if (inputValue.trim()) {
+      
+      const value = inputValue;
+      setInputValue("");
+
       try {
         await submitUserMessage(inputValue.trim());
       } catch (err) {
+        setInputValue(value); // retuurn user his message
         console.log(err);
       }
     }
-    setInputValue("");
   };
 
   return (

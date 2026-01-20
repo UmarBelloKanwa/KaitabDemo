@@ -29,7 +29,7 @@ import Settings from "@mui/icons-material/SettingsOutlined";
 import ContactSupportOutlinedIcon from "@mui/icons-material/ContactSupportOutlined";
 import FeedbackOutlinedIcon from "@mui/icons-material/FeedbackOutlined";
 import Logout from "@mui/icons-material/LogoutOutlined";
-import { navigateToSubdomain } from "@/lib/utils/navigate";
+import { navigateToSubdomain, navigateToRoot } from "@/lib/utils/navigate";
 import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 
 interface UserMenuPopupProps {
@@ -98,7 +98,7 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
       label: "Support",
       icon: ContactSupportOutlinedIcon,
       onClick: () => {
-        router.push("/support");
+        navigateToRoot("/support");
       },
     },
     {
@@ -110,7 +110,7 @@ export default function UserMenuPopup({ user }: UserMenuPopupProps) {
       label: "Feedback",
       icon: FeedbackOutlinedIcon,
       onClick: () => {
-        router.push("/feedback");
+        navigateToRoot("/feedback");
       },
     },
   ];

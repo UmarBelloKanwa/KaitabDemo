@@ -22,7 +22,7 @@ import UserDisplay from "./UserDisplay";
 import ArticleIcon from "@mui/icons-material/ArticleOutlined";
 import { usePathname } from "next/navigation";
 import HIDE_DRAWER_ROUTES from "@data/HIDE_DRAWER_ROUTES";
-import { navigateToRoot, navigateToRootRouter } from "@/lib/utils/navigate";
+import { navigateToRoot } from "@/lib/utils/navigate";
 import { parse } from "tldts";
 
 import "./drawer.css";
@@ -49,7 +49,6 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
 
   const navItems = [
     { name: "Home", icon: HomeIcon, onClick: () => navigateToRoot("/home") },
-
     {
       name: "Feeds",
       icon: ArticleIcon,
@@ -259,7 +258,7 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
                 }}
                 onClick={() => {
                   requireAuth(() => {
-                    router.push("/publish"); // navigate
+                    navigateToRoot("/publish"); // navigate
                     if (isMobile) {
                       // only auto-close on mobile
                       handleDrawerToggle();
