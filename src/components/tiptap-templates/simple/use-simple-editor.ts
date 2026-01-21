@@ -31,6 +31,7 @@ import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import { useRouter } from "next/navigation";
 import type { Article } from "@/types/article";
 import getDomain from "@/lib/utils/getDomain";
+import { navigateToSubdomain } from "@/lib/utils/navigate";
 // import content from "./data/content.json";
 
 export default function useSimpleEditor() {
@@ -303,7 +304,9 @@ export default function useSimpleEditor() {
       
       const url = `${http}://${publishedArticle.author.handle}.${domain}/c/${publishedArticle.public_id}`
 
-      router.push(url);
+      //router.push(url);
+
+      navigateToSubdomain(publishedArticle.author.handle, `/c/${publishedArticle.public_id}`)
       
     } catch (err: any) {
       console.log("Publish ERror", err);
