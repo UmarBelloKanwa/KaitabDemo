@@ -116,11 +116,7 @@ export default function CustomizedDialogs({
               <FormControlLabel
                 value="everyone"
                 control={<Radio />}
-                label={
-                  <Typography fontSize="small">
-                    Everyone
-                  </Typography>
-                }
+                label={<Typography fontSize="small">Everyone</Typography>}
               />
               <FormControlLabel
                 value="paid-subscribers-only"
@@ -134,17 +130,21 @@ export default function CustomizedDialogs({
                     >
                       Paid subscribers only
                     </Typography>
-                    <Typography
-                      fontSize="small"
-                      component={NextLink}
-                      href="settings/payments"
-                    >
-                      {author
-                        ? monetizationEnabled
+                    {author ? (
+                      <Typography
+                        fontSize="small"
+                        component={NextLink}
+                        href="settings/payments"
+                      >
+                        {monetizationEnabled
                           ? null
-                          : "(Turn on paid subscriptions)"
-                        : "(Your first publishing)"}
-                    </Typography>
+                          : "(Turn on paid subscriptions)"}
+                      </Typography>
+                    ) : (
+                      <Typography fontSize="small">
+                        (Your first publishing)
+                      </Typography>
+                    )}
                   </Box>
                 }
               />
