@@ -1,5 +1,6 @@
 "use client";
 
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor"
 import { useQueryClient } from "@tanstack/react-query";
 import { navigateToSubdomain } from "@/lib/utils/navigate";
 
@@ -13,5 +14,5 @@ export default function Page() {
     navigateToSubdomain(author.handle, '/publish');
   }
 
-  return <></>
+  return <SimpleEditor />
 }
