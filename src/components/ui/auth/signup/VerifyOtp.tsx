@@ -25,9 +25,9 @@ export default function VerifyOtp() {
       const { setUser } = useUserStore.getState();
       if (res?.data?.user) {
         setUser(res?.data?.user);
-        window.location.reload();
+        
       }
-
+      window.location.reload();
       return res;
     } catch (err) {
       throw err;

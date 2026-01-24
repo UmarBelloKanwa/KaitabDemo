@@ -306,7 +306,7 @@ export default function useSimpleEditor() {
 
       //router.push(url);
 
-      navigateToSubdomain(publishedArticle.author.handle, `/c/${publishedArticle.public_id}`)
+      navigateToSubdomain(publishedArticle.author.handle, `/library`);
       
     } catch (err: any) {
       console.log("Publish ERror", err);
