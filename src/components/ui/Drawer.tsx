@@ -297,7 +297,7 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
                       >
                         <ListItemIcon
                           sx={{
-                            color: theme.palette.text.primary,
+                            color: "rgba(255, 255, 255, 0.7)",
                             minWidth: 36,
                           }}
                         >

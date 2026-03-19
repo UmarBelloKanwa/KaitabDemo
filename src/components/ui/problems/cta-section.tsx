@@ -18,7 +18,7 @@ export function CTASection() {
               fontSize: { xs: "2rem", md: "3.5rem" },
             }}
           >
-            Ready to scale your business thinking?
+            Ready to scale your expertise?
           </Typography>
 
           <Typography
@@ -29,7 +29,7 @@ export function CTASection() {
               fontSize: { xs: "1rem", md: "1.125rem" },
             }}
           >
-          Join other business authors who have turned their frameworks into AI companions that teach, guide, and grow their impact.
+          Join to turn your expertise into AI companion that act on your behalf and scale your expertise beyond physical presence.
           </Typography>
 
           <Box

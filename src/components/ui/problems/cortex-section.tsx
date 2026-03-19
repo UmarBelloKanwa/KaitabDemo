@@ -5,9 +5,9 @@ import { Typography, Box, Container, Grid, Card, CardContent } from "@mui/materi
 
 const cortexData = [
   {
-    title: "It learns your business thinking",
+    title: "It learns your thinking",
     description:
-      "Every framework, strategy, and insight you share on Feedple continuously trains your Cortex.",
+      "Every framework, strategy, and insight you shared continuously trains your Cortex.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path
@@ -18,9 +18,22 @@ const cortexData = [
     ),
   },
   {
-    title: "Guides decisions and spreads knowledge",
+    title: "Acts on your behalf",
     description:
-      "Your Cortex helps others learn, collaborate, and apply your strategies.",
+      "Your Cortex can be send to perform actions on your behalf.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="7" height="7" rx="1" fill="#fbbc04" />
+        <rect x="14" y="3" width="7" height="7" rx="1" fill="#fbbc04" />
+        <rect x="3" y="14" width="7" height="7" rx="1" fill="#fbbc04" />
+        <rect x="14" y="14" width="7" height="7" rx="1" fill="#fbbc04" />
+      </svg>
+    ),
+  },
+  {
+    title: "Guides decisions",
+    description:
+      "Your Cortex helps others learn, collaborate, and get guidance on real-word decisions.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect x="3" y="3" width="7" height="7" rx="1" fill="#fbbc04" />
@@ -49,6 +62,7 @@ const cortexData = [
       </svg>
     ),
   },
+  
 ];
 
 export function CortexSection() {
@@ -74,7 +88,7 @@ export function CortexSection() {
             lineHeight: 1.7,
           }}
         >
-          Cortex is a safe, personalized AI companion that learns from your business thinking and helps you scale your impact.
+         Cortex is a personal expertise AI that is trained using a person’s expertise to act on their behalf.
        </Typography>
 
         <Grid container spacing={3}>

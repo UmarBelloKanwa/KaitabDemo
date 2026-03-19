@@ -13,7 +13,7 @@ const solutions = [
   {
     title: "Publish and Train",
     description:
-      "Share your business frameworks, strategies, and ideas while training your AI Companion to understand, evolve with, and preserve your knowledge.",
+      "Share your frameworks, strategies, and ideas while training your AI Companion to understand, evolve with, and preserve your knowledge.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <path
@@ -48,7 +48,7 @@ const solutions = [
   {
     title: "Preserve Your Impact",
     description:
-      "Your AI Companion continues sharing your business knowledge and frameworks as a helpful guide, even when you’re not present, with explicit consent and no impersonation.",
+      "Your AI Companion continues sharing your knowledge and frameworks as a helpful guide, even when you’re not present, with explicit consent and no impersonation.",
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
         <path
@@ -100,9 +100,7 @@ export default function SolutionSection() {
           their real thoughts, stays true to their essence, and remains
           accessible for learning, collaboration, and inspiration beyond their
           lifetime. */}
-          Feedple let business thinkers share ideas while their personal AI
-          companions learn their thinking, teach their frameworks, and scale
-          their impact—beyond their presence.
+          Feedple turns people’s expertise into AI companions that apply their thinking and guide real-world decisions, even when they’re not present.
         </Typography>
 
         <Grid container spacing={4}>

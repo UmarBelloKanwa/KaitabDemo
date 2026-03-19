@@ -42,17 +42,14 @@ export function SolutionSection() {
               fontSize: { xs: "2rem", md: "3rem" },
             }}
           >
-            A platform built to scale your ideas
+            A platform built to scale your expertise
           </Typography>
           <Typography
             variant="body1"
             color="text.secondary"
             sx={{ maxWidth: 700, mx: "auto" }}
           >
-            We’ve removed the barriers and built a platform where business
-            creators share ideas, while their AI companions learn from their
-            thinking to teach frameworks, guide decisions, and remain accessible
-            for learning, collaboration, and impact beyond their presence.
+            Feedple enables people to create an AI companion trained using their expertise to guide real-world decisions on their behalf.
           </Typography>
         </Box>
         <BusinessSolutionSection/>

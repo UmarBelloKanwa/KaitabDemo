@@ -22,7 +22,7 @@ export function HeroSection() {
       <Container maxWidth="lg" sx={{ py: { xs: 10, md: 16 } }}>
         <Box sx={{ maxWidth: 900, mx: "auto", textAlign: "center" }}>
           <Chip
-            label="Solving how ideas scale"
+            label="Personal Expertise Intelligence"
             sx={{
               mb: 3,
               bgcolor: "secondary.main",
@@ -39,7 +39,7 @@ export function HeroSection() {
               fontWeight: 700,
             }}
           >
-            Your ideas shouldn’t <br /> stop with you.
+            Personal Expertise Intelligence 
           </Typography>
 
           <Typography
@@ -52,8 +52,7 @@ export function HeroSection() {
               mx: "auto",
             }}
           >
-            Business ideas live in static content. Without you present, they
-            can’t guide decisions or scale beyond your time.
+            An AI that uses a person’s expertise to make real-world decisions <br /> on their behalf.
           </Typography>
 
           <Box
