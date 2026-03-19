@@ -41,7 +41,7 @@ export default function CategoriesList() {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        {categories.map((category) => (
+        {/* {categories.map((category) => (
           <Chip
             key={category.label}
             label={category.label}
@@ -55,7 +55,7 @@ export default function CategoriesList() {
               cursor: "pointer",
             })}
           />
-        ))}
+        ))} */}
       </Box>
     </Box>
   );

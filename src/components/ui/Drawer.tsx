@@ -20,6 +20,7 @@ import useAuthCheck from "@/hooks/auth/useAuthCheck";
 import RecentItems from "./RecentItems";
 import UserDisplay from "./UserDisplay";
 import ArticleIcon from "@mui/icons-material/ArticleOutlined";
+import ExploreIcon from '@mui/icons-material/Explore';
 import { usePathname } from "next/navigation";
 import HIDE_DRAWER_ROUTES from "@data/HIDE_DRAWER_ROUTES";
 import { navigateToRoot } from "@/lib/utils/navigate";
@@ -48,12 +49,12 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(open);
 
   const navItems = [
-    { name: "Home", icon: HomeIcon, onClick: () => navigateToRoot("/home") },
-    {
-      name: "Feeds",
-      icon: ArticleIcon,
-      onClick: () => navigateToRoot("/feeds"),
-    },
+    { name: "Discover", icon: ExploreIcon, onClick: () => navigateToRoot("/home") },
+    // {
+    //   name: "Feeds",
+    //   icon: ArticleIcon,
+    //   onClick: () => navigateToRoot("/feeds"),
+    // },
   ];
 
   //console.log("Is mobile", isMobile)
