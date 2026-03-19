@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "Feedple",
-  description: "A social platform for people to share ideas while their personal AI companion learns from their work to teach and solve problems for others.",
+  description: "Feedple enables people to create an AI companion trained using their expertise to guide real-world decisions on their behalf.",
 };
 
 export default function RootLayout({
