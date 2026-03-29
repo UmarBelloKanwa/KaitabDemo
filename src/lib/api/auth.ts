@@ -23,21 +23,21 @@ export default {
 
 export const submitUserInfo = async (data: {
   fullName: string;
-  birthDate: string;
-  professionIds: number[];
+  // birthDate: string;
+  // professionIds: number[];
 }) =>
   (await axios.post("user/set-info", {
     full_name: data.fullName,
-    birth_date: data.birthDate,
-    profession_ids: data.professionIds,
+    // birth_date: data.birthDate,
+    // profession_ids: data.professionIds,
   })).data;
 
 
 export const signupUserDataForOtp = async (data: SignupData) =>
   (await axios.post("auth/signup", {
-    topics: data.interests,
+    // topics: data.interests,
     full_name: data.fullName,
-    birth_date: data.birthDate,
+    // birth_date: data.birthDate,
     email: data.email,
     password: data.password,
     confirm_password: data.confirmPassword,
@@ -45,9 +45,9 @@ export const signupUserDataForOtp = async (data: SignupData) =>
 
 export const signupByVerifyingOtp = async (data: SignupData) => {
   return (await axios.post("auth/signup/verify-otp", {
-    topics: data.interests,
+    // topics: data.interests,
     full_name: data.fullName,
-    birth_date: data.birthDate,
+    // birth_date: data.birthDate,
     email: data.email,
     password: data.password,
     confirm_password: data.confirmPassword,

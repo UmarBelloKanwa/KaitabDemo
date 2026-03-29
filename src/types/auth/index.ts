@@ -32,7 +32,7 @@ export interface Interest {
 export interface SignupData {
   interests: Interest[]; // selected topic ids
   fullName: string;
-  birthDate: string; // YYYY-MM-DD
+  // birthDate: string; // YYYY-MM-DD
   email: string;
   password: string;
   confirmPassword: string; // new field

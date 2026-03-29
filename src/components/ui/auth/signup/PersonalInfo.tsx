@@ -34,7 +34,7 @@ export default function UserInfo() {
     >
       <Box sx={{width: "100%",}}>
         <Typography component="h1" variant="h5" sx={{ width: "100%", mb: 2 }}>
-          Your info.
+          Create an account
         </Typography>
         {errors?.general && (
           <Alert severity="error" sx={{ textAlign: "left" }}>
@@ -69,7 +69,8 @@ export default function UserInfo() {
               },
             }}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
               label={"Date of birth"}
               sx={{ width: "100%", borderRadius: "0.7em" }}
@@ -93,7 +94,7 @@ export default function UserInfo() {
                 },
               }}
             />
-          </LocalizationProvider>
+          </LocalizationProvider> */}
 
           <TextField
             required

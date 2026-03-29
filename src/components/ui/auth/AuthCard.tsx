@@ -83,7 +83,7 @@ export default function AuthCard({
               component="img"
               src="/app/logo-name.png"
               sx={{
-                width: "160px",
+                width: "190px",
                 mb: 1,
                 height: "50px",
               }}

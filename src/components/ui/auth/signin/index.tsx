@@ -29,152 +29,160 @@ export default function SigninForm() {
   } = useSigninForm();
   const isSubmitting = loading;
   return (
-    <Box>
-      <Stack
-        sx={{
-          opacity: isSubmitting ? 0.5 : 1,
-          pointerEvents: isSubmitting ? "none" : "auto",
-          transition: "opacity 0.4s ease-in-out",
-          p: 0,
-          width: "100%",
-          border: "none",
-        }}
-      >
-        {!isOtpStep ? (
-          <Card
-            variant="outlined"
+    <Stack
+      sx={{
+        opacity: isSubmitting ? 0.5 : 1,
+        pointerEvents: isSubmitting ? "none" : "auto",
+        transition: "opacity 0.4s ease-in-out",
+        p: 0,
+        width: "100%",
+        border: "none",
+      }}
+    >
+      {!isOtpStep ? (
+        <Card
+          variant="outlined"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignSelf: "center",
+            alignItems: "center",
+            width: "100%",
+            bgcolor: "background.default",
+            margin: "auto",
+            py: 0,
+            px: 0,
+            border: "none",
+          }}
+        >
+          <Box sx={{ width: "100%", m: "auto", mb: 1, textAlign: "center" }}>
+            {/* <Typography
+              component="h1"
+              variant="h4"
+              fontSize="xx-large"
+              color="primary"
+              sx={{ width: "100%" }}
+            >
+              Feedple
+            </Typography> */}
+            <Typography component="div" sx={{ width: "100%" }}>
+              <Typography
+                component="p"
+                variant="h5"
+                sx={{ width: "100%", mb: 1, mt: 0 }}
+              >
+                Sign in to your account
+              </Typography>
+              <Typography
+                component="p"
+                color="primary"
+                fontWeight="bold"
+                fontFamily="monospace"
+                sx={{ width: "100%", mb: 2, fontSize: "x-small" }}
+              >
+               Create an AI that acts on your behalf.
+              </Typography>
+              
+            </Typography>
+          </Box>
+          {Boolean(errors.general) && (
+            <Alert severity="error" sx={{ textAlign: "left" }}>
+              {" "}
+              {errors.gereral}{" "}
+            </Alert>
+          )}
+          <Box
+            component="form"
+            color="text.secondary"
+            onSubmit={(e) => {
+              e.preventDefault(); // ⛔ stop actual submission
+            }}
             sx={{
               display: "flex",
               flexDirection: "column",
-              alignSelf: "center",
-              alignItems: "center",
               width: "100%",
-              bgcolor: "background.default",
-              margin: "auto",
-              py: 0,
-              border: "none",
+              gap: 1.5,
             }}
           >
-            <Box sx={{ width: "100%", m: "auto", mb: 1, textAlign: "center" }}>
-              {/* <Typography
-                                component="h1"
-                                variant="h4"
-                                fontSize="xx-large"
-                                sx={{ width: '100%' }}
-                            >
-                                Feedple
-                            </Typography> */}
-              <Typography component="div" sx={{ width: "100%" }}>
-                <Typography
-                  component="p"
-                  variant="caption"
-                  color="textDisabled"
-                  sx={{ width: "100%", mb: 1 }}
-                >
-                  Share ideas, grow your Personal AI Companion.
-                </Typography>
-                <Typography component="p" variant="h5" sx={{ width: "100%" }}>
-                  Sign in to your account
-                </Typography>
-              </Typography>
-            </Box>
-            {Boolean(errors.general) && (
-              <Alert severity="error" sx={{ textAlign: "left" }}>
-                {" "}
-                {errors.gereral}{" "}
-              </Alert>
-            )}
-            <Box
-              component="form"
-              color="text.secondary"
-              onSubmit={(e) => {
-                e.preventDefault(); // ⛔ stop actual submission
+            <TextField
+              required
+              fullWidth
+              variant="outlined"
+              placeholder={"Your email"}
+              name="email"
+              autoComplete="email"
+              value={userEmail ? userEmail : ""}
+              error={!!errors.email}
+              helperText={errors.email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleSetEmail(e.target.value)
+              }
+              slotProps={{
+                inputLabel: {
+                  shrink: true,
+                },
               }}
+            />
+
+            {loginMethod == "password" && (
+              <PasswordField
+                withIcon={true}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleSetUserPassword(e.target.value)
+                }
+                fullWidth
+                autoComplete="password"
+                error={!!errors.password}
+                helperText={errors.password}
+              />
+            )}
+
+            <Button
+              type="button"
+              variant="contained"
+              fullWidth
+              onClick={loginUser}
+              loading={isSubmitting}
+              loadingPosition="end"
+              color="secondary"
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                gap: 1.5,
+                margin: "auto",
               }}
             >
-              <TextField
-                required
-                variant="outlined"
-                placeholder={"Your email"}
-                name="email"
-                autoComplete="email"
-                value={userEmail ? userEmail : ""}
-                error={!!errors.email}
-                helperText={errors.email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleSetEmail(e.target.value)
-                }
-                slotProps={{
-                  inputLabel: {
-                    shrink: true,
-                  },
-                }}
-              />
+              Continue
+            </Button>
 
-              {loginMethod == "password" && (
-                <PasswordField
-                  withIcon={true}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleSetUserPassword(e.target.value)
-                  }
-                  autoComplete="password"
-                  error={!!errors.password}
-                  helperText={errors.password}
-                />
-              )}
-
-              <Button
-                type="button"
-                variant="contained"
-                fullWidth
-                onClick={loginUser}
-                loading={isSubmitting}
-                loadingPosition="end"
-                color="secondary"
-                sx={{
-                  margin: "auto",
-                }}
-              >
-                Continue
-              </Button>
-
-              <Divider sx={{ my: -1 }}>
-                <Typography sx={{ color: "text.secondary" }}>or</Typography>
-              </Divider>
-              <Button
-                type="submit"
-                variant="outlined"
-                fullWidth
-                onClick={(e) => {
-                  setLoginMethod(
-                    loginMethod == "password" ? "email" : "password"
-                  );
-                  setIsOtpTab(false);
-                }}
-                // loading={isSubmitting}
-                loadingPosition="end"
-                color="secondary"
-                sx={{
-                  margin: "auto",
-                }}
-              >
-                Sign in with {loginMethod == "email" ? "password" : "email"}
-              </Button>
-            </Box>
-          </Card>
-        ) : (
-          <OtpTab
-            email={userEmail}
-            setIsOtpStep={setIsOtpTab}
-            submitOtpCode={submitOtpCode}
-          />
-        )}
-      </Stack>
-    </Box>
+            <Divider sx={{ my: -1 }}>
+              <Typography sx={{ color: "text.secondary" }}>or</Typography>
+            </Divider>
+            <Button
+              type="submit"
+              variant="outlined"
+              fullWidth
+              onClick={(e) => {
+                setLoginMethod(
+                  loginMethod == "password" ? "email" : "password",
+                );
+                setIsOtpTab(false);
+              }}
+              // loading={isSubmitting}
+              loadingPosition="end"
+              color="secondary"
+              sx={{
+                margin: "auto",
+              }}
+            >
+              Sign in with {loginMethod == "email" ? "password" : "email"}
+            </Button>
+          </Box>
+        </Card>
+      ) : (
+        <OtpTab
+          email={userEmail}
+          setIsOtpStep={setIsOtpTab}
+          submitOtpCode={submitOtpCode}
+        />
+      )}
+    </Stack>
   );
 }

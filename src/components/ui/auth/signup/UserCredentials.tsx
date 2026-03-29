@@ -36,7 +36,7 @@ export default function UserCredentials() {
     >
       <Box sx={{width: "100%",}}>
         <Typography component="h1" variant="h5" sx={{ width: "100%", mb: 2 }}>
-          Your Credentials
+          Create an account
         </Typography>
         {errors?.general && (
           <Alert severity="error" sx={{ textAlign: "left" }}>

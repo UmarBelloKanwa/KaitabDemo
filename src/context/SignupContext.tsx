@@ -13,12 +13,12 @@ export const SignupProvider: React.FC<SignupProviderProps> = ({ children }) => {
   const plainData = {
     interests: [],
     fullName: "",
-    birthDate: "",
+    // birthDate: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
-  const [currentStep, setCurrentStep] = useState<SignupStep>("interests");
+  const [currentStep, setCurrentStep] = useState<SignupStep>("personalInfo");
   const [data, setData] = useState<SignupData>({...plainData});
 
   const updateData = (partial: Partial<SignupData>) => {

@@ -38,7 +38,7 @@ const StepContent = () => {
   return (
     <Box>
       {/* Render the step component */}
-      {currentStep === "interests" && <InterestsStep />}
+      {/* {currentStep === "interests" && <InterestsStep />} */}
       {currentStep === "personalInfo" && <PersonalInfoStep />}
       {currentStep === "credentials" && <CredentialsStep />}
       {currentStep === "verify-otp" && <VerifyOtpStep />} 

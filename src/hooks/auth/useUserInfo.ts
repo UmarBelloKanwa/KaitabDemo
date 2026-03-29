@@ -7,12 +7,12 @@ export default function useUserInfoPage() {
     type ProfessionOption = { id: number; name: string };
     type UserInfo = {
         fullName: string
-        birthDate: string,
+        // birthDate: string,
         email: string,
     };
     type Errors = {
         fullName: string
-        birthDate: string,
+        // birthDate: string,
         email: string,
         general: string,
     };
@@ -21,7 +21,7 @@ export default function useUserInfoPage() {
 
 
     const main = { fullName: '', birthDate: '', email: "", general: "" }
-    const [userInfo, setUserInfo] = React.useState<UserInfo>({ fullName: '', email: "", birthDate: ''});
+    const [userInfo, setUserInfo] = React.useState<UserInfo>({ fullName: '', email: "", /*birthDate: ''*/});
     const [errors, setErrors] = React.useState<Errors>({ ...main });
     const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -45,24 +45,24 @@ export default function useUserInfoPage() {
                     return "Only letters and spaces allowed"
                 }
                 break;
-            case 'birthDate':
-                const today = new Date();
-                const dob = new Date(value);
-                const age = today.getFullYear() - dob.getFullYear();
-                const isFuture = dob > today;
-                const isTooOld = age > 120;
-                const isTooYoung = age < 5;
+            // case 'birthDate':
+            //     const today = new Date();
+            //     const dob = new Date(value);
+            //     const age = today.getFullYear() - dob.getFullYear();
+            //     const isFuture = dob > today;
+            //     const isTooOld = age > 120;
+            //     const isTooYoung = age < 5;
 
-                if (!dob || value == null) {
-                    return "Date of birth is required";
-                } else if (isNaN(dob.getTime())) {
-                    return "Invalid date format";
-                } else if (isFuture) {
-                    return "Date must be in the past";
-                } else if (isTooOld || isTooYoung) {
-                    return "Unrealistic date of birth";
-                }
-                break;
+            //     if (!dob || value == null) {
+            //         return "Date of birth is required";
+            //     } else if (isNaN(dob.getTime())) {
+            //         return "Invalid date format";
+            //     } else if (isFuture) {
+            //         return "Date must be in the past";
+            //     } else if (isTooOld || isTooYoung) {
+            //         return "Unrealistic date of birth";
+            //     }
+            //     break;
             case "email":
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(value)) {
@@ -98,9 +98,9 @@ export default function useUserInfoPage() {
 
         setIsSubmitting(true);
 
-        const formattedDOB = new Date(userInfo.birthDate).toISOString().split("T")[0];
+        // const formattedDOB = new Date(userInfo.birthDate).toISOString().split("T")[0];
 
-        updateData({ ...data, ...userInfo, birthDate: formattedDOB  });
+        updateData({ ...data, ...userInfo, /*birthDate: formattedDOB*/  });
         setStep("credentials");
         setIsSubmitting(false);
     };
