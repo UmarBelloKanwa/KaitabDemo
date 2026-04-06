@@ -14,7 +14,9 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
     <Paper
       elevation={0}
       onClick={() => {
-        navigateToSubdomain(author.handle, "/");
+        authCheck(() => { 
+          navigateToSubdomain(author.handle, "/");
+        });
       }}
       sx={{
         gap: 2,
@@ -151,7 +153,9 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
           className="elevated"
           onClick={(e) => {
             e.stopPropagation();
-            navigateToSubdomain(author.handle, "/chat");
+            authCheck(() => {
+              navigateToSubdomain(author.handle, "/chat");
+            });
           }}
           sx={{
             borderRadius: 2,
@@ -167,7 +171,9 @@ export default function AuthorPreviewCard({ author }: { author: Author }) {
           size="small"
           onClick={(e) => {
             e.stopPropagation();
-            navigateToSubdomain(author.handle, "/library");
+            authCheck(() => {
+              navigateToSubdomain(author.handle, "/library");
+            });
           }}
           sx={{
             color: "#ffffff",
