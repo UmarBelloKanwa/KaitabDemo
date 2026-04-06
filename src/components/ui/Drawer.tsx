@@ -38,7 +38,7 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
   const theme = useTheme();
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const logoSrc = "/app/logo-name.png";
+  const logoSrc = "/app/logo.png";
 
   const companyName = "Feedple";
 
@@ -162,7 +162,7 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
             <Box
               component="img"
               alt="Feedple"
-              src={logoSrc}
+              src={"/app/logo-name.png"}
               onClick={handleDrawerToggle}
               sx={{
                 width: "125px",
@@ -239,7 +239,7 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
                     alt="App Logo"
                     onClick={() => router.push("/")}
                     style={{
-                      width: "100%",
+                      width: "50%",
                       height: "100%",
                       objectFit: "contain",
                     }}

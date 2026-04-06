@@ -81,9 +81,9 @@ export default function AuthCard({
           {tab == "login" && (
             <Box
               component="img"
-              src="/app/logo-name.png"
+              src="/app/logo.png"
               sx={{
-                width: "190px",
+                width: "50px",
                 mb: 1,
                 height: "50px",
               }}
