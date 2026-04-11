@@ -240,7 +240,7 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
                     onClick={() => router.push("/")}
                     style={{
                       width: "50%",
-                      height: "100%",
+                      height: "70%",
                       objectFit: "contain",
                     }}
                   />
