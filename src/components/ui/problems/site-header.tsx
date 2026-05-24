@@ -14,6 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useTheme } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import NextLink from "next/link";
 
 export function SiteHeader() {
   const theme = useTheme();
@@ -83,7 +84,12 @@ export function SiteHeader() {
                 Sign in
               </Button>
 
-              <Button variant="contained" size="small">
+              <Button
+                variant="contained"
+                size="small"
+                LinkComponent={NextLink}
+                href="/home"
+              >
                 Get Started
               </Button>
 
@@ -152,7 +158,12 @@ export function SiteHeader() {
             Sign in
           </Button>
 
-          <Button variant="contained" fullWidth>
+          <Button
+            variant="contained"
+            fullWidth
+            LinkComponent={NextLink}
+            href="/home"
+          >
             Get Started
           </Button>
         </Box>

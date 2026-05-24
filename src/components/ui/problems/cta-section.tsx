@@ -1,14 +1,19 @@
-"use client"
+"use client";
 
-import Box from "@mui/material/Box"
-import Container from "@mui/material/Container"
-import Typography from "@mui/material/Typography"
-import Button from "@mui/material/Button"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import NextLink from "next/link";
 
 export function CTASection() {
   return (
-    <Box component="section" id="cta" sx={{ position: "relative", overflow: "hidden" }}>
+    <Box
+      component="section"
+      id="cta"
+      sx={{ position: "relative", overflow: "hidden" }}
+    >
       <Container maxWidth="lg" sx={{ py: { xs: 10, md: 16 } }}>
         <Box sx={{ maxWidth: 800, mx: "auto", textAlign: "center" }}>
           <Typography
@@ -29,7 +34,8 @@ export function CTASection() {
               fontSize: { xs: "1rem", md: "1.125rem" },
             }}
           >
-          Join to turn your expertise into AI companion that act on your behalf and scale your expertise beyond physical presence.
+            Join to turn your expertise into AI companion that act on your
+            behalf and scale your expertise beyond physical presence.
           </Typography>
 
           <Box
@@ -42,7 +48,14 @@ export function CTASection() {
               mb: 3,
             }}
           >
-            <Button variant="contained" size="large" endIcon={<ArrowForwardIcon />} sx={{ minWidth: 180 }}>
+            <Button
+              variant="contained"
+              size="large"
+              LinkComponent={NextLink}
+              href="/home"
+              endIcon={<ArrowForwardIcon />}
+              sx={{ minWidth: 180 }}
+            >
               Start Free
             </Button>
             <Button
@@ -62,10 +75,10 @@ export function CTASection() {
           </Box>
 
           <Typography variant="body2" color="text.secondary">
-            No credit card required 
+            No credit card required
           </Typography>
         </Box>
       </Container>
     </Box>
-  )
+  );
 }
