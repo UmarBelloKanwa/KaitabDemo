@@ -49,14 +49,12 @@ Ensure you have the following installed on your machine:
    ```
 
 3. **Configure Environment Variables**:
-   Create a `.env` file in the root directory and specify the required environment configurations:
+   Copy `.env.example` to `.env` and update the environment variables:
 
-   ```env
-   APP_ENV=development
-   LOCAL_BACKEND_URL=http://127.0.0.1:8000/api/py/
-   # GCLOUD_BACKEND_URL=https://your-gcloud-backend-url/api/py/
-   # RENDER_BACKEND_URL=https://your-render-backend-url/api/py/
+   ```bash
+   cp .env.example .env
    ```
+
 
 4. **Run the Development Server**:
    ```bash
