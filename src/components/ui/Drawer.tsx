@@ -75,8 +75,11 @@ export default function Sidebar({ user, host }: { user: any; host: string }) {
 
   const hostname = host.split(":")[0]; // remove port
   const parsed = parse(hostname);
-  const isSubdomain = Boolean(parsed.subdomain);
-  const isRootDomain = !parsed.subdomain && hostname !== `www.${parsed.domain}`;
+  // On *.vercel.app deployments, tldts treats the app name as a subdomain.
+  // Treat these hosts as root domain so the drawer hides on landing pages.
+  const isVercelHost = hostname.endsWith(".vercel.app");
+  const isSubdomain = !isVercelHost && Boolean(parsed.subdomain);
+  const isRootDomain = isVercelHost || (!parsed.subdomain && hostname !== `www.${parsed.domain}`);
 
   const hideByRoute =
     HIDE_DRAWER_ROUTES.some(
