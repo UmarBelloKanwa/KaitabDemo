@@ -7,6 +7,12 @@ function extractSubdomain(request: NextRequest): string | null {
   const host = request.headers.get("host") || "";
   const hostname = host.split(":")[0];
 
+  // On *.vercel.app deployments, the app name (e.g. "feedple") is parsed as a
+  // subdomain by tldts. Skip subdomain logic for these hosts.
+  if (hostname.endsWith(".vercel.app")) {
+    return null;
+  }
+
   const parsed = parse(hostname);
   return parsed.subdomain || null;
 }
