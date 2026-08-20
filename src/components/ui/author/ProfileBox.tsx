@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { usePathname, useRouter } from "next/navigation";
 import type { Author } from "@/types/author";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
+import { getAuthorPath } from "@/lib/utils/navigate";
 
 export default function ProfileCard({ author }: { author: Author }) {
   const pathname = usePathname();
@@ -30,9 +31,6 @@ export default function ProfileCard({ author }: { author: Author }) {
       bgcolor: "white",
       color: "black",
       borderColor: "white",
-      // "&:hover": {
-      //   bgcolor: "primary.dark",
-      // },
     }),
   });
 
@@ -41,7 +39,7 @@ export default function ProfileCard({ author }: { author: Author }) {
     if (author.is_subscribed && !author.requires_upgrade) {
       return;
     }
-    router.push("/subscribe");
+    router.push(getAuthorPath(author.handle, "/subscribe", pathname));
   };
 
   return (
@@ -107,7 +105,7 @@ export default function ProfileCard({ author }: { author: Author }) {
                 variant="text"
                 size="small"
                 onClick={() => {
-                  router.push("/settings/payments");
+                  router.push(getAuthorPath(author.handle, "/settings/payments", pathname));
                 }}
               >
                 Enable subscriptions
@@ -154,8 +152,8 @@ export default function ProfileCard({ author }: { author: Author }) {
         <Button
           size="small"
           variant="outlined"
-          onClick={() => router.push(`/chat`)}
-          sx={navButtonSx(isActive(`/chat`) || isActive(`/`))}
+          onClick={() => router.push(getAuthorPath(author.handle, "/chat", pathname))}
+          sx={navButtonSx(isActive("/chat") || isActive(`/${author.handle}`))}
         >
           Chat
         </Button>
@@ -163,8 +161,8 @@ export default function ProfileCard({ author }: { author: Author }) {
         <Button
           size="small"
           variant="outlined"
-          onClick={() => router.push(`/library`)}
-          sx={navButtonSx(isActive(`/library`))}
+          onClick={() => router.push(getAuthorPath(author.handle, "/library", pathname))}
+          sx={navButtonSx(isActive("/library"))}
         >
           Library
         </Button>
@@ -172,8 +170,8 @@ export default function ProfileCard({ author }: { author: Author }) {
         <Button
           size="small"
           variant="outlined"
-          onClick={() => router.push(`/about`)}
-          sx={navButtonSx(isActive(`/about`))}
+          onClick={() => router.push(getAuthorPath(author.handle, "/about", pathname))}
+          sx={navButtonSx(isActive("/about"))}
         >
           About
         </Button>

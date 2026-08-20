@@ -2,10 +2,11 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import useAuthCheck from "@/hooks/auth/useAuthCheck";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Avatar, Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Author } from "@/types/author";
+import { getAuthorPath } from "@/lib/utils/navigate";
 
 export default function UserDisplay({
   user,
@@ -19,6 +20,7 @@ export default function UserDisplay({
   const requireAuth = useAuthCheck();
   const isAuthor = !!user?.author;
   const router = useRouter();
+  const pathname = usePathname();
   const queryClient = useQueryClient();
   const author: Author = queryClient.getQueryData(["author", handle])!;
   const navigateToSubscribePage = async () => {
@@ -26,7 +28,7 @@ export default function UserDisplay({
     if (author.is_subscribed && !author.requires_upgrade) {
       return;
     }
-    router.push("/subscribe");
+    router.push(getAuthorPath(handle, "/subscribe", pathname));
   };
   return (
     <Box>
@@ -51,7 +53,7 @@ export default function UserDisplay({
                 className="elevated"
                 fullWidth
                 onClick={() => {
-                  router.push("/settings/payments");
+                  router.push(getAuthorPath(handle, "/settings/payments", pathname));
                 }}
                 sx={{
                   borderRadius: 2,

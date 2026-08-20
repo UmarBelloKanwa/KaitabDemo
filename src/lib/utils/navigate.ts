@@ -98,3 +98,16 @@ export function navigateToSubdomain(
   // localhost fallback (no subdomains)
   window.location.href = `${protocol}//localhost${portPart}${path}`;
 }
+
+/**
+ * Helper to construct an author-specific route path.
+ * Works seamlessly whether on a subdomain (e.g. name.feedple.com/chat -> /chat)
+ * or path-based route (e.g. feedple.vercel.app/name/chat -> /name/chat).
+ */
+export function getAuthorPath(handle: string, subPath: string, pathname: string): string {
+  const cleanSubPath = subPath.startsWith("/") ? subPath : `/${subPath}`;
+  if (pathname === `/${handle}` || pathname.startsWith(`/${handle}/`)) {
+    return `/${handle}${cleanSubPath === "/" ? "" : cleanSubPath}`;
+  }
+  return cleanSubPath;
+}

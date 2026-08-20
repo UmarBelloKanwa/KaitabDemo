@@ -26,6 +26,7 @@ import Avatar from "@mui/material/Avatar";
 import UserDisplay from "./UserDisplay";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { getAuthorPath } from "@/lib/utils/navigate";
 
 const drawerWidth = 280;
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -203,7 +204,7 @@ export default function ChatSidebar({ author, handle }: { author: Author, handle
                     key={index}
                     disablePadding
                     onClick={() => {
-                      router.push(item.link);
+                      router.push(getAuthorPath(author.handle, item.link, pathname));
                       if (isMobile) {
                         // only auto-close on mobile
                         handleDrawerToggle();
