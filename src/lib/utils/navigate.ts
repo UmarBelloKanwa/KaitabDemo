@@ -7,15 +7,23 @@ import type { Router } from "next/router";
  * Get the root domain based on the current hostname.
  * Works for localhost, 127.0.0.1, and production domains.
  */
+/**
+ * Get the root domain based on the current hostname.
+ * Works for localhost, 127.0.0.1, vercel.app, and production domains.
+ */
 function getRootDomain(): string {
   const { hostname } = window.location;
 
-  // Local development: localhost or 127.0.0.1
-  if (hostname.includes("localhost") || hostname.includes("127.0.0.1")) {
-    return hostname; // include port separately if needed
+  // Local development or vercel preview deployments
+  if (
+    hostname.includes("localhost") ||
+    hostname.includes("127.0.0.1") ||
+    hostname.endsWith(".vercel.app")
+  ) {
+    return hostname;
   }
 
-  // For production: take last two segments, e.g., "lvh.me"
+  // For production custom domain (e.g. feedple.com): take last two segments
   const parts = hostname.split(".");
   if (parts.length > 2) {
     return parts.slice(-2).join(".");
@@ -66,13 +74,22 @@ export function navigateToSubdomain(
 
   const isLocalhost =
     hostname.includes("localhost") || hostname.includes("127.0.0.1");
+  const isVercelHost = hostname.endsWith(".vercel.app");
 
   const portPart = port ? `:${port}` : "";
 
-  // lvh.me supports subdomains → treat like prod
+  // On *.vercel.app, nested subdomains (name.feedple.vercel.app) are NOT supported by Vercel.
+  // Fall back to path-based routing (e.g. feedple.vercel.app/name)
+  if (isVercelHost) {
+    const formattedPath = path === "/" ? "" : path;
+    window.location.href = `${protocol}//${hostname}${portPart}/${subdomain}${formattedPath}`;
+    return;
+  }
+
+  // lvh.me & custom domains (e.g. feedple.com) support subdomains
   if (!isLocalhost) {
     const parts = hostname.split(".");
-    const rootDomain = parts.slice(-2).join("."); // lvh.me or feedple.com
+    const rootDomain = parts.slice(-2).join("."); // e.g. feedple.com
 
     window.location.href = `${protocol}//${subdomain}.${rootDomain}${portPart}${path}`;
     return;
